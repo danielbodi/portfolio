@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-white min-h-screen;
+    background-color: rgba(42, 42, 50, 1);
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply text-gray-400 hover:text-purple-400 transition-colors;
+  }
+
+  .btn {
+    @apply px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium inline-flex items-center gap-2;
+  }
+
+  .btn-primary {
+    @apply bg-purple-500 hover:bg-purple-600 text-white;
+  }
+
+  .btn-secondary {
+    @apply border border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white w-fit;
+  }
+
+  .btn-ghost {
+    @apply text-purple-400 hover:text-purple-300 transition-colors;
+  }
+
+  .nav-shadow {
+    @apply shadow-[0_8px_32px_0_rgba(0,0,0,0.24)] rounded-[0.3125rem] border border-[#32323A];
+  }
+}
+
+/* Smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animation classes */
+.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.animate-out {
+  opacity: 0 !important;
+  transform: translateY(2rem) !important;
+}
+
+/* Prose styles for rich text content */
+.prose {
+  @apply text-gray-300;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  @apply text-white font-bold;
+}
+
+.prose p {
+  @apply mb-4;
+}
+
+.prose ul {
+  @apply mb-4;
+}
+
+/* Custom scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thumb-gray-700::-webkit-scrollbar-thumb {
+  background-color: #374151;
+  border-radius: 9999px;
+}
+
+.scrollbar-track-transparent::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Hide gradient controls in production */
+.gradient-controls {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .gradient-controls {
+    display: block;
+  }
+}
+
+/* Add this class to your HTML when you want to hide the controls */
+.gradient-controls--hidden {
+  display: none !important;
+}

@@ -1,0 +1,28 @@
+// Colors
+$color-primary: #B490FF;
+$color-background: #2A2A32;
+$color-surface: #32323A;
+$color-text: #FFFFFF;
+$color-text-secondary: #9CA3AF;
+
+// Typography
+$font-family-base: 'Space Grotesk', system-ui, sans-serif;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-4xl: 2.25rem;
+
+// Spacing
+$spacing-base: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+
+// Transitions
+$transition-base: 300ms ease-in-out;
+
+// Z-index
+$z-index-header: 50;
+$z-index-overlay: 40;
+$z-index-modal: 60;

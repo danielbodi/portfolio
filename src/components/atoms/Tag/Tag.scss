@@ -1,0 +1,24 @@
+@import '../../../styles/variables';
+
+.tag {
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+
+  &--primary {
+    background-color: $color-primary;
+    color: $color-text;
+  }
+
+  &--secondary {
+    background-color: $color-surface;
+    color: $color-text-secondary;
+  }
+
+  &--dark {
+    background-color: #2A2A32;
+    color: $color-text;
+  }
+}

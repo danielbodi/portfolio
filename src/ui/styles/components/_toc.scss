@@ -1,0 +1,91 @@
+@use '../tools/mixins' as *;
+
+.toc {
+  &--desktop {
+    @apply sticky top-32;
+  }
+
+  &--mobile {
+    @apply fixed top-0 left-0 right-0 z-50 transition-transform duration-300;
+    
+    &.is-scrolled {
+      @apply translate-y-0;
+    }
+    
+    &:not(.is-scrolled) {
+      @apply -translate-y-full;
+    }
+  }
+
+  &__card {
+    //@apply py-4 px-0;
+    
+    &--mobile {
+      @apply rounded-none border-b border-gray-800;
+    }
+  }
+
+  &__nav {
+    @apply w-64;
+    
+    &--mobile {
+      @apply px-4;
+    }
+  }
+
+  &__header {
+    @apply w-full;
+  }
+
+  &__toggle {
+    @apply w-full flex items-center justify-between text-gray-400;
+  }
+
+  &__current {
+    @apply text-sm font-medium;
+  }
+
+  &__icon {
+    @apply w-4 h-4 transition-transform duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] text-gray-400;
+    
+    &.is-open {
+      @apply rotate-180;
+    }
+  }
+
+  &__content {
+    @apply grid transition-all duration-300 ease-[cubic-bezier(0.33,1,0.68,1)];
+  }
+
+  &__list {
+    @apply relative space-y-2;
+    
+    &--mobile {
+      @apply pt-4 pb-2 mt-6 space-y-2 max-h-[50vh] overflow-y-auto border-t border-gray-800;
+    }
+  }
+
+  &__item {
+    @apply relative;
+  }
+
+  &__link {
+    @apply text-left w-full py-1 px-4 transition-colors duration-200 hover:text-purple-400;
+    
+    &--mobile {
+      @apply py-2 text-sm;
+    }
+    
+    &.is-active {
+      @apply text-purple-400;
+    }
+    
+    &:not(.is-active) {
+      @apply text-gray-400;
+    }
+  }
+
+  &__active-border {
+    @apply absolute left-0 w-0.5 h-7 bg-purple-400 transition-transform duration-200 ease-[cubic-bezier(0.33,1,0.68,1)];
+  }
+} 

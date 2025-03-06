@@ -2,6 +2,8 @@
  * Custom mixins that aren't available in Tailwind
  */
 
+@forward 'sass:math';
+
 // Transition mixin with custom timing
 @mixin custom-transition($property: all, $duration: 0.3s) {
   transition: $property $duration var(--transition-ease-out-cubic);

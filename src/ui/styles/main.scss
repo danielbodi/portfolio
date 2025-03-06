@@ -9,29 +9,28 @@
  * SETTINGS
  * Global variables, config switches
  */
-@import 'settings/colors';
-@import 'settings/typography';
+@use 'settings/colors';
+@use 'settings/typography';
 // Spacing and breakpoints handled by Tailwind
 
 /**
  * TOOLS
  * Default mixins and functions
  */
-@import 'tools/mixins';
+@use 'tools/mixins';
 // Functions handled by Tailwind
 
 /**
  * GENERIC
  * Ground-zero styles (Normalize.css, resets, box-sizing)
  */
-
-@import 'generic/box-sizing';
+@use 'generic/box-sizing';
 
 /**
  * ELEMENTS
  * Unclassed HTML elements (type selectors)
  */
-@import 'elements/page';
+@use 'elements/page';
 // Typography elements handled by Tailwind
 
 /**
@@ -44,14 +43,15 @@
  * COMPONENTS
  * Designed components, chunks of UI
  */
-@import 'components/button';
-@import 'components/card';
-@import 'components/navigation';
-@import 'components/image';
+@use 'components/button';
+@use 'components/card';
+@use 'components/navigation';
+@use 'components/image';
+@use 'components/toc';
 // UI components mostly handled by Tailwind and component-specific styles
 
 /**
  * TRUMPS
  * Helpers and overrides, most specific styles
  */
-@import 'utilities/helpers'; 
+@use 'utilities/helpers'; 

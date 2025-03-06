@@ -1,3 +1,5 @@
+@use '../tools/mixins' as *;
+
 .image {
   @apply relative inline-block w-full;
 

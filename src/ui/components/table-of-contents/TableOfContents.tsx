@@ -88,7 +88,7 @@ export function TableOfContents({ variant = 'desktop' }: TableOfContentsProps) {
 
   useEffect(() => {
     if (activeBorderRef.current && listRef.current && activeId) {
-      const activeElement = listRef.current.querySelector(`[data-id="${activeId}"]`);
+      const activeElement = listRef.current.querySelector(`[data-id="${activeId}"]`) as HTMLElement;
       if (activeElement) {
         const { offsetTop } = activeElement;
         activeBorderRef.current.style.transform = `translateY(${offsetTop}px)`;
@@ -116,26 +116,25 @@ export function TableOfContents({ variant = 'desktop' }: TableOfContentsProps) {
 
   if (variant === 'mobile') {
     return (
-      <div 
+      <nav 
         ref={tocRef}
-        className={`toc toc--mobile fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
-          isScrolled ? 'translate-y-0' : '-translate-y-full'
-        }`}
+        className={`toc toc--mobile ${isScrolled ? 'is-scrolled' : ''}`}
+        aria-label="Table of Contents"
       >
-        <Card className="toc__card rounded-none border-b border-gray-800">
-          <nav className="toc__nav px-4">
+        <Card className="toc__card toc__card--mobile">
+          <div className="toc__nav toc__nav--mobile">
             <header className="toc__header">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="toc__toggle w-full flex items-center justify-between text-gray-400 group"
+                className="toc__toggle group"
                 aria-expanded={isOpen}
                 aria-controls="mobile-toc-content"
               >
-                <span className="toc__current text-sm font-medium">
+                <span className="toc__current">
                   {activeId ? headings.find(h => h.id === activeId)?.text : 'Table of Contents'}
                 </span>
                 <svg
-                  className={`toc__icon w-4 h-4 transition-transform duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] text-gray-400 group-hover:text-purple-400 ${isOpen ? 'rotate-180' : ''}`}
+                  className={`toc__icon group-hover:text-purple-400 ${isOpen ? 'is-open' : ''}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -147,7 +146,7 @@ export function TableOfContents({ variant = 'desktop' }: TableOfContentsProps) {
             </header>
             <div 
               id="mobile-toc-content"
-              className="toc__content grid transition-all duration-300 ease-[cubic-bezier(0.33,1,0.68,1)]"
+              className="toc__content"
               style={{ 
                 gridTemplateRows: isOpen ? '1fr' : '0fr',
                 opacity: isOpen ? 1 : 0,
@@ -155,61 +154,54 @@ export function TableOfContents({ variant = 'desktop' }: TableOfContentsProps) {
               }}
             >
               <div className="overflow-hidden">
-                <ul className="toc__list pt-4 pb-2 mt-6 space-y-2 max-h-[50vh] overflow-y-auto border-t border-gray-800">
-                {headings.map((heading, index) => (
-                  <li 
-                    key={`${heading.id}-${index}`}
-                    className="toc__item"
-                    style={{ paddingLeft: `${(heading.level - 2) * 1}rem` }}
-                  >
-                    <button
-                      onClick={() => handleClick(heading.id)}
-                      className={`toc__link text-left w-full py-2 text-sm transition-colors duration-200
-                        ${activeId === heading.id 
-                          ? 'text-purple-400' 
-                          : 'text-gray-400'
-                        }`}
-                      aria-current={activeId === heading.id ? 'true' : undefined}
+                <ul className="toc__list toc__list--mobile">
+                  {headings.map((heading, index) => (
+                    <li 
+                      key={`${heading.id}-${index}`}
+                      className="toc__item"
+                      style={{ paddingLeft: `${(heading.level - 2) * 1}rem` }}
                     >
-                      {heading.text}
-                    </button>
-                  </li>
-                ))}
+                      <button
+                        onClick={() => handleClick(heading.id)}
+                        className={`toc__link toc__link--mobile ${activeId === heading.id ? 'is-active' : ''}`}
+                        aria-current={activeId === heading.id ? 'true' : undefined}
+                      >
+                        {heading.text}
+                      </button>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
-          </nav>
+          </div>
         </Card>
-      </div>
+      </nav>
     );
   }
 
   return (
-    <div className="sticky top-32">
-      <Card className="py-4 px-0">
-        <nav className="w-64">
+    <aside className="toc toc--desktop" aria-label="Table of Contents">
+      <Card className="toc__card">
+        <nav className="toc__nav">
           <div className="relative">
             {/* Active border indicator */}
             <div 
               ref={activeBorderRef}
-              className="absolute left-0 w-0.5 h-7 bg-purple-400 transition-transform duration-200 ease-[cubic-bezier(0.33,1,0.68,1)]"
+              className="toc__active-border"
             />
             
             {/* Navigation items */}
-            <ul ref={listRef} className="relative space-y-2">
+            <ul ref={listRef} className="toc__list">
               {headings.map((heading, index) => (
                 <li 
                   key={`${heading.id}-${index}`}
                   data-id={heading.id}
+                  className="toc__item"
                   style={{ paddingLeft: `${(heading.level - 2) * 1}rem` }}
                 >
                   <button
                     onClick={() => handleClick(heading.id)}
-                    className={`text-left w-full py-1 px-4 transition-colors duration-200 hover:text-purple-400
-                      ${activeId === heading.id 
-                        ? 'text-purple-400' 
-                        : 'text-gray-400'
-                      }`}
+                    className={`toc__link ${activeId === heading.id ? 'is-active' : ''}`}
                   >
                     {heading.text}
                   </button>
@@ -219,6 +211,6 @@ export function TableOfContents({ variant = 'desktop' }: TableOfContentsProps) {
           </div>
         </nav>
       </Card>
-    </div>
+    </aside>
   );
 }

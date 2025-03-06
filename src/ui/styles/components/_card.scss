@@ -2,31 +2,60 @@
  * Card component
  */
 
+@use '../tools/mixins' as *;
+
 .c-card {
-  @apply rounded-[0.3125rem] relative;
+  @apply relative rounded-[0.3125rem] bg-transparent;
   
+  // Base transitions
+  @include custom-transition(padding, box-shadow);
+  
+  // Variants
   &--nested {
-    @apply flex flex-1;
+    @apply flex flex-1 p-[1px] shadow-none;
   }
   
   &--nav {
-    @apply shadow-[0_8px_32px_0_rgba(0,0,0,0.24)] rounded-[0.3125rem] border border-[#32323A];
+    @apply rounded-[0.3125rem] border border-[#32323A];
+    
+    &--sticky {
+      @apply p-[1px];
+      box-shadow: var(--nav-shadow);
+    }
+    
+    &--default {
+      @apply p-0 shadow-none;
+    }
   }
   
+  &--default {
+    @apply p-[1px];
+    box-shadow: var(--default-shadow);
+  }
+  
+  // Gradient layer
   &__gradient {
     @apply absolute inset-0 rounded-[0.3125rem];
     @include custom-transition(opacity);
   }
   
+  // Content wrapper
   &__content {
     @apply relative rounded-[0.25rem] px-4 py-4;
     
+    // Content modifiers
     &--nested {
       @apply flex-1;
     }
     
     &--no-padding {
       @apply px-0 py-0;
+    }
+
+    // Hover effect
+    &:hover {
+      @apply bg-[#32323A];
+      background: radial-gradient(circle at 100% 0%, rgba(180, 144, 255, 0.2) -30%, rgba(55, 55, 62, 0.2) 30%), rgb(55, 55, 62);
     }
   }
 } 

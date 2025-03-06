@@ -80,23 +80,28 @@ export function Card({
     ? `linear-gradient(${shouldAnimate ? initialDegree : isInitialAnimationComplete ? degree : 45}deg, ${startColor} 33%, ${midColor} 66%, ${endColor} 100%)`
     : `linear-gradient(${degree}deg, ${startColor} 66%, ${midColor} 88%, ${endColor} 100%)`;
   
-  const cardClasses = `c-card ${isNested ? 'c-card--nested' : ''} ${isNav ? 'c-card--nav' : ''} ${className}`;
+  const cardClasses = `c-card ${isNested ? 'c-card--nested' : ''} ${isNav ? `c-card--nav ${isSticky ? 'c-card--nav--sticky' : 'c-card--nav--default'}` : 'c-card--default'} ${className}`;
   const contentClasses = `c-card__content ${isNested ? 'c-card__content--nested' : ''} ${className.includes('px-0') || className.includes('py-0') ? 'c-card__content--no-padding' : ''}`;
+  
+  // Set CSS custom properties for dynamic values
+  useEffect(() => {
+    if (cardRef.current) {
+      if (isNav && isSticky) {
+        cardRef.current.style.setProperty('--nav-shadow', `-8px 8px 40px 0px rgba(0, 0, 0, ${0.5 + intensity * 0.1})`);
+      } else if (!isNested) {
+        cardRef.current.style.setProperty('--default-shadow', `-8px 8px 40px 0px rgba(0, 0, 0, ${0.17 + intensity * 0.1})`);
+      } else {
+        // Reset shadows for nested cards
+        cardRef.current.style.removeProperty('--nav-shadow');
+        cardRef.current.style.removeProperty('--default-shadow');
+      }
+    }
+  }, [isNav, isSticky, isNested, intensity]);
   
   return (
     <div
       ref={cardRef}
       className={cardClasses}
-      style={{
-        padding: isNested ? '1px' : isNav ? (isSticky ? '1px' : '0') : '1px',
-        boxShadow: isNested 
-          ? 'none' 
-          : isNav 
-            ? (isSticky ? `-8px 8px 40px 0px rgba(0, 0, 0, ${0.5 + intensity * 0.1})` : 'none')
-            : `-8px 8px 40px 0px rgba(0, 0, 0, ${0.17 + intensity * 0.1})`,
-        transition: 'padding 0.3s cubic-bezier(0.33, 1, 0.68, 1), box-shadow 0.3s cubic-bezier(0.33, 1, 0.68, 1)',
-        background: 'transparent'
-      }}
     >
       {/* Gradient background layer */}
       <div 

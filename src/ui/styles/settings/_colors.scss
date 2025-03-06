@@ -1,0 +1,9 @@
+/* 
+ * Color settings
+ * Using CSS custom properties for any colors not covered by Tailwind
+ */
+
+:root {
+  /* Only define custom colors not available in Tailwind */
+  --color-custom-accent: #ff6b6b;
+} 

@@ -1,0 +1,92 @@
+.image {
+  @apply relative inline-block w-full;
+
+  &__border {
+    @apply absolute inset-0 rounded-[1.5rem] transition-opacity duration-300 ease-[cubic-bezier(0.33,1,0.68,1)];
+  }
+
+  &__content {
+    @apply relative p-[1px] transition-colors duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] w-full;
+  }
+
+  &__wrapper {
+    @apply relative overflow-hidden rounded-[0.25rem] w-full;
+
+    // Frame styles
+    &--desktop {
+      @apply pt-8 bg-gray-800 rounded-[1.5rem] shadow-xl;
+
+      &::before {
+        content: '';
+        @apply absolute top-0 left-0 right-0 h-8 bg-gray-800 flex items-center px-4;
+      }
+
+      &::after {
+        content: '⚫ ⚫ ⚫';
+        @apply absolute top-2.5 left-4 text-gray-600 text-xs leading-none;
+      }
+    }
+
+    &--tablet {
+      @apply p-[1rem] bg-[#1f2021] rounded-[1.5rem];
+
+      &::before {
+        content: '';
+        @apply absolute top-[0.45rem] left-1/2 w-4 h-1 bg-gray-600 -translate-x-1/2;
+      }
+
+      &::after {
+        content: '';
+        @apply absolute bottom-[0.3rem] left-1/2 w-[0.6rem] h-[0.6rem] border-2 border-gray-600 rounded-full -translate-x-1/2;
+      }
+    }
+  }
+
+  &__overlay {
+    @apply absolute inset-0;
+  }
+
+  &__img {
+    @apply w-full h-full object-cover;
+
+    &--contain {
+      @apply object-contain;
+    }
+
+    // Frame-specific image adjustments
+    .image__wrapper--desktop &,
+    .image__wrapper--tablet & {
+      @apply rounded-b-lg;
+    }
+
+    .image__wrapper--desktop & {
+      @apply rounded-t-none;
+    }
+
+    .image__wrapper--tablet & {
+      @apply rounded-[0.5rem];
+    }
+  }
+
+  // Aspect ratio modifiers
+  &--aspect-video {
+    @apply aspect-video;
+  }
+
+  &--aspect-square {
+    @apply aspect-square;
+  }
+
+  &--aspect-auto {
+    @apply aspect-auto;
+  }
+
+  // Frame type modifiers
+  &--frame-desktop {
+    //@apply p-6;
+  }
+
+  &--frame-tablet {
+    //@apply p-8;
+  }
+} 

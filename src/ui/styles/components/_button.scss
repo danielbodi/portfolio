@@ -1,0 +1,32 @@
+/* 
+ * Button component
+ */
+
+.c-button {
+  @apply px-4 py-2 rounded-full text-sm font-medium inline-flex items-center gap-2;
+  @include custom-transition;
+  
+  &--primary {
+    @apply bg-purple-500 text-white;
+    
+    &:hover {
+      @apply bg-purple-600;
+    }
+  }
+  
+  &--secondary {
+    @apply border border-solid border-purple-400 text-purple-400 w-fit;
+    
+    &:hover {
+      @apply bg-purple-400 text-white;
+    }
+  }
+  
+  &--ghost {
+    @apply text-purple-400;
+    
+    &:hover {
+      @apply text-purple-300;
+    }
+  }
+} 

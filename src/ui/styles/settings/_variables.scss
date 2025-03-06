@@ -1,0 +1,33 @@
+// Typography
+$font-family-base: 'Space Grotesk', sans-serif;
+$font-size-base: 16px;
+$line-height-base: 1.5;
+
+// Spacing
+$spacing-unit: 8px;
+$spacing-xs: $spacing-unit;
+$spacing-sm: $spacing-unit * 2;
+$spacing-md: $spacing-unit * 3;
+$spacing-lg: $spacing-unit * 4;
+$spacing-xl: $spacing-unit * 6;
+
+// Border radius
+$border-radius-sm: 0.25rem;
+$border-radius-md: 0.3125rem;
+$border-radius-lg: 0.5rem;
+$border-radius-full: 9999px;
+
+/* 
+ * CSS Custom Properties
+ * Only defining values not available in Tailwind
+ */
+
+:root {
+  /* Custom timing functions */
+  --transition-ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+  
+  /* Custom gradient colors */
+  --gradient-start: rgba(55, 55, 62, 0.9);
+  --gradient-mid: rgba(105, 100, 247, 0.6);
+  --gradient-end: rgba(180, 144, 255, 1);
+} 

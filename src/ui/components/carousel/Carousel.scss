@@ -1,0 +1,88 @@
+.carousel {
+  @apply relative w-full;
+
+  &__container {
+    @apply relative overflow-hidden touch-pan-y select-none cursor-pointer;
+  }
+
+  &__track {
+    @apply flex transition-transform duration-300 ease-[cubic-bezier(0.33,1,0.68,1)];
+    will-change: transform;
+
+    &--dragging {
+      @apply transition-none cursor-grabbing;
+    }
+  }
+
+  &__slide {
+    @apply flex-shrink-0 w-full relative;
+    aspect-ratio: 16 / 9;
+  }
+
+  &__image {
+    @apply w-full h-full object-cover rounded-lg;
+  }
+
+  &__info {
+    @apply absolute bottom-0 left-0 right-0 p-6 text-white;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+  }
+
+  &__title {
+    @apply text-xl font-bold mb-2;
+  }
+
+  &__description {
+    @apply text-sm text-gray-200;
+  }
+
+  &__arrow {
+    @apply hidden md:flex w-10 h-10 items-center justify-center 
+           backdrop-blur-sm text-white rounded-full transition-all;
+
+    path {
+      @apply transition-colors duration-300;
+    }
+
+    &:hover {
+      @apply bg-purple-400;
+    }
+
+    &:active {
+      @apply bg-purple-500;
+    }
+
+    &:hover path,
+    &:active path {
+      @apply fill-white;
+    }
+  }
+
+  &__dots {
+    @apply flex items-center justify-center gap-2 mt-4;
+  }
+
+  &__dot {
+    @apply w-2.5 h-2.5 rounded-full bg-gray-500 transition-all duration-300
+           hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400;
+
+    &--active {
+      @apply w-5 bg-purple-400;
+    }
+  }
+
+  // Responsive adjustments
+  @screen sm {
+    &__arrow {
+      @apply w-12 h-12 opacity-0;
+    }
+
+    &:hover &__arrow {
+      @apply opacity-100;
+    }
+
+    &__dots {
+      @apply mt-6 gap-4;
+    }
+  }
+}

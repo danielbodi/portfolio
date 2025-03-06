@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Career } from '../components/Career';
-import { Projects } from '../components/Projects';
+import { Career } from '../ui/components/career/Career';
+import { Projects } from '../ui/components/projects/Projects';
 import { ChevronDown } from 'lucide-react';
 
 export function Home() {
@@ -24,6 +24,13 @@ export function Home() {
     const careerSection = document.getElementById('career');
     if (careerSection) {
       careerSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToProjects = () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -56,7 +63,7 @@ export function Home() {
             <div className="pb-20 md:pb-12 flex flex-initial justify-center">
               <button 
                 onClick={scrollToCareer}
-                className="btn btn-ghost flex flex-col items-center"
+                className="c-button c-button--ghost flex flex-col items-center"
               >
                 <span className="mb-2">See my Career</span>
                 <ChevronDown className="animate-bounce" size={24} />

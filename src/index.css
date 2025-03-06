@@ -15,24 +15,35 @@
     @apply text-gray-400 hover:text-purple-400 transition-colors;
   }
 
-  .btn {
-    @apply px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium inline-flex items-center gap-2;
+  /* Project page styles */
+  .project-page {
+    @apply min-h-screen pt-4 pb-24 md:py-24 px-4 lg:px-0;
   }
 
-  .btn-primary {
-    @apply bg-purple-500 hover:bg-purple-600 text-white;
+  .project-page__header {
+    @apply max-w-5xl mx-auto;
   }
 
-  .btn-secondary {
-    @apply border border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white w-fit;
+  .project-page__title {
+    @apply flex items-center gap-3 mb-8;
   }
 
-  .btn-ghost {
-    @apply text-purple-400 hover:text-purple-300 transition-colors;
+  /* Gallery section styles */
+  .gallery-section {
+    @apply w-full mb-12 bg-gray-900/25;
   }
 
-  .nav-shadow {
-    @apply shadow-[0_8px_32px_0_rgba(0,0,0,0.24)] rounded-[0.3125rem] border border-[#32323A];
+  .gallery-section__container {
+    @apply py-12 px-6;
+  }
+
+  .gallery-section__content {
+    @apply max-w-7xl mx-auto;
+  }
+
+  /* Container utility */
+  .container {
+    @apply max-w-5xl mx-auto px-6;
   }
 }
 

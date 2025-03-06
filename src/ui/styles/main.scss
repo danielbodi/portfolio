@@ -1,0 +1,57 @@
+/**
+ * Main stylesheet
+ * Following ITCSS methodology with Tailwind CSS
+ * Most styling is handled by Tailwind utility classes
+ * This file only contains custom styles not covered by Tailwind
+ */
+
+/**
+ * SETTINGS
+ * Global variables, config switches
+ */
+@import 'settings/colors';
+@import 'settings/typography';
+// Spacing and breakpoints handled by Tailwind
+
+/**
+ * TOOLS
+ * Default mixins and functions
+ */
+@import 'tools/mixins';
+// Functions handled by Tailwind
+
+/**
+ * GENERIC
+ * Ground-zero styles (Normalize.css, resets, box-sizing)
+ */
+
+@import 'generic/box-sizing';
+
+/**
+ * ELEMENTS
+ * Unclassed HTML elements (type selectors)
+ */
+@import 'elements/page';
+// Typography elements handled by Tailwind
+
+/**
+ * OBJECTS
+ * Cosmetic-free design patterns
+ */
+// Layout objects handled by Tailwind
+
+/**
+ * COMPONENTS
+ * Designed components, chunks of UI
+ */
+@import 'components/button';
+@import 'components/card';
+@import 'components/navigation';
+@import 'components/image';
+// UI components mostly handled by Tailwind and component-specific styles
+
+/**
+ * TRUMPS
+ * Helpers and overrides, most specific styles
+ */
+@import 'utilities/helpers'; 

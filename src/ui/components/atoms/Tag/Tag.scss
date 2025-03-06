@@ -1,0 +1,20 @@
+/* 
+ * Tag component styles
+ * Using Tailwind utility classes instead of SCSS variables
+ */
+
+.tag {
+  @apply py-2 px-6 rounded-full text-sm font-medium text-center w-fit;
+
+  &--primary {
+    @apply bg-purple-500 text-white;
+  }
+
+  &--secondary {
+    @apply bg-gray-800 text-gray-400;
+  }
+
+  &--dark {
+    @apply bg-[#2A2A32] text-gray-400;
+  }
+}

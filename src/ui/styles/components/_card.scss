@@ -1,0 +1,32 @@
+/* 
+ * Card component
+ */
+
+.c-card {
+  @apply rounded-[0.3125rem] relative;
+  
+  &--nested {
+    @apply flex flex-1;
+  }
+  
+  &--nav {
+    @apply shadow-[0_8px_32px_0_rgba(0,0,0,0.24)] rounded-[0.3125rem] border border-[#32323A];
+  }
+  
+  &__gradient {
+    @apply absolute inset-0 rounded-[0.3125rem];
+    @include custom-transition(opacity);
+  }
+  
+  &__content {
+    @apply relative rounded-[0.25rem] px-4 py-4;
+    
+    &--nested {
+      @apply flex-1;
+    }
+    
+    &--no-padding {
+      @apply px-0 py-0;
+    }
+  }
+} 

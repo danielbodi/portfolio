@@ -1,0 +1,103 @@
+/* 
+ * Navigation component
+ */
+
+.c-navigation {
+  &__desktop {
+    @apply fixed top-0 left-0 right-0 z-50 hidden;
+    
+    @include respond-to(md) {
+      @apply block;
+    }
+  }
+
+  &__mobile {
+    @apply fixed bottom-0 left-0 right-0 z-50 block;
+    
+    @include respond-to(md) {
+      @apply hidden;
+    }
+  }
+
+  &__wrapper {
+    @apply max-w-5xl mx-auto;
+  }
+
+  &__container {
+    @apply relative;
+  }
+
+  &__inner {
+    @apply transform-gpu;
+    @include custom-transition(all);
+    
+    &--scrolled {
+      @apply translate-y-4;
+    }
+  }
+
+  &__card {
+    @apply backdrop-blur-md;
+    
+    .c-navigation__mobile & {
+      @apply rounded-none border-t border-gray-800;
+    }
+  }
+
+  &__content {
+    @apply flex justify-between items-center;
+  }
+
+  &__menu {
+    @apply flex gap-8;
+    
+    &--mobile {
+      @apply flex justify-between;
+    }
+  }
+
+  &__item {
+    @apply flex items-center;
+    
+    .c-navigation__mobile & {
+      @apply flex justify-center;
+    }
+  }
+
+  &__link {
+    @apply text-gray-400;
+    @include custom-transition(color);
+    
+    &:hover {
+      @apply text-purple-400;
+    }
+    
+    .c-navigation__mobile & {
+      @apply text-sm;
+    }
+    
+    &--active {
+      @apply text-purple-400;
+    }
+  }
+
+  &__breadcrumb {
+    @apply text-gray-400 hidden;
+    
+    @include respond-to(md) {
+      @apply inline-block;
+    }
+    
+    &-separator {
+      @apply mx-2;
+    }
+    
+    &-current {
+      @apply text-purple-400;
+    }
+  }
+
+  &__actions {
+    @apply flex gap-4;
+  }
+} 

@@ -1,0 +1,33 @@
+/* 
+ * Custom mixins that aren't available in Tailwind
+ */
+
+// Transition mixin with custom timing
+@mixin custom-transition($property: all, $duration: 0.3s) {
+  transition: $property $duration var(--transition-ease-out-cubic);
+}
+
+// Custom gradient background
+@mixin custom-gradient($degree: 45deg) {
+  background: linear-gradient(
+    $degree, 
+    var(--gradient-start) 66%, 
+    var(--gradient-mid) 88%, 
+    var(--gradient-end) 100%
+  );
+}
+
+// Responsive breakpoints mixin
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: 640px) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: 768px) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: 1024px) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: 1280px) { @content; }
+  } @else if $breakpoint == 2xl {
+    @media (min-width: 1536px) { @content; }
+  }
+} 

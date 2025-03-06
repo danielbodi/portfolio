@@ -1,0 +1,9 @@
+/* 
+ * Typography settings
+ * Using CSS custom properties for any typography settings not covered by Tailwind
+ */
+
+:root {
+  /* Only define custom typography values not available in Tailwind */
+  --font-family-special: 'Playfair Display', serif;
+} 

@@ -1,0 +1,117 @@
+/* 
+ * Utility classes
+ */
+
+// Visibility
+.u-hidden {
+  @apply hidden;
+}
+
+.u-visible {
+  @apply block;
+}
+
+// Text alignment
+.u-text-center {
+  @apply text-center;
+}
+
+.u-text-left {
+  @apply text-left;
+}
+
+.u-text-right {
+  @apply text-right;
+}
+
+// Spacing
+.u-mt-0 {
+  @apply mt-0;
+}
+
+.u-mt-1 {
+  @apply mt-1;
+}
+
+.u-mt-2 {
+  @apply mt-2;
+}
+
+.u-mt-4 {
+  @apply mt-4;
+}
+
+.u-mt-8 {
+  @apply mt-8;
+}
+
+.u-mb-0 {
+  @apply mb-0;
+}
+
+.u-mb-1 {
+  @apply mb-1;
+}
+
+.u-mb-2 {
+  @apply mb-2;
+}
+
+.u-mb-4 {
+  @apply mb-4;
+}
+
+.u-mb-8 {
+  @apply mb-8;
+}
+
+// Flex utilities
+.u-flex {
+  @apply flex;
+}
+
+.u-flex-col {
+  @apply flex-col;
+}
+
+.u-items-center {
+  @apply items-center;
+}
+
+.u-justify-center {
+  @apply justify-center;
+}
+
+.u-justify-between {
+  @apply justify-between;
+}
+
+// Width utilities
+.u-w-full {
+  @apply w-full;
+}
+
+.u-max-w-full {
+  @apply max-w-full;
+}
+
+.u-max-w-screen-xl {
+  @apply max-w-screen-xl;
+}
+
+// Misc
+.u-relative {
+  @apply relative;
+}
+
+.u-absolute {
+  @apply absolute;
+}
+
+.u-z-10 {
+  @apply z-10;
+}
+
+.u-z-50 {
+  @apply z-50;
+} 

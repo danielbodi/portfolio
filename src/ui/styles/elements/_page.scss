@@ -1,0 +1,14 @@
+/* 
+ * Minimal page-level styling
+ * Most styling is handled by Tailwind
+ */
+
+html, 
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  @apply font-sans text-white bg-[#2A2A32];
+} 

@@ -1,0 +1,80 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/tools/mixins' as m;
+
+.experience-card {
+  &__header {
+    margin-bottom: 1rem;
+  }
+
+  &__company {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__logo {
+    width: 2rem;
+    height: 2rem;
+    background-color: v.$color-surface;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__role {
+    font-size: v.$font-size-lg;
+    font-weight: 600;
+  }
+
+  &__period {
+    color: v.$color-text-secondary;
+    
+    span {
+      font-size: v.$font-size-base;
+    }
+  }
+
+  &__projects {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__project {
+    margin-top: 1rem;
+  }
+
+  &__project-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__project-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__project-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: v.$color-surface;
+    border-radius: 0.25rem;
+  }
+
+  &__case-study {
+    color: v.$color-primary;
+    font-size: v.$font-size-base;
+    
+    @include m.hover-focus {
+      text-decoration: underline;
+    }
+  }
+}

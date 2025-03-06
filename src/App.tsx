@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { Navigation } from './components/Navigation';
+import { Navigation } from './ui/components/navigation/Navigation';
 import { Home } from './pages/Home';
 import { BridgestoneProject } from './pages/BridgestoneProject';
-import { PageTransition } from './components/PageTransition';
-import { Background } from './components/Background';
+import { PageTransition } from './ui/components/page-transition/PageTransition';
+import { Background } from './ui/components/background/Background';
 
 function AnimatedRoutes() {
   const location = useLocation();

@@ -3,6 +3,10 @@
 .toc {
   &--desktop {
     @apply sticky top-32;
+
+    .c-card__content {
+      @apply py-4 px-0;
+    }
   }
 
   &--mobile {

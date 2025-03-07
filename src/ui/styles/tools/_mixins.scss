@@ -3,10 +3,11 @@
  */
 
 @forward 'sass:math';
+@use 'sass:list';
 
 // Transition mixin with custom timing
-@mixin custom-transition($property: all, $duration: 0.3s) {
-  transition: $property $duration var(--transition-ease-out-cubic);
+@mixin custom-transition($property: all) {
+  transition: #{$property} 0.3s var(--transition-ease-out-cubic);
 }
 
 // Custom gradient background

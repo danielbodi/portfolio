@@ -31,7 +31,8 @@
 
   &__inner {
     @apply transform-gpu;
-    @include custom-transition(all);
+    transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1),
+                box-shadow 0.5s cubic-bezier(0.33, 1, 0.68, 1);
     
     &--scrolled {
       @apply translate-y-4;
@@ -40,6 +41,12 @@
 
   &__card {
     @apply backdrop-blur-md;
+    
+    // Ensure the Card component's gradient is visible
+    .c-card__gradient {
+      transition: opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1),
+                  background 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    }
     
     .c-navigation__mobile & {
       @apply rounded-none border-t border-gray-800;
@@ -68,7 +75,7 @@
 
   &__link {
     @apply text-gray-400;
-    @include custom-transition(color);
+    transition: color 0.3s cubic-bezier(0.33, 1, 0.68, 1);
     
     &:hover {
       @apply text-purple-400;

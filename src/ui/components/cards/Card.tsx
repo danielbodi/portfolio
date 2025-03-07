@@ -6,13 +6,15 @@ interface CardProps {
   className?: string;
   variant?: 'default' | 'nested' | 'nav';
   isSticky?: boolean;
+  showShadow?: boolean;
 }
 
 export function Card({ 
   children, 
   className = '', 
   variant = 'default',
-  isSticky = false 
+  isSticky = false,
+  showShadow = false
 }: CardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const { degree, intensity } = useMouseGradient(cardRef);
@@ -39,7 +41,7 @@ export function Card({
 
       const animate = (timestamp: number) => {
         if (!startTime) startTime = timestamp;
-        const progress = (timestamp - startTime) / 1000;
+        const progress = (timestamp - startTime) / 1500; // Slower animation (1.5s)
 
         if (progress < 1) {
           setInitialDegree(45 + (720 * progress));
@@ -80,7 +82,14 @@ export function Card({
     ? `linear-gradient(${shouldAnimate ? initialDegree : isInitialAnimationComplete ? degree : 45}deg, ${startColor} 33%, ${midColor} 66%, ${endColor} 100%)`
     : `linear-gradient(${degree}deg, ${startColor} 66%, ${midColor} 88%, ${endColor} 100%)`;
   
-  const cardClasses = `c-card ${isNested ? 'c-card--nested' : ''} ${isNav ? `c-card--nav ${isSticky ? 'c-card--nav--sticky' : 'c-card--nav--default'}` : 'c-card--default'} ${className}`;
+  const cardClasses = `c-card ${
+    isNested 
+      ? `c-card--nested ${showShadow ? 'c-card--nested--shadow' : ''}`
+      : isNav 
+        ? `c-card--nav ${isSticky ? 'c-card--nav--sticky' : 'c-card--nav--default'}`
+        : 'c-card--default'
+  } ${className}`;
+  
   const contentClasses = `c-card__content ${isNested ? 'c-card__content--nested' : ''} ${className.includes('px-0') || className.includes('py-0') ? 'c-card__content--no-padding' : ''}`;
   
   // Set CSS custom properties for dynamic values
@@ -88,15 +97,14 @@ export function Card({
     if (cardRef.current) {
       if (isNav && isSticky) {
         cardRef.current.style.setProperty('--nav-shadow', `-8px 8px 40px 0px rgba(0, 0, 0, ${0.5 + intensity * 0.1})`);
-      } else if (!isNested) {
+      } else if (!isNested || (isNested && showShadow)) {
         cardRef.current.style.setProperty('--default-shadow', `-8px 8px 40px 0px rgba(0, 0, 0, ${0.17 + intensity * 0.1})`);
       } else {
-        // Reset shadows for nested cards
-        cardRef.current.style.removeProperty('--nav-shadow');
+        // Reset shadows for nested cards without shadow
         cardRef.current.style.removeProperty('--default-shadow');
       }
     }
-  }, [isNav, isSticky, isNested, intensity]);
+  }, [isNav, isSticky, isNested, intensity, showShadow]);
   
   return (
     <div

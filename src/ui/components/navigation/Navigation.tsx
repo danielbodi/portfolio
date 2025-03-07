@@ -28,13 +28,20 @@ export function Navigation() {
           }
         }
 
-        setIsScrolled(window.scrollY > 0);
+        // Use a threshold for scrolling to create a smoother experience
+        const scrollThreshold = 20;
+        const isNowScrolled = window.scrollY > scrollThreshold;
+        
+        if (isNowScrolled !== isScrolled) {
+          setIsScrolled(isNowScrolled);
+        }
       });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [location]);
+  }, [location, isScrolled]);
 
   const handleContact = () => {
     window.location.href = 'mailto:daniel.bodi.gil@gmail.com';

@@ -16,7 +16,7 @@ interface CaseSummaryCardProps {
 
 export function CaseSummaryCard({ challenge, solution, index }: CaseSummaryCardProps) {
   const getTargetId = (title: string) => {
-    const idMap = {
+    const idMap: Record<string, string> = {
       'Missing Design Structure': 'lack-of-design-system',
       'Technical Uncertainty': 'custom-development-challenges',
       'Limited Resources': 'limited-research-time',
@@ -24,7 +24,7 @@ export function CaseSummaryCard({ challenge, solution, index }: CaseSummaryCardP
       'Knowledge Transfer': 'addressing-development',
       'Process Adaption': 'addressing-research'
     };
-    return idMap[title];
+    return idMap[title] || '';
   };
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -45,7 +45,7 @@ export function CaseSummaryCard({ challenge, solution, index }: CaseSummaryCardP
   return (
     <div className="flex flex-col sm:flex-row">
       {/* Challenge Card */}
-      <Card className="flex flex-1" variant="nested">
+      <Card className="flex flex-1" variant="nested" showShadow>
         <div className="grid grid-rows-[auto_1fr] h-full gap-6">
           {/* Header row */}
           <div className="flex items-center gap-4">
@@ -105,7 +105,7 @@ export function CaseSummaryCard({ challenge, solution, index }: CaseSummaryCardP
       </div>
 
       {/* Solution Card */}
-      <Card className="flex-1" variant="nested">
+      <Card className="flex-1" variant="nested" showShadow>
         <div className="grid grid-rows-[auto_1fr] h-full gap-6">
           {/* Header row */}
           <div className="flex items-center gap-4">

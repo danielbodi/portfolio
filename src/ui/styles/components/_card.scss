@@ -8,16 +8,25 @@
   @apply relative rounded-[0.3125rem] bg-transparent;
   
   // Base transitions
-  @include custom-transition(padding, box-shadow);
+  transition: padding 0.5s cubic-bezier(0.33, 1, 0.68, 1),
+              background 0.5s cubic-bezier(0.33, 1, 0.68, 1),
+              box-shadow 0.5s cubic-bezier(0.33, 1, 0.68, 1),
+              opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   
   // Variants
   &--nested {
     @apply flex flex-1 p-[1px] shadow-none;
+
+    // Shadow modifier for nested cards
+    &--shadow {
+      box-shadow: var(--default-shadow);
+    }
   }
   
+  // Nav card styles
   &--nav {
-    @apply rounded-[0.3125rem] border border-[#32323A];
-    
+    @apply rounded-[0.3125rem] ;
+    /*border border-[#32323A]*/
     &--sticky {
       @apply p-[1px];
       box-shadow: var(--nav-shadow);
@@ -28,6 +37,7 @@
     }
   }
   
+  // Default card style
   &--default {
     @apply p-[1px];
     box-shadow: var(--default-shadow);
@@ -36,12 +46,14 @@
   // Gradient layer
   &__gradient {
     @apply absolute inset-0 rounded-[0.3125rem];
-    @include custom-transition(opacity);
+    transition: opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1),
+                background 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   }
   
   // Content wrapper
   &__content {
     @apply relative rounded-[0.25rem] px-4 py-4;
+    transition: background 0.5s cubic-bezier(0.33, 1, 0.68, 1);
     
     // Content modifiers
     &--nested {

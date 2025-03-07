@@ -5,80 +5,79 @@ import { Tag } from '../ui/components/atoms/Tag/Tag';
 import { TableOfContents } from '../ui/components/table-of-contents/TableOfContents';
 import { CaseSummaryCard } from '../ui/components/case-summary/CaseSummaryCard';
 import { Image } from '../ui/components/image/Image';
-import { Carousel } from '../ui/components/carousel/Carousel';
-import { MasonryGallery } from '../ui/components/galleries/MasonryGallery/MasonryGallery';
+import { ProjectGallery } from '../ui/components/gallery/ProjectGallery';
 
 export function BridgestoneProject() {
   const galleryImages = [
     {
       src: "/screenshots/bs/bs_design-approach.png",
       alt: "Design Approach Diagram",
-      info: "Visual representation of our design methodology and workflow at Bridgestone"
+      description: "Visual representation of our design methodology and workflow at Bridgestone"
     },
     {
       src: "/screenshots/bs/bs_desktop_settings-light.png",
       alt: "Settings Panel - Light Theme",
-      info: "User settings interface showcasing the light theme implementation with custom form controls"
+      description: "User settings interface showcasing the light theme implementation with custom form controls"
     },
     {
       src: "/screenshots/bs/bs_desktop_storybook-home.png",
       alt: "Storybook Documentation Home",
-      info: "Home page of our component library built with Storybook"
+      description: "Home page of our component library built with Storybook"
     },
     {
       src: "/screenshots/bs/bs_desktop_storybook-tag.png",
       alt: "Tag Component Documentation",
-      info: "Overview of our Tag component documentation in Storybook"
+      description: "Overview of our Tag component documentation in Storybook"
     },
     {
-      src: "/screenshots/bs/bs_storybook tag anatomy.png",
+      src: "/screenshots/bs/bs_storybook_tag_anatomy.png",
       alt: "Tag Component Anatomy",
-      info: "Detailed anatomy documentation of our Tag component in Storybook"
+      description: "Detailed anatomy documentation of our Tag component in Storybook"
     },
     {
-      src: "/screenshots/bs/bs_storybook tag best practices.png",
+      src: "/screenshots/bs/bs_storybook_tag_best_practices.png",
       alt: "Tag Component Best Practices",
-      info: "Best practices and usage guidelines for our Tag component in Storybook"
+      description: "Best practices and usage guidelines for our Tag component in Storybook"
     },
     {
-      src: "/screenshots/bs/bs_example of the anatomy section for Tags in Figma.png",
+      src: "/screenshots/bs/bs_figma_tag_anatomy.png",
       alt: "Tag Anatomy in Figma",
-      info: "Detailed component anatomy documentation in our Figma design system"
+      description: "Detailed component anatomy documentation in our Figma design system"
     },
     {
-      src: "/screenshots/bs/bs_example of the best practices section for Tags in Figma.png",
+      src: "/screenshots/bs/bs_figma_tag_best_practices.png",
       alt: "Tag Best Practices in Figma",
-      info: "Best practices and usage guidelines in our Figma design system"
+      description: "Best practices and usage guidelines in our Figma design system"
     },
     {
       src: "/screenshots/bs/bs_desktop_vehicle-list-light.png",
       alt: "Vehicle List View - Light Theme",
-      info: "Vehicle management interface showing the list view with filtering and sorting capabilities"
+      description: "Vehicle management interface showing the list view with filtering and sorting capabilities"
     },
     {
       src: "/screenshots/bs/bs_desktop_ws-dark.png",
       alt: "Worksheet Interface - Dark Theme",
-      info: "Vehicle worksheet management interface in dark mode with detailed vehicle information"
+      description: "Vehicle worksheet management interface in dark mode with detailed vehicle information"
     },
     {
       src: "/screenshots/bs/bs_desktop_ws-light.png",
       alt: "Worksheet Interface - Light Theme",
-      info: "Vehicle worksheet management interface in light mode showing maintenance details"
+      description: "Vehicle worksheet management interface in light mode showing maintenance details"
     },
     {
       src: "/screenshots/bs/bs_tablet_ws-dark.png",
       alt: "Tablet Worksheet View - Dark Theme",
-      info: "Responsive tablet layout of the worksheet interface optimized for dark mode"
+      description: "Responsive tablet layout of the worksheet interface optimized for dark mode"
     },
     {
       src: "/screenshots/bs/bs_tablet_ws-light.png",
       alt: "Tablet Worksheet View - Light Theme",
-      info: "Responsive tablet layout of the worksheet interface in light mode"
+      description: "Responsive tablet layout of the worksheet interface in light mode"
     },
     {
       src: "/screenshots/bs/bs_tablet_ws2-dark.png",
       alt: "Alternative Tablet Worksheet - Dark Theme",
-      info: "Another view of the tablet worksheet interface"
+      description: "Another view of the tablet worksheet interface in dark mode"
     }
   ];
 
@@ -185,7 +184,7 @@ export function BridgestoneProject() {
       <section className="gallery-section">
         <div className="gallery-section__container">
           <div className="gallery-section__content">
-            <Carousel images={galleryImages} autoplayInterval={5000} />
+            <ProjectGallery images={galleryImages} />
           </div>
         </div>
       </section>
@@ -377,30 +376,29 @@ export function BridgestoneProject() {
                           In Figma, I enhanced the handoff process by improving component and layout documentation. This included adding anatomies, usage guidelines, and best practices for components, which developers found valuable.
                         </p>
                         <div className="my-8">
-                          <Carousel
+                          <ProjectGallery
                             images={[
                               {
-                                src: "/screenshots/bs/bs_example of the anatomy section for Tags in Figma.png",
-                                alt: "Tag component anatomy in Figma",
-                                info: "Example of our enhanced component documentation in Figma, showing detailed anatomy breakdown"
+                                src: "/screenshots/bs/bs_desktop_settings-light.png",
+                                alt: "Settings Panel - Light Theme",
+                                description: "User settings interface showcasing the light theme implementation with custom form controls"
                               },
                               {
-                                src: "/screenshots/bs/bs_example of the best practices section for Tags in Figma.png",
-                                alt: "Tag component best practices in Figma",
-                                info: "Best practices and usage guidelines documentation in our Figma design system"
+                                src: "/screenshots/bs/bs_desktop_settings-dark.png",
+                                alt: "Settings Panel - Dark Theme",
+                                description: "Dark theme variant of the settings panel, maintaining consistent visual hierarchy"
                               },
                               {
-                                src: "/screenshots/bs/bs_storybook tag anatomy.png",
-                                alt: "Tag component anatomy in Storybook",
-                                info: "Detailed component anatomy documentation in our Storybook implementation"
+                                src: "/screenshots/bs/bs_desktop_ws-light.png",
+                                alt: "Worksheet Interface - Light Theme",
+                                description: "Vehicle worksheet management interface in light mode showing maintenance details"
                               },
                               {
-                                src: "/screenshots/bs/bs_storybook tag best practices.png",
-                                alt: "Tag component best practices in Storybook",
-                                info: "Best practices and usage guidelines in our Storybook documentation"
+                                src: "/screenshots/bs/bs_desktop_ws-dark.png",
+                                alt: "Worksheet Interface - Dark Theme",
+                                description: "Vehicle worksheet management interface in dark mode with detailed vehicle information"
                               }
                             ]}
-                            autoplayInterval={5000}
                           />
                         </div>
                         <p>

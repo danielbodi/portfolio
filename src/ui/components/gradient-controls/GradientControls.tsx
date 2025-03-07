@@ -100,7 +100,7 @@ export function GradientControls({ settings, onChange, onReset }: GradientContro
   const colorControls = ['red', 'green', 'blue', 'red2', 'green2', 'blue2'];
 
   return (
-    <div className="fixed bottom-0 right-0 md:bottom-8 md:right-8 z-[100] pointer-events-auto gradient-controls">
+    <div className="fixed bottom-0 right-0 md:bottom-8 md:right-8 z-[100] pointer-events-auto gradient-controls gradient-controls--hidden">
       <Card className="w-72 md:w-80 backdrop-blur-md">
         <div className="space-y-4">
           <div className="flex items-center justify-between">

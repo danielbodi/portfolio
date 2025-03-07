@@ -1,0 +1,116 @@
+.c-gallery {
+  &__image {
+    @apply relative w-full aspect-[16/9] overflow-hidden rounded-lg;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+
+    &-container {
+      @apply absolute inset-0 bg-cover bg-center transition-all duration-600 ease-out;
+      transform-style: preserve-3d;
+      will-change: transform;
+      
+      .group:hover & {
+        @apply scale-105;
+      }
+    }
+
+    &-overlay {
+      @apply absolute inset-0 flex items-end p-6 opacity-0 translate-y-4 transition-all duration-500 ease-out;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.85) 100%);
+
+      .group:hover & {
+        @apply opacity-100 translate-y-0;
+      }
+
+      p {
+        @apply translate-y-4 transition-transform duration-500 ease-out delay-100 opacity-0;
+        
+        .group:hover & {
+          @apply translate-y-0 opacity-100;
+        }
+      }
+    }
+  }
+
+  &__grid-nav {
+    @apply relative mt-8 flex items-center justify-center gap-4 p-2 bg-black/20 backdrop-blur-md rounded-full w-fit mx-auto;
+  }
+
+  &__nav-button {
+    @apply w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center transition-all duration-300 ease-out cursor-pointer opacity-60 hover:opacity-100 hover:bg-gray-700 hover:scale-110;
+  }
+
+  &__pagination {
+    @apply flex justify-center gap-3 px-2;
+  }
+
+  &__pagination-dot {
+    @apply w-2 h-2 rounded-full bg-white opacity-40 transition-all duration-300 ease-out cursor-pointer hover:opacity-80 hover:scale-120;
+
+    &.is-active {
+      @apply bg-purple-500 opacity-100 scale-120;
+    }
+  }
+
+  &__fullscreen {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-8 opacity-0 invisible transition-opacity duration-500 ease-out;
+
+    &.is-open {
+      @apply opacity-100 visible;
+
+      .c-gallery__fullscreen-content {
+        @apply translate-y-0 scale-100 opacity-100;
+      }
+
+      .c-gallery__fullscreen-backdrop {
+        @apply opacity-100;
+      }
+    }
+
+    &-backdrop {
+      @apply absolute inset-0 opacity-0 backdrop-blur-2xl transition-opacity duration-600 ease-out;
+      will-change: background;
+
+      &::before {
+        @apply content-[''] absolute inset-0 opacity-0 transition-opacity duration-600 ease-out;
+        background: radial-gradient(circle at center, rgba(var(--color-purple-500-rgb), 0.15), transparent 70%);
+      }
+
+      .is-open &::before {
+        @apply opacity-100;
+      }
+    }
+
+    &-close {
+      @apply absolute top-8 right-8 z-[51] w-12 h-12 rounded-full bg-gray-800 text-gray-200 flex items-center justify-center transition-all duration-300 ease-out opacity-0 scale-90 cursor-pointer;
+
+      .is-open & {
+        @apply opacity-100 scale-100 delay-200;
+      }
+
+      &:hover {
+        @apply bg-gray-700 scale-110;
+      }
+    }
+
+    &-content {
+      @apply relative z-[51] w-full max-h-[90vh] flex justify-center translate-y-8 scale-95 opacity-0 transition-all duration-500 ease-out;
+    }
+
+    &-pagination {
+      @apply relative z-[51] flex items-center justify-center gap-4 p-2 bg-black/20 backdrop-blur-md rounded-full w-fit mx-auto mt-4;
+
+      .c-gallery__pagination-dot {
+        @apply w-2 h-2 rounded-full bg-white opacity-40 transition-all duration-300 ease-out cursor-pointer hover:opacity-80 hover:scale-120;
+
+        &.is-active {
+          @apply bg-purple-500 opacity-100 scale-120;
+        }
+      }
+
+      .c-gallery__nav-button {
+        @apply w-8 h-8;
+      }
+    }
+  }
+} 

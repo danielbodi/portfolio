@@ -7,6 +7,7 @@ interface CardProps {
   variant?: 'default' | 'nested' | 'nav';
   isSticky?: boolean;
   showShadow?: boolean;
+  onClick?: () => void;
 }
 
 export function Card({ 
@@ -14,7 +15,8 @@ export function Card({
   className = '', 
   variant = 'default',
   isSticky = false,
-  showShadow = false
+  showShadow = false,
+  onClick
 }: CardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const { degree, intensity } = useMouseGradient(cardRef);
@@ -110,6 +112,7 @@ export function Card({
     <div
       ref={cardRef}
       className={cardClasses}
+      onClick={onClick}
     >
       {/* Gradient background layer */}
       <div 

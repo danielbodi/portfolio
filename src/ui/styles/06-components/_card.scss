@@ -2,7 +2,7 @@
  * Card component
  */
 
-@use '../tools/mixins' as *;
+@use '../02-tools/mixins' as *;
 
 .c-card {
   @apply relative rounded-[0.3125rem] bg-transparent;

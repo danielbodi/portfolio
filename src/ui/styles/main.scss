@@ -9,28 +9,28 @@
  * SETTINGS
  * Global variables, config switches
  */
-@use 'settings/colors';
-@use 'settings/typography';
+@use '01-settings/colors';
+@use '01-settings/typography';
 // Spacing and breakpoints handled by Tailwind
 
 /**
  * TOOLS
  * Default mixins and functions
  */
-@use 'tools/mixins';
+@use '02-tools/mixins';
 // Functions handled by Tailwind
 
 /**
  * GENERIC
  * Ground-zero styles (Normalize.css, resets, box-sizing)
  */
-@use 'generic/box-sizing';
+@use '03-generic/box-sizing';
 
 /**
  * ELEMENTS
  * Unclassed HTML elements (type selectors)
  */
-@use 'elements/page';
+@use '04-elements/page';
 // Typography elements handled by Tailwind
 
 /**
@@ -43,16 +43,16 @@
  * COMPONENTS
  * Designed components, chunks of UI
  */
-@use 'components/button';
-@use 'components/card';
-@use 'components/navigation';
-@use 'components/image';
-@use 'components/toc';
-@use 'components/gallery';
+@use '06-components/button';
+@use '06-components/card';
+@use '06-components/navigation';
+@use '06-components/image';
+@use '06-components/toc';
+@use '06-components/gallery';
 // UI components mostly handled by Tailwind and component-specific styles
 
 /**
  * TRUMPS
  * Helpers and overrides, most specific styles
  */
-@use 'utilities/helpers'; 
+@use '07-utilities/helpers'; 

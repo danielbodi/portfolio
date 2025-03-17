@@ -4,6 +4,12 @@
 
 @use '../02-tools/mixins' as *;
 
+:root {
+  --button-gradient-opacity: 0.7;
+  --button-highlight-opacity: 0.9;
+  --button-base-brightness: 1;
+}
+
 @keyframes subtleRotate {
   0% {
     background-position: 0% 50%;
@@ -38,15 +44,15 @@
       border-radius: inherit;
       background: conic-gradient(
         from 225deg,
-        rgba(124, 58, 237, 0.7) 0deg,       /* Base purple with reduced opacity */
-        rgba(124, 58, 237, 0.7) 60deg,      /* Same purple continues */
-        rgba(170, 120, 255, 0.9) 90deg,     /* Lighter purple (highlight) */
-        rgba(124, 58, 237, 0.8) 120deg,     /* Back to base purple */
-        rgba(124, 58, 237, 0.7) 200deg,     /* Slightly darker */
-        rgba(100, 50, 200, 0.8) 250deg,     /* Different shade for subtle variation */
-        rgba(150, 100, 240, 0.9) 300deg,    /* Another highlight */
-        rgba(124, 58, 237, 0.7) 330deg,     /* Back to base */
-        rgba(124, 58, 237, 0.7) 360deg      /* Complete the circle */
+        rgba(124, 58, 237, var(--button-gradient-opacity)) 0deg,
+        rgba(124, 58, 237, var(--button-gradient-opacity)) 60deg,
+        rgba(calc(170 * var(--button-base-brightness)), calc(120 * var(--button-base-brightness)), calc(255 * var(--button-base-brightness)), var(--button-highlight-opacity)) 90deg,
+        rgba(124, 58, 237, calc(var(--button-gradient-opacity) + 0.1)) 120deg,
+        rgba(124, 58, 237, var(--button-gradient-opacity)) 200deg,
+        rgba(100, 50, 200, calc(var(--button-gradient-opacity) + 0.1)) 250deg,
+        rgba(calc(150 * var(--button-base-brightness)), calc(100 * var(--button-base-brightness)), calc(240 * var(--button-base-brightness)), var(--button-highlight-opacity)) 300deg,
+        rgba(124, 58, 237, var(--button-gradient-opacity)) 330deg,
+        rgba(124, 58, 237, var(--button-gradient-opacity)) 360deg
       );
       -webkit-mask: 
         linear-gradient(#fff 0 0) content-box,
@@ -59,6 +65,7 @@
       transform: translateZ(0);
       animation: subtleRotate 8s linear infinite;
       background-size: 200% 200%;
+      transition: --button-gradient-opacity 0.3s ease, --button-highlight-opacity 0.3s ease, --button-base-brightness 0.3s ease;
     }
     
     &::after {
@@ -85,20 +92,12 @@
     }
     
     &:hover {
+      --button-gradient-opacity: 0.8;
+      --button-highlight-opacity: 1;
+      --button-base-brightness: 1.2;
+      
       &::before {
-        background: conic-gradient(
-          from 225deg,
-          rgba(140, 70, 255, 0.8) 0deg,      /* Brighter base purple */
-          rgba(140, 70, 255, 0.8) 60deg,     /* Same brighter purple continues */
-          rgba(190, 140, 255, 1) 90deg,      /* Brighter highlight */
-          rgba(140, 70, 255, 0.9) 120deg,    /* Back to brighter base */
-          rgba(140, 70, 255, 0.8) 200deg,    /* Slightly darker */
-          rgba(120, 60, 220, 0.9) 250deg,    /* Different shade variation */
-          rgba(170, 120, 255, 1) 300deg,     /* Brighter highlight */
-          rgba(140, 70, 255, 0.8) 330deg,    /* Back to brighter base */
-          rgba(140, 70, 255, 0.8) 360deg     /* Complete the circle */
-        );
-        animation-duration: 6s; /* Slightly faster animation on hover */
+        animation-play-state: paused;
       }
       
       &::after {
@@ -180,15 +179,15 @@
       border-radius: inherit; /* Takes the border-radius from the parent */
       background: conic-gradient(
         from 225deg,
-        rgba(124, 58, 237, 0.7) 0deg,       /* Base purple with reduced opacity */
-        rgba(124, 58, 237, 0.7) 60deg,      /* Same purple continues */
-        rgba(170, 120, 255, 0.9) 90deg,     /* Lighter purple (highlight) */
-        rgba(124, 58, 237, 0.8) 120deg,     /* Back to base purple */
-        rgba(124, 58, 237, 0.7) 200deg,     /* Slightly darker */
-        rgba(100, 50, 200, 0.8) 250deg,     /* Different shade for subtle variation */
-        rgba(150, 100, 240, 0.9) 300deg,    /* Another highlight */
-        rgba(124, 58, 237, 0.7) 330deg,     /* Back to base */
-        rgba(124, 58, 237, 0.7) 360deg      /* Complete the circle */
+        rgba(124, 58, 237, var(--button-gradient-opacity)) 0deg,
+        rgba(124, 58, 237, var(--button-gradient-opacity)) 60deg,
+        rgba(calc(170 * var(--button-base-brightness)), calc(120 * var(--button-base-brightness)), calc(255 * var(--button-base-brightness)), var(--button-highlight-opacity)) 90deg,
+        rgba(124, 58, 237, calc(var(--button-gradient-opacity) + 0.1)) 120deg,
+        rgba(124, 58, 237, var(--button-gradient-opacity)) 200deg,
+        rgba(100, 50, 200, calc(var(--button-gradient-opacity) + 0.1)) 250deg,
+        rgba(calc(150 * var(--button-base-brightness)), calc(100 * var(--button-base-brightness)), calc(240 * var(--button-base-brightness)), var(--button-highlight-opacity)) 300deg,
+        rgba(124, 58, 237, var(--button-gradient-opacity)) 330deg,
+        rgba(124, 58, 237, var(--button-gradient-opacity)) 360deg
       );
       -webkit-mask: 
         linear-gradient(#fff 0 0) content-box,
@@ -201,25 +200,17 @@
       transform: translateZ(0);
       animation: subtleRotate 8s linear infinite;
       background-size: 200% 200%;
+      transition: --button-gradient-opacity 0.3s ease, --button-highlight-opacity 0.3s ease, --button-base-brightness 0.3s ease;
     }
     
     &:hover {
       @apply text-white;
+      --button-gradient-opacity: 0.8;
+      --button-highlight-opacity: 1;
+      --button-base-brightness: 1.2;
       
       &::before {
-        background: conic-gradient(
-          from 225deg,
-          rgba(140, 70, 255, 0.8) 0deg,      /* Brighter base purple */
-          rgba(140, 70, 255, 0.8) 60deg,     /* Same brighter purple continues */
-          rgba(190, 140, 255, 1) 90deg,      /* Brighter highlight */
-          rgba(140, 70, 255, 0.9) 120deg,    /* Back to brighter base */
-          rgba(140, 70, 255, 0.8) 200deg,    /* Slightly darker */
-          rgba(120, 60, 220, 0.9) 250deg,    /* Different shade variation */
-          rgba(170, 120, 255, 1) 300deg,     /* Brighter highlight */
-          rgba(140, 70, 255, 0.8) 330deg,    /* Back to brighter base */
-          rgba(140, 70, 255, 0.8) 360deg     /* Complete the circle */
-        );
-        animation-duration: 6s; /* Slightly faster animation on hover */
+        animation-play-state: paused;
       }
     }
     

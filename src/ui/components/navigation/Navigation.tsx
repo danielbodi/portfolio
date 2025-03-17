@@ -181,8 +181,8 @@ export function Navigation() {
             </li>
             <li className="c-navigation__item">
               <a 
-                href="cv/DBG_CV_2025.pdf"
-                target="_blank"
+                href="/cv/DBG_CV_2025.pdf"
+                download="DBG_CV_2025.pdf"
                 className="c-navigation__link"
               >
                 CV

@@ -7,20 +7,143 @@
 .c-button {
   @apply px-4 py-2 rounded-full text-sm font-medium inline-flex items-center gap-2;
   @include custom-transition;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   
   &--primary {
-    @apply bg-purple-500 text-white;
+    position: relative;
+    @apply text-white border-0;
+    transform: translateZ(0); /* Force hardware acceleration */
+    
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 2px; /* Border width */
+      border-radius: inherit; /* Takes the border-radius from the parent */
+      background: linear-gradient(
+        to right,
+        rgb(192, 132, 252),
+        rgb(139, 92, 246),
+        rgb(124, 58, 237),
+        rgb(109, 40, 217),
+        rgb(147, 51, 234)
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      z-index: -2;
+      will-change: transform, background;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      
+      inset: 2px; /* Match the padding of ::before */
+      background: linear-gradient(
+        to bottom,
+        rgb(124, 58, 237),
+        rgb(109, 40, 217)
+      );
+      @apply rounded-full;
+      z-index: -1;
+      will-change: transform, background;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+    
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
     
     &:hover {
-      @apply bg-purple-600;
+      &::before {
+        background: linear-gradient(
+          to right,
+          rgb(216, 180, 254),
+          rgb(192, 132, 252),
+          rgb(139, 92, 246),
+          rgb(124, 58, 237),
+          rgb(167, 139, 250)
+        );
+      }
+      
+      &::after {
+        background: linear-gradient(
+          to bottom,
+          rgb(216, 180, 254),
+          rgb(139, 92, 246)
+        );
+      }
+    }
+    
+    &:active {
+      transform: translateY(1px) translateZ(0);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+      
+      &::after {
+        background: linear-gradient(
+          to bottom,
+          rgb(124, 58, 237),
+          rgb(192, 132, 252)
+        );
+      }
     }
   }
   
   &--secondary {
-    @apply border border-solid border-purple-400 text-purple-400 w-fit;
+    position: relative;
+    background: transparent;
+    @apply text-purple-400 border-0;
+    transform: translateZ(0); /* Force hardware acceleration */
+    
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 2px; /* Border width */
+      border-radius: inherit; /* Takes the border-radius from the parent */
+      background: linear-gradient(
+        to right,
+        rgb(192, 132, 252),
+        rgb(139, 92, 246),
+        rgb(124, 58, 237),
+        rgb(109, 40, 217),
+        rgb(147, 51, 234)
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      z-index: -1;
+      will-change: transform, background;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
     
     &:hover {
-      @apply bg-purple-400 text-white;
+      @apply text-white;
+      
+      &::before {
+        background: linear-gradient(
+          to right,
+          rgb(216, 180, 254),
+          rgb(192, 132, 252),
+          rgb(139, 92, 246),
+          rgb(124, 58, 237),
+          rgb(167, 139, 250)
+        );
+      }
+    }
+    
+    &:active {
+      transform: translateY(1px) translateZ(0);
     }
   }
   

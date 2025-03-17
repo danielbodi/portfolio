@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useMouseGradient } from '../../../hooks/useMouseGradient';
 import { Card } from '../cards/Card';
 import { Button } from '../buttons/Button';
@@ -23,9 +23,6 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const galleryRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
-  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { degree, intensity } = useMouseGradient(backdropRef);
 
   const handleImageClick = (image: ProjectImage, index: number) => {
@@ -66,35 +63,6 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
     });
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
-    if (!imageRefs.current[index]) return;
-    
-    const rect = imageRefs.current[index]!.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    setMousePosition({ x, y });
-    setHoveredIndex(index);
-  };
-
-  const handleMouseLeave = () => {
-    setMousePosition(null);
-    setHoveredIndex(null);
-  };
-
-  const calculateTilt = (element: HTMLElement | null, mouseX: number, mouseY: number) => {
-    if (!element) return { x: 0, y: 0 };
-    
-    const rect = element.getBoundingClientRect();
-    const x = mouseX - rect.width / 2;
-    const y = mouseY - rect.height / 2;
-    
-    return {
-      x: (y / (rect.height / 2)) * 10,
-      y: -(x / (rect.width / 2)) * 10,
-    };
-  };
-
   const visibleImages = images.slice(visibleIndex, visibleIndex + 3);
 
   return (
@@ -113,20 +81,12 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
               onClick={() => handleImageClick(image, visibleIndex + index)}
             >
               <div 
-                ref={el => imageRefs.current[visibleIndex + index] = el}
                 className="c-gallery__image"
-                onMouseMove={(e) => handleMouseMove(e, visibleIndex + index)}
-                onMouseLeave={handleMouseLeave}
               >
                 <div 
                   className="c-gallery__image-container"
                   style={{ 
-                    backgroundImage: `url(${image.src})`,
-                    transform: hoveredIndex === (visibleIndex + index) && mousePosition ? 
-                      `perspective(1000px) 
-                       rotateX(${calculateTilt(imageRefs.current[visibleIndex + index], mousePosition.x, mousePosition.y).x}deg) 
-                       rotateY(${calculateTilt(imageRefs.current[visibleIndex + index], mousePosition.x, mousePosition.y).y}deg)` 
-                      : 'none'
+                    backgroundImage: `url(${image.src})`
                   }}
                 />
                 {(image.description || image.info) && (

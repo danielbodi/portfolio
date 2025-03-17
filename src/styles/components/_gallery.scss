@@ -1,17 +1,9 @@
 .c-gallery {
   &__image {
     @apply relative w-full aspect-[16/9] overflow-hidden rounded-lg;
-    perspective: 1000px;
-    transform-style: preserve-3d;
 
     &-container {
       @apply absolute inset-0 bg-cover bg-center transition-all duration-600 ease-out;
-      transform-style: preserve-3d;
-      will-change: transform;
-      
-      .group:hover & {
-        @apply scale-105;
-      }
     }
 
     &-overlay {

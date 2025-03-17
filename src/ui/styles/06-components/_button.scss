@@ -4,29 +4,49 @@
 
 @use '../02-tools/mixins' as *;
 
+@keyframes subtleRotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .c-button {
-  @apply px-4 py-2 rounded-full text-sm font-medium inline-flex items-center gap-2;
+  @apply px-4 py-2 text-sm font-medium inline-flex items-center gap-2;
   @include custom-transition;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   
+  &--primary,
+  &--secondary {
+    @apply rounded-full;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    //text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
   &--primary {
     position: relative;
-    @apply text-white border-0;
     transform: translateZ(0); /* Force hardware acceleration */
-    
+   
     &::before {
       content: '';
       position: absolute;
       inset: 0;
       padding: 2px; /* Border width */
-      border-radius: inherit; /* Takes the border-radius from the parent */
-      background: linear-gradient(
-        to right,
-        rgb(192, 132, 252),
-        rgb(139, 92, 246),
-        rgb(124, 58, 237),
-        rgb(109, 40, 217),
-        rgb(147, 51, 234)
+      border-radius: inherit;
+      background: conic-gradient(
+        from 225deg,
+        rgba(124, 58, 237, 0.7) 0deg,       /* Base purple with reduced opacity */
+        rgba(124, 58, 237, 0.7) 60deg,      /* Same purple continues */
+        rgba(170, 120, 255, 0.9) 90deg,     /* Lighter purple (highlight) */
+        rgba(124, 58, 237, 0.8) 120deg,     /* Back to base purple */
+        rgba(124, 58, 237, 0.7) 200deg,     /* Slightly darker */
+        rgba(100, 50, 200, 0.8) 250deg,     /* Different shade for subtle variation */
+        rgba(150, 100, 240, 0.9) 300deg,    /* Another highlight */
+        rgba(124, 58, 237, 0.7) 330deg,     /* Back to base */
+        rgba(124, 58, 237, 0.7) 360deg      /* Complete the circle */
       );
       -webkit-mask: 
         linear-gradient(#fff 0 0) content-box,
@@ -37,6 +57,8 @@
       will-change: transform, background;
       backface-visibility: hidden;
       transform: translateZ(0);
+      animation: subtleRotate 8s linear infinite;
+      background-size: 200% 200%;
     }
     
     &::after {
@@ -54,6 +76,7 @@
       will-change: transform, background;
       backface-visibility: hidden;
       transform: translateZ(0);
+      box-shadow: inset 0px 0px 0px 2px rgba(50,50,50,0.2);
     }
     
     & > * {
@@ -63,14 +86,19 @@
     
     &:hover {
       &::before {
-        background: linear-gradient(
-          to right,
-          rgb(216, 180, 254),
-          rgb(192, 132, 252),
-          rgb(139, 92, 246),
-          rgb(124, 58, 237),
-          rgb(167, 139, 250)
+        background: conic-gradient(
+          from 225deg,
+          rgba(140, 70, 255, 0.8) 0deg,      /* Brighter base purple */
+          rgba(140, 70, 255, 0.8) 60deg,     /* Same brighter purple continues */
+          rgba(190, 140, 255, 1) 90deg,      /* Brighter highlight */
+          rgba(140, 70, 255, 0.9) 120deg,    /* Back to brighter base */
+          rgba(140, 70, 255, 0.8) 200deg,    /* Slightly darker */
+          rgba(120, 60, 220, 0.9) 250deg,    /* Different shade variation */
+          rgba(170, 120, 255, 1) 300deg,     /* Brighter highlight */
+          rgba(140, 70, 255, 0.8) 330deg,    /* Back to brighter base */
+          rgba(140, 70, 255, 0.8) 360deg     /* Complete the circle */
         );
+        animation-duration: 6s; /* Slightly faster animation on hover */
       }
       
       &::after {
@@ -79,6 +107,29 @@
           rgb(216, 180, 254),
           rgb(139, 92, 246)
         );
+        box-shadow: 
+          inset 0 1px 2px rgba(255, 255, 255, 0.3),
+          inset 0 -1px 2px rgba(0, 0, 0, 0.3);
+      }
+    }
+    
+    &:focus-visible {
+      outline: none;
+      
+      &::before {
+        background: conic-gradient(
+          from 225deg,
+          rgba(140, 70, 255, 0.9) 0deg,      /* Even brighter for focus */
+          rgba(140, 70, 255, 0.9) 60deg,     
+          rgba(200, 150, 255, 1) 90deg,      /* Stronger highlight */
+          rgba(140, 70, 255, 0.9) 120deg,    
+          rgba(140, 70, 255, 0.9) 200deg,    
+          rgba(120, 60, 220, 1) 250deg,      /* Stronger variation */
+          rgba(180, 130, 255, 1) 300deg,     /* Stronger highlight */
+          rgba(140, 70, 255, 0.9) 330deg,    
+          rgba(140, 70, 255, 0.9) 360deg     
+        );
+        padding: 3px; /* Slightly thicker border for focus */
       }
     }
     
@@ -86,12 +137,31 @@
       transform: translateY(1px) translateZ(0);
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
       
+      &::before {
+        background: conic-gradient(
+          from 225deg,
+          rgba(100, 40, 200, 0.8) 0deg,      /* Darker when pressed */
+          rgba(100, 40, 200, 0.8) 60deg,     
+          rgba(150, 90, 230, 0.9) 90deg,     /* Less bright highlight */
+          rgba(100, 40, 200, 0.8) 120deg,    
+          rgba(100, 40, 200, 0.8) 200deg,    
+          rgba(80, 30, 180, 0.9) 250deg,     /* Darker variation */
+          rgba(130, 70, 220, 0.9) 300deg,    /* Less bright highlight */
+          rgba(100, 40, 200, 0.8) 330deg,    
+          rgba(100, 40, 200, 0.8) 360deg     
+        );
+        animation-duration: 10s; /* Slower animation when pressed */
+      }
+      
       &::after {
         background: linear-gradient(
           to bottom,
           rgb(124, 58, 237),
           rgb(192, 132, 252)
         );
+        box-shadow: 
+          inset 0 2px 4px rgba(0, 0, 0, 0.3),
+          inset 0 1px 2px rgba(255, 255, 255, 0.1);
       }
     }
   }
@@ -108,13 +178,17 @@
       inset: 0;
       padding: 2px; /* Border width */
       border-radius: inherit; /* Takes the border-radius from the parent */
-      background: linear-gradient(
-        to right,
-        rgb(192, 132, 252),
-        rgb(139, 92, 246),
-        rgb(124, 58, 237),
-        rgb(109, 40, 217),
-        rgb(147, 51, 234)
+      background: conic-gradient(
+        from 225deg,
+        rgba(124, 58, 237, 0.7) 0deg,       /* Base purple with reduced opacity */
+        rgba(124, 58, 237, 0.7) 60deg,      /* Same purple continues */
+        rgba(170, 120, 255, 0.9) 90deg,     /* Lighter purple (highlight) */
+        rgba(124, 58, 237, 0.8) 120deg,     /* Back to base purple */
+        rgba(124, 58, 237, 0.7) 200deg,     /* Slightly darker */
+        rgba(100, 50, 200, 0.8) 250deg,     /* Different shade for subtle variation */
+        rgba(150, 100, 240, 0.9) 300deg,    /* Another highlight */
+        rgba(124, 58, 237, 0.7) 330deg,     /* Back to base */
+        rgba(124, 58, 237, 0.7) 360deg      /* Complete the circle */
       );
       -webkit-mask: 
         linear-gradient(#fff 0 0) content-box,
@@ -125,25 +199,68 @@
       will-change: transform, background;
       backface-visibility: hidden;
       transform: translateZ(0);
+      animation: subtleRotate 8s linear infinite;
+      background-size: 200% 200%;
     }
     
     &:hover {
       @apply text-white;
       
       &::before {
-        background: linear-gradient(
-          to right,
-          rgb(216, 180, 254),
-          rgb(192, 132, 252),
-          rgb(139, 92, 246),
-          rgb(124, 58, 237),
-          rgb(167, 139, 250)
+        background: conic-gradient(
+          from 225deg,
+          rgba(140, 70, 255, 0.8) 0deg,      /* Brighter base purple */
+          rgba(140, 70, 255, 0.8) 60deg,     /* Same brighter purple continues */
+          rgba(190, 140, 255, 1) 90deg,      /* Brighter highlight */
+          rgba(140, 70, 255, 0.9) 120deg,    /* Back to brighter base */
+          rgba(140, 70, 255, 0.8) 200deg,    /* Slightly darker */
+          rgba(120, 60, 220, 0.9) 250deg,    /* Different shade variation */
+          rgba(170, 120, 255, 1) 300deg,     /* Brighter highlight */
+          rgba(140, 70, 255, 0.8) 330deg,    /* Back to brighter base */
+          rgba(140, 70, 255, 0.8) 360deg     /* Complete the circle */
         );
+        animation-duration: 6s; /* Slightly faster animation on hover */
+      }
+    }
+    
+    &:focus-visible {
+      outline: none;
+      
+      &::before {
+        background: conic-gradient(
+          from 225deg,
+          rgba(140, 70, 255, 0.9) 0deg,      /* Even brighter for focus */
+          rgba(140, 70, 255, 0.9) 60deg,     
+          rgba(200, 150, 255, 1) 90deg,      /* Stronger highlight */
+          rgba(140, 70, 255, 0.9) 120deg,    
+          rgba(140, 70, 255, 0.9) 200deg,    
+          rgba(120, 60, 220, 1) 250deg,      /* Stronger variation */
+          rgba(180, 130, 255, 1) 300deg,     /* Stronger highlight */
+          rgba(140, 70, 255, 0.9) 330deg,    
+          rgba(140, 70, 255, 0.9) 360deg     
+        );
+        padding: 3px; /* Slightly thicker border for focus */
       }
     }
     
     &:active {
       transform: translateY(1px) translateZ(0);
+      
+      &::before {
+        background: conic-gradient(
+          from 225deg,
+          rgba(100, 40, 200, 0.8) 0deg,      /* Darker when pressed */
+          rgba(100, 40, 200, 0.8) 60deg,     
+          rgba(150, 90, 230, 0.9) 90deg,     /* Less bright highlight */
+          rgba(100, 40, 200, 0.8) 120deg,    
+          rgba(100, 40, 200, 0.8) 200deg,    
+          rgba(80, 30, 180, 0.9) 250deg,     /* Darker variation */
+          rgba(130, 70, 220, 0.9) 300deg,    /* Less bright highlight */
+          rgba(100, 40, 200, 0.8) 330deg,    
+          rgba(100, 40, 200, 0.8) 360deg     
+        );
+        animation-duration: 10s; /* Slower animation when pressed */
+      }
     }
   }
   

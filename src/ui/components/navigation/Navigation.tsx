@@ -124,7 +124,14 @@ export function Navigation() {
                     </Button>
                     <Button 
                       variant="primary"
-                      onClick={() => window.open('cv/DBG_CV_2025.pdf', '_blank')}
+                      onClick={() => {
+                        const link = document.createElement('a');
+                        link.href = '/cv/DBG_CV_2025.pdf';
+                        link.download = 'DBG_CV_2025.pdf';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                      }}
                     >
                       Download my CV
                     </Button>

@@ -25,7 +25,7 @@
 .c-button {
   @apply px-4 py-2 text-sm font-medium inline-flex items-center gap-2;
   @include custom-transition;
-  
+  width: fit-content;
   &--primary,
   &--secondary {
     @apply rounded-full;

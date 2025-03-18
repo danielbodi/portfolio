@@ -6,6 +6,7 @@ import { Home } from './pages/Home';
 import { BridgestoneProject } from './pages/BridgestoneProject';
 import { PageTransition } from './ui/components/page-transition/PageTransition';
 import { Background } from './ui/components/background/Background';
+import { GradientControls } from './ui/components/GradientControls';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -29,15 +30,25 @@ function AnimatedRoutes() {
 }
 
 function App() {
+  const defaultSettings = {
+    baseAngle: 45,
+    intensityMultiplier: 1.2,
+    throttleMs: 20,
+    performanceMode: false,
+    disableAnimation: false
+  };
+
   return (
     <Router>
-      <div className="relative min-h-screen">
-        <Background />
-        <div className="relative z-10">
-          <Navigation />
-          <AnimatedRoutes />
+      <GradientControls initialSettings={defaultSettings}>
+        <div className="relative min-h-screen">
+          <Background />
+          <div className="relative z-10">
+            <Navigation />
+            <AnimatedRoutes />
+          </div>
         </div>
-      </div>
+      </GradientControls>
     </Router>
   );
 }

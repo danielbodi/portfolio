@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, RefObject, useReducer } from 'react';
+import { useEffect, useRef, RefObject, useReducer, useCallback } from 'react';
 
 interface GradientState {
   degree: number;
@@ -78,6 +78,9 @@ function gradientReducer(state: GradientState, action: GradientAction): Gradient
     }
     
     case 'START_ANIMATION':
+      if (state.isAnimating) {
+        return state; // Prevent duplicating animation if already running
+      }
       return {
         ...state,
         isAnimating: true,
@@ -86,6 +89,9 @@ function gradientReducer(state: GradientState, action: GradientAction): Gradient
       };
       
     case 'UPDATE_ANIMATION': {
+      if (!state.isAnimating) {
+        return state; // Don't update if not animating
+      }
       // Calculate degree based on animation progress
       const rotationDegree = state.animationStartDegree + (720 * action.progress);
       
@@ -97,12 +103,18 @@ function gradientReducer(state: GradientState, action: GradientAction): Gradient
     }
     
     case 'COMPLETE_ANIMATION':
+      if (!state.isAnimating) {
+        return state; // Don't complete if not animating
+      }
       return {
         ...state,
         isAnimating: false
       };
       
     case 'RESET':
+      if (!state.isAnimating && state.degree === 45) {
+        return state; // Avoid unnecessary updates
+      }
       return {
         ...state,
         degree: 45,
@@ -126,6 +138,16 @@ export function useMouseGradient(
     springTension = 0.1 
   } = options;
   
+  // Keep track of previous options to avoid unnecessary re-renders
+  const optionsRef = useRef({ throttleMs, performanceMode, springTension });
+  
+  // Keep track of animation state to avoid duplicate animations
+  const animationRef = useRef<{
+    animationFrame?: number,
+    cleanup?: () => void,
+    isRunning: boolean
+  }>({ isRunning: false });
+  
   // Use reducer for more organized state management
   const [state, dispatch] = useReducer(gradientReducer, {
     degree: 45,
@@ -144,7 +166,7 @@ export function useMouseGradient(
   const mediaQueryRef = useRef<MediaQueryList | null>(null);
   const prefersReducedMotion = useRef<boolean>(false);
 
-  // Check for reduced motion preference
+  // Check for reduced motion preference once
   useEffect(() => {
     mediaQueryRef.current = window.matchMedia('(prefers-reduced-motion: reduce)');
     prefersReducedMotion.current = mediaQueryRef.current.matches;
@@ -159,59 +181,65 @@ export function useMouseGradient(
     };
   }, []);
 
-  // Handle mouse movement
+  // Update options ref when they change
   useEffect(() => {
-    const handlePointerMove = (e: MouseEvent | TouchEvent) => {
-      const now = performance.now();
-      let x: number, y: number;
-      
-      // Handle both mouse and touch events
-      if ('touches' in e) {
-        // Skip if we're throttling and it's too soon for another update
-        if (now - lastTouchUpdateRef.current < throttleMs) return;
-        lastTouchUpdateRef.current = now;
-        
-        // Get position from touch
-        const touch = e.touches[0];
-        x = touch.clientX;
-        y = touch.clientY;
-      } else {
-        // Skip if we're throttling and it's too soon for another update
-        if (now - lastUpdateRef.current < throttleMs) return;
-        lastUpdateRef.current = now;
-        
-        // Get position from mouse
-        x = e.clientX;
-        y = e.clientY;
-      }
-      
-      if (frameRef.current) {
-        cancelAnimationFrame(frameRef.current);
-      }
+    optionsRef.current = { throttleMs, performanceMode, springTension };
+  }, [throttleMs, performanceMode, springTension]);
 
-      // If user prefers reduced motion or performance mode is on, skip detailed calculations
-      if (prefersReducedMotion.current || performanceMode) {
-        // Update only position without complex calculations
-        dispatch({ 
-          type: 'SET_POSITION', 
-          x,
-          y
-        });
-        return;
-      }
+  // Handle mouse movement with stable reference
+  const handlePointerMove = useCallback((e: MouseEvent | TouchEvent) => {
+    const now = performance.now();
+    let x: number, y: number;
+    const { throttleMs } = optionsRef.current;
+    
+    // Handle both mouse and touch events
+    if ('touches' in e) {
+      // Skip if we're throttling and it's too soon for another update
+      if (now - lastTouchUpdateRef.current < throttleMs) return;
+      lastTouchUpdateRef.current = now;
+      
+      // Get position from touch
+      const touch = e.touches[0];
+      x = touch.clientX;
+      y = touch.clientY;
+    } else {
+      // Skip if we're throttling and it's too soon for another update
+      if (now - lastUpdateRef.current < throttleMs) return;
+      lastUpdateRef.current = now;
+      
+      // Get position from mouse
+      x = e.clientX;
+      y = e.clientY;
+    }
+    
+    if (frameRef.current) {
+      cancelAnimationFrame(frameRef.current);
+    }
 
-      // Use requestAnimationFrame for smoother updates
-      frameRef.current = requestAnimationFrame(() => {
-        dispatch({ 
-          type: 'SET_POSITION', 
-          x,
-          y,
-          elementRef
-        });
+    // If user prefers reduced motion or performance mode is on, skip detailed calculations
+    if (prefersReducedMotion.current || optionsRef.current.performanceMode) {
+      // Update only position without complex calculations
+      dispatch({ 
+        type: 'SET_POSITION', 
+        x,
+        y
       });
-    };
+      return;
+    }
 
-    // Setup handlers for both mouse and touch events
+    // Use requestAnimationFrame for smoother updates
+    frameRef.current = requestAnimationFrame(() => {
+      dispatch({ 
+        type: 'SET_POSITION', 
+        x,
+        y,
+        elementRef
+      });
+    });
+  }, [elementRef]);
+
+  // Setup event listeners
+  useEffect(() => {
     document.addEventListener('mousemove', handlePointerMove as any, { passive: true });
     document.addEventListener('touchmove', handlePointerMove as any, { passive: true });
     
@@ -222,11 +250,19 @@ export function useMouseGradient(
         cancelAnimationFrame(frameRef.current);
       }
     };
-  }, [elementRef, throttleMs, performanceMode, springTension]);
+  }, [handlePointerMove]);
 
-  // Handle start/stop animation
-  const startAnimation = (startDegree: number = 45) => {
+  // Handle start/stop animation with stable references
+  const startAnimation = useCallback((startDegree: number = 45) => {
+    // Only start if not already running
+    if (animationRef.current.isRunning) {
+      if (animationRef.current.cleanup) {
+        animationRef.current.cleanup();
+      }
+    }
+    
     dispatch({ type: 'START_ANIMATION', startDegree });
+    animationRef.current.isRunning = true;
     
     let startTime: number;
     let animationFrame: number;
@@ -239,21 +275,36 @@ export function useMouseGradient(
 
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate);
+        animationRef.current.animationFrame = animationFrame;
       } else {
         dispatch({ type: 'COMPLETE_ANIMATION' });
+        animationRef.current.isRunning = false;
+        animationRef.current.animationFrame = undefined;
       }
     };
 
     animationFrame = requestAnimationFrame(animate);
+    animationRef.current.animationFrame = animationFrame;
     
-    return () => {
-      cancelAnimationFrame(animationFrame);
+    animationRef.current.cleanup = () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+      animationRef.current.isRunning = false;
+      animationRef.current.animationFrame = undefined;
     };
-  };
+    
+    return animationRef.current.cleanup;
+  }, []);
 
-  const resetAnimation = () => {
+  const resetAnimation = useCallback(() => {
+    // Cleanup any running animation
+    if (animationRef.current.cleanup) {
+      animationRef.current.cleanup();
+    }
+    
     dispatch({ type: 'RESET' });
-  };
+  }, []);
 
   return {
     // Return only what's needed by consumers

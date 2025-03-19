@@ -35,7 +35,7 @@ function generateDefaultColorStops() {
 // Default gradient settings - using imported defaults
 const defaultSettings: GradientSettings = {
   "baseAngle": 45,
-  "intensityMultiplier": 0.5,
+  "intensityMultiplier": 1,
   "colorStops": [
     {
       "id": "color-stop-0",
@@ -70,7 +70,7 @@ const defaultSettings: GradientSettings = {
       "position": 100
     }
   ],
-  "springTension": 0.5,
+  "springTension": 0.05,
   "performanceMode": false,
   "disableAnimation": false,
   "throttleMs": "0"

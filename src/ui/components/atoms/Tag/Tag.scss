@@ -4,7 +4,7 @@
  */
 
 .tag {
-  @apply py-2 px-6 rounded-full text-sm font-medium text-center w-fit;
+  @apply py-2 px-4 rounded-full text-sm font-medium text-center w-fit;
 
   &--primary {
     @apply bg-purple-500 text-white;

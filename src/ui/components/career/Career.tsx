@@ -179,7 +179,7 @@ export function Career() {
             {/* Content overlay */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-3xl md:text-5xl font-bold text-purple-400">14</span>
-              <span className="text-[0.625rem] md:text-base text-gray-400 mt-1 md:mt-2">Years of exp.</span>
+              <span className="text-[0.625rem] md:text-base text-gray-400">Years of exp.</span>
             </div>
           </div>
         </div>

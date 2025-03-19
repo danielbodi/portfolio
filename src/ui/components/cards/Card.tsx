@@ -11,6 +11,8 @@ interface CardProps {
   onClick?: () => void;
   performanceMode?: boolean;
   disableAnimation?: boolean;
+  maxSpotlightDistance?: number;  // Maximum distance for spotlight effect
+  intensityFalloff?: number;      // Controls how quickly intensity falls off
 }
 
 interface ColorStop {
@@ -36,19 +38,21 @@ const defaultGradientSettings = {
   throttleMs: 16,
   springTension: 0.15,
   performanceMode: false,
-  disableAnimation: false
+  disableAnimation: false,
+  maxSpotlightDistance: 600,
+  intensityFalloff: 2
 };
 
 // Default colors for fallback
 const getDefaultColors = (intensity: number, isNested: boolean): GradientColors => {
   const startColor = isNested 
-    ? `rgba(55, 55, 62, ${Math.max(0.5, 0.9 - intensity * 0.4)})`
-    : `rgba(55, 55, 62, ${Math.max(0.3, 0.9 - intensity * 0.7)})`;
+    ? `rgba(55, 55, 62, ${Math.max(0.3, 0.9 - intensity * 0.7)})`
+    : `rgba(55, 55, 62, ${Math.max(0.2, 0.9 - intensity * 0.8)})`;
   const midColor = isNested
-    ? `rgba(105, 100, 247, ${Math.min(0.5, intensity * 0.6)})`
-    : `rgba(105, 100, 247, ${Math.min(0.6, intensity * 0.8)})`;
+    ? `rgba(105, 100, 247, ${Math.min(0.7, intensity * 0.8)})`
+    : `rgba(105, 100, 247, ${Math.min(0.8, intensity * 1.0)})`;
   const endColor = isNested
-    ? `rgba(180, 144, 255, ${Math.min(0.6, intensity * 0.7)})`
+    ? `rgba(180, 144, 255, ${Math.min(0.7, intensity * 0.9)})`
     : `rgba(180, 144, 255, ${Math.min(1, intensity * 1.5)})`;
     
   return { 
@@ -67,7 +71,9 @@ export function Card({
   showShadow = false,
   onClick,
   performanceMode,
-  disableAnimation
+  disableAnimation,
+  maxSpotlightDistance,
+  intensityFalloff
 }: CardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const prevColorsRef = useRef<GradientColors | null>(null);
@@ -93,6 +99,16 @@ export function Card({
   // Use settings from context if not provided as props
   const effectivePerformanceMode = performanceMode !== undefined ? performanceMode : contextSettings?.performanceMode || defaultGradientSettings.performanceMode;
   const effectiveDisableAnimation = disableAnimation !== undefined ? disableAnimation : contextSettings?.disableAnimation || defaultGradientSettings.disableAnimation;
+  const effectiveMaxSpotlightDistance = maxSpotlightDistance !== undefined ? maxSpotlightDistance : contextSettings?.maxSpotlightDistance || defaultGradientSettings.maxSpotlightDistance;
+  const effectiveIntensityFalloff = intensityFalloff !== undefined ? intensityFalloff : contextSettings?.intensityFalloff || defaultGradientSettings.intensityFalloff;
+  
+  // Set data attributes for the spotlight effect
+  useEffect(() => {
+    if (cardRef.current) {
+      cardRef.current.dataset.maxSpotlightDistance = effectiveMaxSpotlightDistance.toString();
+      cardRef.current.dataset.intensityFalloff = effectiveIntensityFalloff.toString();
+    }
+  }, [effectiveMaxSpotlightDistance, effectiveIntensityFalloff]);
   
   const { 
     degree, 
@@ -104,7 +120,9 @@ export function Card({
   } = useMouseGradient(cardRef, { 
     throttleMs: contextSettings?.throttleMs || defaultGradientSettings.throttleMs, 
     performanceMode: effectivePerformanceMode,
-    springTension: contextSettings?.springTension || defaultGradientSettings.springTension
+    springTension: contextSettings?.springTension || defaultGradientSettings.springTension,
+    maxSpotlightDistance: effectiveMaxSpotlightDistance,
+    intensityFalloff: effectiveIntensityFalloff
   });
   
   const isNested = variant === 'nested';
@@ -159,9 +177,9 @@ export function Card({
     
     // Set shadows
     if (isNav && isSticky) {
-      cardRef.current.style.setProperty('--nav-shadow', `-8px 8px 40px 0px rgba(0, 0, 0, ${0.5 + intensity * 0.1})`);
+      cardRef.current.style.setProperty('--nav-shadow', `-8px 8px 40px 0px rgba(0, 0, 0, ${0.5 + intensity * 0.15})`);
     } else if (!isNested || (isNested && showShadow)) {
-      cardRef.current.style.setProperty('--default-shadow', `-8px 8px 40px 0px rgba(0, 0, 0, ${0.17 + intensity * 0.1})`);
+      cardRef.current.style.setProperty('--default-shadow', `-8px 8px 40px 0px rgba(0, 0, 0, ${0.17 + intensity * 0.15})`);
     } else {
       // Reset shadows for nested cards without shadow
       cardRef.current.style.removeProperty('--default-shadow');
@@ -176,8 +194,8 @@ export function Card({
       const fullGradientColors = sortedStops.map(stop => {
         // Adjust opacity based on card type and intensity
         const adjustedOpacity = isNested 
-          ? Math.min(0.6, intensity * 0.7) * stop.opacity
-          : Math.min(1, intensity * 1.2) * stop.opacity;
+          ? Math.min(0.7, intensity * 0.9) * stop.opacity
+          : Math.min(1.0, intensity * 1.2) * stop.opacity;
         
         return `hsla(${stop.hue}, ${stop.saturation}%, ${stop.lightness}%, ${adjustedOpacity})`;
       });
@@ -215,6 +233,9 @@ export function Card({
     } else {
       cardRef.current.style.setProperty('--content-bg', '#32323A');
     }
+
+    // Add smooth transition for gradient opacity based on intensity
+    cardRef.current.style.setProperty('--gradient-opacity', intensity < 0.1 ? '0.3' : '1');
   }, [isNav, isSticky, isNested, intensity, showShadow, adjustedDegree, getComputedColors, generateGradientPositions, colorStops]);
   
   // This effect applies the colors immediately on mount using useLayoutEffect

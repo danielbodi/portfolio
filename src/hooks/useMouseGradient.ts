@@ -25,6 +25,8 @@ interface UseMouseGradientOptions {
   throttleMs?: number;
   performanceMode?: boolean;
   springTension?: number;
+  maxSpotlightDistance?: number;  // Maximum distance for spotlight effect in pixels
+  intensityFalloff?: number;      // Controls how quickly intensity falls off (1-3)
 }
 
 // Springs create more natural animations
@@ -53,17 +55,31 @@ function gradientReducer(state: GradientState, action: GradientAction): Gradient
         const elementCenterX = rect.left + rect.width / 2;
         const elementCenterY = rect.top + rect.height / 2;
         
+        // Calculate distance from element center to mouse
         const distance = Math.sqrt(
           Math.pow(x - elementCenterX, 2) + 
           Math.pow(y - elementCenterY, 2)
         );
         
-        const maxDistance = Math.sqrt(
-          Math.pow(window.innerWidth / 2, 2) + 
-          Math.pow(window.innerHeight / 2, 2)
-        );
+        // Get options from element's dataset if available, or use defaults
+        const element = elementRef.current;
+        const maxDistance = element.dataset.maxSpotlightDistance 
+          ? parseInt(element.dataset.maxSpotlightDistance, 10) 
+          : 600; // Default max spotlight distance (px)
         
-        targetIntensity = Math.max(0.2, Math.min(0.9, 1 - (distance / maxDistance)));
+        const falloff = element.dataset.intensityFalloff
+          ? parseFloat(element.dataset.intensityFalloff)
+          : 2; // Default falloff factor (squared)
+        
+        // Calculate relative distance (0-1+)
+        const relativeDistance = distance / maxDistance;
+        
+        // Use exponential falloff for more natural spotlight effect
+        // falloff of 2 = inverse square, higher = faster falloff
+        const spotlightIntensity = Math.max(0, 1 - Math.pow(relativeDistance, falloff));
+        
+        // Apply min and max constraints - allow full range from 0 to 1
+        targetIntensity = Math.max(0, Math.min(1, spotlightIntensity));
       }
 
       return {
@@ -135,11 +151,13 @@ export function useMouseGradient(
   const { 
     throttleMs = 16, 
     performanceMode = false,
-    springTension = 0.1 
+    springTension = 0.1,
+    maxSpotlightDistance,
+    intensityFalloff
   } = options;
   
   // Keep track of previous options to avoid unnecessary re-renders
-  const optionsRef = useRef({ throttleMs, performanceMode, springTension });
+  const optionsRef = useRef({ throttleMs, performanceMode, springTension, maxSpotlightDistance, intensityFalloff });
   
   // Keep track of animation state to avoid duplicate animations
   const animationRef = useRef<{
@@ -183,8 +201,8 @@ export function useMouseGradient(
 
   // Update options ref when they change
   useEffect(() => {
-    optionsRef.current = { throttleMs, performanceMode, springTension };
-  }, [throttleMs, performanceMode, springTension]);
+    optionsRef.current = { throttleMs, performanceMode, springTension, maxSpotlightDistance, intensityFalloff };
+  }, [throttleMs, performanceMode, springTension, maxSpotlightDistance, intensityFalloff]);
 
   // Handle mouse movement with stable reference
   const handlePointerMove = useCallback((e: MouseEvent | TouchEvent) => {

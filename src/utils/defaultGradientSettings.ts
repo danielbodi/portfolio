@@ -1,5 +1,6 @@
 // Generated gradient settings - 19/03/2025 14:05:18
 // This file was automatically generated and can be imported anywhere gradient settings are needed
+import { GradientSettings } from '../ui/components/GradientControlPanel';
 
 export const defaultGradientSettings: GradientSettings = {
   "baseAngle": 45,
@@ -41,5 +42,7 @@ export const defaultGradientSettings: GradientSettings = {
   "springTension": 0.05,
   "performanceMode": false,
   "disableAnimation": false,
-  "throttleMs": "0"
+  "throttleMs": 0,
+  "maxSpotlightDistance": 600,
+  "intensityFalloff": 2
 };

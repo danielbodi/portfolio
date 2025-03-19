@@ -44,6 +44,9 @@ export interface GradientSettings {
   performanceMode: boolean;
   disableAnimation: boolean;
   throttleMs: number;
+  // Spotlight effect settings
+  maxSpotlightDistance: number;
+  intensityFalloff: number;
 }
 
 // Default color stop factory with unique IDs
@@ -67,7 +70,9 @@ const defaultSettings: GradientSettings = {
   springTension: 0.15,
   performanceMode: false,
   disableAnimation: false,
-  throttleMs: 16
+  throttleMs: 16,
+  maxSpotlightDistance: 100,
+  intensityFalloff: 0.5
 };
 
 // Helper to detect if two objects are the same
@@ -382,7 +387,9 @@ ${formattedColorStops}
   springTension: ${settings.springTension},
   performanceMode: ${settings.performanceMode},
   disableAnimation: ${settings.disableAnimation},
-  throttleMs: ${settings.throttleMs}
+  throttleMs: ${settings.throttleMs},
+  maxSpotlightDistance: ${settings.maxSpotlightDistance},
+  intensityFalloff: ${settings.intensityFalloff}
 };`;
 
     // Create blob and download

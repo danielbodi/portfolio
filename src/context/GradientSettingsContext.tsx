@@ -73,7 +73,9 @@ const defaultSettings: GradientSettings = {
   "springTension": 0.05,
   "performanceMode": false,
   "disableAnimation": false,
-  "throttleMs": "0"
+  "throttleMs": 0,
+  "maxSpotlightDistance": 600,
+  "intensityFalloff": 2
 };
 
 // Context interface
@@ -155,17 +157,17 @@ export function GradientSettingsProvider({
       midStop = sortedStops[middleIndex];
     }
     
-    // Calculate opacity adjustments based on card type and intensity
+    // Calculate opacity adjustments based on card type and intensity - with more dramatic effect
     const startColorOpacity = isNested 
-      ? Math.max(0.5, 0.9 - adjustedIntensity * 0.4) * startStop.opacity
-      : Math.max(0.3, 0.9 - adjustedIntensity * 0.7) * startStop.opacity;
+      ? Math.max(0.3, 0.9 - adjustedIntensity * 0.7) * startStop.opacity
+      : Math.max(0.2, 0.9 - adjustedIntensity * 0.8) * startStop.opacity;
       
     const midColorOpacity = isNested
-      ? Math.min(0.5, adjustedIntensity * 0.6) * midStop.opacity
-      : Math.min(0.6, adjustedIntensity * 0.8) * midStop.opacity;
+      ? Math.min(0.7, adjustedIntensity * 0.8) * midStop.opacity
+      : Math.min(0.8, adjustedIntensity * 1.0) * midStop.opacity;
       
     const endColorOpacity = isNested
-      ? Math.min(0.6, adjustedIntensity * 0.7) * endStop.opacity
+      ? Math.min(0.7, adjustedIntensity * 0.9) * endStop.opacity
       : Math.min(1, adjustedIntensity * 1.5) * endStop.opacity;
     
     // Format colors as HSLA

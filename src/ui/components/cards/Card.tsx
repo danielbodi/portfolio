@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, useEffect, useCallback } from 'react';
+import React, { ReactNode, useRef, useEffect, useCallback, useLayoutEffect } from 'react';
 import { useMouseGradient } from '../../../hooks/useMouseGradient';
 import { useGradientSettings } from '../../../context/GradientSettingsContext';
 
@@ -72,6 +72,7 @@ export function Card({
   const cardRef = useRef<HTMLDivElement>(null);
   const prevColorsRef = useRef<GradientColors | null>(null);
   const prevPropsRef = useRef({ isSticky, disableAnimation });
+  const initialRenderRef = useRef(true);
   
   // Try to get gradient settings from context, fall back to defaults if not available
   let contextSettings;
@@ -98,7 +99,8 @@ export function Card({
     intensity, 
     isAnimating,
     startAnimation,
-    resetAnimation
+    resetAnimation,
+    forceGradient
   } = useMouseGradient(cardRef, { 
     throttleMs: contextSettings?.throttleMs || defaultGradientSettings.throttleMs, 
     performanceMode: effectivePerformanceMode,
@@ -206,14 +208,53 @@ export function Card({
     if (isNested) {
       cardRef.current.style.setProperty('--content-bg', 'radial-gradient(circle at 100% 0%, rgba(180, 144, 255, 0.2) -30%, rgba(55, 55, 62, 0.2) 30%), rgb(55, 55, 62)');
     } else if (isNav) {
+      // Immediate background change for nav
       cardRef.current.style.setProperty('--content-bg', isSticky ? '#32323A' : 'transparent');
+      // Immediate gradient opacity change
+      cardRef.current.style.setProperty('--gradient-opacity', isSticky ? '1' : '0');
     } else {
       cardRef.current.style.setProperty('--content-bg', '#32323A');
     }
-    
-    // Set gradient opacity
-    cardRef.current.style.setProperty('--gradient-opacity', isNav ? (isSticky ? '1' : '0') : '1');
   }, [isNav, isSticky, isNested, intensity, showShadow, adjustedDegree, getComputedColors, generateGradientPositions, colorStops]);
+  
+  // This effect applies the colors immediately on mount using useLayoutEffect
+  useLayoutEffect(() => {
+    if (initialRenderRef.current && cardRef.current) {
+      // Apply initial styles immediately before browser paint
+      if (isNav) {
+        if (isSticky) {
+          // Force direct style application for sticky nav
+          cardRef.current.style.setProperty('--content-bg', '#32323A');
+          cardRef.current.style.setProperty('--gradient-opacity', '1');
+          cardRef.current.style.setProperty('--nav-shadow', `-8px 8px 40px 0px rgba(0, 0, 0, 0.6)`);
+          
+          // Manually set the gradient colors to ensure they're visible without mouse movement
+          cardRef.current.style.setProperty('--gradient-start-color', 'rgba(55, 55, 62, 0.4)');
+          cardRef.current.style.setProperty('--gradient-mid-color', 'rgba(105, 100, 247, 0.5)');
+          cardRef.current.style.setProperty('--gradient-end-color', 'rgba(180, 144, 255, 0.8)');
+          cardRef.current.style.setProperty('--gradient-degree', '45deg');
+          
+          // Force gradient values without requiring mouse movement
+          forceGradient(45, 0.8);
+          
+          // Force animation start without waiting for mouse movement
+          if (!effectiveDisableAnimation) {
+            // Use setTimeout to ensure styles are applied before animation starts
+            setTimeout(() => {
+              startAnimation(contextSettings?.baseAngle || defaultGradientSettings.baseAngle);
+            }, 0);
+          }
+        } else {
+          cardRef.current.style.setProperty('--content-bg', 'transparent');
+          cardRef.current.style.setProperty('--gradient-opacity', '0');
+        }
+      }
+      
+      // Apply the gradient colors immediately
+      computeAndSetGradientColors();
+      initialRenderRef.current = false;
+    }
+  }, [isNav, isSticky, computeAndSetGradientColors, startAnimation, effectiveDisableAnimation, contextSettings, forceGradient]);
   
   // Handle sticky nav animation
   useEffect(() => {
@@ -233,15 +274,34 @@ export function Card({
     
     if (variant === 'nav') {
       if (isSticky && !isAnimating) {
+        // Force gradient values immediately
+        forceGradient(45, 0.8);
+        
+        // Apply navigation colors
+        if (cardRef.current) {
+          cardRef.current.style.setProperty('--content-bg', '#32323A');
+          cardRef.current.style.setProperty('--gradient-opacity', '1');
+        }
+        
+        // Start animation immediately 
         startAnimation(contextSettings?.baseAngle || defaultGradientSettings.baseAngle);
       } else if (!isSticky) {
+        // Reset styles when unsticky
+        if (cardRef.current) {
+          cardRef.current.style.setProperty('--content-bg', 'transparent');
+          cardRef.current.style.setProperty('--gradient-opacity', '0');
+        }
+        
         resetAnimation();
       }
     }
-  }, [variant, isSticky, isAnimating, startAnimation, resetAnimation, effectiveDisableAnimation, contextSettings]);
+  }, [variant, isSticky, isAnimating, startAnimation, resetAnimation, effectiveDisableAnimation, contextSettings, forceGradient]);
 
   // This effect applies the colors whenever needed
   useEffect(() => {
+    // Skip if this is the initial render (useLayoutEffect handles that)
+    if (initialRenderRef.current) return;
+    
     // Use RAF to avoid batched DOM updates that might cause layout thrashing
     try {
       requestAnimationFrame(() => {

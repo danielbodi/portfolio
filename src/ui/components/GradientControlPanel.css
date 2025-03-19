@@ -693,4 +693,43 @@
 .c-gradient-control-panel__droppable {
   width: 100%;
   min-height: 10px; /* Ensure there's always some space even when empty */
+}
+
+.c-gradient-control-panel__save-to-files {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.c-gradient-control-panel__save-to-files:hover {
+  background-color: #45a049;
+}
+
+.c-gradient-control-panel__save-to-files:active {
+  background-color: #3e8e41;
+}
+
+.c-gradient-control-panel__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.c-gradient-control-panel__dev-indicator {
+  font-size: 10px;
+  background-color: #ff5722;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
 } 

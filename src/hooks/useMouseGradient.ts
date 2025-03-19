@@ -252,68 +252,95 @@ export function useMouseGradient(
     };
   }, [handlePointerMove]);
 
-  // Handle start/stop animation with stable references
-  const startAnimation = useCallback((startDegree: number = 45) => {
-    // Only start if not already running
+  // Function to start an animation - optimized for nav transitions
+  const startAnimation = useCallback((startAngle: number = 45) => {
     if (animationRef.current.isRunning) {
-      if (animationRef.current.cleanup) {
-        animationRef.current.cleanup();
-      }
+      return; // Prevent duplicate animations
     }
-    
-    dispatch({ type: 'START_ANIMATION', startDegree });
+
     animationRef.current.isRunning = true;
-    
-    let startTime: number;
-    let animationFrame: number;
+    dispatch({ type: 'START_ANIMATION', startDegree: startAngle });
 
+    // Get starting timestamp
+    let startTime: number | null = null;
+    const duration = 1000; // Animation duration in ms
+
+    // Animation loop with timestamp
     const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = (timestamp - startTime) / 1500; // 1.5s animation
-      
-      dispatch({ type: 'UPDATE_ANIMATION', progress: Math.min(1, progress) });
+      // Initialize start time on first frame
+      if (startTime === null) {
+        startTime = timestamp;
+      }
 
+      // Calculate progress from 0 to 1
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Update animation state
+      dispatch({ type: 'UPDATE_ANIMATION', progress });
+
+      // Continue animation if not complete
       if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
-        animationRef.current.animationFrame = animationFrame;
+        animationRef.current.animationFrame = requestAnimationFrame(animate);
       } else {
+        // Complete the animation
         dispatch({ type: 'COMPLETE_ANIMATION' });
         animationRef.current.isRunning = false;
-        animationRef.current.animationFrame = undefined;
       }
     };
 
-    animationFrame = requestAnimationFrame(animate);
-    animationRef.current.animationFrame = animationFrame;
-    
-    animationRef.current.cleanup = () => {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
-      animationRef.current.isRunning = false;
-      animationRef.current.animationFrame = undefined;
-    };
-    
-    return animationRef.current.cleanup;
-  }, []);
+    // Start the animation loop
+    animationRef.current.animationFrame = requestAnimationFrame(animate);
 
+    // Return cleanup function
+    return () => {
+      if (animationRef.current.animationFrame) {
+        cancelAnimationFrame(animationRef.current.animationFrame);
+        animationRef.current.isRunning = false;
+      }
+    };
+  }, [dispatch]);
+
+  // Function to reset animation state
   const resetAnimation = useCallback(() => {
-    // Cleanup any running animation
-    if (animationRef.current.cleanup) {
-      animationRef.current.cleanup();
+    // Cancel any running animation
+    if (animationRef.current.animationFrame) {
+      cancelAnimationFrame(animationRef.current.animationFrame);
     }
     
+    // Reset animation state
     dispatch({ type: 'RESET' });
-  }, []);
+    animationRef.current.isRunning = false;
+  }, [dispatch]);
+
+  // Function to force gradient values without requiring mouse movement
+  const forceGradient = useCallback((forcedDegree: number = 45, forcedIntensity: number = 0.8) => {
+    dispatch({ 
+      type: 'SET_POSITION',
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2
+    });
+    
+    // Force the intensity higher to ensure gradient is visible
+    if (forcedIntensity > 0) {
+      state.intensity = forcedIntensity;
+      state.targetIntensity = forcedIntensity;
+    }
+    
+    // Force the degree to match specified value
+    if (forcedDegree !== state.degree) {
+      state.degree = forcedDegree;
+      state.targetDegree = forcedDegree; 
+    }
+  }, [state, dispatch]);
 
   return {
-    // Return only what's needed by consumers
     degree: state.degree,
     intensity: state.intensity,
     mousePosition: state.mousePosition,
     isAnimating: state.isAnimating,
-    // Also expose animation controls
     startAnimation,
-    resetAnimation
+    resetAnimation,
+    forceGradient
   };
 }

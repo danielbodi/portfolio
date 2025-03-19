@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback, useMemo } from 'react';
 import { GradientSettings } from '../ui/components/GradientControlPanel';
+import { defaultGradientSettings } from '../utils/defaultGradientSettings';
 
 // Generate default color stops if none provided
 function generateDefaultColorStops() {
@@ -31,15 +32,48 @@ function generateDefaultColorStops() {
   ];
 }
 
-// Default gradient settings
+// Default gradient settings - using imported defaults
 const defaultSettings: GradientSettings = {
-  baseAngle: 45,
-  intensityMultiplier: 1,
-  colorStops: generateDefaultColorStops(),
-  springTension: 0.15,
-  performanceMode: false,
-  disableAnimation: false,
-  throttleMs: 16
+  "baseAngle": 45,
+  "intensityMultiplier": 0.5,
+  "colorStops": [
+    {
+      "id": "color-stop-0",
+      "hue": 240,
+      "saturation": 5,
+      "lightness": 23,
+      "opacity": 0.9,
+      "position": 83
+    },
+    {
+      "id": "color-stop-50",
+      "hue": 247,
+      "saturation": 60,
+      "lightness": 68,
+      "opacity": 0.9,
+      "position": 98
+    },
+    {
+      "id": "color-stop-1742331164721-5nzbzt1",
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 100,
+      "opacity": 0.7,
+      "position": 99
+    },
+    {
+      "id": "color-stop-100",
+      "hue": 270,
+      "saturation": 100,
+      "lightness": 78,
+      "opacity": 0.9,
+      "position": 100
+    }
+  ],
+  "springTension": 0.5,
+  "performanceMode": false,
+  "disableAnimation": false,
+  "throttleMs": "0"
 };
 
 // Context interface

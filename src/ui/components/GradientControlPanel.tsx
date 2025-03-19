@@ -1,12 +1,21 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult, DroppableProvided, DraggableProvided } from 'react-beautiful-dnd';
 import { formatSettingsToTypeScript } from '../../utils/gradientSettingsSaver';
+import { saveSettingsToFile } from '../../utils/saveSettings';
 import { useGradientSettings } from '../../context/GradientSettingsContext';
 import './GradientControlPanel.css';
 
 // Generate a truly unique ID for color stops
-function generateUniqueId(): string {
-  return `color-stop-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+const generateUniqueId = (() => {
+  return () => `color-stop-${Date.now()}-${Math.random().toString(36).substr(2, 7)}`;
+})();
+
+// Check if we're in development mode - don't export component in production
+const isDevelopment = import.meta.env.DEV;
+
+// If not in development, use a dummy component
+if (!isDevelopment) {
+  console.warn('Gradient Control Panel should not be imported in production builds');
 }
 
 interface ColorStop {
@@ -631,14 +640,37 @@ ${formattedColorStops}
       {isExpanded && (
         <div className="c-gradient-control-panel__content">
           <div className="c-gradient-control-panel__header">
-            <h3>Gradient Animation Settings</h3>
+            <h2 className="c-gradient-control-panel__title">
+              Gradient Controls
+              <span className="c-gradient-control-panel__dev-indicator">DEV MODE ONLY</span>
+            </h2>
             <div className="c-gradient-control-panel__header-buttons">
               <button 
                 className="c-gradient-control-panel__save-defaults" 
                 onClick={() => setShowWarningModal(true)}
                 title="Generate code to replace default settings"
               >
-                Save as Defaults
+                Copy Code
+              </button>
+              <button 
+                className="c-gradient-control-panel__save-to-files" 
+                onClick={() => {
+                  // Format settings as TypeScript
+                  const formattedSettings = `export const defaultGradientSettings: GradientSettings = ${JSON.stringify(settings, null, 2)};`;
+                  
+                  // Save settings directly to files
+                  saveSettingsToFile(formattedSettings)
+                    .then(() => {
+                      alert('Settings saved as default! Restart the app to apply these settings.');
+                    })
+                    .catch(error => {
+                      console.error('Failed to save settings:', error);
+                      alert('Failed to save settings. Check console for details.');
+                    });
+                }}
+                title="Save directly to configuration files (requires restart)"
+              >
+                Save as Default
               </button>
               <button 
                 className="c-gradient-control-panel__import" 

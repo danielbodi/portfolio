@@ -16,8 +16,9 @@
   }
 
   &__inner {
-    @apply transform-gpu transition-all duration-300 ease-[cubic-bezier(0.33,1,0.68,1)];
-
+    @apply transform-gpu transition-all duration-400 ease-[cubic-bezier(0.33,1,0.68,1)];
+    will-change: transform;
+    
     &--scrolled {
       @apply translate-y-4;
     }
@@ -25,7 +26,7 @@
 
   &__card {
     @apply backdrop-blur-md;
-
+    
     .navigation--mobile & {
       @apply rounded-none border-t border-gray-800;
     }
@@ -52,7 +53,7 @@
   }
 
   &__link {
-    @apply text-gray-400 hover:text-purple-400 transition-colors;
+    @apply text-gray-400 hover:text-purple-400 transition-colors duration-400;
 
     .navigation--mobile & {
       @apply text-sm;

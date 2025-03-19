@@ -1,16 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Card } from '../cards/Card';
 import { Button } from '../buttons/Button';
 
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(() => {
+    // Initialize with current scroll position
+    return window.scrollY > 2;
+  });
   const [activeSection, setActiveSection] = useState('about');
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Use layout effect for immediate checking on mount
+  useLayoutEffect(() => {
+    // Check scroll position immediately
+    const currentScrolled = window.scrollY > 2;
+    if (currentScrolled !== isScrolled) {
+      setIsScrolled(currentScrolled);
+    }
+    
+    // Determine active section immediately
+    if (location.pathname === '/') {
+      const sections = ['about', 'career', 'projects'];
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+
+      if (currentSection && currentSection !== activeSection) {
+        setActiveSection(currentSection);
+      }
+    }
+  }, [location.pathname, isScrolled, activeSection]);
+
   useEffect(() => {
     const handleScroll = () => {
+      // Use requestAnimationFrame for better performance
       requestAnimationFrame(() => {
         if (location.pathname === '/') {
           const sections = ['about', 'career', 'projects'];
@@ -28,8 +58,8 @@ export function Navigation() {
           }
         }
 
-        // Use a threshold for scrolling to create a smoother experience
-        const scrollThreshold = 20;
+        // Lower threshold for a more immediate sticky effect
+        const scrollThreshold = 2;
         const isNowScrolled = window.scrollY > scrollThreshold;
         
         if (isNowScrolled !== isScrolled) {
@@ -39,7 +69,7 @@ export function Navigation() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    // Initial check already done in useLayoutEffect
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location, isScrolled]);
 

@@ -8,10 +8,11 @@
   @apply relative rounded-[0.3125rem] bg-transparent;
   
   // Base transitions
-  transition: padding 0.5s cubic-bezier(0.33, 1, 0.68, 1),
-              background 0.5s cubic-bezier(0.33, 1, 0.68, 1),
-              box-shadow 0.5s cubic-bezier(0.33, 1, 0.68, 1),
-              opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: padding 0.4s cubic-bezier(0.33, 1, 0.68, 1),
+              background 0.4s cubic-bezier(0.33, 1, 0.68, 1),
+              box-shadow 0.4s cubic-bezier(0.33, 1, 0.68, 1),
+              opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: transform, padding, background, box-shadow, opacity;
   
   // Variants
   &--nested {
@@ -23,17 +24,41 @@
     }
   }
   
-  // Nav card styles
+  // Nav card styles - specific for navigation
   &--nav {
-    @apply rounded-[0.3125rem] ;
-    /*border border-[#32323A]*/
+    @apply rounded-[0.3125rem];
+    
     &--sticky {
       @apply p-[1px];
-      box-shadow: var(--nav-shadow);
+      box-shadow: var(--nav-shadow, -8px 8px 40px 0px rgba(0, 0, 0, 0.5));
+      
+      // Specific gradient treatment for sticky nav
+      .c-card__gradient {
+        opacity: 1;
+        transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+      }
+      
+      // Specific content background for sticky nav
+      .c-card__content {
+        background-color: #32323A;
+        transition: background-color 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+      }
     }
     
     &--default {
       @apply p-0 shadow-none;
+      
+      // Hide gradient when not sticky
+      .c-card__gradient {
+        opacity: 0;
+        transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+      }
+      
+      // Transparent content bg when not sticky
+      .c-card__content {
+        background-color: transparent;
+        transition: background-color 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+      }
     }
   }
   
@@ -43,17 +68,35 @@
     box-shadow: var(--default-shadow);
   }
   
+  // Animating state - transition used for gradient animations
+  &--animating {
+    @apply transition-all duration-300;
+    
+    // Force the gradient to be visible during animation
+    .c-card__gradient {
+      opacity: 1;
+    }
+  }
+  
+  // Clickable state
+  &--clickable {
+    @apply cursor-pointer;
+  }
+  
   // Gradient layer
   &__gradient {
     @apply absolute inset-0 rounded-[0.3125rem];
-    transition: opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1),
-                background 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1),
+                background 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+    will-change: opacity, background;
+    background: var(--gradient-background, linear-gradient(var(--gradient-degree, 45deg), var(--gradient-start-color, rgba(55, 55, 62, 0.4)), var(--gradient-mid-color, rgba(105, 100, 247, 0.5)), var(--gradient-end-color, rgba(180, 144, 255, 0.8))));
   }
   
   // Content wrapper
   &__content {
     @apply relative rounded-[0.25rem] px-4 py-4;
-    transition: background 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    transition: background 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+    will-change: background;
     
     // Content modifiers
     &--nested {

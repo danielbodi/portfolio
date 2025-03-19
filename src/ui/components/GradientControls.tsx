@@ -39,8 +39,22 @@ export function GradientControls({
   initialSettings = {}, 
   onSettingsChange 
 }: GradientControlsProps) {
+  // Check if we're in development mode
+  const isDevelopment = import.meta.env.DEV;
+  
+  // In production mode, just render the children with the provider
+  if (!isDevelopment) {
+    return (
+      <GradientSettingsProvider initialSettings={initialSettings}>
+        {children}
+      </GradientSettingsProvider>
+    );
+  }
+  
+  // In development mode, include the control panel
   // Create a div for the portal if it doesn't exist
   useEffect(() => {
+    // Only set up the portal in development mode
     let portalContainer = document.getElementById('gradient-controls-portal');
     if (!portalContainer) {
       portalContainer = document.createElement('div');
@@ -97,7 +111,7 @@ const GradientControlsInner: React.FC<{onSettingsChange?: (settings: GradientSet
     return () => clearTimeout(timeoutId);
   }, []);
   
-  // Render the control panel in a portal
+  // Only render in development mode
   return ReactDOM.createPortal(
     <GradientControlPanel 
       onSettingsChange={handleSettingsChange} 

@@ -1,10 +1,9 @@
-// Generated gradient settings - 19/03/2025 14:05:18
+// Generated gradient settings - 20/03/2025 01:17:08
 // This file was automatically generated and can be imported anywhere gradient settings are needed
-import { GradientSettings } from '../ui/components/GradientControlPanel';
 
 export const defaultGradientSettings: GradientSettings = {
   "baseAngle": 45,
-  "intensityMultiplier": 1,
+  "intensityMultiplier": 1.2,
   "colorStops": [
     {
       "id": "color-stop-0",
@@ -42,7 +41,7 @@ export const defaultGradientSettings: GradientSettings = {
   "springTension": 0.05,
   "performanceMode": false,
   "disableAnimation": false,
-  "throttleMs": 0,
+  "throttleMs": "0",
   "maxSpotlightDistance": 600,
   "intensityFalloff": 2
 };

@@ -228,6 +228,15 @@ export function Card({
     } else if (isNav) {
       // Immediate background change for nav
       cardRef.current.style.setProperty('--content-bg', isSticky ? '#32323A' : 'transparent');
+      
+      // Handle gradient for nav cards
+      if (!isSticky) {
+        cardRef.current.style.setProperty('--gradient-background', 'none');
+        cardRef.current.style.setProperty('--gradient-start-color', 'transparent');
+        cardRef.current.style.setProperty('--gradient-mid-color', 'transparent');
+        cardRef.current.style.setProperty('--gradient-end-color', 'transparent');
+      }
+      
       // Immediate gradient opacity change
       cardRef.current.style.setProperty('--gradient-opacity', isSticky ? '1' : '0');
     } else {
@@ -311,6 +320,10 @@ export function Card({
         if (cardRef.current) {
           cardRef.current.style.setProperty('--content-bg', 'transparent');
           cardRef.current.style.setProperty('--gradient-opacity', '0');
+          cardRef.current.style.setProperty('--gradient-background', 'none');
+          cardRef.current.style.setProperty('--gradient-start-color', 'transparent');
+          cardRef.current.style.setProperty('--gradient-mid-color', 'transparent');
+          cardRef.current.style.setProperty('--gradient-end-color', 'transparent');
         }
         
         resetAnimation();
@@ -355,7 +368,8 @@ export function Card({
         className="c-card__gradient"
         style={{
           background: 'var(--gradient-background, linear-gradient(var(--gradient-degree, 45deg), var(--gradient-start-color), var(--gradient-mid-color), var(--gradient-end-color)))',
-          opacity: 'var(--gradient-opacity, 1)'
+          opacity: 'var(--gradient-opacity, 1)',
+          visibility: isNav && !isSticky ? 'hidden' : 'visible'
         }}
       />
 

@@ -33,7 +33,14 @@
     @apply transform-gpu;
     transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1),
                 box-shadow 0.5s cubic-bezier(0.33, 1, 0.68, 1);
-    
+    &:not(.c-navigation__inner--scrolled) {
+      .c-card__gradient {
+        background: none;
+        opacity: 0;
+        background-image: none;
+        background-color: transparent;
+      }
+    }
     &--scrolled {
       @apply translate-y-4;
     }

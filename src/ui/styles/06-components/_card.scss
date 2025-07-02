@@ -72,6 +72,49 @@
     box-shadow: var(--default-shadow);
   }
   
+
+  
+  // Ghost card style - no background, border, or shadows
+  &--ghost {
+    @apply p-0 bg-transparent shadow-none border-none;
+    
+    // Remove any gradient effects
+    .c-card__gradient {
+      @apply hidden;
+    }
+    
+    // Content has no background or styling
+    :where(.c-card__content)  {
+      @apply bg-transparent p-0;
+    }
+  }
+  
+  // Content wrapper
+  &__content {
+    @apply relative rounded-[0.25rem] px-4 py-4;
+    transition: background 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+    will-change: background;
+    
+    // Content modifiers
+    &--nested {
+      @apply flex-1 p-4;
+    }
+    
+    &--no-padding {
+      @apply px-0 py-0;
+    }
+    
+    &--ghost {
+      @apply bg-transparent p-0;
+    }
+
+    // Hover effect
+    &:hover {
+      @apply bg-[#32323A];
+      background: radial-gradient(circle at 100% 0%, rgba(180, 144, 255, 0.2) -30%, rgba(55, 55, 62, 0.2) 30%), rgb(55, 55, 62);
+    }
+  }
+
   // Animating state - transition used for gradient animations
   &--animating {
     @apply transition-all duration-300;
@@ -96,25 +139,5 @@
     background: var(--gradient-background, linear-gradient(var(--gradient-degree, 45deg), var(--gradient-start-color, rgba(55, 55, 62, 0.4)), var(--gradient-mid-color, rgba(105, 100, 247, 0.5)), var(--gradient-end-color, rgba(180, 144, 255, 0.8))));
   }
   
-  // Content wrapper
-  &__content {
-    @apply relative rounded-[0.25rem] px-4 py-4;
-    transition: background 0.4s cubic-bezier(0.33, 1, 0.68, 1);
-    will-change: background;
-    
-    // Content modifiers
-    &--nested {
-      @apply flex-1;
-    }
-    
-    &--no-padding {
-      @apply px-0 py-0;
-    }
 
-    // Hover effect
-    &:hover {
-      @apply bg-[#32323A];
-      background: radial-gradient(circle at 100% 0%, rgba(180, 144, 255, 0.2) -30%, rgba(55, 55, 62, 0.2) 30%), rgb(55, 55, 62);
-    }
-  }
 } 

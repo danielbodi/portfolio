@@ -10,17 +10,7 @@
   --button-base-brightness: 1;
 }
 
-@keyframes subtleRotate {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+
 
 .c-button {
   @apply px-4 py-2 text-sm font-medium inline-flex items-center gap-2;
@@ -29,12 +19,13 @@
   &--primary,
   &--secondary {
     @apply rounded-full;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    
     //text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
   &--primary {
     position: relative;
     transform: translateZ(0); /* Force hardware acceleration */
+    //box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
    
     &::before {
       content: '';
@@ -63,8 +54,6 @@
       will-change: transform, background;
       backface-visibility: hidden;
       transform: translateZ(0);
-      animation: subtleRotate 8s linear infinite;
-      background-size: 200% 200%;
       transition: --button-gradient-opacity 0.3s ease, --button-highlight-opacity 0.3s ease, --button-base-brightness 0.3s ease;
     }
     
@@ -95,10 +84,6 @@
       --button-gradient-opacity: 0.8;
       --button-highlight-opacity: 1;
       --button-base-brightness: 1.2;
-      
-      &::before {
-        animation-play-state: paused;
-      }
       
       &::after {
         background: linear-gradient(
@@ -149,7 +134,6 @@
           rgba(100, 40, 200, 0.8) 330deg,    
           rgba(100, 40, 200, 0.8) 360deg     
         );
-        animation-duration: 10s; /* Slower animation when pressed */
       }
       
       &::after {
@@ -198,8 +182,6 @@
       will-change: transform, background;
       backface-visibility: hidden;
       transform: translateZ(0);
-      animation: subtleRotate 8s linear infinite;
-      background-size: 200% 200%;
       transition: --button-gradient-opacity 0.3s ease, --button-highlight-opacity 0.3s ease, --button-base-brightness 0.3s ease;
     }
     
@@ -208,10 +190,6 @@
       --button-gradient-opacity: 0.8;
       --button-highlight-opacity: 1;
       --button-base-brightness: 1.2;
-      
-      &::before {
-        animation-play-state: paused;
-      }
     }
     
     &:focus-visible {
@@ -250,7 +228,6 @@
           rgba(100, 40, 200, 0.8) 330deg,    
           rgba(100, 40, 200, 0.8) 360deg     
         );
-        animation-duration: 10s; /* Slower animation when pressed */
       }
     }
   }

@@ -5,7 +5,7 @@ import { useGradientSettings } from '../../../context/GradientSettingsContext';
 interface CardProps {
   children: ReactNode;
   className?: string;
-  variant?: 'default' | 'nested' | 'nav';
+  variant?: 'default' | 'nested' | 'nav' | 'ghost';
   isSticky?: boolean;
   showShadow?: boolean;
   onClick?: () => void;
@@ -127,6 +127,7 @@ export function Card({
   
   const isNested = variant === 'nested';
   const isNav = variant === 'nav';
+  const isGhost = variant === 'ghost';
 
   // Apply base angle from settings
   const adjustedDegree = degree + ((contextSettings?.baseAngle || defaultGradientSettings.baseAngle) - 45); // Adjust relative to default 45°
@@ -148,6 +149,9 @@ export function Card({
   // Memoize the computeGradientColors function to prevent unnecessary recalculations
   const computeAndSetGradientColors = useCallback(() => {
     if (!cardRef.current) return;
+    
+    // Skip gradient computation for ghost variant
+    if (isGhost) return;
     
     // Get gradient colors based on settings
     let colors: GradientColors;
@@ -351,10 +355,12 @@ export function Card({
       ? `c-card--nested ${showShadow ? 'c-card--nested--shadow' : ''}`
       : isNav 
         ? `c-card--nav ${isSticky ? 'c-card--nav--sticky' : 'c-card--nav--default'}`
-        : 'c-card--default'
+        : isGhost
+          ? 'c-card--ghost'
+          : 'c-card--default'
   } ${effectiveDisableAnimation ? 'c-card--no-animation' : ''} ${className}`;
   
-  const contentClasses = `c-card__content ${isNested ? 'c-card__content--nested' : ''} ${className.includes('px-0') || className.includes('py-0') ? 'c-card__content--no-padding' : ''}`;
+  const contentClasses = `c-card__content ${isNested ? 'c-card__content--nested' : ''} ${isGhost ? 'c-card__content--ghost' : ''} ${className.includes('px-0') || className.includes('py-0') ? 'c-card__content--no-padding' : ''}`;
   
   return (
     <div
@@ -364,20 +370,22 @@ export function Card({
       aria-disabled={effectiveDisableAnimation ? 'true' : undefined}
     >
       {/* Gradient background layer */}
-      <div 
-        className="c-card__gradient"
-        style={{
-          background: 'var(--gradient-background, linear-gradient(var(--gradient-degree, 45deg), var(--gradient-start-color), var(--gradient-mid-color), var(--gradient-end-color)))',
-          opacity: 'var(--gradient-opacity, 1)',
-          visibility: isNav && !isSticky ? 'hidden' : 'visible'
-        }}
-      />
+      {!isGhost && (
+        <div 
+          className="c-card__gradient"
+          style={{
+            background: 'var(--gradient-background, linear-gradient(var(--gradient-degree, 45deg), var(--gradient-start-color), var(--gradient-mid-color), var(--gradient-end-color)))',
+            opacity: 'var(--gradient-opacity, 1)',
+            visibility: isNav && !isSticky ? 'hidden' : 'visible'
+          }}
+        />
+      )}
 
       {/* Content layer */}
       <div 
         className={contentClasses}
         style={{
-          background: 'var(--content-bg, #32323A)'
+          background: isGhost ? 'transparent' : 'var(--content-bg, #32323A)'
         }}
       >
         {children}

@@ -6,6 +6,7 @@ import { TableOfContents } from '../ui/components/table-of-contents/TableOfConte
 import { CaseSummaryCard } from '../ui/components/case-summary/CaseSummaryCard';
 import { Image } from '../ui/components/image/Image';
 import { ProjectGallery } from '../ui/components/gallery/ProjectGallery';
+import { StackedImageShowcase } from '../ui/components/organisms/StackedImageShowcase/StackedImageShowcase';
 
 export function BridgestoneProject() {
   const galleryImages = [
@@ -180,20 +181,13 @@ export function BridgestoneProject() {
           </div>
       </div>
 
-      {/* Gallery section */}
-      <section className="gallery-section">
-        <div className="gallery-section__container">
-          <div className="gallery-section__content">
-            <ProjectGallery images={galleryImages} />
-          </div>
-        </div>
-      </section>
+
 
       <div className="max-w-5xl mx-auto">
         <div className="flex gap-8">
           {/* Main content */}
           <div className="flex-1">
-            <Card>
+            <Card variant="ghost">
               <div className="space-y-12 text-gray-300">
                 <div>
                   <h2 id="project-description" className="text-3xl font-bold mb-6">
@@ -218,14 +212,16 @@ export function BridgestoneProject() {
                   <h2 id="team-composition" className="text-3xl font-bold mb-6">
                     Team Composition
                   </h2>
-                  <div className="flex flex-wrap gap-3">
-                    <Tag variant="dark">3 UI/UX Designers</Tag>
-                    <Tag variant="dark">5 Front-End Devs</Tag>
-                    <Tag variant="dark">4 Back-End Devs</Tag>
-                    <Tag variant="dark">1 Tester</Tag>
-                    <Tag variant="dark">1 Architect</Tag>
-                    <Tag variant="dark">1 Scrum Master</Tag>
-                  </div>
+                  <Card variant="nested">
+                    <div className="flex flex-wrap gap-3">
+                      <Tag variant="dark">3 UI/UX Designers</Tag>
+                      <Tag variant="dark">5 Front-End Devs</Tag>
+                      <Tag variant="dark">4 Back-End Devs</Tag>
+                      <Tag variant="dark">1 Tester</Tag>
+                      <Tag variant="dark">1 Architect</Tag>
+                      <Tag variant="dark">1 Scrum Master</Tag>
+                    </div>
+                  </Card>
                 </div>
 
                 <div>
@@ -244,6 +240,44 @@ export function BridgestoneProject() {
                       </div>
                     </Card>
                   </div>
+                </div>
+
+
+
+                <div>
+                  <h2 id="interactive-showcase" className="text-3xl font-bold mb-6">
+                    Interactive Showcase
+                  </h2>
+                    <StackedImageShowcase
+                      aspectRatio="video"
+                      images={[
+                        {
+                          src: "/screenshots/bs/bs_desktop_storybook-home.png",
+                          alt: "Storybook Documentation Home",
+                          description: "Home page of our component library built with Storybook"
+                        },
+                        {
+                          src: "/screenshots/bs/bs_desktop_vehicle-list-light.png",
+                          alt: "Vehicle List View - Light Theme",
+                          description: "Vehicle management interface with filtering and sorting capabilities"
+                        },
+                        {
+                          src: "/screenshots/bs/bs_desktop_ws-light.png",
+                          alt: "Worksheet Interface - Light Theme",
+                          description: "Vehicle worksheet management interface in light mode"
+                        },
+                        {
+                          src: "/screenshots/bs/bs_desktop_settings-light.png",
+                          alt: "Settings Panel - Light Theme",
+                          description: "User settings interface showcasing theme implementation"
+                        },
+                        {
+                          src: "/screenshots/bs/bs_desktop_storybook-tag.png",
+                          alt: "Tag Component Documentation",
+                          description: "Component documentation in our design system"
+                        }
+                      ]}
+                    />
                 </div>
 
                 <div>
@@ -290,7 +324,7 @@ export function BridgestoneProject() {
                   </h2>
                   <div className="space-y-8">
                     {/* Lack of Design System */}
-                    <Card variant="nested">
+                    <Card variant="ghost">
                       <h4 id="lack-of-design-system" className="text-xl font-semibold mb-4">Missing Design Structure</h4>
                       <div className="space-y-4 text-gray-400">
                         <p>
@@ -306,7 +340,7 @@ export function BridgestoneProject() {
                     </Card>
 
                     {/* Custom Development Challenges */}
-                    <Card variant="nested">
+                    <Card variant="ghost">
                       <h4 id="custom-development-challenges" className="text-xl font-semibold mb-4">Technical Uncertainty</h4>
                       <p className="text-gray-400">
                         The project required custom designs and components, which the developers were not exactly familiar with building. This led to difficulties in implementing layouts and accurately translating designs into code. The lack of experience with custom components and layouts resulted in additional effort to ensure that designs were integrated correctly.
@@ -314,7 +348,7 @@ export function BridgestoneProject() {
                     </Card>
 
                     {/* Limited Research Time */}
-                    <Card variant="nested">
+                    <Card variant="ghost">
                       <h4 id="limited-research-time" className="text-xl font-semibold mb-4">Limited Resources</h4>
                       <div className="space-y-4 text-gray-400">
                         <p>
@@ -334,7 +368,7 @@ export function BridgestoneProject() {
                   </h2>
                   <div className="space-y-8">
                     {/* Design System Solution */}
-                    <Card variant="nested">
+                    <Card variant="ghost">
                       <h4 id="addressing-design-system" className="text-xl font-semibold mb-4">Missing Design Structure: Building a Systematic Foundation</h4>
                       <div className="space-y-4 text-gray-400">
                         <p>
@@ -355,7 +389,7 @@ export function BridgestoneProject() {
                     </Card>
 
                     {/* Custom Development Solution */}
-                    <Card variant="nested">
+                    <Card variant="ghost">
                       <h4 id="addressing-development" className="text-xl font-semibold mb-4">Technical Uncertainty: Establishing Knowledge Transfer</h4>
                       <div className="space-y-4 text-gray-400">
                         <p>
@@ -411,7 +445,7 @@ export function BridgestoneProject() {
                     </Card>
 
                     {/* Research and Testing Solution */}
-                    <Card variant="nested">
+                    <Card variant="ghost">
                       <h4 id="addressing-research" className="text-xl font-semibold mb-4">Limited Resources: Adapting Our Process</h4>
                       <div className="space-y-4 text-gray-400">
                         <p>

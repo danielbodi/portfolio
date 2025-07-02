@@ -1,0 +1,203 @@
+@use '../../../styles/02-tools/mixins' as *;
+
+/* 
+ * Stacked Image Showcase component
+ */
+
+.stacked-image-showcase {
+  @apply relative w-full h-96 overflow-hidden;
+  background: linear-gradient(135deg, #1a1b3e 0%, #2d1b69 50%, #1a1b3e 100%);
+  border-radius: 1rem;
+
+  &__container {
+    @apply absolute inset-0 overflow-y-auto overflow-x-hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+
+    &::-webkit-scrollbar {
+      @apply hidden; /* Chrome/Safari */
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__content {
+    @apply relative;
+    padding: 2rem 1.5rem;
+  }
+
+  &__item {
+    @apply relative mb-6 cursor-pointer;
+    transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1),
+                transform 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+    transform: translateZ(0); /* Force hardware acceleration */
+
+    &:last-child {
+      @apply mb-0;
+    }
+
+    &:hover {
+      transform: translateY(-4px) translateZ(0);
+    }
+
+    &--active {
+      transform: scale(1.02) translateZ(0);
+
+      &:hover {
+        transform: scale(1.02) translateY(-4px) translateZ(0);
+      }
+    }
+  }
+
+  &__image-wrapper {
+    @apply relative;
+    padding: 2px; /* Space for gradient border */
+    border-radius: 0.75rem;
+    
+    /* Gradient border using CSS variables for dynamic glow intensity */
+    background: conic-gradient(
+      from 225deg,
+      rgba(124, 58, 237, calc(0.6 * var(--glow-intensity, 0.4))) 0deg,
+      rgba(124, 58, 237, calc(0.6 * var(--glow-intensity, 0.4))) 60deg,
+      rgba(170, 120, 255, calc(0.8 * var(--glow-intensity, 0.4))) 90deg,
+      rgba(124, 58, 237, calc(0.7 * var(--glow-intensity, 0.4))) 120deg,
+      rgba(124, 58, 237, calc(0.6 * var(--glow-intensity, 0.4))) 200deg,
+      rgba(100, 50, 200, calc(0.7 * var(--glow-intensity, 0.4))) 250deg,
+      rgba(150, 100, 240, calc(0.8 * var(--glow-intensity, 0.4))) 300deg,
+      rgba(124, 58, 237, calc(0.6 * var(--glow-intensity, 0.4))) 330deg,
+      rgba(124, 58, 237, calc(0.6 * var(--glow-intensity, 0.4))) 360deg
+    );
+    
+    /* Glow effect */
+    box-shadow: 
+      0 0 20px rgba(124, 58, 237, calc(0.3 * var(--glow-intensity, 0.4))),
+      0 0 40px rgba(124, 58, 237, calc(0.2 * var(--glow-intensity, 0.4))),
+      0 8px 32px rgba(0, 0, 0, 0.4);
+
+    transition: box-shadow 0.4s cubic-bezier(0.33, 1, 0.68, 1),
+                background 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+
+    /* Inner content area */
+    &::before {
+      content: '';
+      @apply absolute inset-0 rounded-[0.625rem] z-10;
+      background: linear-gradient(
+        135deg, 
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 100%
+      );
+      pointer-events: none;
+    }
+  }
+
+  &__image {
+    @apply relative z-20 rounded-[0.625rem] overflow-hidden;
+    
+    .image {
+      @apply w-full;
+      
+      &__border {
+        @apply hidden; /* Hide the default Image component border */
+      }
+      
+      &__content {
+        @apply p-0; /* Remove default padding */
+      }
+      
+      &__wrapper {
+        @apply rounded-[0.625rem];
+      }
+    }
+  }
+
+  &__description {
+    @apply mt-3 text-sm text-gray-300 text-center px-4;
+    opacity: calc(0.7 + 0.3 * var(--glow-intensity, 0.4));
+    transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  /* Fade overlays */
+  &__fade-top,
+  &__fade-bottom {
+    @apply absolute left-0 right-0 z-30 pointer-events-none;
+    height: 4rem;
+  }
+
+  &__fade-top {
+    @apply top-0;
+    background: linear-gradient(
+      to bottom,
+      rgba(26, 27, 62, 1) 0%,
+      rgba(26, 27, 62, 0.8) 40%,
+      transparent 100%
+    );
+  }
+
+  &__fade-bottom {
+    @apply bottom-0;
+    background: linear-gradient(
+      to top,
+      rgba(26, 27, 62, 1) 0%,
+      rgba(26, 27, 62, 0.8) 40%,
+      transparent 100%
+    );
+  }
+
+  /* Navigation indicators */
+  &__indicators {
+    @apply absolute right-4 top-1/2 -translate-y-1/2 z-40;
+    @apply flex flex-col gap-2;
+  }
+
+  &__indicator {
+    @apply w-2 h-2 rounded-full border-0 cursor-pointer;
+    @apply bg-white bg-opacity-40 transition-all duration-300;
+
+    &:hover {
+      @apply bg-opacity-60 scale-110;
+    }
+
+    &--active {
+      @apply bg-purple-400 bg-opacity-100 scale-125;
+      box-shadow: 0 0 8px rgba(124, 58, 237, 0.6);
+    }
+  }
+
+  /* Responsive adjustments */
+  @include respond-to(md) {
+    @apply h-[28rem];
+
+    &__content {
+      padding: 3rem 2rem;
+    }
+
+    &__item {
+      @apply mb-8;
+    }
+
+    &__fade-top,
+    &__fade-bottom {
+      height: 5rem;
+    }
+  }
+
+  @include respond-to(lg) {
+    @apply h-[32rem];
+
+    &__content {
+      padding: 4rem 3rem;
+    }
+
+    &__item {
+      @apply mb-10;
+    }
+
+    &__fade-top,
+    &__fade-bottom {
+      height: 6rem;
+    }
+  }
+} 

@@ -258,10 +258,17 @@
       @apply flex flex-col items-center gap-4 p-3 bg-black bg-opacity-20 backdrop-blur-md rounded-full; /* Enhanced styling */
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      width: fit-content; /* Only take space needed */
     }
 
     .stacked-image-showcase__indicators {
       @apply flex flex-col gap-3; /* Increased gap between indicators from gap-2 to gap-3 */
+    }
+    
+    .stacked-image-showcase__indicator {
+      &--active {
+        @apply w-2 h-6; /* Vertical bullet for mobile/vertical orientation */
+      }
     }
   }
 

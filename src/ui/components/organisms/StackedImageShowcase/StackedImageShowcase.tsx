@@ -135,10 +135,50 @@ export function StackedImageShowcase({
 
   useEffect(() => {
     if (lightboxOpen) {
+      // Add keyboard navigation
       window.addEventListener('keydown', handleLightboxKeyDown);
-      return () => window.removeEventListener('keydown', handleLightboxKeyDown);
+      
+      // Add touch events for lightbox
+      let startX = 0;
+      let startY = 0;
+      let startTime = 0;
+
+      const handleLightboxTouchStart = (event: TouchEvent) => {
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+        startTime = Date.now();
+      };
+
+      const handleLightboxTouchEnd = (event: TouchEvent) => {
+        const endX = event.changedTouches[0].clientX;
+        const endY = event.changedTouches[0].clientY;
+        const endTime = Date.now();
+        const deltaTime = endTime - startTime;
+        const deltaX = startX - endX;
+        const deltaY = startY - endY;
+        
+        // Only process horizontal swipes that are fast enough and long enough
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50 && deltaTime < 300) {
+          if (deltaX > 0) {
+            // Swipe left - go to next image
+            handleLightboxNext();
+          } else {
+            // Swipe right - go to previous image
+            handleLightboxPrev();
+          }
+        }
+      };
+      
+      document.addEventListener('touchstart', handleLightboxTouchStart, { passive: true });
+      document.addEventListener('touchend', handleLightboxTouchEnd, { passive: true });
+      
+      return () => {
+        window.removeEventListener('keydown', handleLightboxKeyDown);
+        document.removeEventListener('touchstart', handleLightboxTouchStart);
+        document.removeEventListener('touchend', handleLightboxTouchEnd);
+      };
     }
-  }, [lightboxOpen, handleLightboxKeyDown]);
+  }, [lightboxOpen, handleLightboxKeyDown, handleLightboxNext, handleLightboxPrev]);
 
   // Calculate which images should be visible (3 at a time)
   const getVisibleImages = () => {

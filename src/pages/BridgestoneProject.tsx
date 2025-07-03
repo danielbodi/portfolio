@@ -246,7 +246,7 @@ export function BridgestoneProject() {
 
                 <div>
                   <h2 id="interactive-showcase" className="text-3xl font-bold mb-6">
-                    Interactive Showcase
+                    UI Highlights
                   </h2>
                   
                   <StackedImageShowcase

@@ -212,7 +212,7 @@ export function BridgestoneProject() {
                   <h2 id="team-composition" className="text-3xl font-bold mb-6">
                     Team Composition
                   </h2>
-                  <Card variant="nested">
+                  <Card variant="nested" showShadow>
                     <div className="flex flex-wrap gap-3">
                       <Tag variant="dark">3 UI/UX Designers</Tag>
                       <Tag variant="dark">5 Front-End Devs</Tag>
@@ -229,12 +229,12 @@ export function BridgestoneProject() {
                     Skills I've Used 
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Card variant="nested">
+                    <Card variant="nested" showShadow>
                       <div className="space-y-4">
                         {renderSkills(designSkills)}
                       </div>
                     </Card>
-                    <Card variant="nested">
+                    <Card variant="nested" showShadow>
                       <div className="space-y-4">
                         {renderSkills(devSkills)}
                       </div>
@@ -249,47 +249,33 @@ export function BridgestoneProject() {
                     Interactive Showcase
                   </h2>
                   
-                  <h3 className="text-xl font-semibold mb-4">Vertical Layout (Default)</h3>
-                    <StackedImageShowcase
-                      aspectRatio="video"
-                      images={[
-                        {
-                          src: "/screenshots/bs/bs_desktop_storybook-home.png",
-                          alt: "Storybook Documentation Home",
-                          description: "Home page of our component library built with Storybook"
-                        },
-                        {
-                          src: "/screenshots/bs/bs_desktop_vehicle-list-light.png",
-                          alt: "Vehicle List View - Light Theme",
-                          description: "Vehicle management interface with filtering and sorting capabilities"
-                        },
-                        {
-                          src: "/screenshots/bs/bs_desktop_ws-light.png",
-                          alt: "Worksheet Interface - Light Theme",
-                          description: "Vehicle worksheet management interface in light mode"
-                        },
-                        {
-                          src: "/screenshots/bs/bs_desktop_settings-light.png",
-                          alt: "Settings Panel - Light Theme",
-                          description: "User settings interface showcasing theme implementation"
-                        },
-                        {
-                          src: "/screenshots/bs/bs_desktop_storybook-tag.png",
-                          alt: "Tag Component Documentation",
-                          description: "Component documentation in our design system"
-                        }
-                      ]}
-                    />
-                    
-                  <h3 className="text-xl font-semibold mb-4 mt-12">Horizontal Layout</h3>
                   <StackedImageShowcase
-                    orientation="horizontal"
                     aspectRatio="video"
                     images={[
+                      {
+                        src: "/screenshots/bs/bs_desktop_storybook-home.png",
+                        alt: "Storybook Documentation Home",
+                        description: "Home page of our component library built with Storybook"
+                      },
+                      {
+                        src: "/screenshots/bs/bs_desktop_vehicle-list-light.png",
+                        alt: "Vehicle List View - Light Theme",
+                        description: "Vehicle management interface with filtering and sorting capabilities"
+                      },
+                      {
+                        src: "/screenshots/bs/bs_desktop_ws-light.png",
+                        alt: "Worksheet Interface - Light Theme",
+                        description: "Vehicle worksheet management interface in light mode"
+                      },
                       {
                         src: "/screenshots/bs/bs_desktop_ws-dark.png",
                         alt: "Worksheet Interface - Dark Theme",
                         description: "Vehicle worksheet management interface in dark mode"
+                      },
+                      {
+                        src: "/screenshots/bs/bs_desktop_settings-light.png",
+                        alt: "Settings Panel - Light Theme",
+                        description: "User settings interface showcasing theme implementation"
                       },
                       {
                         src: "/screenshots/bs/bs_tablet_ws-dark.png",
@@ -300,6 +286,11 @@ export function BridgestoneProject() {
                         src: "/screenshots/bs/bs_tablet_ws-light.png",
                         alt: "Tablet View - Light Theme",
                         description: "Responsive tablet interface in light mode"
+                      },
+                      {
+                        src: "/screenshots/bs/bs_desktop_storybook-tag.png",
+                        alt: "Tag Component Documentation",
+                        description: "Component documentation in our design system"
                       },
                       {
                         src: "/screenshots/bs/bs_storybook tag anatomy.png",
@@ -445,7 +436,8 @@ export function BridgestoneProject() {
                           In Figma, I enhanced the handoff process by improving component and layout documentation. This included adding anatomies, usage guidelines, and best practices for components, which developers found valuable.
                         </p>
                         <div className="my-8">
-                          <ProjectGallery
+                          <StackedImageShowcase
+                            aspectRatio="video"
                             images={[
                               {
                                 src: "/screenshots/bs/bs_desktop_settings-light.png",
@@ -490,17 +482,18 @@ export function BridgestoneProject() {
                           Given the constraints, we customized our design approach and implemented a reverse "double diamond" methodology, as it was better aligned with businesses reality. Most of the analyses and requirements were coming from the business. From there, we would conduct additional research when needed, employing personas and user journeys to create wireframes and prototypes.
                           Once prototypes were developed, we would update the UI kit, Storybook, and add documentation as necessary.
                         </p>
-                       <figure className="my-8">
-                         <Image
-                           src="/screenshots/bs/bs_design-approach.png"
-                           alt="Our adapted double diamond approach"
+                       <div className="my-8">
+                         <StackedImageShowcase
                            aspectRatio="video"
-                           frame="none"
+                           images={[
+                             {
+                               src: "/screenshots/bs/bs_design-approach.png",
+                               alt: "Our adapted double diamond approach",
+                               description: "Our adapted double diamond approach, showing how we integrated business requirements with UX processes"
+                             }
+                           ]}
                          />
-                         <figcaption className="mt-2 text-xs text-purple-400">
-                           Our adapted double diamond approach, showing how we integrated business requirements with UX processes
-                         </figcaption>
-                       </figure>
+                       </div>
                         <p>
                           After getting business approval, we would hand over the prototypes to the development team. During this phase, I collaborated closely with developers, as outlined earlier, to ensure alignment and consistency.
                         </p>

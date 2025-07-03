@@ -76,7 +76,7 @@ export function CaseSummaryCard({ challenge, solution, index }: CaseSummaryCardP
 
       {/* Triangles connector */}
       <div className="hidden sm:flex items-center">
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1 -mx-0.5">
           {/* Left triangle */}
           <svg xmlns="http://www.w3.org/2000/svg" width="27" height="32" viewBox="0 0 27 32" fill="none" className="w-7 h-8">
             <path d="M0.571904 31.0981L0.571901 0.217283L26.3355 15.5063L0.571904 31.0981Z" fill="#37373E"/>

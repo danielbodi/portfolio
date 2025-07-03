@@ -33,14 +33,34 @@
 
   &__content {
     @apply relative;
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.5rem 6rem 1.5rem; /* Bottom padding to prevent overlap with navigation */
+    
+    // Center content when there's only one image (vertical orientation)
+          &[data-single-image="true"]:not(.stacked-image-showcase--horizontal) {
+        @apply flex flex-col items-center;
+        justify-content: center;
+        min-height: calc(100% - 8rem); /* Account for padding */
+      
+      .stacked-image-showcase__item {
+        @apply mb-0; /* Remove bottom margin for single items */
+        @apply flex flex-col items-center justify-center;
+        max-width: 90%; /* Ensure content doesn't get too wide */
+        
+        .stacked-image-showcase__description {
+          @apply mt-4; /* Keep same margin as regular variant */
+          margin-bottom: 1rem; /* Keep same bottom margin as regular variant */
+        }
+      }
+    }
   }
 
   &__item {
-    @apply relative mb-6 cursor-pointer;
-    transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1),
-                transform 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+    @apply relative mb-8 cursor-pointer; /* Increased margin from mb-6 to mb-8 */
+    transition: opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1),
+                transform 0.6s cubic-bezier(0.33, 1, 0.68, 1),
+                filter 0.6s cubic-bezier(0.33, 1, 0.68, 1);
     transform: translateZ(0); /* Force hardware acceleration */
+    will-change: opacity, transform, filter;
     
     /* CSS Scroll Snap alignment */
     scroll-snap-align: center;
@@ -126,9 +146,10 @@
   }
 
   &__description {
-    @apply mt-3 text-sm text-gray-300 text-center px-4;
+    @apply mt-4 text-sm text-gray-300 text-center px-4; /* Increased margin from mt-3 to mt-4 */
     opacity: calc(0.7 + 0.3 * var(--glow-intensity, 0.4));
     transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+    margin-bottom: 1rem; /* Added bottom margin for better spacing */
   }
 
   /* Fade overlays */
@@ -210,12 +231,14 @@
   }
 
   &__nav-button {
-    @apply w-8 h-8 rounded-full border-0 cursor-pointer pointer-events-auto;
-    @apply bg-white bg-opacity-40 transition-all duration-300;
+    @apply w-6 h-6 rounded-full border-0 cursor-pointer pointer-events-auto;
+    @apply bg-white bg-opacity-20 backdrop-blur-sm transition-all duration-300;
     @apply flex items-center justify-center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     
     &:hover:not(:disabled) {
-      @apply bg-opacity-60 scale-110;
+      @apply bg-opacity-40 scale-110;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     &:disabled {
@@ -225,17 +248,20 @@
 
   &__nav-icon {
     @apply w-4 h-4 text-white;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
   }
 
   /* Vertical orientation navigation positioning */
   &:not(&--horizontal) {
     .stacked-image-showcase__nav-container {
-      @apply right-4 top-1/2 -translate-y-1/2;
-      @apply flex flex-col items-center gap-2;
+      @apply right-4 top-1/2 -translate-y-1/2; /* Right side positioning */
+      @apply flex flex-col items-center gap-4 p-3 bg-black bg-opacity-20 backdrop-blur-md rounded-full; /* Enhanced styling */
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
     .stacked-image-showcase__indicators {
-      @apply flex flex-col gap-2;
+      @apply flex flex-col gap-3; /* Increased gap between indicators from gap-2 to gap-3 */
     }
   }
 
@@ -246,15 +272,16 @@
 
   &__indicator {
     @apply w-2 h-2 rounded-full border-0 cursor-pointer;
-    @apply bg-white bg-opacity-40 transition-all duration-300;
+    @apply bg-white bg-opacity-30 transition-all duration-300;
+    backdrop-filter: blur(4px);
 
     &:hover {
-      @apply bg-opacity-60 scale-110;
+      @apply bg-opacity-50 scale-110;
     }
 
     &--active {
-      @apply bg-purple-400 bg-opacity-100 scale-125;
-      box-shadow: 0 0 8px rgba(124, 58, 237, 0.6);
+      @apply w-6 bg-purple-400 bg-opacity-100 scale-100;
+      box-shadow: 0 0 8px rgba(124, 58, 237, 0.6), 0 0 16px rgba(124, 58, 237, 0.3);
     }
   }
 
@@ -263,7 +290,7 @@
     @apply h-[32rem];
 
     &__content {
-      padding: 3rem 2rem;
+      padding: 3rem 2rem 7rem 2rem; /* Bottom padding to prevent overlap with navigation */
     }
 
     &__item {
@@ -275,13 +302,25 @@
     &__fade-bottom {
       height: 5rem;
     }
+
+    /* Vertical orientation navigation for md+ screens */
+    &:not(&--horizontal) {
+      .stacked-image-showcase__nav-container {
+        @apply right-6; /* Increased right margin for larger screens */
+        @apply gap-5; /* Increased gap for larger screens */
+      }
+
+      .stacked-image-showcase__indicators {
+        @apply gap-4; /* Increased gap between indicators for larger screens */
+      }
+    }
   }
 
   @include respond-to(lg) {
-    @apply h-[50rem];
+    @apply h-[60rem]; /* Increased height from h-[50rem] to h-[60rem] for better visibility */
 
     &__content {
-      padding: 4rem 3rem;
+      padding: 4rem 3rem 8rem 3rem; /* Bottom padding to prevent overlap with navigation */
     }
 
     &__item {
@@ -299,7 +338,7 @@
   &--horizontal {
     @apply w-full; /* Ensure full width for the outer container */
     height: auto !important; /* Override fixed heights from media queries */
-    min-height: 300px; /* Minimum height for horizontal layout */
+    min-height: 350px; /* Increased minimum height for horizontal layout */
     
     .stacked-image-showcase__container {
       @apply overflow-x-auto overflow-y-hidden;
@@ -309,13 +348,33 @@
 
     .stacked-image-showcase__content {
       @apply flex;
-      padding: 1.5rem 2rem;
+      padding: 2rem 2rem 5rem 2rem; /* Bottom padding to prevent overlap with navigation */
       width: max-content; /* Fit content width */
       min-width: 100%; /* Ensure minimum full width */
+      
+      // Center content when there's only one image (horizontal orientation)
+      &[data-single-image="true"] {
+        @apply justify-center items-center;
+        min-width: 100%;
+        width: 100%;
+        min-height: calc(100% - 7rem); /* Account for padding */
+        
+        .stacked-image-showcase__item {
+          @apply mr-0; /* Remove right margin for single items */
+          @apply flex flex-col items-center justify-center;
+          width: auto; /* Allow natural width */
+          max-width: 90%; /* Ensure content doesn't get too wide */
+          
+          .stacked-image-showcase__description {
+            @apply mt-4; /* Keep same margin as regular variant */
+            margin-bottom: 1rem; /* Keep same bottom margin as regular variant */
+          }
+        }
+      }
     }
 
     .stacked-image-showcase__item {
-      @apply mr-6 flex-shrink-0;
+      @apply mr-8 flex-shrink-0; /* Increased margin from mr-6 to mr-8 */
       scroll-snap-align: center;
       scroll-snap-stop: always; /* Force stop at each image */
       scroll-margin: 0 4rem; /* Horizontal margin for fade overlays */
@@ -339,8 +398,10 @@
 
     /* Horizontal navigation positioning */
     .stacked-image-showcase__nav-container {
-      @apply bottom-4 left-1/2 -translate-x-1/2;
-      @apply flex items-center gap-4;
+      @apply bottom-6 left-1/2 -translate-x-1/2; /* Bottom center positioning */
+      @apply flex items-center gap-6 p-3 bg-black bg-opacity-20 backdrop-blur-md rounded-full; /* Enhanced styling */
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
     .stacked-image-showcase__nav-button--prev {
@@ -367,16 +428,16 @@
   &--horizontal {
     @include respond-to(md) {
       height: auto !important; /* Override h-[32rem] from main media query */
-      min-height: 350px; /* Slightly larger minimum for md screens */
+      min-height: 400px; /* Slightly larger minimum for md screens */
       
       .stacked-image-showcase__content {
-        padding: 2rem 3rem;
+        padding: 2.5rem 3rem 6rem 3rem; /* Bottom padding to prevent overlap with navigation */
         width: max-content; /* Maintain content-based width */
         min-width: 100%; /* Ensure minimum full width */
       }
 
       .stacked-image-showcase__item {
-        @apply mr-8;
+        @apply mr-10; /* Increased spacing between items */
         scroll-margin: 0 5rem;
         width: 24rem;
       }
@@ -389,16 +450,16 @@
 
     @include respond-to(lg) {
       height: auto !important; /* Override h-[50rem] from main media query */
-      min-height: 400px; /* Larger minimum for lg screens */
+      min-height: 450px; /* Larger minimum for lg screens */
       
       .stacked-image-showcase__content {
-        padding: 3rem 4rem;
+        padding: 3rem 4rem 7rem 4rem; /* Increased bottom padding for navigation space */
         width: max-content; /* Maintain content-based width */
         min-width: 100%; /* Ensure minimum full width */
       }
 
       .stacked-image-showcase__item {
-        @apply mr-10;
+        @apply mr-12; /* Further increased spacing between items */
         scroll-margin: 0 6rem;
         width: 28rem;
       }
@@ -406,6 +467,152 @@
       .stacked-image-showcase__fade-left,
       .stacked-image-showcase__fade-right {
         width: 6rem;
+      }
+    }
+  }
+
+  /* Lightbox styles */
+  &__lightbox {
+    @apply fixed inset-0 flex items-center justify-center p-8 opacity-0 invisible transition-opacity duration-500 ease-out;
+    z-index: 9999; /* Very high z-index to ensure it's above everything */
+    position: fixed !important; /* Force fixed positioning */
+
+    &.is-open {
+      @apply opacity-100 visible;
+
+      .stacked-image-showcase__lightbox-content {
+        @apply translate-y-0 scale-100 opacity-100;
+      }
+
+      .stacked-image-showcase__lightbox-backdrop {
+        @apply opacity-100;
+      }
+    }
+
+    &-backdrop {
+      @apply absolute inset-0 opacity-0 backdrop-blur-xl transition-opacity duration-500 ease-out;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 20, 0.98) 50%, rgba(40, 40, 40, 0.95) 100%);
+      will-change: background;
+
+      &::before {
+        @apply content-[''] absolute inset-0 opacity-0 transition-opacity duration-500 ease-out;
+        background: radial-gradient(circle at center, rgba(124, 58, 237, 0.15), transparent 70%);
+      }
+
+      .is-open &::before {
+        @apply opacity-100;
+      }
+    }
+
+    &-close {
+      @apply absolute top-8 right-8 w-12 h-12 rounded-full bg-white bg-opacity-10 text-white flex items-center justify-center transition-all duration-300 ease-out opacity-60 cursor-pointer hover:bg-opacity-20 hover:opacity-100;
+      z-index: 10001; /* Higher than lightbox backdrop */
+
+      svg {
+        @apply stroke-2;
+      }
+    }
+
+    &-content {
+      @apply relative w-full max-h-[90vh] flex flex-col items-center justify-center translate-y-8 scale-95 opacity-0 transition-all duration-500 ease-out;
+      z-index: 10001; /* Higher than lightbox backdrop */
+      perspective: 1000px; /* 3D perspective container */
+    }
+
+    &-image-container {
+      @apply relative w-full max-w-6xl;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      overflow: hidden; /* Ensure smooth clipping during transitions */
+    }
+
+    &-image {
+      @apply w-full h-auto rounded-lg;
+      transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-origin: center center;
+      will-change: opacity, transform, filter;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      
+      &--slide-out-left {
+        opacity: 0;
+        transform: translateX(-120px) translateZ(-50px) rotateY(-20deg) scale(0.9);
+        filter: blur(2px);
+      }
+      
+      &--slide-out-right {
+        opacity: 0;
+        transform: translateX(120px) translateZ(-50px) rotateY(20deg) scale(0.9);
+        filter: blur(2px);
+      }
+      
+      &--slide-in-left {
+        opacity: 0;
+        transform: translateX(120px) translateZ(-50px) rotateY(20deg) scale(0.9);
+        filter: blur(2px);
+      }
+      
+      &--slide-in-right {
+        opacity: 0;
+        transform: translateX(-120px) translateZ(-50px) rotateY(-20deg) scale(0.9);
+        filter: blur(2px);
+      }
+      
+      &--active {
+        opacity: 1;
+        transform: translateX(0) translateZ(0) rotateY(0deg) scale(1);
+        filter: blur(0px);
+      }
+    }
+
+    &-description {
+      @apply mt-4 text-center text-gray-300 max-w-4xl;
+    }
+
+    &-navigation {
+      @apply mt-8 flex items-center justify-center gap-6 p-4 bg-black bg-opacity-30 backdrop-blur-md rounded-full;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    &-nav-button {
+      @apply w-10 h-10 rounded-full border-0 cursor-pointer;
+      @apply bg-white bg-opacity-20 backdrop-blur-sm transition-all duration-300;
+      @apply flex items-center justify-center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      
+      &:hover:not(:disabled) {
+        @apply bg-opacity-40 scale-110;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      &:disabled {
+        @apply opacity-30 cursor-not-allowed;
+      }
+    }
+
+    &-nav-icon {
+      @apply w-5 h-5 text-white;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+    }
+
+    &-indicators {
+      @apply flex gap-3 px-2;
+    }
+
+    &-indicator {
+      @apply w-2 h-2 rounded-full bg-white bg-opacity-30 cursor-pointer border-0;
+      backdrop-filter: blur(4px);
+      transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+      &:hover {
+        @apply bg-opacity-50 scale-110;
+      }
+
+      &--active {
+        @apply w-6 bg-purple-400 bg-opacity-100 scale-100;
+        box-shadow: 0 0 8px rgba(124, 58, 237, 0.6), 0 0 16px rgba(124, 58, 237, 0.3);
       }
     }
   }

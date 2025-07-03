@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { Image } from '../../image/Image';
 import './StackedImageShowcase.scss';
 
@@ -10,23 +11,134 @@ interface StackedImageShowcaseProps {
     description?: string;
   }>;
   aspectRatio?: 'video' | 'square' | 'auto';
-  orientation?: 'vertical' | 'horizontal';
   className?: string;
 }
 
 export function StackedImageShowcase({ 
   images, 
   aspectRatio = 'video', 
-  orientation = 'vertical',
   className = '' 
 }: StackedImageShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [currentOrientation, setCurrentOrientation] = useState<'vertical' | 'horizontal'>('vertical');
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxTransitionState, setLightboxTransitionState] = useState<'active' | 'slide-out-left' | 'slide-out-right' | 'slide-in-left' | 'slide-in-right'>('active');
   const containerRef = useRef<HTMLDivElement>(null);
   const isScrolling = useRef(false);
   const fadeTopRef = useRef<HTMLDivElement>(null);
   const fadeBottomRef = useRef<HTMLDivElement>(null);
   const fadeLeftRef = useRef<HTMLDivElement>(null);
   const fadeRightRef = useRef<HTMLDivElement>(null);
+
+  // Handle responsive orientation based on screen size
+  useEffect(() => {
+    const handleResize = () => {
+      const isDesktop = window.innerWidth >= 1024; // lg breakpoint
+      setCurrentOrientation(isDesktop ? 'horizontal' : 'vertical');
+    };
+
+    // Set initial orientation
+    handleResize();
+
+    // Add resize listener
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Lightbox handlers
+  const handleImageClick = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const handleLightboxClose = () => {
+    setLightboxOpen(false);
+    setTimeout(() => {
+      document.body.style.overflow = '';
+    }, 300);
+  };
+
+  const handleLightboxNext = () => {
+    if (lightboxTransitionState !== 'active') return;
+    
+    // Start slide out left animation
+    setLightboxTransitionState('slide-out-left');
+    
+    setTimeout(() => {
+      // Change image and start slide in from right
+      setLightboxIndex((prev) => (prev + 1) % images.length);
+      setLightboxTransitionState('slide-in-right');
+      
+      setTimeout(() => {
+        // Finish transition to active state
+        setLightboxTransitionState('active');
+      }, 50);
+    }, 200);
+  };
+
+  const handleLightboxPrev = () => {
+    if (lightboxTransitionState !== 'active') return;
+    
+    // Start slide out right animation
+    setLightboxTransitionState('slide-out-right');
+    
+    setTimeout(() => {
+      // Change image and start slide in from left
+      setLightboxIndex((prev) => (prev - 1 + images.length) % images.length);
+      setLightboxTransitionState('slide-in-left');
+      
+      setTimeout(() => {
+        // Finish transition to active state
+        setLightboxTransitionState('active');
+      }, 50);
+    }, 200);
+  };
+
+  const handleLightboxGoTo = (index: number) => {
+    if (index === lightboxIndex || lightboxTransitionState !== 'active') return;
+    
+    // Determine slide direction based on index comparison
+    const isNext = index > lightboxIndex;
+    setLightboxTransitionState(isNext ? 'slide-out-left' : 'slide-out-right');
+    
+    setTimeout(() => {
+      // Change image and start slide in from opposite direction
+      setLightboxIndex(index);
+      setLightboxTransitionState(isNext ? 'slide-in-right' : 'slide-in-left');
+      
+      setTimeout(() => {
+        // Finish transition to active state
+        setLightboxTransitionState('active');
+      }, 50);
+    }, 200);
+  };
+
+  const handleLightboxKeyDown = useCallback((event: KeyboardEvent) => {
+    if (!lightboxOpen) return;
+    
+    switch (event.key) {
+      case 'Escape':
+        handleLightboxClose();
+        break;
+      case 'ArrowLeft':
+        event.preventDefault();
+        handleLightboxPrev();
+        break;
+      case 'ArrowRight':
+        event.preventDefault();
+        handleLightboxNext();
+        break;
+    }
+  }, [lightboxOpen]);
+
+  useEffect(() => {
+    if (lightboxOpen) {
+      window.addEventListener('keydown', handleLightboxKeyDown);
+      return () => window.removeEventListener('keydown', handleLightboxKeyDown);
+    }
+  }, [lightboxOpen, handleLightboxKeyDown]);
 
   // Calculate which images should be visible (3 at a time)
   const getVisibleImages = () => {
@@ -61,7 +173,7 @@ export function StackedImageShowcase({
     
     const container = containerRef.current;
     
-    if (orientation === 'horizontal') {
+    if (currentOrientation === 'horizontal') {
       const imageWidth = container.scrollWidth / images.length;
       const scrollPosition = index * imageWidth;
       
@@ -78,13 +190,15 @@ export function StackedImageShowcase({
         behavior: 'smooth'
       });
     }
-  }, [images.length, orientation]);
+  }, [images.length, currentOrientation]);
 
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      const prevKey = orientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp';
-      const nextKey = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown';
+      if (lightboxOpen) return; // Don't handle showcase navigation when lightbox is open
+      
+      const prevKey = currentOrientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp';
+      const nextKey = currentOrientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown';
       
       switch (event.key) {
         case prevKey:
@@ -119,7 +233,7 @@ export function StackedImageShowcase({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeIndex, images.length, scrollToImage, orientation]);
+  }, [activeIndex, images.length, scrollToImage, currentOrientation, lightboxOpen]);
 
   // Handle touch events
   useEffect(() => {
@@ -139,7 +253,7 @@ export function StackedImageShowcase({
       const endTime = Date.now();
       const deltaTime = endTime - startTime;
 
-      if (orientation === 'horizontal') {
+      if (currentOrientation === 'horizontal') {
         const deltaX = startX - endX;
         // Only process swipes that are fast enough and long enough
         if (Math.abs(deltaX) > 50 && deltaTime < 300) {
@@ -184,7 +298,7 @@ export function StackedImageShowcase({
         container.removeEventListener('touchend', handleTouchEnd);
       };
     }
-  }, [activeIndex, images.length, scrollToImage, orientation]);
+  }, [activeIndex, images.length, scrollToImage, currentOrientation]);
 
   // Handle scroll detection to update active index
   useEffect(() => {
@@ -194,7 +308,7 @@ export function StackedImageShowcase({
       const container = containerRef.current;
       let newActiveIndex;
       
-      if (orientation === 'horizontal') {
+      if (currentOrientation === 'horizontal') {
         const imageWidth = container.scrollWidth / images.length;
         const scrollLeft = container.scrollLeft;
         newActiveIndex = Math.round(scrollLeft / imageWidth);
@@ -240,7 +354,7 @@ export function StackedImageShowcase({
       container.addEventListener('scroll', handleScroll, { passive: true });
       return () => container.removeEventListener('scroll', handleScroll);
     }
-  }, [activeIndex, images.length, orientation]);
+  }, [activeIndex, images.length, currentOrientation]);
 
   // Navigation functions
   const goToPrevious = () => {
@@ -259,102 +373,185 @@ export function StackedImageShowcase({
     }
   };
 
-  return (
-    <div className={`stacked-image-showcase ${orientation === 'horizontal' ? 'stacked-image-showcase--horizontal' : ''} ${className}`}>
+  const goToIndex = (index: number) => {
+    if (index !== activeIndex && index >= 0 && index < images.length) {
+      setActiveIndex(index);
+      scrollToImage(index);
+    }
+  };
+
+  // Lightbox component rendered as a portal
+  const lightboxPortal = lightboxOpen ? createPortal(
+    <div className={`stacked-image-showcase__lightbox ${lightboxOpen ? 'is-open' : ''}`}>
       <div 
-        ref={containerRef}
-        className="stacked-image-showcase__container"
-        tabIndex={0}
-        role="region"
-        aria-label="Image showcase"
+        className="stacked-image-showcase__lightbox-backdrop"
+        onClick={handleLightboxClose}
+      />
+      
+      <button 
+        onClick={handleLightboxClose}
+        className="stacked-image-showcase__lightbox-close"
+        aria-label="Close lightbox"
       >
-        <div className="stacked-image-showcase__content">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className={`stacked-image-showcase__item ${
-                index === activeIndex ? 'stacked-image-showcase__item--active' : ''
-              }`}
-              style={{
-                opacity: getImageOpacity(index),
-                '--glow-intensity': getGlowIntensity(index),
-              } as React.CSSProperties}
-              onClick={() => {
-                setActiveIndex(index);
-                scrollToImage(index);
-              }}
-            >
-              <div className="stacked-image-showcase__image-wrapper">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  aspectRatio={aspectRatio}
-                  frame="none"
-                  className="stacked-image-showcase__image"
-                />
-              </div>
-              {image.description && (
-                <div className="stacked-image-showcase__description">
-                  {image.description}
+        <X className="stacked-image-showcase__lightbox-nav-icon" />
+      </button>
+
+             <div className="stacked-image-showcase__lightbox-content">
+         <div className="stacked-image-showcase__lightbox-image-container">
+           <img 
+             src={images[lightboxIndex].src} 
+             alt={images[lightboxIndex].alt}
+             className={`stacked-image-showcase__lightbox-image stacked-image-showcase__lightbox-image--${lightboxTransitionState}`}
+           />
+         </div>
+         
+         {images[lightboxIndex].description && (
+           <div className="stacked-image-showcase__lightbox-description">
+             <p>{images[lightboxIndex].description}</p>
+           </div>
+         )}
+
+         {/* Lightbox Navigation - Only show if more than 1 image */}
+         {images.length > 1 && (
+           <div className="stacked-image-showcase__lightbox-navigation">
+             <button
+               onClick={handleLightboxPrev}
+               className="stacked-image-showcase__lightbox-nav-button"
+               disabled={lightboxTransitionState !== 'active'}
+               aria-label="Previous image"
+             >
+               <ChevronLeft className="stacked-image-showcase__lightbox-nav-icon" />
+             </button>
+             
+             <div className="stacked-image-showcase__lightbox-indicators">
+               {images.map((_, index) => (
+                 <button
+                   key={index}
+                   className={`stacked-image-showcase__lightbox-indicator ${
+                     index === lightboxIndex ? 'stacked-image-showcase__lightbox-indicator--active' : ''
+                   }`}
+                   onClick={() => handleLightboxGoTo(index)}
+                   disabled={lightboxTransitionState !== 'active'}
+                   aria-label={`Go to image ${index + 1}`}
+                 />
+               ))}
+             </div>
+             
+             <button
+               onClick={handleLightboxNext}
+               className="stacked-image-showcase__lightbox-nav-button"
+               disabled={lightboxTransitionState !== 'active'}
+               aria-label="Next image"
+             >
+               <ChevronRight className="stacked-image-showcase__lightbox-nav-icon" />
+             </button>
+           </div>
+         )}
+       </div>
+    </div>,
+    document.body
+  ) : null;
+
+  return (
+    <>
+      <div className={`stacked-image-showcase ${currentOrientation === 'horizontal' ? 'stacked-image-showcase--horizontal' : ''} ${className}`}>
+        <div 
+          ref={containerRef}
+          className="stacked-image-showcase__container"
+          tabIndex={0}
+          role="region"
+          aria-label="Image showcase"
+        >
+          <div 
+            className="stacked-image-showcase__content"
+            data-single-image={images.length === 1 ? "true" : "false"}
+          >
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className={`stacked-image-showcase__item ${
+                  index === activeIndex ? 'stacked-image-showcase__item--active' : ''
+                }`}
+                style={{
+                  opacity: getImageOpacity(index),
+                  '--glow-intensity': getGlowIntensity(index),
+                } as React.CSSProperties}
+                onClick={() => handleImageClick(index)}
+              >
+                <div className="stacked-image-showcase__image-wrapper">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    aspectRatio={aspectRatio}
+                    frame="none"
+                    className="stacked-image-showcase__image"
+                  />
                 </div>
-              )}
-            </div>
-          ))}
+                {image.description && (
+                  <div className="stacked-image-showcase__description">
+                    {image.description}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      
-      {/* Fade overlays */}
-      <div ref={fadeTopRef} className="stacked-image-showcase__fade-top" />
-      <div ref={fadeBottomRef} className="stacked-image-showcase__fade-bottom" />
-      
-      {/* Horizontal fade overlays */}
-      <div ref={fadeLeftRef} className="stacked-image-showcase__fade-left" />
-      <div ref={fadeRightRef} className="stacked-image-showcase__fade-right" />
-      
-      {/* Combined Navigation and Indicators */}
-      <div className="stacked-image-showcase__nav-container">
-        <button
-          className="stacked-image-showcase__nav-button stacked-image-showcase__nav-button--prev"
-          onClick={goToPrevious}
-          disabled={activeIndex === 0}
-          aria-label={orientation === 'horizontal' ? 'Previous image' : 'Previous image'}
-        >
-          {orientation === 'horizontal' ? (
-            <ChevronLeft className="stacked-image-showcase__nav-icon" />
-          ) : (
-            <ChevronUp className="stacked-image-showcase__nav-icon" />
-          )}
-        </button>
         
-        <div className="stacked-image-showcase__indicators">
-          {images.map((_, index) => (
+        {/* Fade overlays */}
+        <div ref={fadeTopRef} className="stacked-image-showcase__fade-top" />
+        <div ref={fadeBottomRef} className="stacked-image-showcase__fade-bottom" />
+        
+        {/* Horizontal fade overlays */}
+        <div ref={fadeLeftRef} className="stacked-image-showcase__fade-left" />
+        <div ref={fadeRightRef} className="stacked-image-showcase__fade-right" />
+        
+        {/* Combined Navigation and Indicators - Only show if more than 1 image */}
+        {images.length > 1 && (
+          <div className="stacked-image-showcase__nav-container">
             <button
-              key={index}
-              className={`stacked-image-showcase__indicator ${
-                index === activeIndex ? 'stacked-image-showcase__indicator--active' : ''
-              }`}
-              onClick={() => {
-                setActiveIndex(index);
-                scrollToImage(index);
-              }}
-              aria-label={`Go to image ${index + 1}`}
-            />
-          ))}
-        </div>
-        
-        <button
-          className="stacked-image-showcase__nav-button stacked-image-showcase__nav-button--next"
-          onClick={goToNext}
-          disabled={activeIndex === images.length - 1}
-          aria-label={orientation === 'horizontal' ? 'Next image' : 'Next image'}
-        >
-          {orientation === 'horizontal' ? (
-            <ChevronRight className="stacked-image-showcase__nav-icon" />
-          ) : (
-            <ChevronDown className="stacked-image-showcase__nav-icon" />
-          )}
-        </button>
+              className="stacked-image-showcase__nav-button stacked-image-showcase__nav-button--prev"
+              onClick={goToPrevious}
+              disabled={activeIndex === 0}
+              aria-label={currentOrientation === 'horizontal' ? 'Previous image' : 'Previous image'}
+            >
+              {currentOrientation === 'horizontal' ? (
+                <ChevronLeft className="stacked-image-showcase__nav-icon" />
+              ) : (
+                <ChevronUp className="stacked-image-showcase__nav-icon" />
+              )}
+            </button>
+            
+            <div className="stacked-image-showcase__indicators">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  className={`stacked-image-showcase__indicator ${
+                    index === activeIndex ? 'stacked-image-showcase__indicator--active' : ''
+                  }`}
+                  onClick={() => goToIndex(index)}
+                  aria-label={`Go to image ${index + 1}`}
+                />
+              ))}
+            </div>
+            
+            <button
+              className="stacked-image-showcase__nav-button stacked-image-showcase__nav-button--next"
+              onClick={goToNext}
+              disabled={activeIndex === images.length - 1}
+              aria-label={currentOrientation === 'horizontal' ? 'Next image' : 'Next image'}
+            >
+              {currentOrientation === 'horizontal' ? (
+                <ChevronRight className="stacked-image-showcase__nav-icon" />
+              ) : (
+                <ChevronDown className="stacked-image-showcase__nav-icon" />
+              )}
+            </button>
+          </div>
+        )}
       </div>
-    </div>
+
+      {/* Render lightbox as portal to document.body */}
+      {lightboxPortal}
+    </>
   );
 } 

@@ -4,16 +4,23 @@
  * Stacked Image Showcase component
  */
 
+
+
 .stacked-image-showcase {
-  @apply relative w-full h-96 overflow-hidden;
+  @apply relative w-full h-[600px] overflow-hidden;
   background: linear-gradient(135deg, #1a1b3e 0%, #2d1b69 50%, #1a1b3e 100%);
   border-radius: 1rem;
+  border: 2px solid rgba(124, 58, 237);
 
   &__container {
     @apply absolute inset-0 overflow-y-auto overflow-x-hidden;
     scroll-behavior: smooth;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
+    
+    /* CSS Scroll Snap properties */
+    scroll-snap-type: y mandatory;
+    scroll-padding: 2rem 0; /* Add padding to account for fade overlays */
 
     &::-webkit-scrollbar {
       @apply hidden; /* Chrome/Safari */
@@ -34,6 +41,11 @@
     transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1),
                 transform 0.4s cubic-bezier(0.33, 1, 0.68, 1);
     transform: translateZ(0); /* Force hardware acceleration */
+    
+    /* CSS Scroll Snap alignment */
+    scroll-snap-align: center;
+    scroll-snap-stop: always; /* Force stop at each image */
+    scroll-margin: 4rem 0; /* Ensure images don't snap behind fade overlays */
 
     &:last-child {
       @apply mb-0;
@@ -134,6 +146,10 @@
       rgba(26, 27, 62, 0.8) 40%,
       transparent 100%
     );
+    
+    /* Initial state - will be controlled by JavaScript */
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
   }
 
   &__fade-bottom {
@@ -144,12 +160,88 @@
       rgba(26, 27, 62, 0.8) 40%,
       transparent 100%
     );
+    
+    /* Initial state - will be controlled by JavaScript */
+    opacity: 1;
+    transition: opacity 0.2s ease-out;
+  }
+
+  /* Horizontal fade overlays (hidden by default) */
+  &__fade-left,
+  &__fade-right {
+    @apply hidden;
+  }
+
+  &__fade-left {
+    @apply left-0;
+    background: linear-gradient(
+      to right,
+      rgba(26, 27, 62, 1) 0%,
+      rgba(26, 27, 62, 0.8) 40%,
+      transparent 100%
+    );
+    
+    /* Initial state - will be controlled by JavaScript */
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+  }
+
+  &__fade-right {
+    @apply right-0;
+    background: linear-gradient(
+      to left,
+      rgba(26, 27, 62, 1) 0%,
+      rgba(26, 27, 62, 0.8) 40%,
+      transparent 100%
+    );
+    
+    /* Initial state - will be controlled by JavaScript */
+    opacity: 1;
+    transition: opacity 0.2s ease-out;
+  }
+
+  /* Navigation container and buttons */
+  &__nav-container {
+    @apply absolute z-40;
+  }
+
+  &__navigation {
+    @apply absolute z-40 pointer-events-none;
+  }
+
+  &__nav-button {
+    @apply w-8 h-8 rounded-full border-0 cursor-pointer pointer-events-auto;
+    @apply bg-white bg-opacity-40 transition-all duration-300;
+    @apply flex items-center justify-center;
+    
+    &:hover:not(:disabled) {
+      @apply bg-opacity-60 scale-110;
+    }
+
+    &:disabled {
+      @apply opacity-30 cursor-not-allowed;
+    }
+  }
+
+  &__nav-icon {
+    @apply w-4 h-4 text-white;
+  }
+
+  /* Vertical orientation navigation positioning */
+  &:not(&--horizontal) {
+    .stacked-image-showcase__nav-container {
+      @apply right-4 top-1/2 -translate-y-1/2;
+      @apply flex flex-col items-center gap-2;
+    }
+
+    .stacked-image-showcase__indicators {
+      @apply flex flex-col gap-2;
+    }
   }
 
   /* Navigation indicators */
   &__indicators {
-    @apply absolute right-4 top-1/2 -translate-y-1/2 z-40;
-    @apply flex flex-col gap-2;
+    @apply flex gap-2; /* Base flex layout, direction set by orientation */
   }
 
   &__indicator {
@@ -168,7 +260,7 @@
 
   /* Responsive adjustments */
   @include respond-to(md) {
-    @apply h-[28rem];
+    @apply h-[32rem];
 
     &__content {
       padding: 3rem 2rem;
@@ -176,6 +268,7 @@
 
     &__item {
       @apply mb-8;
+      scroll-margin: 5rem 0; /* Increased margin for larger screens */
     }
 
     &__fade-top,
@@ -185,7 +278,7 @@
   }
 
   @include respond-to(lg) {
-    @apply h-[32rem];
+    @apply h-[50rem];
 
     &__content {
       padding: 4rem 3rem;
@@ -193,11 +286,127 @@
 
     &__item {
       @apply mb-10;
+      scroll-margin: 6rem 0; /* Further increased margin for large screens */
     }
 
     &__fade-top,
     &__fade-bottom {
       height: 6rem;
+    }
+  }
+
+  // Horizontal orientation styles
+  &--horizontal {
+    @apply w-full; /* Ensure full width for the outer container */
+    height: auto !important; /* Override fixed heights from media queries */
+    min-height: 300px; /* Minimum height for horizontal layout */
+    
+    .stacked-image-showcase__container {
+      @apply overflow-x-auto overflow-y-hidden;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 2rem; /* Horizontal padding for fade overlays */
+    }
+
+    .stacked-image-showcase__content {
+      @apply flex;
+      padding: 1.5rem 2rem;
+      width: max-content; /* Fit content width */
+      min-width: 100%; /* Ensure minimum full width */
+    }
+
+    .stacked-image-showcase__item {
+      @apply mr-6 flex-shrink-0;
+      scroll-snap-align: center;
+      scroll-snap-stop: always; /* Force stop at each image */
+      scroll-margin: 0 4rem; /* Horizontal margin for fade overlays */
+      width: 20rem; /* Fixed width for horizontal items */
+
+      &:last-child {
+        @apply mr-0;
+      }
+    }
+
+    .stacked-image-showcase__fade-top,
+    .stacked-image-showcase__fade-bottom {
+      @apply hidden; /* Hide vertical fades */
+    }
+
+    .stacked-image-showcase__fade-left,
+    .stacked-image-showcase__fade-right {
+      @apply block absolute top-0 bottom-0 z-30 pointer-events-none;
+      width: 4rem;
+    }
+
+    /* Horizontal navigation positioning */
+    .stacked-image-showcase__nav-container {
+      @apply bottom-4 left-1/2 -translate-x-1/2;
+      @apply flex items-center gap-4;
+    }
+
+    .stacked-image-showcase__nav-button--prev {
+      order: 1; /* Left button first */
+    }
+
+    .stacked-image-showcase__indicators {
+      @apply flex-row gap-2;
+      position: relative;
+      top: auto;
+      right: auto;
+      left: auto;
+      bottom: auto;
+      transform: none;
+      order: 2; /* Indicators in middle */
+    }
+
+    .stacked-image-showcase__nav-button--next {
+      order: 3; /* Right button last */
+    }
+  }
+
+  // Horizontal orientation responsive adjustments
+  &--horizontal {
+    @include respond-to(md) {
+      height: auto !important; /* Override h-[32rem] from main media query */
+      min-height: 350px; /* Slightly larger minimum for md screens */
+      
+      .stacked-image-showcase__content {
+        padding: 2rem 3rem;
+        width: max-content; /* Maintain content-based width */
+        min-width: 100%; /* Ensure minimum full width */
+      }
+
+      .stacked-image-showcase__item {
+        @apply mr-8;
+        scroll-margin: 0 5rem;
+        width: 24rem;
+      }
+
+      .stacked-image-showcase__fade-left,
+      .stacked-image-showcase__fade-right {
+        width: 5rem;
+      }
+    }
+
+    @include respond-to(lg) {
+      height: auto !important; /* Override h-[50rem] from main media query */
+      min-height: 400px; /* Larger minimum for lg screens */
+      
+      .stacked-image-showcase__content {
+        padding: 3rem 4rem;
+        width: max-content; /* Maintain content-based width */
+        min-width: 100%; /* Ensure minimum full width */
+      }
+
+      .stacked-image-showcase__item {
+        @apply mr-10;
+        scroll-margin: 0 6rem;
+        width: 28rem;
+      }
+
+      .stacked-image-showcase__fade-left,
+      .stacked-image-showcase__fade-right {
+        width: 6rem;
+      }
     }
   }
 } 

@@ -248,6 +248,8 @@ export function BridgestoneProject() {
                   <h2 id="interactive-showcase" className="text-3xl font-bold mb-6">
                     Interactive Showcase
                   </h2>
+                  
+                  <h3 className="text-xl font-semibold mb-4">Vertical Layout (Default)</h3>
                     <StackedImageShowcase
                       aspectRatio="video"
                       images={[
@@ -278,6 +280,39 @@ export function BridgestoneProject() {
                         }
                       ]}
                     />
+                    
+                  <h3 className="text-xl font-semibold mb-4 mt-12">Horizontal Layout</h3>
+                  <StackedImageShowcase
+                    orientation="horizontal"
+                    aspectRatio="video"
+                    images={[
+                      {
+                        src: "/screenshots/bs/bs_desktop_ws-dark.png",
+                        alt: "Worksheet Interface - Dark Theme",
+                        description: "Vehicle worksheet management interface in dark mode"
+                      },
+                      {
+                        src: "/screenshots/bs/bs_tablet_ws-dark.png",
+                        alt: "Tablet View - Dark Theme",
+                        description: "Responsive tablet interface showing dark theme adaptation"
+                      },
+                      {
+                        src: "/screenshots/bs/bs_tablet_ws-light.png",
+                        alt: "Tablet View - Light Theme",
+                        description: "Responsive tablet interface in light mode"
+                      },
+                      {
+                        src: "/screenshots/bs/bs_storybook tag anatomy.png",
+                        alt: "Tag Anatomy Documentation",
+                        description: "Detailed component anatomy in our design system"
+                      },
+                      {
+                        src: "/screenshots/bs/bs_storybook tag best practices.png",
+                        alt: "Tag Best Practices",
+                        description: "Usage guidelines and best practices documentation"
+                      }
+                    ]}
+                  />
                 </div>
 
                 <div>

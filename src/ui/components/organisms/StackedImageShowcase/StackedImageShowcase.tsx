@@ -494,7 +494,9 @@ export function StackedImageShowcase({
 
   return (
     <>
-      <div className={`stacked-image-showcase ${currentOrientation === 'horizontal' ? 'stacked-image-showcase--horizontal' : ''} ${className}`}>
+      <div 
+        className={`stacked-image-showcase ${currentOrientation === 'horizontal' ? 'stacked-image-showcase--horizontal' : ''} ${className}`}
+        data-single-image={images.length === 1 ? "true" : "false"}>
         <div 
           ref={containerRef}
           className="stacked-image-showcase__container"

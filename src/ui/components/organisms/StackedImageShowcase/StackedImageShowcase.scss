@@ -11,6 +11,22 @@
   background: linear-gradient(135deg, #1a1b3e 0%, #2d1b69 50%, #1a1b3e 100%);
   border-radius: 1rem;
   border: 2px solid rgba(124, 58, 237);
+  
+  /* Adjust height for single image on mobile */
+  &[data-single-image="true"]:not(.stacked-image-showcase--horizontal) {
+    height: auto;
+    min-height: auto;
+    max-height: 90vh;
+    
+    .stacked-image-showcase__container {
+      position: relative;
+      height: auto;
+    }
+    
+    .stacked-image-showcase__content {
+      padding-bottom: 2rem;
+    }
+  }
 
   &__container {
     @apply absolute inset-0 overflow-y-auto overflow-x-hidden;
@@ -45,10 +61,11 @@
         @apply mb-0; /* Remove bottom margin for single items */
         @apply flex flex-col items-center justify-center;
         max-width: 90%; /* Ensure content doesn't get too wide */
+        padding: 1rem 0; /* Add vertical padding */
         
         .stacked-image-showcase__description {
           @apply mt-4; /* Keep same margin as regular variant */
-          margin-bottom: 1rem; /* Keep same bottom margin as regular variant */
+          margin-bottom: 0; /* Remove bottom margin for single items */
         }
       }
     }

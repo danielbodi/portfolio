@@ -5,6 +5,8 @@ import { Navigation } from './ui/components/navigation/Navigation';
 import { Home } from './pages/Home';
 import { BridgestoneProject } from './pages/BridgestoneProject';
 import { TraisProject } from './pages/TraisProject';
+import { SopraProject } from './pages/SopraProject';
+import { BaseProject } from './pages/BaseProject';
 import { PageTransition } from './ui/components/page-transition/PageTransition';
 import { Background } from './ui/components/background/Background';
 import { GradientControls } from './ui/components/GradientControls';
@@ -28,6 +30,16 @@ function AnimatedRoutes() {
         <Route path="/projects/trasis" element={
           <PageTransition>
             <TraisProject />
+          </PageTransition>
+        } />
+        <Route path="/projects/sopra" element={
+          <PageTransition>
+            <SopraProject />
+          </PageTransition>
+        } />
+        <Route path="/projects/base" element={
+          <PageTransition>
+            <BaseProject />
           </PageTransition>
         } />
       </Routes>

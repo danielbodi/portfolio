@@ -31,7 +31,19 @@ export function CaseSummaryCard({ challenge, solution, index }: CaseSummaryCardP
       'Custom Design Complexity': 'custom-design-complexity',
       'Proactive Transparency': 'addressing-unfamiliarity',
       'Strategic System Implementation': 'addressing-team-composition',
-      'Realistic Visual System': 'addressing-design-complexity'
+      'Realistic Visual System': 'addressing-design-complexity',
+      
+      // Sopra project
+      'Structure and Seniority in Front-End Development': 'structure-seniority',
+      'Scalable Design Processes and methodologies': 'scalable-design',
+      'Modern Development Practices': 'addressing-structure',
+      'Systematic Design Approach': 'addressing-design',
+      
+      // Base project
+      'Heavy Development Process': 'dev-process',
+      'Outdated Grid System': 'grid-system',
+      'Streamlined Development Workflow': 'addressing-dev-process',
+      'Modern Flexible Layout System': 'addressing-grid-system'
     };
     return idMap[title] || '';
   };

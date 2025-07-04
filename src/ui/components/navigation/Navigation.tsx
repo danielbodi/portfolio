@@ -110,6 +110,22 @@ export function Navigation() {
         </span>
       );
     }
+    if (currentProject === 'sopra') {
+      return (
+        <span className="c-navigation__breadcrumb">
+          <span className="c-navigation__breadcrumb-separator">/</span>
+          <span className="c-navigation__breadcrumb-current">Sopra Banking</span>
+        </span>
+      );
+    }
+    if (currentProject === 'base') {
+      return (
+        <span className="c-navigation__breadcrumb">
+          <span className="c-navigation__breadcrumb-separator">/</span>
+          <span className="c-navigation__breadcrumb-current">Base</span>
+        </span>
+      );
+    }
     return null;
   };
 

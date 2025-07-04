@@ -44,7 +44,8 @@ const careerData: CareerItem[] = [
     projects: [
       {
         name: 'SBS',
-        logo: '/company-logos/sopra mini logo.png'
+        logo: '/company-logos/sopra mini logo.png',
+        caseStudyPath: '/projects/sopra'
       }
     ]
   },
@@ -56,7 +57,8 @@ const careerData: CareerItem[] = [
     projects: [
       {
         name: 'Base',
-        logo: '/company-logos/base logo.png'
+        logo: '/company-logos/base logo.png',
+        caseStudyPath: '/projects/base'
       }
     ]
   },

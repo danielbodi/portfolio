@@ -57,7 +57,8 @@ const projects: Project[] = [
     },
     logo: "/company-logos/sopra logo.png",
     imagePosition: 'left',
-    frame: 'desktop'
+    frame: 'tablet',
+    caseStudyPath: '/projects/sopra'
   },
   {
     company: 'Base',
@@ -69,7 +70,8 @@ const projects: Project[] = [
     },
     logo: "/company-logos/base logo.png",
     imagePosition: 'right',
-    frame: 'desktop'
+    frame: 'tablet',
+    caseStudyPath: '/projects/base'
   }
 ];
 

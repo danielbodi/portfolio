@@ -34,14 +34,23 @@ export function TableOfContents({ variant = 'desktop' }: TableOfContentsProps) {
 
     setHeadings(items);
 
+    // Set default active item to the first heading
+    if (items.length > 0 && !activeId) {
+      setActiveId(items[0].id);
+    }
+
     // Set up intersection observer for headings
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
+        // Find the first visible heading
+        const visibleEntry = entries.find(entry => entry.isIntersecting);
+        
+        if (visibleEntry) {
+          setActiveId(visibleEntry.target.id);
+        } else if (!activeId && entries.length > 0) {
+          // If no heading is visible and no active ID is set, use the first one
+          setActiveId(entries[0].target.id);
+        }
       },
       {
         rootMargin: '-20% 0px -80% 0px'
@@ -94,7 +103,7 @@ export function TableOfContents({ variant = 'desktop' }: TableOfContentsProps) {
         activeBorderRef.current.style.transform = `translateY(${offsetTop}px)`;
       }
     }
-  }, [activeId]);
+  }, [activeId, headings]);
 
   const handleClick = (id: string) => {
     const element = document.getElementById(id);
@@ -202,6 +211,7 @@ export function TableOfContents({ variant = 'desktop' }: TableOfContentsProps) {
                   <button
                     onClick={() => handleClick(heading.id)}
                     className={`toc__link ${activeId === heading.id ? 'is-active' : ''}`}
+                    aria-current={activeId === heading.id ? 'true' : undefined}
                   >
                     {heading.text}
                   </button>

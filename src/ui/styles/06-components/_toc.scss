@@ -74,7 +74,12 @@
   }
 
   &__link {
-    @apply text-left w-full py-1 px-4 transition-colors duration-200 hover:text-purple-400;
+    @apply text-left w-full py-1 px-4 text-gray-400;
+    transition: color 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+    
+    &:hover {
+      @apply text-purple-400;
+    }
     
     &--mobile {
       @apply py-2 text-sm;
@@ -82,10 +87,6 @@
     
     &.is-active {
       @apply text-purple-400;
-    }
-    
-    &:not(.is-active) {
-      @apply text-gray-400;
     }
   }
 

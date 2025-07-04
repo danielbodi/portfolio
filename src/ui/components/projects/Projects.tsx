@@ -51,7 +51,7 @@ const projects: Project[] = [
     company: 'Sopra Banking',
     title: "Sopra Banking Software",
     period: "Apr 2018 - Nov 2018",
-    description: "At Sopra Banking, I joined the UI team to help scale design and front-end development for their banking software. <br/> I tackled challenges such as unclear design approach, a lack of structured methodologies, and a junior front-end team.",
+    description: "At Sopra Banking, I joined the UI team to help scale design and front-end development for their banking software. I tackled challenges such as unclear design approach, a lack of structured methodologies, and a junior front-end team.",
     images: {
       main: "/screenshots/sbs-thumbnail.png"
     },

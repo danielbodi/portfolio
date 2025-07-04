@@ -102,6 +102,14 @@ export function Navigation() {
         </span>
       );
     }
+    if (currentProject === 'trasis') {
+      return (
+        <span className="c-navigation__breadcrumb">
+          <span className="c-navigation__breadcrumb-separator">/</span>
+          <span className="c-navigation__breadcrumb-current">Trasis</span>
+        </span>
+      );
+    }
     return null;
   };
 

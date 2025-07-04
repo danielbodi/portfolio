@@ -44,7 +44,8 @@ const projects: Project[] = [
     },
     logo: "/company-logos/trasis logo.png",
     imagePosition: 'right',
-    frame: 'tablet'
+    frame: 'tablet',
+    caseStudyPath: '/projects/trasis'
   },
   {
     company: 'Sopra Banking',

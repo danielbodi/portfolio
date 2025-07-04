@@ -17,12 +17,21 @@ interface CaseSummaryCardProps {
 export function CaseSummaryCard({ challenge, solution, index }: CaseSummaryCardProps) {
   const getTargetId = (title: string) => {
     const idMap: Record<string, string> = {
+      // Bridgestone project
       'Missing Design Structure': 'lack-of-design-system',
       'Technical Uncertainty': 'custom-development-challenges',
       'Limited Resources': 'limited-research-time',
       'Systematic Foundation': 'addressing-design-system',
       'Knowledge Transfer': 'addressing-development',
-      'Process Adaption': 'addressing-research'
+      'Process Adaption': 'addressing-research',
+      
+      // Trasis project
+      'Unfamiliarity from Business with Designers': 'unfamiliarity-with-designers',
+      'Team Composition and Roles': 'team-composition-roles',
+      'Custom Design Complexity': 'custom-design-complexity',
+      'Proactive Transparency': 'addressing-unfamiliarity',
+      'Strategic System Implementation': 'addressing-team-composition',
+      'Realistic Visual System': 'addressing-design-complexity'
     };
     return idMap[title] || '';
   };
@@ -66,6 +75,7 @@ export function CaseSummaryCard({ challenge, solution, index }: CaseSummaryCardP
             </ul>
             <a 
               href={`#${getTargetId(challenge.title)}`}
+              onClick={(e) => handleClick(e, getTargetId(challenge.title))}
               className="c-button c-button--secondary w-fit"
             >
               Read more
@@ -124,6 +134,7 @@ export function CaseSummaryCard({ challenge, solution, index }: CaseSummaryCardP
             </ul>
             <a 
               href={`#${getTargetId(solution.title)}`}
+              onClick={(e) => handleClick(e, getTargetId(solution.title))}
               className="c-button c-button--secondary w-fit"
             >
               Read more

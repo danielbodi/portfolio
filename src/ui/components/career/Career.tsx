@@ -31,7 +31,8 @@ const careerData: CareerItem[] = [
       },
       {
         name: 'Trasis',
-        logo: '/company-logos/trasis logo.png'
+        logo: '/company-logos/trasis logo.png',
+        caseStudyPath: '/projects/trasis'
       }
     ]
   },

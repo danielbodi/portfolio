@@ -39,7 +39,7 @@ export function SopraProject() {
 
   const designSkills = [
     { name: 'Sketch', icon: '/skill-icons/sketch.svg' },
-    { name: 'Invision', icon: '/skill-icons/illustrator.svg' }, // Using illustrator icon as placeholder
+    { name: 'Invision', icon: '/skill-icons/invision.svg' },
     { name: 'Photoshop', icon: '/skill-icons/photoshop.svg' },
     { name: 'Illustrator', icon: '/skill-icons/illustrator.svg' }
   ];
@@ -129,7 +129,9 @@ export function SopraProject() {
                     Project description
                   </h2>
                   <p className="text-gray-400">
-                    Sopra Banking is a company that provides innovative banking and financial technology solutions. It offers a range of products and services, including core banking systems, digital banking platforms, and payment solutions, to help financial institutions modernize their operations, improve customer experiences, and stay competitive in the evolving financial landscape.
+                    Banking software isn't exactly known for its stellar user experience, is it? Sopra Banking builds the core systems that power financial institutions, 
+                    and their software needed a serious design intervention. Think enterprise banking platforms that handle millions of transactions, 
+                    but with interfaces that looked like they were built in 2005. My mission: bring their design process into the modern era.
                   </p>
                 </div>
 
@@ -138,8 +140,8 @@ export function SopraProject() {
                     My Role
                   </h2>
                   <p className="text-gray-400">
-                    I joined Sopra Banking to strengthen their UI team and contribute to the design and development of their product, Sopra Banking Software.
-                    They already had a designer, but the workload was too extensive for one person. Additionally, they needed a hybrid designer/developer who could ensure consistency between the design and development processes. My role involved not only designing user interfaces but also collaborating with developers to maintain alignment and ensure the seamless implementation of the designs.
+                    I joined as the design reinforcement—they had one designer drowning in work and a team of junior developers who needed guidance on everything from CSS architecture to component thinking. 
+                    My job was to be the bridge between design ambitions and development reality, while teaching the team that good code structure isn't just nice to have—it's essential for scaling enterprise software.
                   </p>
                 </div>
 
@@ -201,6 +203,32 @@ export function SopraProject() {
                         index={index}
                       />
                     ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h2 id="project-impact" className="text-3xl font-bold mb-6">
+                    Project Impact
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">40%</div>
+                        <div className="text-sm text-gray-400">Faster Prototyping</div>
+                      </div>
+                    </Card>
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">30%</div>
+                        <div className="text-sm text-gray-400">Cost Reduction</div>
+                      </div>
+                    </Card>
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">2x</div>
+                        <div className="text-sm text-gray-400">Scalability</div>
+                      </div>
+                    </Card>
                   </div>
                 </div>
                 
@@ -291,28 +319,8 @@ export function SopraProject() {
                           The goal was to progressively catch-up with the rest of our existing components as we would use them in our prototypes.
                         </p>
                         <p>
-                          After a while this rework allowed the design team to:
+                          After a while this rework allowed the design team to prototype faster, reduce costs by reusing components, and ensure a systematic and scalable approach to design.
                         </p>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-                          <Card variant="nested" showShadow>
-                            <div className="p-4 text-center">
-                              <p className="text-purple-400 text-3xl font-bold mb-2">40%</p>
-                              <p className="text-gray-300">Prototype faster.</p>
-                            </div>
-                          </Card>
-                          <Card variant="nested" showShadow>
-                            <div className="p-4 text-center">
-                              <p className="text-purple-400 text-3xl font-bold mb-2">30%</p>
-                              <p className="text-gray-300">Reduce costs by reusing components.</p>
-                            </div>
-                          </Card>
-                          <Card variant="nested" showShadow>
-                            <div className="p-4 text-center">
-                              <p className="text-purple-400 text-3xl font-bold mb-2">2x</p>
-                              <p className="text-gray-300">Ensure a systematic and scalable approach to design.</p>
-                            </div>
-                          </Card>
-                        </div>
                         <p>
                           Once the components were reworked and our quality of life while designing got improved, I proposed to build a Design System to bridge the gap between design and development. 
                           This system would evolve from their existing pdf style guide into a more usable web platform that would include:
@@ -326,6 +334,25 @@ export function SopraProject() {
                         </p>
                       </div>
                     </Card>
+                  </div>
+                </div>
+
+                {/* Project connection */}
+                <div className="pt-8 border-t border-gray-500">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-xl font-semibold text-purple-400 mb-2">The evolution continues</h3>
+                      <p className="text-gray-400">
+                        Teaching methodologies at Sopra prepared me for the ultimate challenge: 
+                        building design systems from scratch as a consultant at Trasis and Bridgestone.
+                      </p>
+                    </div>
+                    <button 
+                      onClick={() => window.location.href = '/projects/trasis'}
+                      className="c-button c-button--secondary flex-shrink-0 ml-6"
+                    >
+                      Next Project →
+                    </button>
                   </div>
                 </div>
               </div>

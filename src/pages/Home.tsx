@@ -52,8 +52,9 @@ export function Home() {
                 
                 <div className="mt-6 md:mt-8 text-gray-400">
                   <p className="text-base md:text-lg text-justify">
-                    I'm an hybrid designer and developer.
-                    I specialise on creating and maintaining Design Systems, bridging the gap between technical and creative disciplines.
+                    I'm fascinated by the moment when developers stop asking "How do I build this?" and start asking "Which component should I use?" 
+                    That's when you know your design system is working. I bridge the gap between design ambition and development reality, 
+                    turning chaotic requirements into systematic solutions that teams actually want to use.
                   </p>
                 </div>
               </div>

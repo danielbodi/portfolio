@@ -171,7 +171,9 @@ export function TraisProject() {
                     Project description
                   </h2>
                   <p className="text-gray-400">
-                    Trasis is specializing in the development and manufacturing of cutting-edge equipment and solutions for the production, and dispensing of radiopharmaceuticals used in nuclear medicine. Their technology supports healthcare professionals in diagnosing and treating diseases like cancer.
+                    Imagine designing an interface for a device that handles radioactive materials—no pressure, right? 
+                    Trasis builds equipment for creating radiopharmaceuticals, and their QC1 device needed an interface that could guide technicians through complex quality control processes without any room for error. 
+                    This wasn't just about making things look pretty; one wrong click could affect patient safety.
                   </p>
                 </div>
 
@@ -180,8 +182,9 @@ export function TraisProject() {
                     My Role
                   </h2>
                   <p className="text-gray-400">
-                    At Trasis, I created a user interface for the QC1 device that mirrored its steps and mechanisms, providing users with a clear and intuitive way to interact with its processes. This approach ensured a close alignment between the interface and the device's functionality, enhancing usability and operational efficiency.<br/>
-                    I took charge of both the UI design and front-end development, delivering wireframes, high fidelity and clickable prototypes and I initiated their design system with Storybook.
+                    As the only designer on a team of engineers, I had to earn my place at the table. The challenge wasn't just designing the interface—it was convincing a team that had never worked with a designer that they actually needed one. 
+                    I spent equal time creating wireframes and explaining why user research matters when you're dealing with life-critical equipment. 
+                    Plus, I got to play both designer and developer, which meant I could ensure my designs actually worked in the real world.
                   </p>
                 </div>
 
@@ -240,6 +243,32 @@ export function TraisProject() {
                         index={index}
                       />
                     ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h2 id="project-impact" className="text-3xl font-bold mb-6">
+                    Project Impact
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">85%</div>
+                        <div className="text-sm text-gray-400">User Task Success</div>
+                      </div>
+                    </Card>
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">3x</div>
+                        <div className="text-sm text-gray-400">Faster Prototyping</div>
+                      </div>
+                    </Card>
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">100%</div>
+                        <div className="text-sm text-gray-400">Stakeholder Buy-in</div>
+                      </div>
+                    </Card>
                   </div>
                 </div>
                 
@@ -449,6 +478,25 @@ export function TraisProject() {
                         </p>
                       </div>
                     </Card>
+                  </div>
+                </div>
+
+                {/* Project connection */}
+                <div className="pt-8 border-t border-gray-500">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-xl font-semibold text-purple-400 mb-2">From healthcare to enterprise</h3>
+                      <p className="text-gray-400">
+                        Proving design's value in a technical environment at Trasis set the stage for my biggest challenge yet: 
+                        transforming Bridgestone's entire design approach.
+                      </p>
+                    </div>
+                    <button 
+                      onClick={() => window.location.href = '/projects/bridgestone'}
+                      className="c-button c-button--secondary flex-shrink-0 ml-6"
+                    >
+                      Next Project →
+                    </button>
                   </div>
                 </div>
               </div>

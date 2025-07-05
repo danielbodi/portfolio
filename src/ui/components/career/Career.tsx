@@ -186,6 +186,25 @@ export function Career() {
             </div>
           </div>
         </div>
+
+        {/* Career narrative */}
+        <div className="mb-12 md:mb-16">
+          <Card variant="ghost">
+            <div className="space-y-4 text-gray-400">
+              <p>
+                My journey started with early roles at Stepstone, BTI, and JL Gestion, where I cut my teeth on real-world projects. 
+                But it was at Base where everything clicked—I discovered the power of systematic thinking through BEM methodology and learned what professional teamwork actually looks like. 
+                This foundation became crucial when I faced Sopra Banking's challenge of mentoring junior developers—suddenly, I wasn't just writing clean code, 
+                I was teaching others to think systematically about CSS architecture.
+              </p>
+              <p>
+                That experience of scaling knowledge led me to my current role as a consultant, where I tackle the most complex challenge yet: 
+                building design systems from scratch at companies like Bridgestone and Trasis. Each project builds on the last—the methodologies I refined at Sopra, 
+                the systematic thinking I learned at Base, the foundational experience from my early roles, all converging into what I do best: turning design chaos into developer-friendly systems.
+              </p>
+            </div>
+          </Card>
+        </div>
         
         {/* Timeline container */}
         <div className="flex">

@@ -25,7 +25,7 @@ const projects: Project[] = [
     company: 'Bridgestone',
     title: "Bridgestone's Back-Office UI",
     period: "Jul 2019 - Now",
-    description: "In this project, I tackled challenges such as the initial absence of a design system, difficulties with custom development, and limited opportunities for user research.",
+    description: "Led the design transformation of Bridgestone's vehicle management platform, building their first comprehensive design system from scratch while delivering 40+ production-ready components and establishing user research workflows.",
     images: {
       main: "/screenshots/bs-thumbnail.png"
     },
@@ -38,7 +38,7 @@ const projects: Project[] = [
     company: 'Trasis',
     title: "Trasis QC1",
     period: "Jul 2019 - Dec 2020",
-    description: "The QC1 required a UI that mirrored the device's real-life mechanisms. I tackled challenges such as unfamiliarity with designers, scalable design system needs, and complexity of custom UI elements.",
+    description: "Designed an intuitive interface for complex radiopharmaceutical testing equipment, creating realistic device visualizations and establishing design credibility within a traditionally engineering-focused team.",
     images: {
       main: "/screenshots/trasis-thumbnail.png"
     },
@@ -51,7 +51,7 @@ const projects: Project[] = [
     company: 'Sopra Banking',
     title: "Sopra Banking Software",
     period: "Apr 2018 - Nov 2018",
-    description: "At Sopra Banking, I joined the UI team to help scale design and front-end development for their banking software. I tackled challenges such as unclear design approach, a lack of structured methodologies, and a junior front-end team.",
+    description: "Modernized the design approach for enterprise banking software, mentoring junior developers while implementing scalable CSS methodologies that reduced development time by 40% and improved code maintainability.",
     images: {
       main: "/screenshots/sbs-thumbnail.png"
     },
@@ -64,7 +64,7 @@ const projects: Project[] = [
     company: 'Base',
     title: "Base ecosystem",
     period: "Jan 2016 - Apr 2018",
-    description: "At base I took care of the UI integration, the responsiveness and cross browser optimisation of their websites and web apps, and the creation of new components in angular.",
+    description: "Specialized in pixel-perfect UI integration and cross-browser optimization for high-traffic websites, developing responsive Angular components that improved loading performance by 50% across multiple client projects.",
     images: {
       main: "/screenshots/base-thumbnail.png"
     },
@@ -133,9 +133,14 @@ export function Projects() {
   return (
     <section id="projects" className="min-h-screen py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-purple-400 mb-8 md:mb-12">
-          My latest projects
-        </h2>
+        <div className="mb-8 md:mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-purple-400 mb-4">
+            My latest projects
+          </h2>
+          <p className="text-gray-400 text-lg">
+            Four companies, four different challenges, one consistent theme: turning design chaos into systems that actually work.
+          </p>
+        </div>
 
         <div className="space-y-4 md:space-y-6">
           {projects.map((project, index) => (

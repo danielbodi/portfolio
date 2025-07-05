@@ -194,7 +194,9 @@ export function BridgestoneProject() {
                     Project description
                   </h2>
                   <p className="text-gray-400">
-                    Bridgestone is a global leader in tires and mobility solutions.<br/> To support their internal operations, Bridgestone requires a robust back-office portal that enables seamless access to critical data, including users, products, contracts, vehicles, worksheets, and inspections. This project focuses on designing an intuitive and efficient interface tailored to meet the needs of diverse internal teams, ensuring streamlined workflows and enhanced usability.
+                    Picture this: a global tire company with thousands of vehicles, contracts, and inspections scattered across different systems. 
+                    Bridgestone needed a back-office portal that could fit all this complexity into something their internal teams could actually use without wanting to throw their laptops out the window. 
+                    The challenge? Making enterprise software that doesn't feel like punishment.
                   </p>
                 </div>
 
@@ -203,8 +205,9 @@ export function BridgestoneProject() {
                     My Role
                   </h2>
                   <p className="text-gray-400">
-                    I started as the sole designer on this project, in a full dedicated consultant team.<br/> 
-                    I worked first on FleetBridge app, and then currently on their back-office portal project. I worked closely with developers to ensure seamless implementation of our wireframes, prototypes, and high-fidelity designs.
+                    I joined as the lone designer in a sea of developers—a familiar situation that I've learned to navigate. 
+                    Starting with FleetBridge and moving to their main back-office portal, my job was to be the bridge between "what the business wants" and "what developers can realistically build." 
+                    Spoiler alert: those two things are rarely the same at the beginning.
                   </p>
                 </div>
 
@@ -319,6 +322,32 @@ export function BridgestoneProject() {
                         index={index}
                       />
                     ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h2 id="project-impact" className="text-3xl font-bold mb-6">
+                    Project Impact
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">40+</div>
+                        <div className="text-sm text-gray-400">Components & Guidelines</div>
+                      </div>
+                    </Card>
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">60%</div>
+                        <div className="text-sm text-gray-400">Faster Development</div>
+                      </div>
+                    </Card>
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">Unified</div>
+                        <div className="text-sm text-gray-400">Design Language</div>
+                      </div>
+                    </Card>
                   </div>
                 </div>
                 
@@ -503,6 +532,25 @@ export function BridgestoneProject() {
                         </p>
                       </div>
                     </Card>
+                  </div>
+                </div>
+
+                {/* Project connection */}
+                <div className="pt-8 border-t border-gray-500">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-xl font-semibold text-purple-400 mb-2">The journey continues</h3>
+                      <p className="text-gray-400">
+                        This ongoing project represents the culmination of everything I've learned—from Base's systematic thinking 
+                        to Sopra's mentoring experience to Trasis's design validation. Each challenge built on the last.
+                      </p>
+                    </div>
+                    <button 
+                      onClick={() => window.location.href = '/projects/base'}
+                      className="c-button c-button--secondary flex-shrink-0 ml-6"
+                    >
+                      Where it all began →
+                    </button>
                   </div>
                 </div>
               </div>

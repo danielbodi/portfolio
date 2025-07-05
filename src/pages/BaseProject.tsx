@@ -102,20 +102,6 @@ export function BaseProject() {
       <div className="project-page__header">
           <div className="project-page__title">
             <h1 className="text-4xl font-bold text-purple-400">Base</h1>
-            <div className="flex items-center text-sm text-gray-400 mt-2">
-              <span className="cursor-pointer hover:text-purple-400" onClick={() => window.location.href = '/'}>Home</span>
-              <span className="mx-2">/</span>
-              <span className="cursor-pointer hover:text-purple-400" onClick={() => {
-                const projectsSection = document.getElementById('projects');
-                if (projectsSection && window.location.pathname === '/') {
-                  projectsSection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  window.location.href = '/#projects';
-                }
-              }}>Projects</span>
-              <span className="mx-2">/</span>
-              <span className="text-purple-400">Base</span>
-            </div>
           </div>
       </div>
 
@@ -130,9 +116,9 @@ export function BaseProject() {
                     Project description
                   </h2>
                   <p className="text-gray-400">
-                    Design is Dead has been the technical partner of Base for almost 15 years, they were located on Base's headquarters.
-                    They were part of The Emakina group and they had as clients such as the Telenet group : BASE, Telenet or JIM Mobile in the telecommunications sector.
-                    They developed for them their public and corporate websites, based on the CMS Adobe Experience Manager.
+                    Ever wondered what it's like to work inside a Belgian telecom giant's headquarters? I joined Design is Dead, Base's 15-year technical partner, 
+                    right in the heart of their operations. We were the team responsible for keeping Base, and JIM Mobile's websites running smoothly—
+                    high-traffic sites that couldn't afford to break, especially not in IE8 (yes, that was still a thing).
                   </p>
                 </div>
 
@@ -141,8 +127,9 @@ export function BaseProject() {
                     My Role
                   </h2>
                   <p className="text-gray-400">
-                    My job was to take care the UI integration, the responsiveness and cross browser optimisation of their websites and web apps, the creation of new flows and components in angular.
-                    The goal being to make our content available for authors to create their own content by simply drag & drop components in AEM.
+                    I was the pixel-perfect perfectionist on the team—the one who made sure every component looked exactly like the design, 
+                    worked across every browser (even the ancient ones), and could be drag-and-dropped by content authors in Adobe Experience Manager. 
+                    Think of me as the bridge between beautiful designs and the harsh reality of cross-browser compatibility.
                   </p>
                 </div>
 
@@ -208,6 +195,32 @@ export function BaseProject() {
                     ))}
                   </div>
                 </div>
+
+                <div>
+                  <h2 id="project-impact" className="text-3xl font-bold mb-6">
+                    Project Impact
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">75%</div>
+                        <div className="text-sm text-gray-400">Layout Speed & Quality</div>
+                      </div>
+                    </Card>
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">95%</div>
+                        <div className="text-sm text-gray-400">Cross-Browser (Yes, even IE8!)</div>
+                      </div>
+                    </Card>
+                    <Card variant="nested" showShadow>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-purple-400 mb-2">3</div>
+                        <div className="text-sm text-gray-400">Base Brand Websites</div>
+                      </div>
+                    </Card>
+                  </div>
+                </div>
                 
                 {/* Full case link */}
                 <div className="mt-24 md:mt-32 flex flex-col items-center text-center">
@@ -239,16 +252,16 @@ export function BaseProject() {
                     <Card variant="ghost">
                       <div className="space-y-4 text-gray-400">
                         <p>
-                          The Design is Dead roaster is one of the most senior, balanced and skilled teams I've ever met.
-                          They introduced me to the real teamplay scene.
-                          That's where I discovered methodologies like BEM, and where I started to investing myself in Scrum.
+                          This was my first taste of what a truly senior team looks like. The Design is Dead crew didn't just write code—they had systems, methodologies, and a level of teamwork I'd never experienced. 
+                          They introduced me to BEM (which became my prefered CSS methodology) and showed me what Scrum actually looks like when done right.
                         </p>
                         <p>
-                          The contrast with my previous experiences was clear, and I learned a lot on how to work efficiently in a team and it was for me the realisation and confirmation of my hybrid design / front-end skills, the start of a more senior journey.
+                          The contrast with my previous work experiences was clear. Suddenly, I wasn't just a designer who could code—I was part of a machine that delivered consistent, high-quality work at scale. 
+                          This was where I realized my hybrid skills weren't just useful; they were essential.
                         </p>
                         <p>
-                          It wasn't only about taking; I knew that I had also had a lot to give.
-                          There the balance was leaning more towards UI and pure front-end than UX design but I was already prepared, with 5 years of experience, to tackle more serious challenges.
+                          But it wasn't just about learning. I had battle scars from 5 years of making things work across impossible browser combinations, 
+                          and I was ready to share that hard-won knowledge. The team leaned heavily on UI and front-end work, which played right into my strengths.
                         </p>
                       </div>
                     </Card>
@@ -289,44 +302,26 @@ export function BaseProject() {
                       </div>
                     </Card>
 
-                    {/* Solutions */}
-                    <div>
-                      <h2 id="addressing-grid-system" className="text-3xl font-bold mb-6">
-                        Modern Flexible Layout System
-                      </h2>
-                      <Card variant="ghost">
-                        <div className="space-y-4 text-gray-400">
-                          <p>
-                            The introduction of a Flexbox-based grid system was a significant improvement over the previous float-based approach. This new system provided:
-                          </p>
-                          <ul className="list-disc pl-6 space-y-2">
-                            <li>Better alignment control and vertical centering capabilities</li>
-                            <li>Responsive behavior without relying on media queries for every scenario</li>
-                            <li>Consistent spacing and layout across different screen sizes</li>
-                            <li>Fallback solutions for older browsers ensuring cross-browser compatibility</li>
-                          </ul>
-                        </div>
-                      </Card>
-                    </div>
 
+                  </div>
+                </div>
+
+                {/* Project connection */}
+                <div className="pt-8 border-t border-gray-500">
+                  <div className="flex items-center justify-between">
                     <div>
-                      <h2 id="addressing-dev-process" className="text-3xl font-bold mb-6">
-                        Streamlined Development Workflow
-                      </h2>
-                      <Card variant="ghost">
-                        <div className="space-y-4 text-gray-400">
-                          <p>
-                            The development process improvements I implemented had several key benefits:
-                          </p>
-                          <ul className="list-disc pl-6 space-y-2">
-                            <li>Eliminated the need for constant recompilation during front-end development</li>
-                            <li>Reduced the feedback loop time from minutes to seconds</li>
-                            <li>Enabled real-time browser updates with auto-reload functionality</li>
-                            <li>Improved team productivity and morale by removing frustrating delays</li>
-                          </ul>
-                        </div>
-                      </Card>
+                      <h3 className="text-xl font-semibold text-purple-400 mb-2">What came next?</h3>
+                      <p className="text-gray-400">
+                        The systematic thinking I learned here became crucial when I moved to Sopra Banking, 
+                        where I had to teach these methodologies to junior developers.
+                      </p>
                     </div>
+                    <button 
+                      onClick={() => window.location.href = '/projects/sopra'}
+                      className="c-button c-button--secondary flex-shrink-0 ml-6"
+                    >
+                      Next Project →
+                    </button>
                   </div>
                 </div>
               </div>

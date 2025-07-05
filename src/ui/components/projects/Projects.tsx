@@ -51,7 +51,7 @@ const projects: Project[] = [
     company: 'Sopra Banking',
     title: "Sopra Banking Software",
     period: "Apr 2018 - Nov 2018",
-    description: "Modernized the design approach for enterprise banking software, mentoring junior developers while implementing scalable CSS methodologies that reduced development time by 40% and improved code maintainability.",
+    description: "Transformed enterprise banking software from design chaos to systematic methodology, teaching junior developers that good CSS architecture isn't optional—it's survival. Reduced development time by 40% while building the foundation for scalable design systems.",
     images: {
       main: "/screenshots/sbs-thumbnail.png"
     },

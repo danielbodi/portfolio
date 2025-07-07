@@ -30,13 +30,16 @@ export function Image({
       ref={imageRef}
       className={`image ${aspectRatioClass} ${frameClass} ${className}`}
     >
-      <div 
-        className="image__border"
-        style={{
-          background: `linear-gradient(${degree}deg, rgba(55, 55, 62, 0.9) 0%, rgba(105, 100, 247, 0.6) 50%, rgba(180, 144, 255, 1) 100%)`,
-          opacity: intensity
-        }}
-      />
+      {/* Only show gradient border when frame is not 'none' */}
+      {frame !== 'none' && (
+        <div 
+          className="image__border"
+          style={{
+            background: `linear-gradient(${degree}deg, rgba(55, 55, 62, 0.9) 0%, rgba(105, 100, 247, 0.6) 50%, rgba(180, 144, 255, 1) 100%)`,
+            opacity: intensity
+          }}
+        />
+      )}
       <div className="image__content">
         <div className={`image__wrapper ${frame !== 'none' ? `image__wrapper--${frame}` : ''}`}>
           <img 

@@ -1,0 +1,125 @@
+.detailed-image-section {
+  @apply space-y-16;
+
+  &__item {
+    @apply grid gap-12 items-center;
+    
+    // Default layout (mobile)
+    grid-template-columns: 1fr;
+    
+    // Desktop layout - Equal column widths
+    @media (min-width: 1024px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    &--left {
+      @media (min-width: 1024px) {
+        .detailed-image-section__image-wrapper {
+          order: 1;
+        }
+        
+        .detailed-image-section__content {
+          order: 2;
+        }
+      }
+    }
+
+    &--right {
+      @media (min-width: 1024px) {
+        .detailed-image-section__image-wrapper {
+          order: 2;
+        }
+        
+        .detailed-image-section__content {
+          order: 1;
+        }
+      }
+    }
+  }
+
+  &__image-wrapper {
+    @apply w-full p-4 rounded-xl;
+    border: 2px solid rgb(124, 58, 237);
+  }
+
+  &__image {
+    @apply w-full h-auto rounded-lg;
+    
+    // Object fit for consistent appearance
+    object-fit: cover;
+    
+    // Clean shadow without gradient effects
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+    
+    // Modifier to remove shadow
+    &--no-shadow {
+      box-shadow: none !important;
+    }
+    
+    // Modifier to remove aspect ratio
+    &--no-aspect {
+      aspect-ratio: unset !important;
+    }
+    
+    // Modifier to remove both shadow and aspect ratio
+    &--clean {
+      box-shadow: none !important;
+      aspect-ratio: unset !important;
+    }
+  }
+  
+  // Direct overrides for all images in detailed section
+  .image.detailed-image-section__image {
+    aspect-ratio: unset !important;
+    box-shadow: none !important;
+  }
+  
+  // Override any aspect ratio from image component
+  &__image-wrapper .image--aspect-video {
+    aspect-ratio: unset !important;
+  }
+  
+  // Legacy modifier support
+  .detailed-image-section__image--clean,
+  .detailed-image-section__image--no-shadow {
+    box-shadow: none !important;
+  }
+
+  &__content {
+    @apply space-y-6;
+    
+    @media (min-width: 1024px) {
+      @apply px-6;
+    }
+  }
+
+  &__title {
+    @apply text-2xl font-bold text-purple-400;
+  }
+
+  &__description {
+    @apply text-gray-400 leading-relaxed;
+  }
+
+  &__features {
+    @apply space-y-3;
+  }
+
+  &__features-title {
+    @apply text-lg font-semibold text-gray-300;
+  }
+
+  &__features-list {
+    @apply space-y-2 pl-4;
+    
+    li {
+      @apply text-gray-400 relative;
+      
+      &::before {
+        content: '•';
+        @apply absolute -left-4 text-purple-400 font-bold;
+      }
+    }
+  }
+} 

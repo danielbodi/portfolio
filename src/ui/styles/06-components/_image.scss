@@ -83,6 +83,16 @@
     @apply aspect-auto;
   }
 
+  // Modifier to remove aspect ratio
+  &--no-aspect {
+    aspect-ratio: unset !important;
+  }
+  
+  // More specific override for video aspect ratio
+  &--aspect-video.image--no-aspect {
+    aspect-ratio: unset !important;
+  }
+
   // Frame type modifiers
   &--frame-desktop {
     //@apply p-6;

@@ -8,50 +8,117 @@ import { Image } from '../ui/components/image/Image';
 import { ProjectGallery } from '../ui/components/gallery/ProjectGallery';
 import { StackedImageShowcase } from '../ui/components/organisms/StackedImageShowcase/StackedImageShowcase';
 
-export function ProjectTemplate() {
-  // Replace with project-specific images
-  const galleryImages = [
-    {
-      src: "/screenshots/project/project-screenshot1.png",
-      alt: "Project Screenshot 1",
-      description: "Description of the first screenshot"
-    }
-    // Add more images as needed
-  ];
+interface ProjectImage {
+  src: string;
+  alt: string;
+  description: string;
+}
 
-  // Customize skills based on the project
-  const designSkills = [
-    { name: 'Figma', icon: '/skill-icons/figma.svg' },
-    // Add more design skills as needed
-  ];
+interface Skill {
+  name: string;
+  icon: string;
+}
 
-  const devSkills = [
-    { name: 'HTML', icon: '/skill-icons/html.svg' },
-    // Add more development skills as needed
-  ];
+interface ChallengeData {
+  challenge: {
+    title: string;
+    description: string[];
+  };
+  solution: {
+    title: string;
+    description: string[];
+  };
+}
 
-  // Customize case summary data for the project
-  const caseSummaryData = [
-    {
-      challenge: {
-        title: "Challenge Title",
-        description: [
-          "Challenge description point 1.",
-          "Challenge description point 2."
-        ]
-      },
-      solution: {
-        title: "Solution Title",
-        description: [
-          "Solution description point 1.",
-          "Solution description point 2."
-        ]
-      }
-    },
-    // Add more challenge/solution pairs as needed
-  ];
+interface TeamMember {
+  role: string;
+  count?: number;
+}
 
-  const renderSkills = (skills: typeof designSkills) => (
+interface ProjectImpact {
+  value: string;
+  label: string;
+}
+
+interface Challenge {
+  id: string;
+  title: string;
+  content: string[];
+}
+
+interface Solution {
+  id: string;
+  title: string;
+  content: string[];
+}
+
+interface ProjectConnection {
+  title: string;
+  description: string;
+  buttonText: string;
+  href: string;
+}
+
+interface DetailedImageFeatures {
+  [key: number]: string[];
+}
+
+interface ProjectTemplateProps {
+  // Basic project info
+  title: string;
+  pathname: string;
+  
+  // Content sections
+  projectDescription: string;
+  myRole: string;
+  
+  // Team and skills
+  teamMembers: TeamMember[];
+  designSkills: Skill[];
+  devSkills: Skill[];
+  
+  // Images and showcase
+  galleryImages: ProjectImage[];
+  showcaseImages?: ProjectImage[]; // Optional subset for showcase
+  detailedImageFeatures: DetailedImageFeatures;
+  
+  // Case summary
+  caseSummaryData: ChallengeData[];
+  
+  // Project impact
+  projectImpact?: ProjectImpact[];
+  
+  // Challenges and solutions
+  challenges: Challenge[];
+  solutions: Solution[];
+  
+  // Optional project connection
+  projectConnection?: ProjectConnection;
+  
+  // Optional additional sections
+  additionalSections?: React.ReactNode;
+}
+
+export function ProjectTemplate({
+  title,
+  pathname,
+  projectDescription,
+  myRole,
+  teamMembers,
+  designSkills,
+  devSkills,
+  galleryImages,
+  showcaseImages,
+  detailedImageFeatures,
+  caseSummaryData,
+  projectImpact,
+  challenges,
+  solutions,
+  projectConnection,
+  additionalSections
+}: ProjectTemplateProps) {
+  
+  const renderSkills = (skills: Skill[]) => (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
       {skills.map((skill, index) => (
         <div key={index} className="flex flex-col items-center gap-2">
@@ -68,16 +135,18 @@ export function ProjectTemplate() {
     </div>
   );
 
+  const displayImages = showcaseImages || galleryImages;
+
   return (
     <main className="project-page">
       {/* Mobile Table of Contents */}
       <div className="lg:hidden">
-        <TableOfContents variant="mobile" />
+        <TableOfContents variant="mobile" pathname={pathname} />
       </div>
 
       <div className="project-page__header">
           <div className="project-page__title">
-            <h1 className="text-4xl font-bold text-purple-400">Project Title</h1>
+            <h1 className="text-4xl font-bold text-purple-400">{title}</h1>
           </div>
       </div>
 
@@ -92,7 +161,7 @@ export function ProjectTemplate() {
                     Project description
                   </h2>
                   <p className="text-gray-400">
-                    Project description goes here. Provide a detailed overview of what the project is about, its purpose, and its significance.
+                    {projectDescription}
                   </p>
                 </div>
 
@@ -101,7 +170,7 @@ export function ProjectTemplate() {
                     My Role
                   </h2>
                   <p className="text-gray-400">
-                    Describe your role in the project, your responsibilities, and your contributions. Explain how you were involved in the project and what you accomplished.
+                    {myRole}
                   </p>
                 </div>
 
@@ -111,10 +180,11 @@ export function ProjectTemplate() {
                   </h2>
                   <Card variant="nested" showShadow>
                     <div className="flex flex-wrap gap-3">
-                      <Tag variant="dark">X UI/UX Designers</Tag>
-                      <Tag variant="dark">X Front-End Devs</Tag>
-                      <Tag variant="dark">X Back-End Devs</Tag>
-                      {/* Add more team members as needed */}
+                      {teamMembers.map((member, index) => (
+                        <Tag key={index} variant="dark">
+                          {member.count ? `${member.count} ` : ''}{member.role}
+                        </Tag>
+                      ))}
                     </div>
                   </Card>
                 </div>
@@ -144,16 +214,52 @@ export function ProjectTemplate() {
                   
                   <StackedImageShowcase
                     aspectRatio="video"
-                    images={[
-                      // Replace with project-specific images
-                      {
-                        src: "/screenshots/project/project-screenshot1.png",
-                        alt: "Project Screenshot 1",
-                        description: "Description of the first screenshot"
-                      }
-                      // Add more images as needed
-                    ]}
+                    images={displayImages}
                   />
+                </div>
+
+                <div>
+                  <h2 id="detailed-breakdown" className="text-3xl font-bold mb-6">
+                    Detailed Interface Breakdown
+                  </h2>
+                  <div className="detailed-image-section">
+                    {galleryImages.map((image, index) => (
+                      <div 
+                        key={index}
+                        className={`detailed-image-section__item ${
+                          index % 2 === 0 
+                            ? 'detailed-image-section__item--left' 
+                            : 'detailed-image-section__item--right'
+                        }`}
+                      >
+                        <div className="detailed-image-section__image-wrapper">
+                          <Image
+                            src={image.src}
+                            alt={image.alt}
+                            aspectRatio="video"
+                            frame="none"
+                            className="detailed-image-section__image"
+                          />
+                        </div>
+                        <div className="detailed-image-section__content">
+                          <h3 className="detailed-image-section__title">
+                            {image.alt}
+                          </h3>
+                          <p className="detailed-image-section__description">
+                            {image.description}
+                          </p>
+                          <div className="detailed-image-section__features">
+                            <h4 className="detailed-image-section__features-title">Key Features:</h4>
+                            <ul className="detailed-image-section__features-list">
+                              {detailedImageFeatures[index]?.map((feature, featureIndex) => (
+                                <li key={featureIndex}>{feature}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div>
@@ -171,6 +277,27 @@ export function ProjectTemplate() {
                     ))}
                   </div>
                 </div>
+
+                {projectImpact && (
+                  <div>
+                    <h2 id="project-impact" className="text-3xl font-bold mb-6">
+                      Project Impact
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {projectImpact.map((impact, index) => (
+                        <Card key={index} variant="nested" showShadow>
+                          <div className="text-center">
+                            <div className="text-4xl font-bold text-purple-400 mb-2">{impact.value}</div>
+                            <div className="text-sm text-gray-400">{impact.label}</div>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Additional sections like embedded showcases */}
+                {additionalSections}
                 
                 {/* Full case link */}
                 <div className="mt-24 md:mt-32 flex flex-col items-center text-center">
@@ -199,44 +326,16 @@ export function ProjectTemplate() {
                     The Challenges I've faced
                   </h2>
                   <div className="space-y-8">
-                    {/* Challenge 1 */}
-                    <Card variant="ghost">
-                      <h4 id="challenge-1" className="text-xl font-semibold mb-4">Challenge 1 Title</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          Detailed description of the first challenge you faced in this project. Explain the problem, its context, and why it was difficult to solve.
-                        </p>
-                        <p>
-                          Additional details about the challenge, its implications, and its impact on the project.
-                        </p>
-                      </div>
-                    </Card>
-
-                    {/* Challenge 2 */}
-                    <Card variant="ghost">
-                      <h4 id="challenge-2" className="text-xl font-semibold mb-4">Challenge 2 Title</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          Detailed description of the second challenge you faced in this project. Explain the problem, its context, and why it was difficult to solve.
-                        </p>
-                        <p>
-                          Additional details about the challenge, its implications, and its impact on the project.
-                        </p>
-                      </div>
-                    </Card>
-
-                    {/* Challenge 3 */}
-                    <Card variant="ghost">
-                      <h4 id="challenge-3" className="text-xl font-semibold mb-4">Challenge 3 Title</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          Detailed description of the third challenge you faced in this project. Explain the problem, its context, and why it was difficult to solve.
-                        </p>
-                        <p>
-                          Additional details about the challenge, its implications, and its impact on the project.
-                        </p>
-                      </div>
-                    </Card>
+                    {challenges.map((challenge, index) => (
+                      <Card key={index} variant="ghost">
+                        <h4 id={challenge.id} className="text-xl font-semibold mb-4">{challenge.title}</h4>
+                        <div className="space-y-4 text-gray-400">
+                          {challenge.content.map((paragraph, pIndex) => (
+                            <p key={pIndex}>{paragraph}</p>
+                          ))}
+                        </div>
+                      </Card>
+                    ))}
                   </div>
                 </div>
 
@@ -245,62 +344,40 @@ export function ProjectTemplate() {
                     How I overcame them
                   </h2>
                   <div className="space-y-8">
-                    {/* Solution 1 */}
-                    <Card variant="ghost">
-                      <h4 id="solution-1" className="text-xl font-semibold mb-4">Challenge 1 Title: Solution Approach</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          Detailed description of how you solved the first challenge. Explain your approach, the steps you took, and the outcome.
-                        </p>
-                        <p>
-                          Additional details about your solution, including any tools, techniques, or methodologies you used.
-                        </p>
-                        <p>
-                          Explanation of the impact of your solution on the project and any lessons learned.
-                        </p>
-                      </div>
-                    </Card>
-
-                    {/* Solution 2 */}
-                    <Card variant="ghost">
-                      <h4 id="solution-2" className="text-xl font-semibold mb-4">Challenge 2 Title: Solution Approach</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          Detailed description of how you solved the second challenge. Explain your approach, the steps you took, and the outcome.
-                        </p>
-                        <p>
-                          Additional details about your solution, including any tools, techniques, or methodologies you used.
-                        </p>
-                        <p>
-                          Explanation of the impact of your solution on the project and any lessons learned.
-                        </p>
-                      </div>
-                    </Card>
-
-                    {/* Solution 3 */}
-                    <Card variant="ghost">
-                      <h4 id="solution-3" className="text-xl font-semibold mb-4">Challenge 3 Title: Solution Approach</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          Detailed description of how you solved the third challenge. Explain your approach, the steps you took, and the outcome.
-                        </p>
-                        <p>
-                          Additional details about your solution, including any tools, techniques, or methodologies you used.
-                        </p>
-                        <p>
-                          Explanation of the impact of your solution on the project and any lessons learned.
-                        </p>
-                      </div>
-                    </Card>
+                    {solutions.map((solution, index) => (
+                      <Card key={index} variant="ghost">
+                        <h4 id={solution.id} className="text-xl font-semibold mb-4">{solution.title}</h4>
+                        <div className="space-y-4 text-gray-400">
+                          {solution.content.map((paragraph, pIndex) => (
+                            <p key={pIndex}>{paragraph}</p>
+                          ))}
+                        </div>
+                      </Card>
+                    ))}
                   </div>
                 </div>
+
+                {/* Project connection */}
+                {projectConnection && (
+                  <div className="pt-8 border-t border-gray-500">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-xl font-semibold text-purple-400 mb-2">{projectConnection.title}</h3>
+                        <p className="text-gray-400">
+                          {projectConnection.description}
+                        </p>
+                      </div>
+                      <button 
+                        onClick={() => window.location.href = projectConnection.href}
+                        className="c-button c-button--secondary flex-shrink-0 ml-6"
+                      >
+                        {projectConnection.buttonText}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </Card>
-          </div>
-
-          {/* Table of Contents */}
-          <div className="hidden lg:block">
-            <TableOfContents variant="desktop" />
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@
 
 .c-navigation {
   &__desktop {
-    @apply fixed top-0 left-0 right-0 z-50 hidden;
+    @apply sticky top-0 left-0 right-0 z-50 hidden;
     
     @include respond-to(md) {
       @apply block;
@@ -14,7 +14,7 @@
   }
 
   &__mobile {
-    @apply fixed bottom-0 left-0 right-0 z-50 block;
+    @apply sticky bottom-0 left-0 right-0 z-50 block;
     
     @include respond-to(md) {
       @apply hidden;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Card } from '../ui/components/cards/Card';
 import { Tag } from '../ui/components/atoms/Tag/Tag';
@@ -6,7 +6,7 @@ import { TableOfContents } from '../ui/components/table-of-contents/TableOfConte
 import { CaseSummaryCard } from '../ui/components/case-summary/CaseSummaryCard';
 import { Image } from '../ui/components/image/Image';
 import { ProjectGallery } from '../ui/components/gallery/ProjectGallery';
-import { StackedImageShowcase } from '../ui/components/organisms/StackedImageShowcase/StackedImageShowcase';
+
 
 interface ProjectImage {
   src: string;
@@ -15,6 +15,11 @@ interface ProjectImage {
 }
 
 interface Skill {
+  name: string;
+  icon: string;
+}
+
+interface Platform {
   name: string;
   icon: string;
 }
@@ -49,7 +54,7 @@ interface Challenge {
 interface Solution {
   id: string;
   title: string;
-  content: string[];
+  content: (string | React.ReactNode)[];
 }
 
 interface ProjectConnection {
@@ -72,14 +77,17 @@ interface ProjectTemplateProps {
   projectDescription: string;
   myRole: string;
   
+  // Hero section
+  heroImage: ProjectImage;
+  
   // Team and skills
   teamMembers: TeamMember[];
+  platforms: Platform[];
   designSkills: Skill[];
   devSkills: Skill[];
   
   // Images and showcase
   galleryImages: ProjectImage[];
-  showcaseImages?: ProjectImage[]; // Optional subset for showcase
   detailedImageFeatures: DetailedImageFeatures;
   
   // Case summary
@@ -104,11 +112,12 @@ export function ProjectTemplate({
   pathname,
   projectDescription,
   myRole,
+  heroImage,
   teamMembers,
+  platforms,
   designSkills,
   devSkills,
   galleryImages,
-  showcaseImages,
   detailedImageFeatures,
   caseSummaryData,
   projectImpact,
@@ -117,6 +126,62 @@ export function ProjectTemplate({
   projectConnection,
   additionalSections
 }: ProjectTemplateProps) {
+  
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const galleryItemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const challengeItemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const solutionItemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const lastScrollY = useRef<number>(0);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('animate-out');
+            entry.target.classList.add('animate-in');
+          } else {
+            const currentScrollY = window.scrollY;
+            const isScrollingUp = currentScrollY < lastScrollY.current;
+            lastScrollY.current = currentScrollY;
+            
+            if (isScrollingUp) {
+              entry.target.classList.remove('animate-in');
+              entry.target.classList.add('animate-out');
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -20px 0px'
+      }
+    );
+
+    const allElements = [
+      ...sectionRefs.current,
+      ...galleryItemRefs.current,
+      ...challengeItemRefs.current,
+      ...solutionItemRefs.current
+    ];
+
+    allElements.forEach((element) => {
+      if (element) {
+        observerRef.current?.observe(element);
+      }
+    });
+
+    return () => {
+      if (observerRef.current) {
+        allElements.forEach((element) => {
+          if (element) {
+            observerRef.current?.unobserve(element);
+          }
+        });
+      }
+    };
+  }, []);
   
   const renderSkills = (skills: Skill[]) => (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
@@ -135,7 +200,7 @@ export function ProjectTemplate({
     </div>
   );
 
-  const displayImages = showcaseImages || galleryImages;
+
 
   return (
     <main className="project-page">
@@ -145,9 +210,38 @@ export function ProjectTemplate({
       </div>
 
       <div className="project-page__header">
-          <div className="project-page__title">
+          <div className="project-page__title flex justify-between items-baseline">
             <h1 className="text-4xl font-bold text-purple-400">{title}</h1>
+            <div className="flex flex-wrap gap-3">
+              {platforms.map((platform, index) => (
+                <Tag key={index} variant="ghost">
+                  <div className="flex items-center gap-2">
+                    <img 
+                      src={platform.icon} 
+                      alt={platform.name}
+                      className="w-4 h-4 brightness-0 invert"
+                    />
+                    <span>{platform.name}</span>
+                  </div>
+                </Tag>
+              ))}
+            </div>
           </div>
+      </div>
+
+      {/* Hero Section */}
+      <div className="w-full mb-12">
+        <div className="max-w-5xl mx-auto">
+          <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
+            <Image
+              src={heroImage.src}
+              alt={heroImage.alt}
+              aspectRatio="video"
+              frame="none"
+              className="w-full rounded-lg"
+            />
+          </div>
+        </div>
       </div>
 
       <div className="max-w-5xl mx-auto">
@@ -156,25 +250,30 @@ export function ProjectTemplate({
           <div className="flex-1">
             <Card variant="ghost">
               <div className="space-y-12 text-gray-300">
-                <div>
+                <div
+                  ref={el => sectionRefs.current[0] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="project-description" className="text-3xl font-bold mb-6">
                     Project description
                   </h2>
-                  <p className="text-gray-400">
-                    {projectDescription}
-                  </p>
+                  <p className="text-gray-400" dangerouslySetInnerHTML={{ __html: projectDescription }} />
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[1] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="my-role" className="text-3xl font-bold mb-6">
                     My Role
                   </h2>
-                  <p className="text-gray-400">
-                    {myRole}
-                  </p>
+                  <p className="text-gray-400" dangerouslySetInnerHTML={{ __html: myRole }} />
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[2] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="team-composition" className="text-3xl font-bold mb-6">
                     Team Composition
                   </h2>
@@ -189,7 +288,10 @@ export function ProjectTemplate({
                   </Card>
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[3] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="skills" className="text-3xl font-bold mb-6">
                     Skills I've Used 
                   </h2>
@@ -207,30 +309,22 @@ export function ProjectTemplate({
                   </div>
                 </div>
 
-                <div>
-                  <h2 id="interactive-showcase" className="text-3xl font-bold mb-6">
-                    UI Highlights
-                  </h2>
-                  
-                  <StackedImageShowcase
-                    aspectRatio="video"
-                    images={displayImages}
-                  />
-                </div>
 
-                <div>
-                  <h2 id="detailed-breakdown" className="text-3xl font-bold mb-6">
-                    Detailed Interface Breakdown
+
+                <div
+                  ref={el => sectionRefs.current[4] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
+                  <h2 id="interface-showcase" className="text-3xl font-bold mb-6">
+                    Interface Showcase
                   </h2>
                   <div className="detailed-image-section">
                     {galleryImages.map((image, index) => (
                       <div 
                         key={index}
-                        className={`detailed-image-section__item ${
-                          index % 2 === 0 
-                            ? 'detailed-image-section__item--left' 
-                            : 'detailed-image-section__item--right'
-                        }`}
+                        ref={el => galleryItemRefs.current[index] = el}
+                        className="detailed-image-section__item opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                        style={{ transitionDelay: `${index * 100}ms` }}
                       >
                         <div className="detailed-image-section__image-wrapper">
                           <Image
@@ -245,24 +339,18 @@ export function ProjectTemplate({
                           <h3 className="detailed-image-section__title">
                             {image.alt}
                           </h3>
-                          <p className="detailed-image-section__description">
-                            {image.description}
-                          </p>
-                          <div className="detailed-image-section__features">
-                            <h4 className="detailed-image-section__features-title">Key Features:</h4>
-                            <ul className="detailed-image-section__features-list">
-                              {detailedImageFeatures[index]?.map((feature, featureIndex) => (
-                                <li key={featureIndex}>{feature}</li>
-                              ))}
-                            </ul>
-                          </div>
+                          <p className="detailed-image-section__description" dangerouslySetInnerHTML={{ __html: image.description }} />
+
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[5] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="case-summary" className="text-3xl font-bold mb-6">
                     Case Summary
                   </h2>
@@ -279,7 +367,10 @@ export function ProjectTemplate({
                 </div>
 
                 {projectImpact && (
-                  <div>
+                  <div
+                    ref={el => sectionRefs.current[6] = el}
+                    className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                  >
                     <h2 id="project-impact" className="text-3xl font-bold mb-6">
                       Project Impact
                     </h2>
@@ -297,10 +388,20 @@ export function ProjectTemplate({
                 )}
 
                 {/* Additional sections like embedded showcases */}
-                {additionalSections}
+                {additionalSections && (
+                  <div
+                    ref={el => sectionRefs.current[7] = el}
+                    className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                  >
+                    {additionalSections}
+                  </div>
+                )}
                 
                 {/* Full case link */}
-                <div className="mt-24 md:mt-32 flex flex-col items-center text-center">
+                <div
+                  ref={el => sectionRefs.current[8] = el}
+                  className="mt-24 md:mt-32 flex flex-col items-center text-center opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <button 
                    onClick={() => {
                      const element = document.getElementById('challenges');
@@ -321,51 +422,76 @@ export function ProjectTemplate({
                   </button>
                 </div>
                 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[9] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="challenges" className="text-3xl font-bold mb-6">
                     The Challenges I've faced
                   </h2>
                   <div className="space-y-8">
                     {challenges.map((challenge, index) => (
-                      <Card key={index} variant="ghost">
-                        <h4 id={challenge.id} className="text-xl font-semibold mb-4">{challenge.title}</h4>
-                        <div className="space-y-4 text-gray-400">
-                          {challenge.content.map((paragraph, pIndex) => (
-                            <p key={pIndex}>{paragraph}</p>
-                          ))}
-                        </div>
-                      </Card>
+                      <div
+                        key={index}
+                        ref={el => challengeItemRefs.current[index] = el}
+                        className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                        style={{ transitionDelay: `${index * 150}ms` }}
+                      >
+                        <Card variant="ghost">
+                          <h4 id={challenge.id} className="text-xl font-semibold mb-4">{challenge.title}</h4>
+                          <div className="space-y-4 text-gray-400">
+                            {challenge.content.map((paragraph, pIndex) => (
+                              <p key={pIndex} dangerouslySetInnerHTML={{ __html: paragraph }} />
+                            ))}
+                          </div>
+                        </Card>
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[10] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="solutions" className="text-3xl font-bold mb-6">
                     How I overcame them
                   </h2>
                   <div className="space-y-8">
                     {solutions.map((solution, index) => (
-                      <Card key={index} variant="ghost">
-                        <h4 id={solution.id} className="text-xl font-semibold mb-4">{solution.title}</h4>
-                        <div className="space-y-4 text-gray-400">
-                          {solution.content.map((paragraph, pIndex) => (
-                            <p key={pIndex}>{paragraph}</p>
-                          ))}
-                        </div>
-                      </Card>
+                      <div
+                        key={index}
+                        ref={el => solutionItemRefs.current[index] = el}
+                        className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                        style={{ transitionDelay: `${index * 150}ms` }}
+                      >
+                        <Card variant="ghost">
+                          <h4 id={solution.id} className="text-xl font-semibold mb-4">{solution.title}</h4>
+                          <div className="space-y-4 text-gray-400">
+                            {solution.content.map((paragraph, pIndex) => (
+                              typeof paragraph === 'string' ? (
+                                <p key={pIndex} dangerouslySetInnerHTML={{ __html: paragraph }} />
+                              ) : (
+                                <div key={pIndex}>{paragraph}</div>
+                              )
+                            ))}
+                          </div>
+                        </Card>
+                      </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Project connection */}
                 {projectConnection && (
-                  <div className="pt-8 border-t border-gray-500">
+                  <div
+                    ref={el => sectionRefs.current[11] = el}
+                    className="pt-8 border-t border-gray-500 opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                  >
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-xl font-semibold text-purple-400 mb-2">{projectConnection.title}</h3>
-                        <p className="text-gray-400">
-                          {projectConnection.description}
-                        </p>
+                        <p className="text-gray-400" dangerouslySetInnerHTML={{ __html: projectConnection.description }} />
                       </div>
                       <button 
                         onClick={() => window.location.href = projectConnection.href}

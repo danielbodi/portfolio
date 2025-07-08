@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Card } from '../ui/components/cards/Card';
 import { Tag } from '../ui/components/atoms/Tag/Tag';
@@ -6,44 +6,85 @@ import { TableOfContents } from '../ui/components/table-of-contents/TableOfConte
 import { CaseSummaryCard } from '../ui/components/case-summary/CaseSummaryCard';
 import { Image } from '../ui/components/image/Image';
 import { ProjectGallery } from '../ui/components/gallery/ProjectGallery';
-import { StackedImageShowcase } from '../ui/components/organisms/StackedImageShowcase/StackedImageShowcase';
+
 
 export function TraisProject() {
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const galleryItemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const challengeItemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const solutionItemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const lastScrollY = useRef<number>(0);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('animate-out');
+            entry.target.classList.add('animate-in');
+          } else {
+            const currentScrollY = window.scrollY;
+            const isScrollingUp = currentScrollY < lastScrollY.current;
+            lastScrollY.current = currentScrollY;
+            
+            if (isScrollingUp) {
+              entry.target.classList.remove('animate-in');
+              entry.target.classList.add('animate-out');
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -20px 0px'
+      }
+    );
+
+    const allElements = [
+      ...sectionRefs.current,
+      ...galleryItemRefs.current,
+      ...challengeItemRefs.current,
+      ...solutionItemRefs.current
+    ];
+
+    allElements.forEach((element) => {
+      if (element) {
+        observerRef.current?.observe(element);
+      }
+    });
+
+    return () => {
+      if (observerRef.current) {
+        allElements.forEach((element) => {
+          if (element) {
+            observerRef.current?.unobserve(element);
+          }
+        });
+      }
+    };
+  }, []);
+
   const galleryImages = [
+    {
+      src: "/screenshots/trasis/trasis-qc1-dashboard.png",
+      alt: "Dashboard with schedule list and device monitoring",
+      description: "Comprehensive dashboard interface showing test schedules and real-time component monitoring"
+    },
     {
       src: "/screenshots/trasis/trasis-qc1-real-parts-ui.png",
       alt: "Example of real parts designed for the QC1 device",
-      description: "Custom components designed to represent real device parts"
-    },
-    {
-      src: "/screenshots/trasis/trasis-qc1-homepage.png",
-      alt: "Home page of the QC1 app",
-      description: "Home page with navigation menu inspired by the Trasis logo"
-    },
-    {
-      src: "/screenshots/trasis/trasis-qc1-hplc--cfg.png",
-      alt: "QC Test UI reflecting the QC1's mechanism",
-      description: "Interactive test interface mirroring the device's physical processes"
-    },
-    {
-      src: "/screenshots/trasis/trasis-qc1-µgc--cfg.png",
-      alt: "QC Test diagram reflecting the QC1's mechanism",
-      description: "Detailed diagram showing fluid channels and component states"
+      description: "Realistic illustrations of device components designed to replicate real parts"
     },
     {
       src: "/screenshots/trasis/trasis-qc1-spots--results.png",
       alt: "QC Test result page",
-      description: "Results visualization with clear data presentation"
+      description: "QC test results interface with clear data visualization and precise measurement displays for quality control validation"
     },
     {
       src: "/screenshots/trasis/trasis-qc1-appearance--results.png",
       alt: "Another view of QC Test result page",
       description: "Color and clarity test results with visual references"
-    },
-    {
-      src: "/screenshots/trasis/trasis-qc1-dashboard.png",
-      alt: "Dashboard with schedule list and device monitoring",
-      description: "Comprehensive dashboard showing test schedule and component status"
     },
     {
       src: "/screenshots/trasis/trasis-qc1-new-tap-creation-page.png",
@@ -151,13 +192,40 @@ export function TraisProject() {
     <main className="project-page">
       {/* Mobile Table of Contents */}
       <div className="lg:hidden">
-        <TableOfContents variant="mobile" />
+        <TableOfContents variant="mobile" pathname="/projects/trasis" />
       </div>
 
       <div className="project-page__header">
-          <div className="project-page__title">
+          <div className="project-page__title flex justify-between items-baseline">
             <h1 className="text-4xl font-bold text-purple-400">Trasis QC1 Device Interface</h1>
+            <div className="flex flex-wrap gap-3">
+              <Tag variant="ghost">
+                <div className="flex items-center gap-2">
+                  <img 
+                    src="/skill-icons/tablet.svg" 
+                    alt="Tablet"
+                    className="w-4 h-4 brightness-0 invert"
+                  />
+                  <span>Tablet</span>
+                </div>
+              </Tag>
+            </div>
           </div>
+      </div>
+
+      {/* Hero Section */}
+      <div className="w-full mb-12">
+        <div className="max-w-5xl mx-auto">
+          <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
+            <Image
+              src="/screenshots/trasis/trasis-qc1-homepage.png"
+              alt="Home page of the QC1 app"
+              aspectRatio="auto"
+              frame="none"
+              className="w-full rounded-lg"
+            />
+          </div>
+        </div>
       </div>
 
       <div className="max-w-5xl mx-auto">
@@ -166,18 +234,24 @@ export function TraisProject() {
           <div className="flex-1">
             <Card variant="ghost">
               <div className="space-y-12 text-gray-300">
-                <div>
+                <div
+                  ref={el => sectionRefs.current[0] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="project-description" className="text-3xl font-bold mb-6">
                     Project description
                   </h2>
                   <p className="text-gray-400">
-                    Imagine designing an interface for a device that handles radioactive materials—no pressure, right? 
-                    Trasis builds equipment for creating radiopharmaceuticals, and their QC1 device needed an interface that could guide technicians through complex quality control processes without any room for error. 
-                    This wasn't just about making things look pretty; one wrong click could affect patient safety.
+                    Imagine designing an interface for a device that handles <strong>radioactive materials</strong>—no pressure, right? 
+                    <strong>Trasis</strong> builds equipment for creating <strong>radiopharmaceuticals</strong>, and their <strong>QC1 device</strong> needed an interface that could guide technicians through complex <strong>quality control processes</strong> without any room for error. 
+                    This wasn't just about making things look pretty; one wrong click could affect <strong>patient safety</strong>.
                   </p>
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[1] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="my-role" className="text-3xl font-bold mb-6">
                     My Role
                   </h2>
@@ -188,7 +262,10 @@ export function TraisProject() {
                   </p>
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[2] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="team-composition" className="text-3xl font-bold mb-6">
                     Team Composition
                   </h2>
@@ -201,7 +278,10 @@ export function TraisProject() {
                   </Card>
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[3] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="skills" className="text-3xl font-bold mb-6">
                     Skills I've Used 
                   </h2>
@@ -219,18 +299,50 @@ export function TraisProject() {
                   </div>
                 </div>
 
-                <div>
-                  <h2 id="interactive-showcase" className="text-3xl font-bold mb-6">
-                    UI Highlights
+
+
+                <div
+                  ref={el => sectionRefs.current[4] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
+                  <h2 id="interface-showcase" className="text-3xl font-bold mb-6">
+                    Interface Showcase
                   </h2>
-                  
-                  <StackedImageShowcase
-                    aspectRatio="video"
-                    images={galleryImages}
-                  />
+                  <div className="detailed-image-section">
+                    {galleryImages.map((image, index) => (
+                      <div 
+                        key={index}
+                        ref={el => galleryItemRefs.current[index] = el}
+                        className="detailed-image-section__item opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                        style={{ transitionDelay: `${index * 100}ms` }}
+                      >
+                        <div className="detailed-image-section__image-wrapper">
+                          <Image
+                            src={image.src}
+                            alt={image.alt}
+                            aspectRatio="video"
+                            frame="none"
+                            className="detailed-image-section__image"
+                          />
+                        </div>
+                        <div className="detailed-image-section__content">
+                          <h3 className="detailed-image-section__title">
+                            {image.alt}
+                          </h3>
+                          <p className="detailed-image-section__description">
+                            {image.description}
+                          </p>
+
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[5] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="case-summary" className="text-3xl font-bold mb-6">
                     Case Summary
                   </h2>
@@ -246,7 +358,10 @@ export function TraisProject() {
                   </div>
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[6] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="project-impact" className="text-3xl font-bold mb-6">
                     Project Impact
                   </h2>
@@ -273,7 +388,10 @@ export function TraisProject() {
                 </div>
                 
                 {/* Full case link */}
-                <div className="mt-24 md:mt-32 flex flex-col items-center text-center">
+                <div
+                  ref={el => sectionRefs.current[7] = el}
+                  className="mt-24 md:mt-32 flex flex-col items-center text-center opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <button 
                    onClick={() => {
                      const element = document.getElementById('challenges');
@@ -294,14 +412,22 @@ export function TraisProject() {
                   </button>
                 </div>
                 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[8] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="challenges" className="text-3xl font-bold mb-6">
                     The Challenges I've faced
                   </h2>
                   <div className="space-y-8">
                     {/* Challenge 1 */}
-                    <Card variant="ghost">
-                      <h4 id="unfamiliarity-with-designers" className="text-xl font-semibold mb-4">Unfamiliarity from Business with Designers</h4>
+                    <div
+                      ref={el => challengeItemRefs.current[0] = el}
+                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                      style={{ transitionDelay: '0ms' }}
+                    >
+                      <Card variant="ghost">
+                        <h4 id="unfamiliarity-with-designers" className="text-xl font-semibold mb-4">Unfamiliarity from Business with Designers</h4>
                       <div className="space-y-4 text-gray-400">
                         <p>
                           When I joined Trasis, the team was not used to work with a designer. 
@@ -314,38 +440,59 @@ export function TraisProject() {
                         </p>
                       </div>
                     </Card>
+                    </div>
 
                     {/* Challenge 2 */}
-                    <Card variant="ghost">
-                      <h4 id="team-composition-roles" className="text-xl font-semibold mb-4">Challenges with the team composition and roles</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          Another challenge I faced at Trasis was balancing the roles of both designer and front-end developer within a limited budget.
-                          This required me to make swift, impactful decisions about the design system in Figma and my development approach.
-                        </p>
-                      </div>
-                    </Card>
+                    <div
+                      ref={el => challengeItemRefs.current[1] = el}
+                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                      style={{ transitionDelay: '150ms' }}
+                    >
+                      <Card variant="ghost">
+                        <h4 id="team-composition-roles" className="text-xl font-semibold mb-4">Challenges with the team composition and roles</h4>
+                        <div className="space-y-4 text-gray-400">
+                          <p>
+                            Another challenge I faced at Trasis was balancing the roles of both designer and front-end developer within a limited budget.
+                            This required me to make swift, impactful decisions about the design system in Figma and my development approach.
+                          </p>
+                        </div>
+                      </Card>
+                    </div>
 
                     {/* Challenge 3 */}
-                    <Card variant="ghost">
-                      <h4 id="custom-design-complexity" className="text-xl font-semibold mb-4">Custom design complexity</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          I had to face the complexity of designing the user interface for the QC1 device. This involved creating advanced custom designs that mirrored the device's real-life functionalities and parts, ensuring an intuitive and realistic user experience.
-                        </p>
-                      </div>
-                    </Card>
+                    <div
+                      ref={el => challengeItemRefs.current[2] = el}
+                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                      style={{ transitionDelay: '300ms' }}
+                    >
+                      <Card variant="ghost">
+                        <h4 id="custom-design-complexity" className="text-xl font-semibold mb-4">Custom design complexity</h4>
+                        <div className="space-y-4 text-gray-400">
+                          <p>
+                            I had to face the complexity of designing the user interface for the QC1 device. This involved creating advanced custom designs that mirrored the device's real-life functionalities and parts, ensuring an intuitive and realistic user experience.
+                          </p>
+                        </div>
+                      </Card>
+                    </div>
                   </div>
                 </div>
 
-                <div>
+                <div
+                  ref={el => sectionRefs.current[9] = el}
+                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <h2 id="solutions" className="text-3xl font-bold mb-6">
                     How I overcame them
                   </h2>
                   <div className="space-y-8">
                     {/* Solution 1 */}
-                    <Card variant="ghost">
-                      <h4 id="addressing-unfamiliarity" className="text-xl font-semibold mb-4">Addressing the Unfamiliarity from Business with Designers</h4>
+                    <div
+                      ref={el => solutionItemRefs.current[0] = el}
+                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                      style={{ transitionDelay: '0ms' }}
+                    >
+                      <Card variant="ghost">
+                        <h4 id="addressing-unfamiliarity" className="text-xl font-semibold mb-4">Addressing the Unfamiliarity from Business with Designers</h4>
                       <div className="space-y-4 text-gray-400">
                         <p>
                           To address this challenge, I made sure to be proactive and transparent from the beginning. 
@@ -368,72 +515,86 @@ export function TraisProject() {
                           Being open and transparent, while delivering results quickly, earned their trust and demonstrated my value to the project. 
                           This not only shifted their perspective on working with a designer but also strengthened collaboration across the team. Even during the challenges of COVID-19, when many other projects were cancelled, I remained a key part of the team.
                         </p>
+
+
                       </div>
                     </Card>
+                    </div>
 
                     {/* Solution 2 */}
-                    <Card variant="ghost">
-                      <h4 id="addressing-team-composition" className="text-xl font-semibold mb-4">Addressing Challenges with the team composition and roles</h4>
+                    <div
+                      ref={el => solutionItemRefs.current[1] = el}
+                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                      style={{ transitionDelay: '150ms' }}
+                    >
+                      <Card variant="ghost">
+                        <h4 id="addressing-team-composition" className="text-xl font-semibold mb-4">Addressing Challenges with the team composition and roles</h4>
                       <div className="space-y-4 text-gray-400">
                         <p>
-                          Trasis had multiple applications and devices, which made it clear that a reusable and scalable design system was needed for their ecosystem. 
-                          As the only designer, I decided to reuse Ant Design's UI kit in Figma as the foundation for the design system. I then built upon this foundation by adding custom components using the Atomic Design methodology to suit the specific needs of their products.
+                          Trasis had multiple applications and devices, which made it clear that a <strong>reusable and scalable design system</strong> was needed for their ecosystem. 
+                          As the only designer, I decided to reuse <strong>Ant Design's UI kit</strong> in Figma as the foundation for the design system. I then built upon this foundation by adding custom components using the <strong>Atomic Design methodology</strong> to suit the specific needs of their products.
                         </p>
                         <p>
-                          This approach, as mentioned in the first challenge, allowed me to deliver high-fidelity prototypes rapidly.
+                          This approach, as mentioned in the first challenge, allowed me to deliver <strong>high-fidelity prototypes rapidly</strong>.
                         </p>
                         <p>
-                          Frequent user testing sessions helped me validate the designs and iterate based on feedback. Since the field of radiopharmaceuticals was new to me, these iterations, combined with business input, were very valuable in aligning the UI with user needs.
+                          Frequent <strong>user testing sessions</strong> helped me validate the designs and iterate based on feedback. Since the field of <strong>radiopharmaceuticals</strong> was new to me, these iterations, combined with business input, were very valuable in aligning the UI with user needs.
                         </p>
                         <p>
-                          On the development side, I chose to use an NX monorepo with Angular for its ability to manage multiple projects within a shared workspace efficiently. 
-                          For CSS, I implemented the ITCSS structure with the BEM methodology, which ensured a scalable and maintainable structure for styling.
+                          On the development side, I chose to use an <strong>NX monorepo with Angular</strong> for its ability to manage multiple projects within a shared workspace efficiently. 
+                          For CSS, I implemented the <strong>ITCSS structure</strong> with the <strong>BEM methodology</strong>, which ensured a scalable and maintainable structure for styling.
                         </p>
                         <p>
-                          To centralize the design system, I used Storybook as the platform, ensuring that the components were documented and reusable.
+                          To centralize the design system, I used <strong>Storybook</strong> as the platform, ensuring that the components were documented and reusable.
                         </p>
                         <p>
                           However, my contribution to Storybook was limited to a basic stage, as the project budget came to an end.
                           Before leaving, I ensured a smooth transition by handing over and conducting multiple coaching sessions with an internal developer who took over the front-end tasks. These sessions helped with knowledge transfer about the prototypes in Figma, the design system, Storybook setup, and other development practices, ensuring the continuity of the work I started.
                         </p>
-                      </div>
-                    </Card>
+
+                        <div className="my-8">
+                          <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
+                            <Image
+                              src="/screenshots/trasis/trasis-qc1-real-parts-ui.png"
+                              alt="Example of real parts designed for the QC1 device"
+                              aspectRatio="auto"
+                              frame="none"
+                              className="w-full rounded-lg"
+                            />
+                          </div>
+                          <p className="text-sm text-purple-400 mt-2">Realistic illustrations of device components designed to replicate real parts of the QC1 device</p>
+                        </div>
+                                              </div>
+                      </Card>
+                    </div>
 
                     {/* Solution 3 */}
-                    <Card variant="ghost">
-                      <h4 id="addressing-design-complexity" className="text-xl font-semibold mb-4">Addressing Custom design complexity</h4>
+                    <div
+                      ref={el => solutionItemRefs.current[2] = el}
+                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                      style={{ transitionDelay: '300ms' }}
+                    >
+                      <Card variant="ghost">
+                        <h4 id="addressing-design-complexity" className="text-xl font-semibold mb-4">Addressing Custom design complexity</h4>
                       <div className="space-y-4 text-gray-400">
                         <p>
                           This project required realistic illustrations of the device's components (like valves, columns, injectors, tubes…), as shown in the example below. These elements were designed to visually represent real parts of the device, allowing users to easily understand and interact with its functions in diagrams and schemas that I also designed to replicate the internal processes of the device, such as fluid channels, reagent movements, and test flows.
                         </p>
-                        
+
                         <div className="my-8">
-                          <StackedImageShowcase
-                            aspectRatio="video"
-                            images={[
-                              {
-                                src: "/screenshots/trasis/trasis-qc1-real-parts-ui.png",
-                                alt: "Example of real parts designed for the QC1 device",
-                                description: "Example of real parts that I designed and reused in the diagrams"
-                              },
-                              {
-                                src: "/screenshots/trasis/trasis-qc1-homepage.png",
-                                alt: "Home page of the QC1 app",
-                                description: "Home page of the app, they requested to find a way to reuse their logo as navigation menu"
-                              },
-                              {
-                                src: "/screenshots/trasis/trasis-qc1-hplc--cfg.png",
-                                alt: "QC Test UI reflecting the QC1's mechanism",
-                                description: "Type of QC Test UI that reflects the QC1's mechanism"
-                              },
-                              {
-                                src: "/screenshots/trasis/trasis-qc1-µgc--cfg.png",
-                                alt: "QC Test diagram reflecting the QC1's mechanism",
-                                description: "Type of QC Test diagram reflecting the QC1's mechanism"
-                              }
-                            ]}
-                          />
+                          <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
+                            <Image
+                              src="/screenshots/trasis/trasis-qc1-hplc--cfg.png"
+                              alt="QC Test UI reflecting the QC1's mechanism"
+                              aspectRatio="auto"
+                              frame="none"
+                              className="w-full rounded-lg"
+                            />
+                          </div>
+                          <p className="text-sm text-purple-400 mt-2">Interactive test interface mirroring the device's physical processes</p>
                         </div>
+                        
+
                         
                         <p>
                           The QC1 device performs tasks like injecting reagents, flushing channels, rotating components, and scheduling quality control tests. My designs ensured that users could intuitively manage these processes and view their state in the user interface in real-time.
@@ -441,29 +602,21 @@ export function TraisProject() {
                         <p>
                           The user interface also included features for scheduling QC tests and displaying results in a clear, data-driven format using graphs and tables. This helped users monitor outcomes effectively and make decisions based on precise data.
                         </p>
-                        
+
                         <div className="my-8">
-                          <StackedImageShowcase
-                            aspectRatio="video"
-                            images={[
-                              {
-                                src: "/screenshots/trasis/trasis-qc1-spots--results.png",
-                                alt: "QC Test result page",
-                                description: "Type of QC Test result page"
-                              },
-                              {
-                                src: "/screenshots/trasis/trasis-qc1-appearance--results.png",
-                                alt: "Another view of QC Test result page",
-                                description: "Another view of a type of QC Test result page"
-                              },
-                              {
-                                src: "/screenshots/trasis/trasis-qc1-dashboard.png",
-                                alt: "Dashboard with schedule list and device monitoring",
-                                description: "The Dashboard, with schedule list, tests on going, and view on real parts of the device"
-                              }
-                            ]}
-                          />
+                          <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
+                            <Image
+                              src="/screenshots/trasis/trasis-qc1-µgc--cfg.png"
+                              alt="QC Test diagram reflecting the QC1's mechanism"
+                              aspectRatio="auto"
+                              frame="none"
+                              className="w-full rounded-lg"
+                            />
+                          </div>
+                          <p className="text-sm text-purple-400 mt-2">Complex test configuration interface showing fluid channels and component states, mirroring the device's internal processes</p>
                         </div>
+                        
+
                         
                         <p>
                           Accessibility was a key focus in the design process. Since users with visual impairments could interact with the interface, I applied UX best practices to make it inclusive. Some of these practices included:
@@ -478,11 +631,15 @@ export function TraisProject() {
                         </p>
                       </div>
                     </Card>
+                    </div>
                   </div>
                 </div>
 
                 {/* Project connection */}
-                <div className="pt-8 border-t border-gray-500">
+                <div
+                  ref={el => sectionRefs.current[10] = el}
+                  className="pt-8 border-t border-gray-500 opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                >
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-xl font-semibold text-purple-400 mb-2">From healthcare to enterprise</h3>
@@ -503,10 +660,7 @@ export function TraisProject() {
             </Card>
           </div>
 
-          {/* Table of Contents */}
-          <div className="hidden lg:block">
-            <TableOfContents variant="desktop" />
-          </div>
+
         </div>
       </div>
     </main>

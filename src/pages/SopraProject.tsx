@@ -1,33 +1,24 @@
 import React from 'react';
 import { ProjectTemplate } from './ProjectTemplate';
-import { StackedImageShowcase } from '../ui/components/organisms/StackedImageShowcase/StackedImageShowcase';
+import { Image } from '../ui/components/image/Image';
+
 
 export function SopraProject() {
   const galleryImages = [
     {
-      src: "/screenshots/sopra/sopra-login-page.png",
-      alt: "Login screen for Santander online Banking",
-      description: "Login screen for Santander online Banking"
-    },
-    {
       src: "/screenshots/sopra/sopra-account-hystory.png",
       alt: "Account history page showing transaction details",
-      description: "Account history page showing transaction details"
-    },
-    {
-      src: "/screenshots/sopra/sopra-payment-creation.png",
-      alt: "Payment creation interface with form fields",
-      description: "Payment creation interface with form fields"
+      description: "Account history interface demonstrating systematic design approach and component reusability"
     },
     {
       src: "/screenshots/sopra/sopra-eu-standing-order.png",
       alt: "European standing order transaction setup",
-      description: "European standing order transaction setup"
+      description: "European standing order transaction setup with improved design system foundations"
     },
     {
       src: "/screenshots/sopra/sopra-end-screen.png",
       alt: "Confirmation screen after completing a transaction",
-      description: "Confirmation screen after completing a transaction"
+      description: "Transaction confirmation screen showing design system foundations and component consistency"
     }
   ];
 
@@ -42,7 +33,7 @@ export function SopraProject() {
     { name: 'HTML', icon: '/skill-icons/html.svg' },
     { name: 'SCSS', icon: '/skill-icons/css.svg' },
     { name: 'TS', icon: '/skill-icons/ts.svg' },
-    { name: 'Git', icon: '/skill-icons/storybook.svg' } // Using storybook icon as placeholder
+    { name: 'Git', icon: '/skill-icons/git.svg' }
   ];
 
   const teamMembers = [
@@ -52,6 +43,10 @@ export function SopraProject() {
     { role: 'Tester', count: 1 },
     { role: 'Architect', count: 1 },
     { role: 'Scrum Master', count: 1 }
+  ];
+
+  const platforms = [
+    { name: 'Desktop', icon: '/skill-icons/desktop.svg' }
   ];
 
   const caseSummaryData = [
@@ -121,21 +116,21 @@ export function SopraProject() {
       id: 'addressing-structure',
       title: 'Addressing the Structure and Seniority in Front-End Development',
       content: [
-        'To address the lack of CSS structure, I introduced the BEM methodology. At first some members of the team were reticent due to its increased verbosity, but by showing them real life examples and solutions to issues they were struggling in their CSS development, they eventually saw how this approach provided a clear way to organise and name their CSS, making it scalable and reusable.',
-        'Another contribution I did on the front-end was to replace their float-based grid system with a custom Flexbox-based grid, designed from scratch. This new grid adhered to the BEM methodology, offering greater flexibility, reducing technical debt, and making the layouts more future-proof.',
-        'In order to effectively apply all these changes and that new approach, I made myself available to answer any questions, assist with CSS and HTML-related issues, and provide coaching to those struggling with specific implementation challenges. All that resulted on a built thrust amongst designer and developers and improved our collaboration.'
+        'To address the lack of CSS structure, I introduced the <strong>BEM methodology</strong>. At first some members of the team were reticent due to its increased verbosity, but by showing them real life examples and solutions to issues they were struggling in their CSS development, they eventually saw how this approach provided a clear way to organise and name their CSS, making it <strong>scalable and reusable</strong>.',
+        'Another contribution I did on the front-end was to replace their float-based grid system with a <strong>custom Flexbox-based grid</strong>, designed from scratch. This new grid adhered to the <strong>BEM methodology</strong>, offering greater flexibility, reducing <strong>technical debt</strong>, and making the layouts more <strong>future-proof</strong>.',
+        'In order to effectively apply all these changes and that new approach, I made myself available to answer any questions, assist with <strong>CSS and HTML-related issues</strong>, and provide coaching to those struggling with specific implementation challenges. All that resulted on a built thrust amongst designer and developers and <strong>improved our collaboration</strong>.'
       ]
     },
     {
       id: 'addressing-design',
       title: 'Addressing Scalable Design Processes and methodologies',
       content: [
-        'As mentioned, our UI components were not optimised for maintenance and were not really scalable, I then started to implement the Atomic Design methodology on newer and strategic components, in order to tackle that issue, but to still be able to deliver. The goal was to progressively catch-up with the rest of our existing components as we would use them in our prototypes.',
-        'After a while this rework allowed the design team to prototype faster, reduce costs by reusing components, and ensure a systematic and scalable approach to design.',
-        'Once the components were reworked and our quality of life while designing got improved, I proposed to build a Design System to bridge the gap between design and development. This system would evolve from their existing pdf style guide into a more usable web platform that would include:',
-        '• Documentation on our design foundations and principles (color palettes, custom icons, typography, grid, ect...).',
-        '• A component library with our custom components, how to\'s, best practices and code related documentation.',
-        'I left the project before delivering the design system, what I could see, though, was how the way I addressed these challenges brought structure, scalability, and efficiency and ended up helping modernize the workflows to both the design and development processes.'
+                'As mentioned, our UI components were not optimised for maintenance and were not really scalable, I then started to implement the <strong>Atomic Design methodology</strong> on newer and strategic components, in order to tackle that issue, but to still be able to deliver. The goal was to progressively catch-up with the rest of our existing components as we would use them in our prototypes.',
+        'After a while this rework allowed the design team to <strong>prototype faster</strong>, <strong>reduce costs</strong> by reusing components, and ensure a <strong>systematic and scalable approach</strong> to design.',
+        'Once the components were reworked and our quality of life while designing got improved, I proposed to build a <strong>Design System</strong> to bridge the gap between design and development. This system would evolve from their existing pdf style guide into a more usable <strong>web platform</strong> that would include:',
+        '• Documentation on our <strong>design foundations and principles</strong> (color palettes, custom icons, typography, grid, ect...).',
+        '• A <strong>component library</strong> with our custom components, how to\'s, best practices and code related documentation.',
+        'I left the project before delivering the design system, what I could see, though, was how the way I addressed these challenges brought <strong>structure, scalability, and efficiency</strong> and ended up helping <strong>modernize the workflows</strong> to both the design and development processes.'
       ]
     }
   ];
@@ -170,18 +165,26 @@ export function SopraProject() {
 
   const projectConnection = {
     title: 'The evolution continues',
-    description: 'Teaching methodologies at Sopra prepared me for the ultimate challenge: building design systems from scratch as a consultant at Trasis and Bridgestone.',
+    description: 'Teaching methodologies at <strong>Sopra</strong> prepared me for the ultimate challenge: <strong>building design systems from scratch</strong> as a consultant at <strong>Trasis</strong> and <strong>Bridgestone</strong>.',
     buttonText: 'Next Project →',
     href: '/projects/trasis'
+  };
+
+  const heroImage = {
+    src: "/screenshots/sopra/sopra-login-page.png",
+    alt: "Login screen for Santander online Banking",
+    description: "Modern login interface showcasing the improved design system"
   };
 
   return (
     <ProjectTemplate
       title="Sopra Banking Software"
       pathname="/projects/sopra"
-      projectDescription="Banking software isn't exactly known for its stellar user experience, is it? Sopra Banking builds the core systems that power financial institutions, and their software needed a serious design intervention. Think enterprise banking platforms that handle millions of transactions, but with interfaces that looked like they were built in 2005. My mission: bring their design process into the modern era."
-      myRole="I joined as the design reinforcement—they had one designer drowning in work and a team of junior developers who needed guidance on everything from CSS architecture to component thinking. My job was to be the bridge between design ambitions and development reality, while teaching the team that good code structure isn't just nice to have—it's essential for scaling enterprise software."
+      projectDescription="Banking software isn't exactly known for its stellar user experience, is it? <strong>Sopra Banking</strong> builds the core systems that power <strong>financial institutions</strong>, and their software needed a serious design intervention. Think <strong>enterprise banking platforms</strong> that handle <strong>millions of transactions</strong>, but with interfaces that looked like they were built in 2005. My mission: bring their <strong>design process into the modern era</strong>."
+      myRole="I joined as the <strong>design reinforcement</strong>—they had one designer managing a heavy workload and a team of <strong>junior developers</strong> who needed guidance on everything from <strong>CSS architecture</strong> to <strong>component thinking</strong>. My job was to be the bridge between design ambitions and development reality, while teaching the team that <strong>good code structure</strong> isn't just nice to have—it's essential for scaling <strong>enterprise software</strong>."
+      heroImage={heroImage}
       teamMembers={teamMembers}
+      platforms={platforms}
       designSkills={designSkills}
       devSkills={devSkills}
       galleryImages={galleryImages}

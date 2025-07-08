@@ -153,12 +153,15 @@ export function Projects() {
                 <div className={`flex flex-col lg:flex-row ${project.imagePosition === 'right' ? 'lg:flex-row-reverse' : ''} gap-4`}>
                   {/* Images */}
                   <div className="lg:w-1/2">
-                    <Image 
-                      src={project.images.main}
-                      alt={`${project.title} main screenshot`}
-                      aspectRatio="video"
-                      frame={project.frame}
-                    />
+                    <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
+                      <Image 
+                        src={project.images.main}
+                        alt={`${project.title} main screenshot`}
+                        aspectRatio="auto"
+                        frame="none"
+                        className="w-full rounded-lg"
+                      />
+                    </div>
                   </div>
 
                   {/* Content */}

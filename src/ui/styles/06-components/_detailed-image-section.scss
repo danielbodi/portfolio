@@ -2,38 +2,18 @@
   @apply space-y-16;
 
   &__item {
-    @apply grid gap-12 items-center;
+    @apply grid gap-8;
     
-    // Default layout (mobile)
+    // Single column layout - images take full width
     grid-template-columns: 1fr;
     
-    // Desktop layout - Equal column widths
-    @media (min-width: 1024px) {
-      grid-template-columns: 1fr 1fr;
+    // Vertical stacking with image first, content second
+    .detailed-image-section__image-wrapper {
+      order: 1;
     }
-
-    &--left {
-      @media (min-width: 1024px) {
-        .detailed-image-section__image-wrapper {
-          order: 1;
-        }
-        
-        .detailed-image-section__content {
-          order: 2;
-        }
-      }
-    }
-
-    &--right {
-      @media (min-width: 1024px) {
-        .detailed-image-section__image-wrapper {
-          order: 2;
-        }
-        
-        .detailed-image-section__content {
-          order: 1;
-        }
-      }
+    
+    .detailed-image-section__content {
+      order: 2;
     }
   }
 
@@ -88,10 +68,6 @@
 
   &__content {
     @apply space-y-6;
-    
-    @media (min-width: 1024px) {
-      @apply px-6;
-    }
   }
 
   &__title {

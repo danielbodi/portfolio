@@ -3,7 +3,7 @@ import './Tag.scss';
 
 interface TagProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'dark';
+  variant?: 'primary' | 'secondary' | 'dark' | 'ghost';
   className?: string;
   width?: number;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Navigation } from './ui/components/navigation/Navigation';
@@ -10,6 +10,7 @@ import { BaseProject } from './pages/BaseProject';
 import { PageTransition } from './ui/components/page-transition/PageTransition';
 import { Background } from './ui/components/background/Background';
 import { GradientControls } from './ui/components/GradientControls';
+import { TableOfContents } from './ui/components/table-of-contents/TableOfContents';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -47,6 +48,53 @@ function AnimatedRoutes() {
   );
 }
 
+function AppContent() {
+  const location = useLocation();
+  const isProjectPage = location.pathname.startsWith('/projects/');
+  const [tocVisible, setTocVisible] = useState(false);
+
+  // Reset and control TOC visibility when route changes
+  useEffect(() => {
+    if (isProjectPage) {
+      setTocVisible(false);
+      // Show TOC after page transition starts
+      const timer = setTimeout(() => {
+        setTocVisible(true);
+      }, 100); // Small delay to ensure clean transition
+      
+      return () => clearTimeout(timer);
+    } else {
+      setTocVisible(false);
+    }
+  }, [location.pathname, isProjectPage]);
+
+  return (
+    <div className="relative min-h-screen">
+      <Background />
+      
+      
+      <div className="relative z-10 flex flex-row justify-center gap-[5rem]">
+        <div>
+          <Navigation />
+          <AnimatedRoutes />
+        </div>
+          
+          {/* Desktop Table of Contents - Only show on project pages */}
+          {isProjectPage && (
+            <div className="hidden lg:block">
+              <TableOfContents 
+                variant="desktop" 
+                pathname={location.pathname} 
+                isVisible={tocVisible}
+              />
+            </div>
+          )}
+        
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const defaultSettings = {
     baseAngle: 45,
@@ -59,13 +107,7 @@ function App() {
   return (
     <Router>
       <GradientControls initialSettings={defaultSettings}>
-        <div className="relative min-h-screen">
-          <Background />
-          <div className="relative z-10">
-            <Navigation />
-            <AnimatedRoutes />
-          </div>
-        </div>
+        <AppContent />
       </GradientControls>
     </Router>
   );

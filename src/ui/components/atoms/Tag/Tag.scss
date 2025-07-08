@@ -17,4 +17,8 @@
   &--dark {
     @apply bg-[#2A2A32] text-gray-400;
   }
+
+  &--ghost {
+    @apply border border-gray-400 text-gray-400 bg-transparent;
+  }
 }

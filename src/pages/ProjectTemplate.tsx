@@ -210,9 +210,9 @@ export function ProjectTemplate({
       </div>
 
       <div className="project-page__header">
-          <div className="project-page__title flex justify-between items-baseline">
-            <h1 className="text-4xl font-bold text-purple-400">{title}</h1>
-            <div className="flex flex-wrap gap-3">
+          <div className="project-page__title flex flex-col items-start gap-4">
+            <h1 className="text-4xl font-bold text-purple-400 text-left">{title}</h1>
+            <div className="flex flex-wrap gap-3 justify-start">
               {platforms.map((platform, index) => (
                 <Tag key={index} variant="ghost">
                   <div className="flex items-center gap-2">

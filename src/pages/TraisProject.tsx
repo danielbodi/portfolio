@@ -1,70 +1,8 @@
-import React, { useRef, useEffect } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { Card } from '../ui/components/cards/Card';
-import { Tag } from '../ui/components/atoms/Tag/Tag';
-import { TableOfContents } from '../ui/components/table-of-contents/TableOfContents';
-import { CaseSummaryCard } from '../ui/components/case-summary/CaseSummaryCard';
+import React from 'react';
+import { ProjectTemplate } from './ProjectTemplate';
 import { Image } from '../ui/components/image/Image';
-import { ProjectGallery } from '../ui/components/gallery/ProjectGallery';
-
 
 export function TraisProject() {
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const galleryItemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const challengeItemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const solutionItemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const lastScrollY = useRef<number>(0);
-
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove('animate-out');
-            entry.target.classList.add('animate-in');
-          } else {
-            const currentScrollY = window.scrollY;
-            const isScrollingUp = currentScrollY < lastScrollY.current;
-            lastScrollY.current = currentScrollY;
-            
-            if (isScrollingUp) {
-              entry.target.classList.remove('animate-in');
-              entry.target.classList.add('animate-out');
-            }
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -20px 0px'
-      }
-    );
-
-    const allElements = [
-      ...sectionRefs.current,
-      ...galleryItemRefs.current,
-      ...challengeItemRefs.current,
-      ...solutionItemRefs.current
-    ];
-
-    allElements.forEach((element) => {
-      if (element) {
-        observerRef.current?.observe(element);
-      }
-    });
-
-    return () => {
-      if (observerRef.current) {
-        allElements.forEach((element) => {
-          if (element) {
-            observerRef.current?.unobserve(element);
-          }
-        });
-      }
-    };
-  }, []);
-
   const galleryImages = [
     {
       src: "/screenshots/trasis/trasis-qc1-dashboard.png",
@@ -113,6 +51,16 @@ export function TraisProject() {
     { name: 'HTML', icon: '/skill-icons/html.svg' },
     { name: 'CSS/SCSS', icon: '/skill-icons/css.svg' },
     { name: 'TS', icon: '/skill-icons/ts.svg' }
+  ];
+
+  const teamMembers = [
+    { role: 'UI/UX Designer', count: 1 },
+    { role: 'Back-End', count: 1 },
+    { role: 'Product Owner', count: 1 }
+  ];
+
+  const platforms = [
+    { name: 'Tablet', icon: '/skill-icons/tablet.svg' }
   ];
 
   const caseSummaryData = [
@@ -171,498 +119,190 @@ export function TraisProject() {
     }
   ];
 
-  const renderSkills = (skills: typeof designSkills) => (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-      {skills.map((skill, index) => (
-        <div key={index} className="flex flex-col items-center gap-2">
-          <div className="rounded flex items-center justify-center">
-            <img 
-              src={skill.icon} 
-              alt={skill.name}
-              className="w-6 h-6"
-            />
+  const projectImpact = [
+    { value: '85%', label: 'User Task Success' },
+    { value: '3x', label: 'Faster Prototyping' },
+    { value: '100%', label: 'Stakeholder Buy-in' }
+  ];
+
+  const challenges = [
+    {
+      id: 'unfamiliarity-with-designers',
+      title: 'Unfamiliarity from Business with Designers',
+      content: [
+        'When I joined Trasis, the team was not used to work with a designer. This unfamiliarity came from the business, and even the back-end developer in my team.',
+        'They simply didn\'t have clear design workflows in place. So how could a UI/UX designer fit into their process and bring value? These doubts made it challenging to gain their trust at the start.'
+      ]
+    },
+    {
+      id: 'team-composition-roles',
+      title: 'Challenges with the team composition and roles',
+      content: [
+        'Another challenge I faced at Trasis was balancing the roles of both designer and front-end developer within a limited budget. This required me to make swift, impactful decisions about the design system in Figma and my development approach.'
+      ]
+    },
+    {
+      id: 'custom-design-complexity',
+      title: 'Custom design complexity',
+      content: [
+        'I had to face the complexity of designing the user interface for the QC1 device. This involved creating advanced custom designs that mirrored the device\'s real-life functionalities and parts, ensuring an intuitive and realistic user experience.'
+      ]
+    }
+  ];
+
+  const solutions = [
+    {
+      id: 'addressing-unfamiliarity',
+      title: 'Addressing the Unfamiliarity from Business with Designers',
+      content: [
+        'To address this challenge, I made sure to be proactive and transparent from the beginning. I set up follow-up sessions twice a week with my team and the key stakeholders.',
+        'In these sessions, I shared updates on what I was working on: My plan to create their Design System, the initial direction I wanted to take for their user interface, the reasons behind my design decisions and how they solved user and technical problems, and wireframes and interactive prototypes to show real progress.',
+        'These sessions had a significant impact: by seeing real and consistent progress, the business gained confidence in my ability to deliver. They recognized the quality of my work, my speed of execution enabled by the design system approach, and my problem-solving skills.',
+        'Being open and transparent, while delivering results quickly, earned their trust and demonstrated my value to the project. This not only shifted their perspective on working with a designer but also strengthened collaboration across the team. Even during the challenges of COVID-19, when many other projects were cancelled, I remained a key part of the team.'
+      ]
+    },
+    {
+      id: 'addressing-team-composition',
+      title: 'Addressing Challenges with the team composition and roles',
+      content: [
+        'Trasis had multiple applications and devices, which made it clear that a <strong>reusable and scalable design system</strong> was needed for their ecosystem. As the only designer, I decided to reuse <strong>Ant Design\'s UI kit</strong> in Figma as the foundation for the design system. I then built upon this foundation by adding custom components using the <strong>Atomic Design methodology</strong> to suit the specific needs of their products.',
+        'This approach, as mentioned in the first challenge, allowed me to deliver <strong>high-fidelity prototypes rapidly</strong>. Frequent <strong>user testing sessions</strong> helped me validate the designs and iterate based on feedback. Since the field of <strong>radiopharmaceuticals</strong> was new to me, these iterations, combined with business input, were very valuable in aligning the UI with user needs.',
+        'On the development side, I chose to use an <strong>NX monorepo with Angular</strong> for its ability to manage multiple projects within a shared workspace efficiently. For CSS, I implemented the <strong>ITCSS structure</strong> with the <strong>BEM methodology</strong>, which ensured a scalable and maintainable structure for styling.',
+        'To centralize the design system, I used <strong>Storybook</strong> as the platform, ensuring that the components were documented and reusable. However, my contribution to Storybook was limited to a basic stage, as the project budget came to an end.',
+        'Before leaving, I ensured a smooth transition by handing over and conducting multiple coaching sessions with an internal developer who took over the front-end tasks. These sessions helped with knowledge transfer about the prototypes in Figma, the design system, Storybook setup, and other development practices, ensuring the continuity of the work I started.'
+      ]
+    },
+    {
+      id: 'addressing-design-complexity',
+      title: 'Addressing Custom design complexity',
+      content: [
+        'This project required realistic illustrations of the device\'s components (like valves, columns, injectors, tubes…), as shown in the example below. These elements were designed to visually represent real parts of the device, allowing users to easily understand and interact with its functions in diagrams and schemas that I also designed to replicate the internal processes of the device, such as fluid channels, reagent movements, and test flows.',
+        'The QC1 device performs tasks like injecting reagents, flushing channels, rotating components, and scheduling quality control tests. My designs ensured that users could intuitively manage these processes and view their state in the user interface in real-time.',
+        'The user interface also included features for scheduling QC tests and displaying results in a clear, data-driven format using graphs and tables. This helped users monitor outcomes effectively and make decisions based on precise data.',
+        'Accessibility was a key focus in the design process. Since users with visual impairments could interact with the interface, I applied UX best practices to make it inclusive. Some of these practices included: Ensuring clear contrasts between text and background to enhance readability, creating a strong visual hierarchy to guide users\' attention effectively, and designing for color blindness by using patterns, textures, or other visual indicators alongside colors.',
+        'This approach made the UI both visually clear and easy to use, while maintaining the precision and reliability required for a device as complex as the QC1.'
+      ]
+    }
+  ];
+
+  const detailedImageFeatures = {
+    0: [
+      'Comprehensive dashboard interface',
+      'Real-time component monitoring',
+      'Test schedule management'
+    ],
+    1: [
+      'Realistic device component illustrations',
+      'Visual representation of real parts',
+      'Interactive component mapping'
+    ],
+    2: [
+      'Clear data visualization',
+      'Precise measurement displays',
+      'Quality control validation'
+    ],
+    3: [
+      'Color and clarity test results',
+      'Visual reference comparisons',
+      'Detailed result documentation'
+    ],
+    4: [
+      'Test protocol creation interface',
+      'Streamlined workflow management',
+      'Intuitive configuration options'
+    ],
+    5: [
+      'Radiopharmaceutical isotope selection',
+      'Specialized interface design',
+      'Technical accuracy with usability'
+    ],
+    6: [
+      'File management system',
+      'Protocol import functionality',
+      'Organized data handling'
+    ]
+  };
+
+  const projectConnection = {
+    title: 'From healthcare to enterprise',
+    description: 'Proving design\'s value in a technical environment at Trasis set the stage for my biggest challenge yet: transforming <strong>Bridgestone\'s</strong> entire design approach.',
+    buttonText: 'Next Project →',
+    href: '/projects/bridgestone'
+  };
+
+  const heroImage = {
+    src: "/screenshots/trasis/trasis-qc1-homepage.png",
+    alt: "Home page of the QC1 app",
+    description: "Home page of the QC1 application showcasing the main interface"
+  };
+
+  const additionalSections = (
+    <div className="space-y-12">
+      <div className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]">
+        <h2 className="text-3xl font-bold mb-6">Visual Design Examples</h2>
+        <div className="space-y-8">
+          <div className="my-8">
+            <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
+              <Image
+                src="/screenshots/trasis/trasis-qc1-real-parts-ui.png"
+                alt="Example of real parts designed for the QC1 device"
+                aspectRatio="auto"
+                frame="none"
+                className="w-full rounded-lg"
+              />
+            </div>
+            <p className="text-sm text-purple-400 mt-2">Realistic illustrations of device components designed to replicate real parts of the QC1 device</p>
           </div>
-          <span className="text-sm text-gray-400">{skill.name}</span>
+          
+          <div className="my-8">
+            <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
+              <Image
+                src="/screenshots/trasis/trasis-qc1-hplc--cfg.png"
+                alt="QC Test UI reflecting the QC1's mechanism"
+                aspectRatio="auto"
+                frame="none"
+                className="w-full rounded-lg"
+              />
+            </div>
+            <p className="text-sm text-purple-400 mt-2">Interactive test interface mirroring the device's physical processes</p>
+          </div>
+          
+          <div className="my-8">
+            <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
+              <Image
+                src="/screenshots/trasis/trasis-qc1-µgc--cfg.png"
+                alt="QC Test diagram reflecting the QC1's mechanism"
+                aspectRatio="auto"
+                frame="none"
+                className="w-full rounded-lg"
+              />
+            </div>
+            <p className="text-sm text-purple-400 mt-2">Complex test configuration interface showing fluid channels and component states, mirroring the device's internal processes</p>
+          </div>
         </div>
-      ))}
+      </div>
     </div>
   );
 
   return (
-    <main className="project-page">
-      {/* Mobile Table of Contents */}
-      <div className="lg:hidden">
-        <TableOfContents variant="mobile" pathname="/projects/trasis" />
-      </div>
-
-      <div className="project-page__header">
-          <div className="project-page__title flex justify-between items-baseline">
-            <h1 className="text-4xl font-bold text-purple-400">Trasis QC1 Device Interface</h1>
-            <div className="flex flex-wrap gap-3">
-              <Tag variant="ghost">
-                <div className="flex items-center gap-2">
-                  <img 
-                    src="/skill-icons/tablet.svg" 
-                    alt="Tablet"
-                    className="w-4 h-4 brightness-0 invert"
-                  />
-                  <span>Tablet</span>
-                </div>
-              </Tag>
-            </div>
-          </div>
-      </div>
-
-      {/* Hero Section */}
-      <div className="w-full mb-12">
-        <div className="max-w-5xl mx-auto">
-          <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
-            <Image
-              src="/screenshots/trasis/trasis-qc1-homepage.png"
-              alt="Home page of the QC1 app"
-              aspectRatio="auto"
-              frame="none"
-              className="w-full rounded-lg"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-5xl mx-auto">
-        <div className="flex gap-8">
-          {/* Main content */}
-          <div className="flex-1">
-            <Card variant="ghost">
-              <div className="space-y-12 text-gray-300">
-                <div
-                  ref={el => sectionRefs.current[0] = el}
-                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <h2 id="project-description" className="text-3xl font-bold mb-6">
-                    Project description
-                  </h2>
-                  <p className="text-gray-400">
-                    Imagine designing an interface for a device that handles <strong>radioactive materials</strong>—no pressure, right? 
-                    <strong>Trasis</strong> builds equipment for creating <strong>radiopharmaceuticals</strong>, and their <strong>QC1 device</strong> needed an interface that could guide technicians through complex <strong>quality control processes</strong> without any room for error. 
-                    This wasn't just about making things look pretty; one wrong click could affect <strong>patient safety</strong>.
-                  </p>
-                </div>
-
-                <div
-                  ref={el => sectionRefs.current[1] = el}
-                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <h2 id="my-role" className="text-3xl font-bold mb-6">
-                    My Role
-                  </h2>
-                  <p className="text-gray-400">
-                    As the only designer on a team of engineers, I had to earn my place at the table. The challenge wasn't just designing the interface—it was convincing a team that had never worked with a designer that they actually needed one. 
-                    I spent equal time creating wireframes and explaining why user research matters when you're dealing with life-critical equipment. 
-                    Plus, I got to play both designer and developer, which meant I could ensure my designs actually worked in the real world.
-                  </p>
-                </div>
-
-                <div
-                  ref={el => sectionRefs.current[2] = el}
-                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <h2 id="team-composition" className="text-3xl font-bold mb-6">
-                    Team Composition
-                  </h2>
-                  <Card variant="nested" showShadow>
-                    <div className="flex flex-wrap gap-3">
-                      <Tag variant="dark">1 UI/UX Designer</Tag>
-                      <Tag variant="dark">1 Back-End</Tag>
-                      <Tag variant="dark">1 Product Owner</Tag>
-                    </div>
-                  </Card>
-                </div>
-
-                <div
-                  ref={el => sectionRefs.current[3] = el}
-                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <h2 id="skills" className="text-3xl font-bold mb-6">
-                    Skills I've Used 
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Card variant="nested" showShadow>
-                      <div className="space-y-4">
-                        {renderSkills(designSkills)}
-                      </div>
-                    </Card>
-                    <Card variant="nested" showShadow>
-                      <div className="space-y-4">
-                        {renderSkills(devSkills)}
-                      </div>
-                    </Card>
-                  </div>
-                </div>
-
-
-
-                <div
-                  ref={el => sectionRefs.current[4] = el}
-                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <h2 id="interface-showcase" className="text-3xl font-bold mb-6">
-                    Interface Showcase
-                  </h2>
-                  <div className="detailed-image-section">
-                    {galleryImages.map((image, index) => (
-                      <div 
-                        key={index}
-                        ref={el => galleryItemRefs.current[index] = el}
-                        className="detailed-image-section__item opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                        style={{ transitionDelay: `${index * 100}ms` }}
-                      >
-                        <div className="detailed-image-section__image-wrapper">
-                          <Image
-                            src={image.src}
-                            alt={image.alt}
-                            aspectRatio="video"
-                            frame="none"
-                            className="detailed-image-section__image"
-                          />
-                        </div>
-                        <div className="detailed-image-section__content">
-                          <h3 className="detailed-image-section__title">
-                            {image.alt}
-                          </h3>
-                          <p className="detailed-image-section__description">
-                            {image.description}
-                          </p>
-
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div
-                  ref={el => sectionRefs.current[5] = el}
-                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <h2 id="case-summary" className="text-3xl font-bold mb-6">
-                    Case Summary
-                  </h2>
-                  <div className="flex flex-col gap-8">
-                    {caseSummaryData.map((data, index) => (
-                      <CaseSummaryCard 
-                        key={index}
-                        challenge={data.challenge}
-                        solution={data.solution}
-                        index={index}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div
-                  ref={el => sectionRefs.current[6] = el}
-                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <h2 id="project-impact" className="text-3xl font-bold mb-6">
-                    Project Impact
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <Card variant="nested" showShadow>
-                      <div className="text-center">
-                        <div className="text-4xl font-bold text-purple-400 mb-2">85%</div>
-                        <div className="text-sm text-gray-400">User Task Success</div>
-                      </div>
-                    </Card>
-                    <Card variant="nested" showShadow>
-                      <div className="text-center">
-                        <div className="text-4xl font-bold text-purple-400 mb-2">3x</div>
-                        <div className="text-sm text-gray-400">Faster Prototyping</div>
-                      </div>
-                    </Card>
-                    <Card variant="nested" showShadow>
-                      <div className="text-center">
-                        <div className="text-4xl font-bold text-purple-400 mb-2">100%</div>
-                        <div className="text-sm text-gray-400">Stakeholder Buy-in</div>
-                      </div>
-                    </Card>
-                  </div>
-                </div>
-                
-                {/* Full case link */}
-                <div
-                  ref={el => sectionRefs.current[7] = el}
-                  className="mt-24 md:mt-32 flex flex-col items-center text-center opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <button 
-                   onClick={() => {
-                     const element = document.getElementById('challenges');
-                     if (element) {
-                       const offset = 140;
-                       const elementPosition = element.getBoundingClientRect().top;
-                       const offsetPosition = elementPosition + window.scrollY - offset;
-                       window.scrollTo({
-                         top: offsetPosition,
-                         behavior: 'smooth'
-                       });
-                     }
-                   }}
-                    className="c-button c-button--ghost flex flex-col items-center group"
-                  >
-                    <span className="mb-2">Want to read the full case?</span>
-                    <ChevronDown className="animate-bounce" size={24} />
-                  </button>
-                </div>
-                
-                <div
-                  ref={el => sectionRefs.current[8] = el}
-                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <h2 id="challenges" className="text-3xl font-bold mb-6">
-                    The Challenges I've faced
-                  </h2>
-                  <div className="space-y-8">
-                    {/* Challenge 1 */}
-                    <div
-                      ref={el => challengeItemRefs.current[0] = el}
-                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                      style={{ transitionDelay: '0ms' }}
-                    >
-                      <Card variant="ghost">
-                        <h4 id="unfamiliarity-with-designers" className="text-xl font-semibold mb-4">Unfamiliarity from Business with Designers</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          When I joined Trasis, the team was not used to work with a designer. 
-                          This unfamiliarity came from the business, and even the back-end developer in my team.
-                        </p>
-                        <p>
-                          They simply didn't have clear design workflows in place.
-                          So how could a UI/UX designer fit into their process and bring value?
-                          These doubts made it challenging to gain their trust at the start.
-                        </p>
-                      </div>
-                    </Card>
-                    </div>
-
-                    {/* Challenge 2 */}
-                    <div
-                      ref={el => challengeItemRefs.current[1] = el}
-                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                      style={{ transitionDelay: '150ms' }}
-                    >
-                      <Card variant="ghost">
-                        <h4 id="team-composition-roles" className="text-xl font-semibold mb-4">Challenges with the team composition and roles</h4>
-                        <div className="space-y-4 text-gray-400">
-                          <p>
-                            Another challenge I faced at Trasis was balancing the roles of both designer and front-end developer within a limited budget.
-                            This required me to make swift, impactful decisions about the design system in Figma and my development approach.
-                          </p>
-                        </div>
-                      </Card>
-                    </div>
-
-                    {/* Challenge 3 */}
-                    <div
-                      ref={el => challengeItemRefs.current[2] = el}
-                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                      style={{ transitionDelay: '300ms' }}
-                    >
-                      <Card variant="ghost">
-                        <h4 id="custom-design-complexity" className="text-xl font-semibold mb-4">Custom design complexity</h4>
-                        <div className="space-y-4 text-gray-400">
-                          <p>
-                            I had to face the complexity of designing the user interface for the QC1 device. This involved creating advanced custom designs that mirrored the device's real-life functionalities and parts, ensuring an intuitive and realistic user experience.
-                          </p>
-                        </div>
-                      </Card>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  ref={el => sectionRefs.current[9] = el}
-                  className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <h2 id="solutions" className="text-3xl font-bold mb-6">
-                    How I overcame them
-                  </h2>
-                  <div className="space-y-8">
-                    {/* Solution 1 */}
-                    <div
-                      ref={el => solutionItemRefs.current[0] = el}
-                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                      style={{ transitionDelay: '0ms' }}
-                    >
-                      <Card variant="ghost">
-                        <h4 id="addressing-unfamiliarity" className="text-xl font-semibold mb-4">Addressing the Unfamiliarity from Business with Designers</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          To address this challenge, I made sure to be proactive and transparent from the beginning. 
-                          I set up follow-up sessions twice a week with my team and the key stakeholders.
-                        </p>
-                        <p>
-                          In these sessions, I shared updates on what I was working on:
-                        </p>
-                        <ul className="list-disc pl-6 space-y-2">
-                          <li>My plan to create their Design System.</li>
-                          <li>The initial direction I wanted to take for their user interface.</li>
-                          <li>The reasons behind my design decisions and how they solved user and technical problems.</li>
-                          <li>Wireframes and interactive prototypes to show real progress.</li>
-                        </ul>
-                        <p>
-                          These sessions had a significant impact: by seeing real and consistent progress, the business gained confidence in my ability to deliver. 
-                          They recognized the quality of my work, my speed of execution enabled by the design system approach, and my problem-solving skills.
-                        </p>
-                        <p>
-                          Being open and transparent, while delivering results quickly, earned their trust and demonstrated my value to the project. 
-                          This not only shifted their perspective on working with a designer but also strengthened collaboration across the team. Even during the challenges of COVID-19, when many other projects were cancelled, I remained a key part of the team.
-                        </p>
-
-
-                      </div>
-                    </Card>
-                    </div>
-
-                    {/* Solution 2 */}
-                    <div
-                      ref={el => solutionItemRefs.current[1] = el}
-                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                      style={{ transitionDelay: '150ms' }}
-                    >
-                      <Card variant="ghost">
-                        <h4 id="addressing-team-composition" className="text-xl font-semibold mb-4">Addressing Challenges with the team composition and roles</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          Trasis had multiple applications and devices, which made it clear that a <strong>reusable and scalable design system</strong> was needed for their ecosystem. 
-                          As the only designer, I decided to reuse <strong>Ant Design's UI kit</strong> in Figma as the foundation for the design system. I then built upon this foundation by adding custom components using the <strong>Atomic Design methodology</strong> to suit the specific needs of their products.
-                        </p>
-                        <p>
-                          This approach, as mentioned in the first challenge, allowed me to deliver <strong>high-fidelity prototypes rapidly</strong>.
-                        </p>
-                        <p>
-                          Frequent <strong>user testing sessions</strong> helped me validate the designs and iterate based on feedback. Since the field of <strong>radiopharmaceuticals</strong> was new to me, these iterations, combined with business input, were very valuable in aligning the UI with user needs.
-                        </p>
-                        <p>
-                          On the development side, I chose to use an <strong>NX monorepo with Angular</strong> for its ability to manage multiple projects within a shared workspace efficiently. 
-                          For CSS, I implemented the <strong>ITCSS structure</strong> with the <strong>BEM methodology</strong>, which ensured a scalable and maintainable structure for styling.
-                        </p>
-                        <p>
-                          To centralize the design system, I used <strong>Storybook</strong> as the platform, ensuring that the components were documented and reusable.
-                        </p>
-                        <p>
-                          However, my contribution to Storybook was limited to a basic stage, as the project budget came to an end.
-                          Before leaving, I ensured a smooth transition by handing over and conducting multiple coaching sessions with an internal developer who took over the front-end tasks. These sessions helped with knowledge transfer about the prototypes in Figma, the design system, Storybook setup, and other development practices, ensuring the continuity of the work I started.
-                        </p>
-
-                        <div className="my-8">
-                          <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
-                            <Image
-                              src="/screenshots/trasis/trasis-qc1-real-parts-ui.png"
-                              alt="Example of real parts designed for the QC1 device"
-                              aspectRatio="auto"
-                              frame="none"
-                              className="w-full rounded-lg"
-                            />
-                          </div>
-                          <p className="text-sm text-purple-400 mt-2">Realistic illustrations of device components designed to replicate real parts of the QC1 device</p>
-                        </div>
-                                              </div>
-                      </Card>
-                    </div>
-
-                    {/* Solution 3 */}
-                    <div
-                      ref={el => solutionItemRefs.current[2] = el}
-                      className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                      style={{ transitionDelay: '300ms' }}
-                    >
-                      <Card variant="ghost">
-                        <h4 id="addressing-design-complexity" className="text-xl font-semibold mb-4">Addressing Custom design complexity</h4>
-                      <div className="space-y-4 text-gray-400">
-                        <p>
-                          This project required realistic illustrations of the device's components (like valves, columns, injectors, tubes…), as shown in the example below. These elements were designed to visually represent real parts of the device, allowing users to easily understand and interact with its functions in diagrams and schemas that I also designed to replicate the internal processes of the device, such as fluid channels, reagent movements, and test flows.
-                        </p>
-
-                        <div className="my-8">
-                          <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
-                            <Image
-                              src="/screenshots/trasis/trasis-qc1-hplc--cfg.png"
-                              alt="QC Test UI reflecting the QC1's mechanism"
-                              aspectRatio="auto"
-                              frame="none"
-                              className="w-full rounded-lg"
-                            />
-                          </div>
-                          <p className="text-sm text-purple-400 mt-2">Interactive test interface mirroring the device's physical processes</p>
-                        </div>
-                        
-
-                        
-                        <p>
-                          The QC1 device performs tasks like injecting reagents, flushing channels, rotating components, and scheduling quality control tests. My designs ensured that users could intuitively manage these processes and view their state in the user interface in real-time.
-                        </p>
-                        <p>
-                          The user interface also included features for scheduling QC tests and displaying results in a clear, data-driven format using graphs and tables. This helped users monitor outcomes effectively and make decisions based on precise data.
-                        </p>
-
-                        <div className="my-8">
-                          <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
-                            <Image
-                              src="/screenshots/trasis/trasis-qc1-µgc--cfg.png"
-                              alt="QC Test diagram reflecting the QC1's mechanism"
-                              aspectRatio="auto"
-                              frame="none"
-                              className="w-full rounded-lg"
-                            />
-                          </div>
-                          <p className="text-sm text-purple-400 mt-2">Complex test configuration interface showing fluid channels and component states, mirroring the device's internal processes</p>
-                        </div>
-                        
-
-                        
-                        <p>
-                          Accessibility was a key focus in the design process. Since users with visual impairments could interact with the interface, I applied UX best practices to make it inclusive. Some of these practices included:
-                        </p>
-                        <ul className="list-disc pl-6 space-y-2">
-                          <li>Ensuring clear contrasts between text and background to enhance readability.</li>
-                          <li>Creating a strong visual hierarchy to guide users' attention effectively.</li>
-                          <li>Designing for color blindness by using patterns, textures, or other visual indicators alongside colors.</li>
-                        </ul>
-                        <p>
-                          This approach made the UI both visually clear and easy to use, while maintaining the precision and reliability required for a device as complex as the QC1.
-                        </p>
-                      </div>
-                    </Card>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Project connection */}
-                <div
-                  ref={el => sectionRefs.current[10] = el}
-                  className="pt-8 border-t border-gray-500 opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-xl font-semibold text-purple-400 mb-2">From healthcare to enterprise</h3>
-                      <p className="text-gray-400">
-                        Proving design's value in a technical environment at Trasis set the stage for my biggest challenge yet: 
-                        transforming Bridgestone's entire design approach.
-                      </p>
-                    </div>
-                    <button 
-                      onClick={() => window.location.href = '/projects/bridgestone'}
-                      className="c-button c-button--secondary flex-shrink-0 ml-6"
-                    >
-                      Next Project →
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-
-        </div>
-      </div>
-    </main>
+    <ProjectTemplate
+      title="Trasis QC1 Device Interface"
+      pathname="/projects/trasis"
+      projectDescription="Imagine designing an interface for a device that handles <strong>radioactive materials</strong>—no pressure, right? <strong>Trasis</strong> builds equipment for creating <strong>radiopharmaceuticals</strong>, and their <strong>QC1 device</strong> needed an interface that could guide technicians through complex <strong>quality control processes</strong> without any room for error. This wasn't just about making things look pretty; one wrong click could affect <strong>patient safety</strong>."
+      myRole="As the only designer on a team of engineers, I had to earn my place at the table. The challenge wasn't just designing the interface—it was convincing a team that had never worked with a designer that they actually needed one. I spent equal time creating wireframes and explaining why user research matters when you're dealing with life-critical equipment. Plus, I got to play both designer and developer, which meant I could ensure my designs actually worked in the real world."
+      heroImage={heroImage}
+      teamMembers={teamMembers}
+      platforms={platforms}
+      designSkills={designSkills}
+      devSkills={devSkills}
+      galleryImages={galleryImages}
+      detailedImageFeatures={detailedImageFeatures}
+      caseSummaryData={caseSummaryData}
+      projectImpact={projectImpact}
+      challenges={challenges}
+      solutions={solutions}
+      projectConnection={projectConnection}
+      additionalSections={additionalSections}
+    />
   );
 } 

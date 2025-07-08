@@ -236,7 +236,7 @@ export function ProjectTemplate({
             <Image
               src={heroImage.src}
               alt={heroImage.alt}
-              aspectRatio="video"
+              aspectRatio="none"
               frame="none"
               className="w-full rounded-lg"
             />

@@ -1,0 +1,272 @@
+.mobile-background-fallback {
+  // Base background color (dark theme)
+  background: #2A2A32;
+  overflow: hidden;
+  
+  // Default CSS custom properties
+  --brightness: 0.8;
+  --color1-r: 180;
+  --color1-g: 144;
+  --color1-b: 255;
+  --color2-r: 105;
+  --color2-g: 100;
+  --color2-b: 247;
+  --time-scale: 1;
+  --mouse-influence: 0.8;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --interaction-state: 0;
+  
+  // Create animated gradient using pseudo-elements
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    opacity: calc(var(--brightness) * 0.9 * (1 + var(--interaction-state) * 0.5));
+    border-radius: 50%;
+    filter: blur(40px);
+    will-change: transform, opacity;
+    transition: opacity 0.3s ease-out;
+  }
+  
+  // First animated blob with combined gradients
+  &::before {
+    background: 
+      // Interactive spotlight (appears on touch)
+      radial-gradient(
+        circle at var(--mouse-x) var(--mouse-y),
+        rgba(var(--color1-r), var(--color1-g), var(--color1-b), calc(var(--mouse-influence) * var(--interaction-state) * 0.6)) 0%,
+        rgba(var(--color1-r), var(--color1-g), var(--color1-b), calc(var(--mouse-influence) * var(--interaction-state) * 0.3)) 15%,
+        transparent 35%
+      ),
+      // Static animated gradient
+      radial-gradient(
+        circle at 30% 20%,
+        rgba(var(--color1-r), var(--color1-g), var(--color1-b), 0.6) 0%,
+        rgba(var(--color1-r), var(--color1-g), var(--color1-b), 0.3) 30%,
+        transparent 70%
+      );
+    animation: float1 calc(8s / var(--time-scale)) ease-in-out infinite;
+    transform-origin: center;
+  }
+  
+  // Second animated blob
+  &::after {
+    background: radial-gradient(
+      circle at 70% 80%,
+      rgba(var(--color2-r), var(--color2-g), var(--color2-b), 0.5) 0%,
+      rgba(var(--color2-r), var(--color2-g), var(--color2-b), 0.25) 40%,
+      transparent 70%
+    );
+    animation: float2 calc(10s / var(--time-scale)) ease-in-out infinite reverse;
+    transform-origin: center;
+  }
+  
+  // Additional floating elements for more complex animation
+  .floating-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(25px);
+    will-change: transform;
+    opacity: calc(0.6 + var(--interaction-state) * 0.4);
+    transition: opacity 0.3s ease-out;
+    
+    &:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      background: rgba(var(--color1-r), var(--color1-g), var(--color1-b), 0.2);
+      top: 10%;
+      left: 5%;
+      animation: drift1 calc(12s / var(--time-scale)) ease-in-out infinite;
+    }
+    
+    &:nth-child(2) {
+      width: 250px;
+      height: 250px;
+      background: rgba(var(--color2-r), var(--color2-g), var(--color2-b), 0.15);
+      top: 50%;
+      right: 10%;
+      animation: drift2 calc(15s / var(--time-scale)) ease-in-out infinite reverse;
+    }
+    
+    &:nth-child(3) {
+      width: 200px;
+      height: 200px;
+      background: rgba(var(--color1-r), var(--color1-g), var(--color1-b), 0.12);
+      bottom: 15%;
+      left: 40%;
+      animation: drift3 calc(9s / var(--time-scale)) ease-in-out infinite;
+    }
+  }
+  
+  // Touch ripple effect
+  &[data-touching="true"] {
+    &::before {
+      animation: float1 calc(8s / var(--time-scale)) ease-in-out infinite, 
+                 pulse 0.6s ease-out;
+    }
+    
+    &::after {
+      animation: float2 calc(10s / var(--time-scale)) ease-in-out infinite reverse, 
+                 pulse 0.8s ease-out;
+    }
+  }
+}
+
+// Enhanced keyframe animations with more movement
+@keyframes float1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translate(60px, -80px) scale(1.2) rotate(5deg);
+  }
+  50% {
+    transform: translate(-40px, -60px) scale(0.8) rotate(-3deg);
+  }
+  75% {
+    transform: translate(-80px, 40px) scale(1.1) rotate(4deg);
+  }
+}
+
+@keyframes float2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  30% {
+    transform: translate(-70px, 60px) scale(0.9) rotate(-6deg);
+  }
+  60% {
+    transform: translate(50px, -50px) scale(1.15) rotate(3deg);
+  }
+  80% {
+    transform: translate(80px, 70px) scale(0.85) rotate(-2deg);
+  }
+}
+
+@keyframes drift1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(100px, -60px) scale(1.1);
+  }
+  66% {
+    transform: translate(-80px, 100px) scale(0.9);
+  }
+}
+
+@keyframes drift2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-100px, -80px) scale(1.05);
+  }
+  50% {
+    transform: translate(60px, -120px) scale(0.95);
+  }
+  75% {
+    transform: translate(120px, 60px) scale(1.08);
+  }
+}
+
+@keyframes drift3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(-60px, -140px) scale(1.12);
+  }
+  80% {
+    transform: translate(100px, -60px) scale(0.88);
+  }
+}
+
+// Pulse animation for touch feedback
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .mobile-background-fallback {
+    &::before,
+    &::after,
+    .floating-blob {
+      animation: none !important;
+    }
+  }
+}
+
+// Performance optimizations for different mobile screen sizes
+@media (max-width: 480px) {
+  .mobile-background-fallback {
+    &::before,
+    &::after {
+      filter: blur(30px);
+    }
+    
+    .floating-blob {
+      filter: blur(20px);
+      
+      &:nth-child(1) {
+        width: 200px;
+        height: 200px;
+      }
+      
+      &:nth-child(2) {
+        width: 150px;
+        height: 150px;
+      }
+      
+      &:nth-child(3) {
+        display: none; // Hide on very small screens
+      }
+    }
+  }
+}
+
+// Tablet optimization
+@media (min-width: 481px) and (max-width: 1024px) {
+  .mobile-background-fallback {
+    &::before,
+    &::after {
+      filter: blur(50px);
+    }
+    
+    .floating-blob {
+      filter: blur(35px);
+      
+      &:nth-child(1) {
+        width: 350px;
+        height: 350px;
+      }
+      
+      &:nth-child(2) {
+        width: 300px;
+        height: 300px;
+      }
+      
+      &:nth-child(3) {
+        width: 250px;
+        height: 250px;
+      }
+    }
+  }
+} 

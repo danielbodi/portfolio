@@ -236,53 +236,7 @@ export function TraisProject() {
     description: "Home page of the QC1 application showcasing the main interface"
   };
 
-  const additionalSections = (
-    <div className="space-y-12">
-      <div className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]">
-        <h2 className="text-3xl font-bold mb-6">Visual Design Examples</h2>
-        <div className="space-y-8">
-          <div className="my-8">
-            <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
-              <Image
-                src="/screenshots/trasis/trasis-qc1-real-parts-ui.png"
-                alt="Example of real parts designed for the QC1 device"
-                aspectRatio="auto"
-                frame="none"
-                className="w-full rounded-lg"
-              />
-            </div>
-            <p className="text-sm text-purple-400 mt-2">Realistic illustrations of device components designed to replicate real parts of the QC1 device</p>
-          </div>
-          
-          <div className="my-8">
-            <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
-              <Image
-                src="/screenshots/trasis/trasis-qc1-hplc--cfg.png"
-                alt="QC Test UI reflecting the QC1's mechanism"
-                aspectRatio="auto"
-                frame="none"
-                className="w-full rounded-lg"
-              />
-            </div>
-            <p className="text-sm text-purple-400 mt-2">Interactive test interface mirroring the device's physical processes</p>
-          </div>
-          
-          <div className="my-8">
-            <div className="w-full p-4 rounded-xl" style={{ border: '2px solid rgb(124, 58, 237)' }}>
-              <Image
-                src="/screenshots/trasis/trasis-qc1-µgc--cfg.png"
-                alt="QC Test diagram reflecting the QC1's mechanism"
-                aspectRatio="auto"
-                frame="none"
-                className="w-full rounded-lg"
-              />
-            </div>
-            <p className="text-sm text-purple-400 mt-2">Complex test configuration interface showing fluid channels and component states, mirroring the device's internal processes</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  const additionalSections = undefined;
 
   return (
     <ProjectTemplate

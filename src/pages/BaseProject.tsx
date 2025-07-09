@@ -95,38 +95,23 @@ export function BaseProject() {
 
   const challenges = [
     {
-      id: 'structure-seniority',
-      title: 'Structure and Seniority in Front-End Development',
+      id: 'experience',
+      title: 'The start of a new journey',
       content: [
-        'The front-end team was relatively junior and needed guidance for design to code translation and to build the layouts.',
-        'Their outdated CSS practices, such as a float-based grid system, and the absence of organized CSS structures led to technical debt and inefficiencies while developing.'
-      ]
-    },
-    {
-      id: 'scalable-design',
-      title: 'Scalable Design Processes and methodologies',
-      content: [
-        'When I joined, they had a basic pdf document as style guide for UI and UX principles, but they lacked of a real design system.',
-        'Another issue was that their components, when they were available, were not built with the Atomic Design methodology, making it difficult to scale and maintain consistency across the product.'
+        'This was my first taste of what a truly senior team looks like. The Design is Dead crew didn\'t just write code—they had systems, methodologies, and a level of teamwork I\'d never experienced. They introduced me to BEM (which became my prefered CSS methodology) and showed me what Scrum actually looks like when done right.',
+        'The contrast with my previous work experiences was clear. Suddenly, I wasn\'t just a designer who could code—I was part of a machine that delivered consistent, high-quality work at scale. This was where I realized my hybrid skills weren\'t just useful; they were essential.',
+        'But it wasn\'t just about learning. I brought valuable experience from 5 years of making things work across challenging browser combinations, and I was ready to share that hard-won knowledge. The team leaned heavily on UI and front-end work, which played right into my strengths.'
       ]
     }
   ];
 
   const solutions = [
     {
-      id: 'addressing-structure',
-      title: 'New Grid System',
+      id: 'contributions',
+      title: 'My Contributions',
       content: [
-        'I contributed by introducing a <strong>new grid system</strong>, replacing their float-based grid system with a <strong>custom Flexbox-based grid</strong>, designed from scratch, that would be the base for improved versions in my future experiences.',
-        'This grid followed the <strong>BEM methodology</strong>, offering greater flexibility, and making the layouts more <strong>future-proof</strong>. The challenge with that new grid was that support was not yet at <strong>100%</strong>, especially in old IE browsers, but I found solutions to apply alternatives when support was bad, and I put a lot effort on making the experience working as well as possible and consistent on these old and limited browsers.'
-      ]
-    },
-    {
-      id: 'addressing-design',
-      title: 'Improved Development Process',
-      content: [
-        'Another contribution I made was also linked to the front-end: Our tech stack was <strong>Java backend</strong>, <strong>Angular JS</strong>, and <strong>LESS</strong> for the CSS, all that produced content for the CMS <strong>AEM</strong>. The dev process was really heavy (having to compile even on front-end at every code change).',
-        'To ease this heavy process, I started to do some research, and I ended by adding <strong>NPM scripts</strong> to enable <strong>auto-reloads</strong> on our browser at every modification, avoiding compilation on front end code changes, improving <strong>efficiency and quality of life</strong> while developing.'
+        '<h4 id="grid-system" class="text-xl font-semibold mb-4">New Grid System</h4><div class="space-y-4 text-gray-400"><p>I contributed by introducing a <strong>new grid system</strong>, replacing their float-based grid system with a <strong>custom Flexbox-based grid</strong>, designed from scratch, that would be the base for improved versions in my future experiences.</p><p>This grid followed the <strong>BEM methodology</strong>, offering greater flexibility, and making the layouts more <strong>future-proof</strong>. The challenge with that new grid was that support was not yet at <strong>100%</strong>, especially in old IE browsers, but I found solutions to apply alternatives when support was bad, and I put a lot effort on making the experience working as well as possible and consistent on these old and limited browsers.</p></div>',
+        '<h4 id="dev-process" class="text-xl font-semibold mb-4">Improved Development Process</h4><div class="space-y-4 text-gray-400"><p>Another contribution I made was also linked to the front-end: Our tech stack was <strong>Java backend</strong>, <strong>Angular JS</strong>, and <strong>LESS</strong> for the CSS, all that produced content for the CMS <strong>AEM</strong>. The dev process was really heavy (having to compile even on front-end at every code change).</p><p>To ease this heavy process, I started to do some research, and I ended by adding <strong>NPM scripts</strong> to enable <strong>auto-reloads</strong> on our browser at every modification, avoiding compilation on front end code changes, improving <strong>efficiency and quality of life</strong> while developing.</p></div>'
       ]
     }
   ];
@@ -162,61 +147,7 @@ export function BaseProject() {
     description: "Modern login interface showcasing the improved design system"
   };
 
-  const additionalSections = (
-    <div className="space-y-12">
-      <div className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]">
-        <h2 id="experience" className="text-3xl font-bold mb-6">The start of a new journey</h2>
-        <div className="space-y-8">
-          <div className="space-y-4 text-gray-400">
-            <p>
-              This was my first taste of what a truly senior team looks like. The Design is Dead crew didn't just write code—they had systems, methodologies, and a level of teamwork I'd never experienced. 
-              They introduced me to BEM (which became my prefered CSS methodology) and showed me what Scrum actually looks like when done right.
-            </p>
-            <p>
-              The contrast with my previous work experiences was clear. Suddenly, I wasn't just a designer who could code—I was part of a machine that delivered consistent, high-quality work at scale. 
-              This was where I realized my hybrid skills weren't just useful; they were essential.
-            </p>
-            <p>
-              But it wasn't just about learning. I brought valuable experience from 5 years of making things work across challenging browser combinations, 
-              and I was ready to share that hard-won knowledge. The team leaned heavily on UI and front-end work, which played right into my strengths.
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      <div className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]">
-        <h2 id="contributions" className="text-3xl font-bold mb-6">My Contributions</h2>
-        <div className="space-y-8">
-          <div className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]">
-            <h4 id="grid-system" className="text-xl font-semibold mb-4">New Grid System</h4>
-            <div className="space-y-4 text-gray-400">
-              <p>
-                I contributed by introducing a <strong>new grid system</strong>, replacing their float-based grid system with a <strong>custom Flexbox-based grid</strong>, designed from scratch, that would be the base for improved versions in my future experiences.
-              </p>
-              <p>
-                This grid followed the <strong>BEM methodology</strong>, offering greater flexibility, and making the layouts more <strong>future-proof</strong>.
-                The challenge with that new grid was that support was not yet at <strong>100%</strong>, especially in old IE browsers, but I found solutions to apply alternatives when support was bad, and I put a lot effort on making the experience working as well as possible and consistent on these old and limited browsers.
-              </p>
-            </div>
-          </div>
-          
-          <div className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]">
-            <h4 id="dev-process" className="text-xl font-semibold mb-4">Improved Development Process</h4>
-            <div className="space-y-4 text-gray-400">
-              <p>
-                Another contribution I made was also linked to the front-end: 
-                Our tech stack was <strong>Java backend</strong>, <strong>Angular JS</strong>, and <strong>LESS</strong> for the CSS, all that produced content for the CMS <strong>AEM</strong>.
-                The dev process was really heavy (having to compile even on front-end at every code change).
-              </p>
-              <p>
-                To ease this heavy process, I started to do some research, and I ended by adding <strong>NPM scripts</strong> to enable <strong>auto-reloads</strong> on our browser at every modification, avoiding compilation on front end code changes, improving <strong>efficiency and quality of life</strong> while developing.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  const additionalSections = undefined;
 
   return (
     <ProjectTemplate

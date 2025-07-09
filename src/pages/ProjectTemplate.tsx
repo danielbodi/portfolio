@@ -427,7 +427,7 @@ export function ProjectTemplate({
                   className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
                 >
                   <h2 id="challenges" className="text-3xl font-bold mb-6">
-                    The Challenges I've faced
+                    {challenges.length === 1 ? challenges[0].title : 'The Challenges I\'ve faced'}
                   </h2>
                   <div className="space-y-8">
                     {challenges.map((challenge, index) => (
@@ -438,7 +438,9 @@ export function ProjectTemplate({
                         style={{ transitionDelay: `${index * 150}ms` }}
                       >
                         <Card variant="ghost">
-                          <h4 id={challenge.id} className="text-xl font-semibold mb-4">{challenge.title}</h4>
+                          {challenges.length > 1 && (
+                            <h4 id={challenge.id} className="text-xl font-semibold mb-4">{challenge.title}</h4>
+                          )}
                           <div className="space-y-4 text-gray-400">
                             {challenge.content.map((paragraph, pIndex) => (
                               <p key={pIndex} dangerouslySetInnerHTML={{ __html: paragraph }} />
@@ -455,7 +457,7 @@ export function ProjectTemplate({
                   className="opacity-0 translate-y-8 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)]"
                 >
                   <h2 id="solutions" className="text-3xl font-bold mb-6">
-                    How I overcame them
+                    {solutions.length === 1 ? solutions[0].title : 'How I overcame them'}
                   </h2>
                   <div className="space-y-8">
                     {solutions.map((solution, index) => (
@@ -466,7 +468,9 @@ export function ProjectTemplate({
                         style={{ transitionDelay: `${index * 150}ms` }}
                       >
                         <Card variant="ghost">
-                          <h4 id={solution.id} className="text-xl font-semibold mb-4">{solution.title}</h4>
+                          {solutions.length > 1 && (
+                            <h4 id={solution.id} className="text-xl font-semibold mb-4">{solution.title}</h4>
+                          )}
                           <div className="space-y-4 text-gray-400">
                             {solution.content.map((paragraph, pIndex) => (
                               typeof paragraph === 'string' ? (

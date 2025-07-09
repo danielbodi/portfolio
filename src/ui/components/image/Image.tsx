@@ -5,7 +5,7 @@ interface ImageProps {
   src: string;
   alt: string;
   className?: string;
-  aspectRatio?: 'video' | 'square' | 'auto';
+  aspectRatio?: 'video' | 'square' | 'auto' | 'none';
   objectFit?: 'cover' | 'contain';
   frame?: 'desktop' | 'tablet' | 'none';
 }
@@ -21,7 +21,7 @@ export function Image({
   const imageRef = useRef<HTMLDivElement>(null);
   const { degree, intensity } = useMouseGradient(imageRef);
   
-  const aspectRatioClass = `image--aspect-${aspectRatio}`;
+  const aspectRatioClass = aspectRatio === 'none' ? 'image--no-aspect' : `image--aspect-${aspectRatio}`;
   const frameClass = frame !== 'none' ? `image--frame-${frame}` : '';
   const objectFitClass = objectFit === 'contain' ? 'image__img--contain' : '';
   

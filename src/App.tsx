@@ -11,6 +11,7 @@ import { PageTransition } from './ui/components/page-transition/PageTransition';
 import { Background } from './ui/components/background/Background';
 import { GradientControls } from './ui/components/GradientControls';
 import { TableOfContents } from './ui/components/table-of-contents/TableOfContents';
+import { initializeClarity } from './utils/clarity';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -52,6 +53,16 @@ function AppContent() {
   const location = useLocation();
   const isProjectPage = location.pathname.startsWith('/projects/');
   const [tocVisible, setTocVisible] = useState(false);
+
+  // Initialize Microsoft Clarity on app load
+  useEffect(() => {
+    // Delay initialization to ensure Clarity script has loaded
+    const timer = setTimeout(() => {
+      initializeClarity();
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   // Reset and control TOC visibility when route changes
   useEffect(() => {

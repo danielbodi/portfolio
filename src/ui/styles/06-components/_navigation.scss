@@ -65,7 +65,11 @@
   }
 
   &__menu {
-    @apply flex gap-8;
+    @apply flex gap-5;
+
+    @include respond-to(lg) {
+      @apply gap-8;
+    }
     
     &--mobile {
       @apply flex justify-between;
@@ -81,7 +85,7 @@
   }
 
   &__link {
-    @apply text-gray-400;
+    @apply text-gray-400 whitespace-nowrap;
     transition: color 0.3s cubic-bezier(0.33, 1, 0.68, 1);
     
     &:hover {
@@ -100,7 +104,9 @@
   &__breadcrumb {
     @apply text-gray-400 hidden;
     
-    @include respond-to(md) {
+    // Only show the case breadcrumb when there is room for it (lg+),
+    // so the actions never collide with the menu on laptop widths.
+    @include respond-to(lg) {
       @apply inline-block;
     }
     
@@ -114,6 +120,14 @@
   }
 
   &__actions {
-    @apply flex gap-4;
+    @apply flex flex-shrink-0 gap-2;
+
+    @include respond-to(lg) {
+      @apply gap-4;
+    }
+
+    .c-button {
+      @apply whitespace-nowrap;
+    }
   }
 } 

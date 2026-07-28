@@ -1,5 +1,9 @@
 # Redirect all HTTP traffic to HTTPS
 http://* https://:splat 301!
 
+# Legacy project routes (renamed to /work/*)
+/projects/sopra /work/sopra-banking 301!
+/projects/* /work/:splat 301!
+
 # Handle client-side routing
 /* /index.html 200

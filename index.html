@@ -16,25 +16,25 @@
     <link rel="canonical" href="https://danielbodigil.com" />
     
     <!-- Primary Meta Tags -->
-    <title>Daniel Bodi Gil - UI Designer & Developer</title>
-    <meta name="title" content="Daniel Bodi Gil - UI Designer & Developer">
-    <meta name="description" content="Experienced UI Designer and Developer specializing in Design Systems, bridging technical and creative disciplines. View my portfolio of work with Bridgestone, Trasis, and more.">
-    <meta name="keywords" content="UI Designer, UI Developer, Design Systems, Front-end Development, UX Design, Web Development, Belgium, Daniel Bodi Gil">
+    <title>Daniel Bodi Gil — Product Design, Design Systems & UX Engineering</title>
+    <meta name="title" content="Daniel Bodi Gil — Product Design, Design Systems & UX Engineering">
+    <meta name="description" content="Portfolio of Daniel Bodi Gil, a product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.">
+    <meta name="keywords" content="Product Designer, Design Systems, UX Engineering, Design Engineer, Figma, Storybook, Angular, Enterprise UX, Belgium, Daniel Bodi Gil">
     <meta name="author" content="Daniel Bodi Gil">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://danielbodigil.com/">
-    <meta property="og:title" content="Daniel Bodi Gil - UI Designer & Developer">
-    <meta property="og:description" content="Experienced UI Designer and Developer specializing in Design Systems, bridging technical and creative disciplines.">
-    <meta property="og:image" content="https://danielbodigil.com/og-image.jpg">
+    <meta property="og:title" content="Daniel Bodi Gil — Product Design, Design Systems & UX Engineering">
+    <meta property="og:description" content="Portfolio of Daniel Bodi Gil, a product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.">
+    <meta property="og:image" content="https://danielbodigil.com/og-image.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://danielbodigil.com/">
-    <meta property="twitter:title" content="Daniel Bodi Gil - UI Designer & Developer">
-    <meta property="twitter:description" content="Experienced UI Designer and Developer specializing in Design Systems, bridging technical and creative disciplines.">
-    <meta property="twitter:image" content="https://danielbodigil.com/og-image.jpg">
+    <meta property="twitter:title" content="Daniel Bodi Gil — Product Design, Design Systems & UX Engineering">
+    <meta property="twitter:description" content="Portfolio of Daniel Bodi Gil, a product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.">
+    <meta property="twitter:image" content="https://danielbodigil.com/og-image.png">
 
     <!-- Security Headers -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.clarity.ms https://*.clarity.ms https://fonts.googleapis.com local.adguard.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.clarity.ms https://*.clarity.ms; upgrade-insecure-requests">
@@ -45,9 +45,27 @@
 
     <!-- Microsoft Clarity Analytics -->
     <script type="text/javascript">
+      // Clarity implementation with enhanced fallback
       (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          
+          // Initialize with fallback analytics immediately
+          if (typeof window.analytics !== 'undefined') {
+              console.log('Using fallback analytics due to network restrictions');
+              return;
+          }
+          
           t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          t.onerror = function() {
+              console.warn('Clarity blocked by network - using fallback analytics');
+              // Gracefully fall back to local analytics
+              c[a] = function() { 
+                  console.log('Clarity call intercepted:', arguments); 
+                  if (typeof window.analytics !== 'undefined') {
+                      window.analytics.trackEvent('clarity_fallback', {args: Array.from(arguments)});
+                  }
+              };
+          };
           y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "t094i2i8wh");
   </script>
@@ -59,9 +77,9 @@
         "@type": "Person",
         "name": "Daniel Bodi Gil",
         "url": "https://danielbodigil.com",
-        "jobTitle": "UI Designer & Developer",
-        "description": "Experienced UI Designer and Developer specializing in Design Systems, bridging technical and creative disciplines.",
-        "knowsAbout": ["UI Design", "UX Design", "Front-end Development", "Design Systems", "Web Development"],
+        "jobTitle": "Product Designer — Design Systems & UX Engineering",
+        "description": "Product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.",
+        "knowsAbout": ["Product Design", "UX Design", "Design Systems", "UX Engineering", "Design Tokens", "Storybook", "Figma", "Angular", "Front-end Development", "Accessibility"],
         "workLocation": {
           "@type": "Place",
           "address": {

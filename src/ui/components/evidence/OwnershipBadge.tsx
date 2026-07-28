@@ -1,0 +1,20 @@
+import React from 'react';
+import { OwnershipVerb } from '../../../content/types';
+
+interface OwnershipBadgeProps {
+  verb: OwnershipVerb;
+}
+
+/** Explicit ownership label — prevents both underselling and overclaiming. */
+export function OwnershipBadge({ verb }: OwnershipBadgeProps) {
+  const isTeam = verb === 'Team outcome';
+  return (
+    <span
+      className={`inline-flex items-center whitespace-nowrap rounded-md px-2.5 py-1 text-xs font-semibold uppercase tracking-wide ${
+        isTeam ? 'bg-gray-700/60 text-gray-300' : 'bg-purple-500/15 text-purple-300'
+      }`}
+    >
+      {verb}
+    </span>
+  );
+}

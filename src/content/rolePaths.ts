@@ -1,0 +1,123 @@
+import { CaseCard } from './types';
+import { solidarisCard, bridgestoneCard, trasisCard, sopraBankingCard } from './caseStudies/cards';
+
+/**
+ * Role-specific entry points (brief section 3.3). Same verified evidence,
+ * different order and emphasis — no separate facts.
+ */
+
+export interface RolePathEntry {
+  card: CaseCard;
+  /** Role-specific emphasis: which existing evidence to look at first. */
+  emphasis: string;
+  /** Deep links into existing case sections. */
+  links: { label: string; href: string }[];
+}
+
+export interface RolePath {
+  slug: string;
+  title: string;
+  seoTitle: string;
+  seoDescription: string;
+  intro: string;
+  focusPoints: string[];
+  entries: RolePathEntry[];
+  cvNote: string;
+}
+
+export const staffProductDesignPath: RolePath = {
+  slug: 'staff-product-design',
+  title: 'Staff Product Design',
+  seoTitle: 'Staff Product Design — Daniel Bodi Gil',
+  seoDescription:
+    'Curated product design evidence: complex ecosystem UX at Solidaris, safety-critical design at Trasis and design-system leadership at Bridgestone.',
+  intro:
+    'If you are evaluating me for a staff-level product design role, start here. The same case studies as the rest of the site, ordered for what these roles usually need to see first: problem framing in ambiguity, end-to-end ownership, decision quality and validated outcomes.',
+  focusPoints: [
+    'Ownership of complex, ambiguous initiatives',
+    'Information architecture across connected products',
+    'Scenario-based user testing and evidence-based iteration',
+    'Stakeholder alignment as an embedded, autonomous consultant'
+  ],
+  entries: [
+    {
+      card: solidarisCard,
+      emphasis:
+        'Cross-product strategy: reframing each application\u2019s purpose, a shared case-reading model, and trade-offs between overview and detailed work — as the only embedded consultant.',
+      links: [
+        { label: 'Key decisions', href: '/work/solidaris#key-decisions' },
+        { label: 'Validation', href: '/work/solidaris#validation' }
+      ]
+    },
+    {
+      card: trasisCard,
+      emphasis:
+        'Product craft under constraints: a high-consequence workflow made unambiguous, validated with task-based testing and iterated from observation.',
+      links: [
+        { label: 'Strategic framing', href: '/work/trasis#strategic-framing' },
+        { label: 'Validation', href: '/work/trasis#validation' }
+      ]
+    },
+    {
+      card: bridgestoneCard,
+      emphasis:
+        'Influence beyond the screen: turning an unplanned design system into a funded initiative, then raising quality through reviews, documentation and coaching.',
+      links: [
+        { label: 'Key decisions', href: '/work/bridgestone#key-decisions' },
+        { label: 'Outcomes', href: '/work/bridgestone#outcomes' }
+      ]
+    }
+  ],
+  cvNote: 'Product design CV'
+};
+
+export const designEngineeringPath: RolePath = {
+  slug: 'design-engineering',
+  title: 'Design Engineering & Design Systems',
+  seoTitle: 'Design Engineering & Design Systems — Daniel Bodi Gil',
+  seoDescription:
+    'Curated design-systems and UX-engineering evidence: tokens, Storybook, ITCSS/BEM architecture, PrimeNG theming and design-to-code workflows.',
+  intro:
+    'If you are evaluating me for a design engineering or design systems role, start here. Same evidence as the rest of the site, ordered around what these roles need to see first: components and tokens in production, CSS architecture, design-to-code workflows and governance.',
+  focusPoints: [
+    'Figma-to-code systems: tokens, components, documentation',
+    'Storybook as a shared source of truth',
+    'ITCSS/BEM CSS architecture and PrimeNG theming strategy',
+    'Implementation reviews, coaching and AI-ready governance'
+  ],
+  entries: [
+    {
+      card: bridgestoneCard,
+      emphasis:
+        'The deepest system evidence: CSS as the single source of truth — a BEM grammar strict enough to parse, a browser-computed color system (15 bases → ~250 tokens per theme), CSSOM parsers feeding a self-populating Storybook, and modern CSS replacing JavaScript in production.',
+      links: [
+        { label: 'System evidence', href: '/work/bridgestone#system-evidence' },
+        { label: 'Key decisions', href: '/work/bridgestone#key-decisions' }
+      ]
+    },
+    {
+      card: solidarisCard,
+      emphasis:
+        'Plectrum on PrimeNG: a three-tier token architecture, a vendor bridge that survives upgrades, and machine-readable contracts that make AI-assisted development land on-system.',
+      links: [
+        { label: 'System evidence', href: '/work/solidaris#system-evidence' },
+        { label: 'Key decisions', href: '/work/solidaris#key-decisions' }
+      ]
+    },
+    {
+      card: sopraBankingCard,
+      emphasis:
+        'CSS architecture as enablement: BEM adoption, a custom Flexbox grid replacing float layouts, and coaching that changed how a junior team built UI.',
+      links: [{ label: 'System evidence', href: '/work/sopra-banking#system-evidence' }]
+    },
+    {
+      card: trasisCard,
+      emphasis:
+        'Design and implementation in one pair of hands: device-realistic UI designed and built within an Nx/Angular workspace with ITCSS and BEM.',
+      links: [{ label: 'System evidence', href: '/work/trasis#system-evidence' }]
+    }
+  ],
+  cvNote: 'Design systems and UX engineering CV'
+};
+
+export const rolePaths = [staffProductDesignPath, designEngineeringPath];

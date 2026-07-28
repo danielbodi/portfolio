@@ -1,7 +1,8 @@
 import React, { ButtonHTMLAttributes } from 'react';
+import './Button.scss';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'link';
   children: React.ReactNode;
   className?: string;
 }

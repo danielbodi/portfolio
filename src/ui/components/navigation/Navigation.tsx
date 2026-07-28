@@ -1,133 +1,78 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Card } from '../cards/Card';
 import { Button } from '../buttons/Button';
+import { cardBySlug } from '../../../content/caseStudies/cards';
+import { contact } from '../../../content/site';
+import { analytics } from '../../../utils/basicAnalytics';
+
+interface NavItem {
+  label: string;
+  to: string;
+  /** Marks active when the current path starts with this prefix. */
+  activePrefix: string;
+}
+
+const navItems: NavItem[] = [
+  { label: 'Work', to: '/work', activePrefix: '/work' },
+  { label: 'Approach', to: '/approach', activePrefix: '/approach' },
+  { label: 'About', to: '/about', activePrefix: '/about' }
+];
 
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(() => {
-    // Initialize with current scroll position
-    return window.scrollY > 2;
-  });
-  const [activeSection, setActiveSection] = useState('about');
+  const [isScrolled, setIsScrolled] = useState(() => window.scrollY > 2);
   const location = useLocation();
-  const navigate = useNavigate();
-
-  // Use layout effect for immediate checking on mount
-  useLayoutEffect(() => {
-    // Check scroll position immediately
-    const currentScrolled = window.scrollY > 2;
-    if (currentScrolled !== isScrolled) {
-      setIsScrolled(currentScrolled);
-    }
-    
-    // Determine active section immediately
-    if (location.pathname === '/') {
-      const sections = ['about', 'career', 'projects'];
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-
-      if (currentSection && currentSection !== activeSection) {
-        setActiveSection(currentSection);
-      }
-    }
-  }, [location.pathname, isScrolled, activeSection]);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Use requestAnimationFrame for better performance
       requestAnimationFrame(() => {
-        if (location.pathname === '/') {
-          const sections = ['about', 'career', 'projects'];
-          const currentSection = sections.find(section => {
-            const element = document.getElementById(section);
-            if (element) {
-              const rect = element.getBoundingClientRect();
-              return rect.top <= 100 && rect.bottom >= 100;
-            }
-            return false;
-          });
-
-          if (currentSection) {
-            setActiveSection(currentSection);
-          }
-        }
-
-        // Lower threshold for a more immediate sticky effect
-        const scrollThreshold = 2;
-        const isNowScrolled = window.scrollY > scrollThreshold;
-        
-        if (isNowScrolled !== isScrolled) {
-          setIsScrolled(isNowScrolled);
-        }
+        const isNowScrolled = window.scrollY > 2;
+        setIsScrolled((prev) => (prev !== isNowScrolled ? isNowScrolled : prev));
       });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Initial check already done in useLayoutEffect
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [location, isScrolled]);
+  }, []);
 
   const handleContact = () => {
-    window.location.href = 'mailto:daniel.bodi.gil@gmail.com';
+    analytics.trackPortfolioEvent('contact_click', { from: location.pathname });
+    window.location.href = `mailto:${contact.email}`;
   };
 
-  const scrollToSection = (sectionId: string) => {
-    if (location.pathname !== '/') {
-      sessionStorage.setItem('scrollTarget', sectionId);
-      navigate('/');
-    } else {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        setActiveSection(sectionId);
-      }
-    }
+  const handleCvDownload = () => {
+    analytics.trackPortfolioEvent('cv_download', { variant: 'default', from: location.pathname });
+    const link = document.createElement('a');
+    link.href = contact.cv.file;
+    link.download = contact.cv.fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
-  const isProjectPage = location.pathname.startsWith('/projects/');
-  const currentProject = isProjectPage ? location.pathname.split('/').pop() : null;
+  const caseSlugMatch = location.pathname.match(/^\/work\/(.+)$/);
+  const currentCase = caseSlugMatch ? cardBySlug(caseSlugMatch[1]) : undefined;
 
-  const getProjectsBreadcrumb = () => {
-    if (currentProject === 'bridgestone') {
-      return (
-        <span className="c-navigation__breadcrumb">
-          <span className="c-navigation__breadcrumb-separator">/</span>
-          <span className="c-navigation__breadcrumb-current">Bridgestone</span>
-        </span>
-      );
-    }
-    if (currentProject === 'trasis') {
-      return (
-        <span className="c-navigation__breadcrumb">
-          <span className="c-navigation__breadcrumb-separator">/</span>
-          <span className="c-navigation__breadcrumb-current">Trasis</span>
-        </span>
-      );
-    }
-    if (currentProject === 'sopra') {
-      return (
-        <span className="c-navigation__breadcrumb">
-          <span className="c-navigation__breadcrumb-separator">/</span>
-          <span className="c-navigation__breadcrumb-current">Sopra Banking</span>
-        </span>
-      );
-    }
-    if (currentProject === 'base') {
-      return (
-        <span className="c-navigation__breadcrumb">
-          <span className="c-navigation__breadcrumb-separator">/</span>
-          <span className="c-navigation__breadcrumb-current">Base</span>
-        </span>
-      );
-    }
-    return null;
-  };
+  const isActive = (item: NavItem) => location.pathname.startsWith(item.activePrefix);
+
+  const renderLinks = (idSuffix: string) =>
+    navItems.map((item) => (
+      <li key={`${item.to}-${idSuffix}`} className="c-navigation__item">
+        <Link
+          to={item.to}
+          className={`c-navigation__link ${isActive(item) ? 'c-navigation__link--active' : ''}`}
+          aria-current={location.pathname === item.to ? 'page' : undefined}
+        >
+          {item.label}
+          {item.to === '/work' && currentCase && (
+            <span className="c-navigation__breadcrumb">
+              <span className="c-navigation__breadcrumb-separator">/</span>
+              <span className="c-navigation__breadcrumb-current">{currentCase.shortTitle}</span>
+            </span>
+          )}
+        </Link>
+      </li>
+    ));
 
   return (
     <>
@@ -136,58 +81,26 @@ export function Navigation() {
         <div className="c-navigation__wrapper">
           <div className="c-navigation__container">
             <div className={`c-navigation__inner ${isScrolled ? 'c-navigation__inner--scrolled' : ''}`}>
-              <Card 
-                variant="nav" 
-                isSticky={isScrolled}
-                className="c-navigation__card"
-              >
-                <nav className="c-navigation__content">
-                  <ul className="c-navigation__menu">
-                    <li className="c-navigation__item">
-                      <button 
-                        onClick={() => scrollToSection('about')} 
-                        className={`c-navigation__link ${!isProjectPage && activeSection === 'about' ? 'c-navigation__link--active' : ''}`}
-                      >
-                        About me
-                      </button>
-                    </li>
-                    <li className="c-navigation__item">
-                      <button 
-                        onClick={() => scrollToSection('career')} 
-                        className={`c-navigation__link ${!isProjectPage && activeSection === 'career' ? 'c-navigation__link--active' : ''}`}
-                      >
-                        Career
-                      </button>
-                    </li>
-                    <li className="c-navigation__item">
-                      <button 
-                        onClick={() => scrollToSection('projects')} 
-                        className={`c-navigation__link ${(isProjectPage || (!isProjectPage && activeSection === 'projects')) ? 'c-navigation__link--active' : ''}`}
-                      >
-                        Projects
-                        {getProjectsBreadcrumb()}
-                      </button>
-                    </li>
-                  </ul>
+              <Card variant="nav" isSticky={isScrolled} className="c-navigation__card">
+                <nav className="c-navigation__content" aria-label="Main">
+                  <div className="flex min-w-0 items-center gap-4 lg:gap-6">
+                    <Link
+                      to="/"
+                      className="c-navigation__link whitespace-nowrap font-semibold text-white"
+                      aria-label="Daniel Bodi Gil — home"
+                    >
+                      Daniel Bodi Gil
+                    </Link>
+                    <ul className="c-navigation__menu">{renderLinks('desktop')}</ul>
+                  </div>
                   <div className="c-navigation__actions">
-                    <Button 
-                      variant="secondary" 
-                      onClick={handleContact}
-                    >
-                      Contact me
+                    <Button variant="secondary" onClick={handleContact}>
+                      <span className="hidden xl:inline">Contact me</span>
+                      <span className="xl:hidden">Contact</span>
                     </Button>
-                    <Button 
-                      variant="primary"
-                      onClick={() => {
-                        const link = document.createElement('a');
-                        link.href = '/cv/DBG_CV_2025.pdf';
-                        link.download = 'DBG_CV_2025.pdf';
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                      }}
-                    >
-                      Download my CV
+                    <Button variant="primary" onClick={handleCvDownload} aria-label="Download CV">
+                      <span className="hidden xl:inline">Download CV</span>
+                      <span className="xl:hidden">CV</span>
                     </Button>
                   </div>
                 </nav>
@@ -198,46 +111,30 @@ export function Navigation() {
       </header>
 
       {/* Mobile Navigation */}
-      <nav className="c-navigation__mobile">
+      <nav className="c-navigation__mobile" aria-label="Main">
         <Card variant="nav" isSticky={true} className="c-navigation__card">
           <ul className="c-navigation__menu c-navigation__menu--mobile">
             <li className="c-navigation__item">
-              <button 
-                onClick={() => scrollToSection('about')} 
-                className={`c-navigation__link ${!isProjectPage && activeSection === 'about' ? 'c-navigation__link--active' : ''}`}
+              <Link
+                to="/"
+                className={`c-navigation__link ${location.pathname === '/' ? 'c-navigation__link--active' : ''}`}
+                aria-current={location.pathname === '/' ? 'page' : undefined}
               >
-                About
-              </button>
+                Home
+              </Link>
             </li>
+            {renderLinks('mobile')}
             <li className="c-navigation__item">
-              <button 
-                onClick={() => scrollToSection('career')} 
-                className={`c-navigation__link ${!isProjectPage && activeSection === 'career' ? 'c-navigation__link--active' : ''}`}
-              >
-                Career
-              </button>
-            </li>
-            <li className="c-navigation__item">
-              <button 
-                onClick={() => scrollToSection('projects')} 
-                className={`c-navigation__link ${(isProjectPage || (!isProjectPage && activeSection === 'projects')) ? 'c-navigation__link--active' : ''}`}
-              >
-                Projects
-              </button>
-            </li>
-            <li className="c-navigation__item">
-              <button 
-                onClick={handleContact}
-                className="c-navigation__link"
-              >
+              <button onClick={handleContact} className="c-navigation__link">
                 Contact
               </button>
             </li>
             <li className="c-navigation__item">
-              <a 
-                href="/cv/DBG_CV_2025.pdf"
-                download="DBG_CV_2025.pdf"
+              <a
+                href={contact.cv.file}
+                download={contact.cv.fileName}
                 className="c-navigation__link"
+                onClick={() => analytics.trackPortfolioEvent('cv_download', { variant: 'default', from: location.pathname })}
               >
                 CV
               </a>
@@ -247,4 +144,4 @@ export function Navigation() {
       </nav>
     </>
   );
-} 
+}

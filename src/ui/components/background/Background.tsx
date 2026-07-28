@@ -624,11 +624,13 @@ export function Background() {
         />
       )}
       
-      <GradientControls
-        settings={settings}
-        onChange={setSettings}
-        onReset={() => setSettings(defaultSettings)}
-      />
+      {import.meta.env.DEV && (
+        <GradientControls
+          settings={settings}
+          onChange={setSettings}
+          onReset={() => setSettings(defaultSettings)}
+        />
+      )}
     </>
   );
 }

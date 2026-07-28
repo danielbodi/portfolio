@@ -1,242 +1,75 @@
 /* 
- * Button component
+ * Button component - Figma Design System
  */
 
 @use '../02-tools/mixins' as *;
 
-:root {
-  --button-gradient-opacity: 0.7;
-  --button-highlight-opacity: 0.9;
-  --button-base-brightness: 1;
-}
-
-
-
 .c-button {
-  @apply px-4 py-2 text-sm font-medium inline-flex items-center gap-2;
-  @include custom-transition;
+  @apply flex items-center justify-center gap-2 px-2 py-2 rounded-[25px] font-medium text-sm;
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  min-height: 30px;
   width: fit-content;
-  &--primary,
-  &--secondary {
-    @apply rounded-full;
-    
-    //text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
+
   &--primary {
-    position: relative;
-    transform: translateZ(0); /* Force hardware acceleration */
-    //box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-   
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      padding: 2px; /* Border width */
-      border-radius: inherit;
-      background: conic-gradient(
-        from 225deg,
-        rgba(124, 58, 237, var(--button-gradient-opacity)) 0deg,
-        rgba(124, 58, 237, var(--button-gradient-opacity)) 60deg,
-        rgba(calc(170 * var(--button-base-brightness)), calc(120 * var(--button-base-brightness)), calc(255 * var(--button-base-brightness)), var(--button-highlight-opacity)) 90deg,
-        rgba(124, 58, 237, calc(var(--button-gradient-opacity) + 0.1)) 120deg,
-        rgba(124, 58, 237, var(--button-gradient-opacity)) 200deg,
-        rgba(100, 50, 200, calc(var(--button-gradient-opacity) + 0.1)) 250deg,
-        rgba(calc(150 * var(--button-base-brightness)), calc(100 * var(--button-base-brightness)), calc(240 * var(--button-base-brightness)), var(--button-highlight-opacity)) 300deg,
-        rgba(124, 58, 237, var(--button-gradient-opacity)) 330deg,
-        rgba(124, 58, 237, var(--button-gradient-opacity)) 360deg
-      );
-      -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      z-index: -2;
-      will-change: transform, background;
-      backface-visibility: hidden;
-      transform: translateZ(0);
-      transition: --button-gradient-opacity 0.3s ease, --button-highlight-opacity 0.3s ease, --button-base-brightness 0.3s ease;
-    }
-    
-    &::after {
-      content: '';
-      position: absolute;
-      
-      inset: 2px; /* Match the padding of ::before */
-      background: linear-gradient(
-        to bottom,
-        rgb(124, 58, 237),
-        rgb(109, 40, 217)
-      );
-      @apply rounded-full;
-      z-index: -1;
-      will-change: transform, background;
-      backface-visibility: hidden;
-      transform: translateZ(0);
-      box-shadow: inset 0px 0px 0px 2px rgba(50,50,50,0.2);
-    }
-    
-    & > * {
-      position: relative;
-      z-index: 1;
-    }
-    
+    @apply text-white relative;
+    background: radial-gradient(ellipse at center, rgba(171, 137, 242, 1) 32%, rgba(180, 144, 255, 1) 100%);
+    border: 1px solid #b490ff;
+    box-shadow: -8px 8px 40px 0px rgba(0, 0, 0, 0.17);
+
     &:hover {
-      --button-gradient-opacity: 0.8;
-      --button-highlight-opacity: 1;
-      --button-base-brightness: 1.2;
-      
-      &::after {
-        background: linear-gradient(
-          to bottom,
-          rgb(216, 180, 254),
-          rgb(139, 92, 246)
-        );
-        box-shadow: 
-          inset 0 1px 2px rgba(255, 255, 255, 0.3),
-          inset 0 -1px 2px rgba(0, 0, 0, 0.3);
-      }
+      @apply transform scale-105;
+      box-shadow: -8px 8px 40px 0px rgba(0, 0, 0, 0.25);
     }
-    
-    &:focus-visible {
-      outline: none;
-      
-      &::before {
-        background: conic-gradient(
-          from 225deg,
-          rgba(140, 70, 255, 0.9) 0deg,      /* Even brighter for focus */
-          rgba(140, 70, 255, 0.9) 60deg,     
-          rgba(200, 150, 255, 1) 90deg,      /* Stronger highlight */
-          rgba(140, 70, 255, 0.9) 120deg,    
-          rgba(140, 70, 255, 0.9) 200deg,    
-          rgba(120, 60, 220, 1) 250deg,      /* Stronger variation */
-          rgba(180, 130, 255, 1) 300deg,     /* Stronger highlight */
-          rgba(140, 70, 255, 0.9) 330deg,    
-          rgba(140, 70, 255, 0.9) 360deg     
-        );
-        padding: 3px; /* Slightly thicker border for focus */
-      }
-    }
-    
+
     &:active {
-      transform: translateY(1px) translateZ(0);
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-      
-      &::before {
-        background: conic-gradient(
-          from 225deg,
-          rgba(100, 40, 200, 0.8) 0deg,      /* Darker when pressed */
-          rgba(100, 40, 200, 0.8) 60deg,     
-          rgba(150, 90, 230, 0.9) 90deg,     /* Less bright highlight */
-          rgba(100, 40, 200, 0.8) 120deg,    
-          rgba(100, 40, 200, 0.8) 200deg,    
-          rgba(80, 30, 180, 0.9) 250deg,     /* Darker variation */
-          rgba(130, 70, 220, 0.9) 300deg,    /* Less bright highlight */
-          rgba(100, 40, 200, 0.8) 330deg,    
-          rgba(100, 40, 200, 0.8) 360deg     
-        );
-      }
-      
-      &::after {
-        background: linear-gradient(
-          to bottom,
-          rgb(124, 58, 237),
-          rgb(192, 132, 252)
-        );
-        box-shadow: 
-          inset 0 2px 4px rgba(0, 0, 0, 0.3),
-          inset 0 1px 2px rgba(255, 255, 255, 0.1);
-      }
+      @apply transform scale-95;
+    }
+
+    &:focus-visible {
+      @apply outline-none;
+      box-shadow: -8px 8px 40px 0px rgba(0, 0, 0, 0.17), 0 0 0 2px rgba(180, 144, 255, 0.5);
     }
   }
-  
+
   &--secondary {
-    position: relative;
-    background: transparent;
-    @apply text-purple-400 border-0;
-    transform: translateZ(0); /* Force hardware acceleration */
-    
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      padding: 2px; /* Border width */
-      border-radius: inherit; /* Takes the border-radius from the parent */
-      background: conic-gradient(
-        from 225deg,
-        rgba(124, 58, 237, var(--button-gradient-opacity)) 0deg,
-        rgba(124, 58, 237, var(--button-gradient-opacity)) 60deg,
-        rgba(calc(170 * var(--button-base-brightness)), calc(120 * var(--button-base-brightness)), calc(255 * var(--button-base-brightness)), var(--button-highlight-opacity)) 90deg,
-        rgba(124, 58, 237, calc(var(--button-gradient-opacity) + 0.1)) 120deg,
-        rgba(124, 58, 237, var(--button-gradient-opacity)) 200deg,
-        rgba(100, 50, 200, calc(var(--button-gradient-opacity) + 0.1)) 250deg,
-        rgba(calc(150 * var(--button-base-brightness)), calc(100 * var(--button-base-brightness)), calc(240 * var(--button-base-brightness)), var(--button-highlight-opacity)) 300deg,
-        rgba(124, 58, 237, var(--button-gradient-opacity)) 330deg,
-        rgba(124, 58, 237, var(--button-gradient-opacity)) 360deg
-      );
-      -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      z-index: -1;
-      will-change: transform, background;
-      backface-visibility: hidden;
-      transform: translateZ(0);
-      transition: --button-gradient-opacity 0.3s ease, --button-highlight-opacity 0.3s ease, --button-base-brightness 0.3s ease;
-    }
-    
+    @apply text-[#b490ff] bg-transparent;
+    border: 1px solid #b490ff;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.35);
+
     &:hover {
-      @apply text-white;
-      --button-gradient-opacity: 0.8;
-      --button-highlight-opacity: 1;
-      --button-base-brightness: 1.2;
+      @apply bg-[#b490ff] text-white transform scale-105;
     }
-    
-    &:focus-visible {
-      outline: none;
-      
-      &::before {
-        background: conic-gradient(
-          from 225deg,
-          rgba(140, 70, 255, 0.9) 0deg,      /* Even brighter for focus */
-          rgba(140, 70, 255, 0.9) 60deg,     
-          rgba(200, 150, 255, 1) 90deg,      /* Stronger highlight */
-          rgba(140, 70, 255, 0.9) 120deg,    
-          rgba(140, 70, 255, 0.9) 200deg,    
-          rgba(120, 60, 220, 1) 250deg,      /* Stronger variation */
-          rgba(180, 130, 255, 1) 300deg,     /* Stronger highlight */
-          rgba(140, 70, 255, 0.9) 330deg,    
-          rgba(140, 70, 255, 0.9) 360deg     
-        );
-        padding: 3px; /* Slightly thicker border for focus */
-      }
-    }
-    
+
     &:active {
-      transform: translateY(1px) translateZ(0);
-      
-      &::before {
-        background: conic-gradient(
-          from 225deg,
-          rgba(100, 40, 200, 0.8) 0deg,      /* Darker when pressed */
-          rgba(100, 40, 200, 0.8) 60deg,     
-          rgba(150, 90, 230, 0.9) 90deg,     /* Less bright highlight */
-          rgba(100, 40, 200, 0.8) 120deg,    
-          rgba(100, 40, 200, 0.8) 200deg,    
-          rgba(80, 30, 180, 0.9) 250deg,     /* Darker variation */
-          rgba(130, 70, 220, 0.9) 300deg,    /* Less bright highlight */
-          rgba(100, 40, 200, 0.8) 330deg,    
-          rgba(100, 40, 200, 0.8) 360deg     
-        );
-      }
+      @apply transform scale-95;
+    }
+
+    &:focus-visible {
+      @apply outline-none;
+      box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.35), 0 0 0 2px rgba(180, 144, 255, 0.5);
     }
   }
-  
-  &--ghost {
-    @apply text-purple-400;
-    
+
+  &--link {
+    @apply text-[#b490ff] bg-transparent border-0;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.35);
+
     &:hover {
-      @apply text-purple-300;
+      @apply text-[#ab89f2] transform scale-105;
+      text-shadow: 0 0 8px rgba(180, 144, 255, 0.5);
+    }
+
+    &:active {
+      @apply transform scale-95;
+    }
+
+    &:focus-visible {
+      @apply outline-none;
+      box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.35), 0 0 0 2px rgba(180, 144, 255, 0.5);
     }
   }
 } 

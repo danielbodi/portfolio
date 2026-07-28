@@ -1,0 +1,33 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#0F172A"/>
+  <text x="640" y="70" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#A78BFA" font-weight="700">7-role AI agent team &#8212; fan-out / fan-in pipeline</text>
+  <rect x="510" y="110" width="260" height="70" rx="14" fill="#312E81" stroke="#7C3AED" stroke-width="2"/>
+  <text x="640" y="145" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" fill="#E2E8F0" font-weight="600">Coordinator</text>
+  <text x="640" y="168" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#C7D2FE">orchestrates, never writes code</text>
+  <line x1="580" y1="180" x2="370" y2="240" stroke="#7C3AED" stroke-width="2"/>
+  <line x1="700" y1="180" x2="910" y2="240" stroke="#7C3AED" stroke-width="2"/>
+  <rect x="220" y="240" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
+  <text x="370" y="272" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">UX Researcher</text>
+  <text x="370" y="293" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">Figma MCP &#183; design brief</text>
+  <rect x="760" y="240" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
+  <text x="910" y="272" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">Architect</text>
+  <text x="910" y="293" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">SSOT / ITCSS enforcement</text>
+  <line x1="370" y1="304" x2="640" y2="364" stroke="#7C3AED" stroke-width="2"/>
+  <line x1="910" y1="304" x2="640" y2="364" stroke="#7C3AED" stroke-width="2"/>
+  <rect x="490" y="364" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
+  <text x="640" y="396" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">UX Engineer</text>
+  <text x="640" y="417" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">tokens &#183; BEMIT SCSS &#183; stories</text>
+  <line x1="640" y1="428" x2="640" y2="468" stroke="#7C3AED" stroke-width="2"/>
+  <rect x="490" y="468" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
+  <text x="640" y="500" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">Frontend Dev</text>
+  <text x="640" y="521" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">Angular &#183; signals &#183; ARIA</text>
+  <line x1="590" y1="532" x2="370" y2="582" stroke="#7C3AED" stroke-width="2"/>
+  <line x1="690" y1="532" x2="910" y2="582" stroke="#7C3AED" stroke-width="2"/>
+  <rect x="220" y="582" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
+  <text x="370" y="614" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">Tester</text>
+  <text x="370" y="635" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">stories &#183; unit tests &#183; WCAG AA</text>
+  <rect x="760" y="582" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
+  <text x="910" y="614" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">Token Auditor</text>
+  <text x="910" y="635" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">prefix &#183; coverage &#183; Figma drift</text>
+  <text x="640" y="695" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#64748B">Schematic &#8212; structure recreated for confidentiality</text>
+</svg>

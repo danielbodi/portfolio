@@ -23,13 +23,26 @@ const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 type Phase = 'idle' | 'transit' | 'reveal';
 
-function isCaseStudy(path: string): boolean {
-  return /^\/work\/[^/]+/.test(path);
+/**
+ * Menu order: logo / Home → Work → (a case, under Work) → Approach → About.
+ * Earlier is back (left); later, or any off-menu link, is forward (right).
+ */
+function menuRank(path: string): number | null {
+  if (path === '/') return 0;
+  if (path === '/work') return 1;
+  if (/^\/work\/[^/]+/.test(path)) return 2;
+  if (path === '/approach') return 3;
+  if (path === '/about') return 4;
+  return null;
 }
 
-/** Right on ordinary navigation; left when leaving a case via the chrome. */
 function shiftDirection(from: string, to: string): 1 | -1 {
-  return isCaseStudy(from) && !isCaseStudy(to) ? -1 : 1;
+  const fromRank = menuRank(from);
+  const toRank = menuRank(to);
+  if (fromRank !== null && toRank !== null && toRank !== fromRank) {
+    return toRank < fromRank ? -1 : 1;
+  }
+  return 1;
 }
 
 /**

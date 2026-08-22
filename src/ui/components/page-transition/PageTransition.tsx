@@ -161,6 +161,7 @@ export function PageTransition({ children }: PageTransitionProps) {
 
       <motion.div
         key={location.pathname}
+        data-route={location.pathname}
         aria-hidden={covered || undefined}
         className={covered ? 'pointer-events-none absolute inset-x-0 top-0' : undefined}
         initial={{ opacity: 0, y: 16 }}

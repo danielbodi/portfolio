@@ -25,154 +25,88 @@ export function TableOfContents({ variant = 'desktop', pathname, isVisible = tru
   const lastScrollY = useRef(0);
 
   useEffect(() => {
-    // Reset state when route changes
     setHeadings([]);
     setActiveId('');
-    
+    if (!pathname) return;
+
     let intersectionObserver: IntersectionObserver | null = null;
     let mutationObserver: MutationObserver | null = null;
-    let timeoutId: NodeJS.Timeout | null = null;
-    
-    const processHeadings = () => {
-      // Get all h2 and h3 elements from the content
-      // Try multiple selectors to be more specific
-      const selectors = [
-        'h2, h3', // General
-        'main h2, main h3', // Within main element
-        '.project-page h2, .project-page h3', // Within project page
-        '[id*="project"] h2, [id*="project"] h3', // Within project containers
-      ];
-      
-      let elements: Element[] = [];
-      
-      // Try each selector until we find headings
-      for (const selector of selectors) {
-        elements = Array.from(document.querySelectorAll(selector));
-        if (elements.length > 0) break;
-      }
-      
-      // Filter out headings without IDs and text content
-      const validElements = elements.filter(element => 
-        element.id && element.textContent?.trim()
+    let timeoutId: number | undefined;
+    let cancelled = false;
+
+    const routeRoot = () =>
+      document.querySelector<HTMLElement>(`[data-route="${pathname}"]`);
+
+    const collect = (): { items: TOCItem[]; elements: HTMLElement[] } => {
+      const root = routeRoot();
+      if (!root) return { items: [], elements: [] };
+      const elements = Array.from(root.querySelectorAll<HTMLElement>('h2[id], h3[id]')).filter(
+        (element) => element.id && element.textContent?.trim()
       );
-      
-      if (validElements.length > 0) {
-        // Found headings, process them
-        const items = validElements.map(element => ({
+      return {
+        elements,
+        items: elements.map((element) => ({
           id: element.id,
           text: element.textContent?.trim() || '',
-          level: parseInt(element.tagName[1])
-        }));
-
-        setHeadings(items);
-
-        // Set default active item to the first heading
-        if (items.length > 0) {
-          setActiveId(items[0].id);
-        }
-
-        // Set up intersection observer for headings
-        intersectionObserver = new IntersectionObserver(
-          (entries) => {
-            // Find the first visible heading
-            const visibleEntry = entries.find(entry => entry.isIntersecting);
-            
-            if (visibleEntry) {
-              setActiveId(visibleEntry.target.id);
-            } else if (entries.length > 0) {
-              // If no heading is visible, use the first one
-              setActiveId(entries[0].target.id);
-            }
-          },
-          {
-            rootMargin: '-20% 0px -80% 0px'
-          }
-        );
-
-        validElements.forEach(element => intersectionObserver?.observe(element));
-        
-        // Stop observing DOM changes once we found headings
-        if (mutationObserver) {
-          mutationObserver.disconnect();
-          mutationObserver = null;
-        }
-        
-        return true; // Found headings
-      }
-      return false; // No headings found
+          level: parseInt(element.tagName[1], 10)
+        }))
+      };
     };
-    
-    // Multiple strategies to find headings
-    let attempt = 0;
-    const maxAttempts = 5;
-    
-    const tryFindHeadings = () => {
-      attempt++;
-      
-      // Try immediate scan
-      if (processHeadings()) {
-        return; // Success
-      }
-      
-      // If failed and we have more attempts, try again
-      if (attempt < maxAttempts) {
-        timeoutId = setTimeout(tryFindHeadings, 200 * attempt);
+
+    const commit = () => {
+      if (cancelled) return false;
+      const { items, elements } = collect();
+      if (items.length === 0) return false;
+
+      setHeadings(items);
+      setActiveId(items[0].id);
+
+      intersectionObserver?.disconnect();
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.find((entry) => entry.isIntersecting);
+          if (visible) setActiveId(visible.target.id);
+        },
+        { rootMargin: '-20% 0px -80% 0px' }
+      );
+      elements.forEach((element) => intersectionObserver?.observe(element));
+
+      mutationObserver?.disconnect();
+      mutationObserver = null;
+      return true;
+    };
+
+    const retry = (attempt: number) => {
+      if (commit()) return;
+      if (attempt >= 8) {
+        mutationObserver = new MutationObserver(() => {
+          if (timeoutId) window.clearTimeout(timeoutId);
+          timeoutId = window.setTimeout(() => {
+            if (commit() && mutationObserver) {
+              mutationObserver.disconnect();
+              mutationObserver = null;
+            }
+          }, 80);
+        });
+        mutationObserver.observe(document.getElementById('main-content') ?? document.body, {
+          childList: true,
+          subtree: true
+        });
         return;
       }
-      
-      // Last resort: Set up MutationObserver
-      mutationObserver = new MutationObserver((mutations) => {
-        let shouldCheck = false;
-        
-        mutations.forEach((mutation) => {
-          if (mutation.type === 'childList') {
-            mutation.addedNodes.forEach((node) => {
-              if (node.nodeType === Node.ELEMENT_NODE) {
-                const element = node as Element;
-                // Check if added node is a heading or contains headings
-                if (element.tagName === 'H2' || element.tagName === 'H3' || 
-                    element.querySelector('h2, h3')) {
-                  shouldCheck = true;
-                }
-              }
-            });
-          }
-        });
-        
-        if (shouldCheck) {
-          // Delay processing to ensure content is fully rendered
-          if (timeoutId) clearTimeout(timeoutId);
-          timeoutId = setTimeout(() => {
-            processHeadings();
-          }, 200);
-        }
-      });
-      
-      // Start observing DOM changes
-      mutationObserver.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
+      timeoutId = window.setTimeout(() => retry(attempt + 1), 80 * (attempt + 1));
     };
-    
-    // Start with immediate attempt
-    requestAnimationFrame(() => {
-      tryFindHeadings();
-    });
+
+    const frame = requestAnimationFrame(() => retry(0));
 
     return () => {
-      // Cleanup
-      if (intersectionObserver) {
-        intersectionObserver.disconnect();
-      }
-      if (mutationObserver) {
-        mutationObserver.disconnect();
-      }
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+      intersectionObserver?.disconnect();
+      mutationObserver?.disconnect();
+      if (timeoutId) window.clearTimeout(timeoutId);
     };
-  }, [pathname]); // Add pathname as dependency
+  }, [pathname]);
 
   useEffect(() => {
     if (variant === 'mobile') {
@@ -216,7 +150,11 @@ export function TableOfContents({ variant = 'desktop', pathname, isVisible = tru
   }, [activeId, headings]);
 
   const handleClick = (id: string) => {
-    const element = document.getElementById(id);
+    const root = pathname
+      ? document.querySelector(`[data-route="${pathname}"]`)
+      : null;
+    const element = root?.querySelector<HTMLElement>(`#${CSS.escape(id)}`)
+      ?? document.getElementById(id);
     if (element) {
       const offset = 140; // Increased offset to account for sticky header and spacing
       const elementPosition = element.getBoundingClientRect().top;
@@ -232,6 +170,10 @@ export function TableOfContents({ variant = 'desktop', pathname, isVisible = tru
       }
     }
   };
+
+  if (headings.length === 0) {
+    return null;
+  }
 
   if (variant === 'mobile') {
     return (

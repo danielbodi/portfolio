@@ -1,6 +1,8 @@
 import React from 'react';
 import { Artefact } from '../../../content/types';
 import { DeliveryStateTag } from './DeliveryStateTag';
+import { ExpandableImage } from './ExpandableImage';
+import { Card } from '../cards/Card';
 
 interface ArtefactFigureProps {
   artefact: Artefact;
@@ -20,7 +22,8 @@ interface ArtefactFigureProps {
  */
 export function ArtefactFigure({ artefact, compact = false, fit = 'cover' }: ArtefactFigureProps) {
   return (
-    <figure className="flex h-full flex-col overflow-hidden rounded-xl border border-gray-700/60 bg-gray-900/40">
+    <Card className="h-full overflow-hidden px-0 py-0">
+    <figure className="flex h-full flex-col">
       <div className="border-b border-gray-700/60 bg-gray-950/40">
         {artefact.videoSrc ? (
           <video
@@ -34,10 +37,9 @@ export function ArtefactFigure({ artefact, compact = false, fit = 'cover' }: Art
             Your browser does not support embedded videos.
           </video>
         ) : (
-          <img
+          <ExpandableImage
             src={artefact.src}
             alt={artefact.alt}
-            loading="lazy"
             className={
               fit === 'cover' ? 'aspect-video w-full object-cover object-top' : 'w-full'
             }
@@ -63,5 +65,6 @@ export function ArtefactFigure({ artefact, compact = false, fit = 'cover' }: Art
         )}
       </figcaption>
     </figure>
+    </Card>
   );
 }

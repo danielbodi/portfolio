@@ -7,8 +7,8 @@ import { Artefact, Metric } from './types';
 
 export const positioning = {
   name: 'Daniel Bodi Gil',
-  /** Discipline framing — signals staff-level scope without claiming a held title. */
-  descriptor: 'Staff Product Design · Design Systems · UX Engineering',
+  /** Discipline framing — Senior claimed, staff-leaning scope carried by case evidence. */
+  descriptor: 'Senior Product Design · Design Systems · UX Engineering',
   seoTitle: 'Daniel Bodi Gil — Product Design, Design Systems & UX Engineering',
   seoDescription:
     'Portfolio of Daniel Bodi Gil, a product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.'
@@ -16,7 +16,7 @@ export const positioning = {
 
 export const hero = {
   eyebrow: positioning.descriptor,
-  title: 'I design the systems behind complex products\u2014and help teams ship them.',
+  title: 'I design the systems behind complex products\u2014 and help teams ship them.',
   support:
     'I turn complex workflows into clear product experiences, reusable design foundations and implementation-ready UI across Figma, Storybook and front-end systems.',
   ctaPrimary: { label: 'View selected work', href: '/work' },
@@ -24,6 +24,84 @@ export const hero = {
   contextLink: {
     label: 'Currently building an AI-ready design system at Solidaris',
     href: '/work/solidaris'
+  }
+};
+
+/**
+ * Homepage specimen: real product UI plus the machine-readable layer —
+ * component metadata and the Solidaris supervisor pipeline.
+ */
+export const heroSpecimen = {
+  href: '/work/bridgestone',
+  chrome: 'Bridgestone UI \u00b7 Storybook',
+  image: {
+    src: '/screenshots/bs/bs_desktop_storybook-home.png',
+    alt: 'Bridgestone UI design system home in Storybook: foundations, components, colours and icons documented from the live CSS'
+  },
+  caption:
+    'Bridgestone UI in Storybook \u2014 documentation generated from live CSS. Overlay: Plectrum component metadata and the Solidaris supervisor.',
+  state: 'In production' as const,
+  contract: {
+    kicker: 'Component contract',
+    file: 'journey.metadata.ts',
+    schema: 'ComponentMetadata',
+    fields: [
+      {
+        key: 'component',
+        value: "name: 'Journey'  bemBlock: 'c-journey'  itcssLayer: '06-components'"
+      },
+      {
+        key: 'usage',
+        value: 'antiPatterns \u2192 a linear stepper for a single-step form'
+      },
+      {
+        key: 'accessibility',
+        value: "wcagLevel: 'AA'"
+      },
+      {
+        key: 'tokens',
+        value: '--pds-color-brand  --pds-color-text  --pds-color-text-muted'
+      },
+      {
+        key: 'aiHints',
+        value: "keywords: ['workflow', 'journey', 'status']"
+      }
+    ]
+  },
+  supervisor: {
+    kicker: 'Agent workflow',
+    name: 'Solidaris',
+    role: 'Supervisor \u00b7 never writes code',
+    rule: 'Specialists implement. The supervisor only orchestrates.',
+    grounding: 'Figma MCP \u00b7 PrimeNG MCP',
+    steps: [
+      {
+        id: 'research',
+        parallel: true,
+        roles: [
+          { name: 'UX Researcher', hint: 'Figma MCP' },
+          { name: 'Architect', hint: 'SSOT / ITCSS' }
+        ]
+      },
+      {
+        id: 'engineer',
+        parallel: false,
+        roles: [{ name: 'UX Engineer', hint: 'authors tokens \u00b7 SCSS' }]
+      },
+      {
+        id: 'implement',
+        parallel: false,
+        roles: [{ name: 'Frontend Dev', hint: 'writes Angular \u00b7 ARIA' }]
+      },
+      {
+        id: 'qa',
+        parallel: true,
+        roles: [
+          { name: 'Tester', hint: 'WCAG AA' },
+          { name: 'Token Auditor', hint: 'Figma drift' }
+        ]
+      }
+    ]
   }
 };
 
@@ -35,10 +113,11 @@ export const proofBar: Metric[] = [
     evidenceNote: 'Career start October 2010 (JL Gestion); continuous roles since.'
   },
   {
-    value: '40+',
-    label: 'reusable components delivered at Bridgestone',
-    confidence: 'reported',
-    evidenceNote: 'Component and guideline count from the Bridgestone design system backlog.'
+    value: 'AI-ready approach for design systems',
+    label: 'rules, skills and protocols governing AI-assisted delivery',
+    confidence: 'verified',
+    evidenceNote:
+      'Plectrum knowledge base: nine rules, four skills, four protocols, plus per-component TypeScript metadata contracts and a seven-role agent workflow. Used in my own AI-assisted delivery.'
   },
   {
     value: 'Figma · Storybook · Angular · TypeScript',
@@ -63,7 +142,7 @@ export const capabilities: Capability[] = [
   {
     id: 'product-direction',
     title: 'Product direction',
-    text: 'I frame complex workflows, align user and business needs, and turn ambiguity into a coherent product direction.',
+    text: 'I reframe products around the question their users actually ask — turning ambiguous, workflow-heavy domains into a direction that can be prototyped and tested.',
     links: [
       { label: 'Solidaris — key decisions', href: '/work/solidaris#key-decisions' },
       { label: 'Trasis — strategic framing', href: '/work/trasis#strategic-framing' }
@@ -72,7 +151,7 @@ export const capabilities: Capability[] = [
   {
     id: 'systems',
     title: 'Systems',
-    text: 'I translate recurring product decisions into foundations, components, patterns and documentation that teams can reuse.',
+    text: 'I turn recurring product decisions into tokens, components, patterns and documentation — architected so they cannot drift from production.',
     links: [
       { label: 'Bridgestone — system evidence', href: '/work/bridgestone#system-evidence' },
       { label: 'Solidaris — Plectrum patterns', href: '/work/solidaris#system-evidence' }
@@ -81,7 +160,7 @@ export const capabilities: Capability[] = [
   {
     id: 'delivery',
     title: 'Delivery',
-    text: 'I work close to implementation through prototypes, front-end architecture, Storybook, design QA and code-level collaboration.',
+    text: 'I ship alongside developers: front-end architecture, Storybook, design QA in pull requests, and hands-on CSS coaching.',
     links: [
       { label: 'Bridgestone — PR reviews and coaching', href: '/work/bridgestone#key-decisions' },
       { label: 'Sopra Banking — CSS architecture', href: '/work/sopra-banking#system-evidence' }
@@ -119,7 +198,7 @@ export const homeArtefacts: Artefact[] = [
     src: '/screenshots/solidaris/contracts-index.svg',
     alt: 'Machine-readable design-system contracts and knowledge base structure',
     what: 'Machine-readable contracts and rules for AI-assisted development.',
-    why: 'Makes AI coding assistants produce on-system, accessible code by default.',
+    why: 'With the rules in the assistant\u2019s context, my AI-assisted delivery produces on-system, accessible code by default — built for the client teams to adopt.',
     contribution: 'Designed the contract schema and agent workflow.',
     state: 'Ongoing'
   },

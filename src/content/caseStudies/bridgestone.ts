@@ -10,9 +10,12 @@ export const bridgestoneStudy: CaseStudy = {
       'A design system where the CSS is the single source of truth: BEMIT architecture, a browser-computed color system, and a Storybook that documents itself by parsing the live CSSOM — built for FleetBridge, Bridgestone\u2019s fleet platform.'
   },
 
+  impactStatement:
+    'I made the CSS the single source of truth: tokens written once, documentation generated from production, so it cannot drift.',
+
   hero: {
     summary:
-      'Six years turning a component-less back office into a governed UI foundation — and then making the CSS itself the single source of truth: tokens written once, a palette the browser derives, and a Storybook that documents itself by reading the live stylesheets. Documentation cannot drift from production, because it is generated from production.',
+      'Six years turning a component-less back office into a governed UI foundation, with the CSS itself as the single source of truth.',
     role: 'Product designer and UX engineer — design-system architecture, CSS/SCSS system design, Storybook design and implementation. Joined as the sole designer; led the design workflow of a three-designer team.',
     period: '2019 – 2025 · via CTG/Cegeka',
     team: '3 UI/UX designers (grown from 1), 5 front-end and 4 back-end developers, a tester, an architect and a scrum master.',
@@ -52,7 +55,8 @@ export const bridgestoneStudy: CaseStudy = {
   framing: {
     heading: 'Why this mattered',
     paragraphs: [
-      'Bridgestone was building FleetBridge, a platform for fleets, vehicles and tyre operations. I joined as the sole designer <strong>after the backlog was defined</strong> — prototypes due immediately, no design system planned, <strong>no mandate</strong> to build one. It had to be built opportunistically and adopted because it made everyone faster.',
+      'Bridgestone was building FleetBridge, a platform for fleets, vehicles and tyre operations. I joined as the sole designer <strong>after the backlog was defined</strong> — prototypes due immediately, no design system planned, <strong>no mandate</strong> to build one.',
+      'So the system had to be built opportunistically, and adopted because it made everyone faster.',
       'The deeper risk is the one that kills most design systems: <strong>duplication</strong> (tokens in Figma, in CSS, in a Storybook config, in developer heads — until one copy lies) or <strong>static documentation</strong> nobody trusts.',
       'FleetBridge is a multi-app Nx monorepo with two themes; a hand-maintained token catalogue would never survive delivery pressure. So one early decision shaped everything: <strong>write every foundation exactly once — in CSS — and make everything else read from it.</strong>'
     ]
@@ -106,6 +110,31 @@ export const bridgestoneStudy: CaseStudy = {
       ]
     }
   ],
+
+  constraints: {
+    items: [
+      {
+        constraint:
+          'I joined as the sole designer after the backlog was defined — prototypes were due immediately, with no design system planned and no mandate to build one.',
+        soWhat:
+          'Started from a customised Ant Design kit in Figma to buy time, built the system opportunistically, and won the mandate by demonstration.'
+      },
+      {
+        constraint:
+          'The business had allocated zero time or resources for a design system; asking for them without proof would have failed.',
+        soWhat:
+          'Showed the measurable difference between working with and without the system side by side — the business formally invested after seeing the comparison.'
+      },
+      {
+        constraint:
+          'Custom components were implemented by developers who had never built from custom designs; inconsistencies surfaced only after merge.',
+        soWhat:
+          'Moved design QA into pull-request reviews, coached developers on CSS and HTML, and encoded the rules as Stylelint budgets the CI enforces.'
+      }
+    ],
+    limitedBy:
+      'User research stayed constrained by budget and business-driven requirements; no formal usability metrics were collected, so the improvement evidence is process-level and team-reported.'
+  },
 
   decisions: [
     {
@@ -243,6 +272,22 @@ export const bridgestoneStudy: CaseStudy = {
     }
   ],
 
+  influence: {
+    aligned: [
+      'Design and development on one grammar: the BEM nomenclature became the shared contract both humans and parsers rely on',
+      'Designers embedded in business workshops and user-testing sessions — a change I requested and got'
+    ],
+    convinced: [
+      'The business, by demonstration rather than request: formal time and resources for the design system after the side-by-side comparison',
+      'The five front-end developers — coached on CSS architecture and BEM through pairing and pull-request review'
+    ],
+    changed: [
+      'The delivery process was reshaped ("reverse double diamond") so design joined at the requirements stage',
+      'The design function scaled from one to three designers; I onboarded both new designers on the Figma branching and review workflows I established',
+      'Token questions left Slack for the self-populating docs: search, click, copy, paste'
+    ]
+  },
+
   craft: {
     intro:
       'Production interfaces built on the component library — dense operational data, light and dark themes resolved from the same token graph, desktop and tablet. All screens shown are in production.',
@@ -379,7 +424,8 @@ export const bridgestoneStudy: CaseStudy = {
         evidenceNote: 'Verifiable in the codebase: CSSOM parsers in the shared util library feed both Storybook and the product runtime.'
       },
       {
-        text: 'Two full themes resolve from one token graph, consumed by multiple applications in the monorepo — with brand-consistent runtime color generation (avatars) as a free side effect.'
+        text: 'Two full themes resolve from one token graph, consumed by two applications — each with its own dedicated team — before they merged into a single back-office app.',
+        evidenceNote: 'Brand-consistent runtime color generation (avatars) came as a free side effect of the same token graph.'
       },
       {
         text: 'Modern CSS replaced JavaScript in measurable places: scroll listeners for table shadows, theme-switching logic, shade-generation scripts and animation utility bookkeeping all became declarative CSS.'
@@ -441,7 +487,8 @@ export const bridgestoneStudy: CaseStudy = {
     ],
     change: [
       'Negotiate design-system time into the initial backlog rather than building the case retroactively.',
-      'Define measurement from day one — the strongest business outcomes here are team-reported because no baseline was ever captured.'
+      'Define measurement from day one — the strongest business outcomes here are team-reported because no baseline was ever captured.',
+      'Grow contributors earlier: the contribution guides existed, but few external contributions came — the system was mostly maintained by me.'
     ],
     next:
       'The internal team continues Storybook and system development on these foundations; suggested next artefacts for this page: the palette story with light/dark search, the animation composer\u2019s three generated outputs, and a recording of the scroll-driven sticky-column shadow (see content checklist).'

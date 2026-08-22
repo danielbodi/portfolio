@@ -10,9 +10,12 @@ export const solidarisStudy: CaseStudy = {
       'Building Plectrum, a machine-readable design system — token architecture, component contracts and a seven-role AI agent workflow — while modernising the UX of Solidaris\u2019s iCRM, iShare and iGED applications.'
   },
 
+  impactStatement:
+    'I made the design system machine-readable — contracts and an agent workflow that keep AI-assisted delivery on-system.',
+
   hero: {
     summary:
-      'Building an AI-ready design system for Solidaris\u2019s internal applications: a token architecture bridging Figma and PrimeNG, machine-readable component contracts and a seven-role agent workflow — grounded in a cross-product UX modernisation of iCRM, iShare and iGED so employees can understand an affiliate\u2019s case without reassembling it from fragments.',
+      'Building an AI-ready design system for Solidaris\u2019s internal applications, grounded in a cross-product UX modernisation of iCRM, iShare and iGED.',
     role: 'UX/UI Consultant — UX architecture, UX engineering, design systems and prototyping. Sole embedded Cegeka consultant.',
     period: 'October 2025 – October 2026 · ongoing',
     team: 'Embedded alone client-side, working directly with product owners, business analysts and Angular developers.',
@@ -46,7 +49,7 @@ export const solidarisStudy: CaseStudy = {
     ],
     evidence: [
       '170+ Figma variables mapped 1:1 into a three-tier token architecture',
-      'Two production apps consuming one design system, governed for humans and AI agents',
+      'Two apps I redesigned on Plectrum; 10+ more of the estate awaiting the same system',
       'iShare and iGED running as high-fidelity mockups coded on Plectrum',
       'Task-based user testing on the iShare journey models'
     ]
@@ -55,7 +58,8 @@ export const solidarisStudy: CaseStudy = {
   framing: {
     heading: 'Why this mattered',
     paragraphs: [
-      'Solidaris\u2019s development teams use AI coding assistants every day. A design system documented only for humans is invisible to those assistants — so every AI-generated pull request erodes consistency: hardcoded hex values, wrong component choices, off-system spacing. The design system itself had to become <strong>machine-readable</strong>, or it would drift faster than anyone could govern it.',
+      'Solidaris\u2019s development teams use AI coding assistants every day — and a design system documented only for humans is invisible to those assistants.',
+      'Every AI-generated pull request then erodes consistency: hardcoded hex values, wrong component choices, off-system spacing. The design system itself had to become <strong>machine-readable</strong>, or it would drift faster than anyone could govern it.',
       'The system exists to serve real work. Employees answer affiliates about cases that span <strong>iCRM</strong> (contacts and tickets), <strong>iShare</strong> (documents and process journeys) and <strong>iGED</strong> (operational document processing). The task rarely respects product boundaries — but the tools did, so employees mentally reassembled each case from disconnected screens full of truncated titles, unclear statuses and overlapping concepts.',
       'These are expert users doing repetitive, information-heavy work; a visually dramatic redesign would reduce productivity. The success criteria were precise: an employee should understand the state, history and next step of a case quickly — and every recurring solution should land in <strong>Plectrum</strong> as a reusable, machine-documented pattern.'
     ]
@@ -109,6 +113,37 @@ export const solidarisStudy: CaseStudy = {
     }
   ],
 
+  constraints: {
+    items: [
+      {
+        constraint:
+          'The big decisions predated me: the stack (Angular, PrimeNG, the monorepo), the product roadmap and the existence of the design system were all fixed before I arrived.',
+        soWhat:
+          'I focused on the leverage that remained — how the system is architected, governed and consumed: the token bridge, the contracts, the patterns, the agent workflow.'
+      },
+      {
+        constraint:
+          'Sole embedded consultant on the client side: Angular delivery belongs to the client teams, business rules and priorities to product owners and analysts.',
+        soWhat:
+          'Influence runs through working prototypes and testable decisions — business and interaction questions became testable instead of debatable.'
+      },
+      {
+        constraint:
+          'The users are experts doing repetitive, information-heavy work; a visually dramatic redesign would reduce their productivity.',
+        soWhat:
+          'Reframed each application around the question its users actually ask, instead of translating the legacy UI component for component.'
+      },
+      {
+        constraint:
+          'Test participants were reachable only through intermediaries, which slowed iteration rounds.',
+        soWhat:
+          'Built scenario-based rounds around concrete tasks with anchored ratings, so each session produced actionable findings.'
+      }
+    ],
+    limitedBy:
+      'The engagement is ongoing: the client developer teams have not yet adopted the AI governance layer, outcome metrics await approval after October 2026, and several workstreams (iCRM inbox, drawers) remain concepts pending business validation.'
+  },
+
   decisions: [
     {
       id: 'decision-ai',
@@ -123,9 +158,10 @@ export const solidarisStudy: CaseStudy = {
       evidence:
         'Recurring drift patterns in AI-generated code: hardcoded hex values, wrong component choices, off-system spacing, missing accessibility semantics.',
       decision:
-        'Every component ships a TypeScript metadata contract (usage, anti-patterns, consumed tokens, AI hints); token contracts mirror Figma variables and PrimeNG mappings; nine rules, four skills and four protocols define constraints and loading order; a generated index maps the codebase; a seven-role agent team — grounded by Figma and PrimeNG MCP servers — runs research, architecture, engineering and QA.',
+        'Every component ships a <strong>TypeScript metadata contract</strong>: usage, anti-patterns, consumed tokens, AI hints. Token contracts mirror Figma variables and PrimeNG mappings, so drift is detectable by script. A knowledge base of <strong>nine rules, four skills and four protocols</strong> defines the constraints and their loading order, over a generated index that maps the codebase. On top of it, a <strong>seven-role agent team</strong> — grounded by Figma and PrimeNG MCP servers — runs research, architecture, engineering and QA.',
       tradeOff: 'Up-front authoring and ongoing maintenance of the governance layer itself.',
-      result: 'AI output lands on-system by default: semantic tokens, correct ITCSS placement, BEMIT naming and accessibility semantics on the first pass.',
+      result:
+        'In my own AI-assisted delivery, output lands on-system by default: semantic tokens, correct ITCSS placement, BEMIT naming and accessibility semantics on the first pass. Adoption by the client developer teams is the next step.',
       resultState: 'Ongoing',
       visual: {
         src: '/screenshots/solidaris/ai-agent-workflow.svg',
@@ -225,6 +261,22 @@ export const solidarisStudy: CaseStudy = {
     }
   ],
 
+  influence: {
+    aligned: [
+      'Products that previously solved the same problem differently now share a pattern vocabulary: case summary, master list, journey, drawer',
+      'Source-system boundaries agreed across products: surface context, link to the authoritative tool, never duplicate it'
+    ],
+    convinced: [
+      'Product owners and analysts — of the object model and the reframing (work-oriented inbox, signals separated from notifications), through working prototypes that made trade-offs concrete',
+      'Business validation secured for action labels and result taxonomies on proactive signals'
+    ],
+    changed: [
+      'As the only profile specialised in UX engineering for design systems, designers and managers rely on my vision and decisions for the system\u2019s direction',
+      'My AI-assisted delivery follows the design system by default — the rules live in the assistant\u2019s context, ready for the developer teams to adopt',
+      'Recurring solutions land in Plectrum as named, machine-documented patterns while the products are still being designed'
+    ]
+  },
+
   craft: {
     intro:
       'The system layer first, then the product surfaces it serves. Screens are high-fidelity mockups and Figma prototypes with fictional affiliate data — production screens cannot be shown. iShare and iGED are coded mockups running on Plectrum itself. Each visual is labeled with its delivery state.',
@@ -290,17 +342,17 @@ export const solidarisStudy: CaseStudy = {
 
   systemEvidence: [
     {
-      heading: 'Plectrum: tokens, ITCSS and the vendor bridge',
-      paragraphs: [
-        'The styling foundation is an <strong>8-layer ITCSS architecture</strong> with <strong>BEMIT naming</strong> (<code>c-</code>/<code>o-</code>/<code>u-</code>/<code>is-</code>): layer, file name and class prefix are all derivable from the rule set, so style placement is decidable — by a junior developer or by an AI agent.',
-        '<strong>170+ Figma variables</strong> map 1:1 into CSS custom properties across a primitive → semantic → component chain; the entire token prefix is emitted from one SCSS variable, so a full white-label is a one-line change. PrimeNG is themed by assigning the vendor\u2019s own CSS variables from semantic tokens — never by depending on its internal DOM.'
-      ]
-    },
-    {
       heading: 'A governance layer machines can read',
       paragraphs: [
         'Every component ships a colocated <strong>TypeScript metadata contract</strong>: when to use it, when not to, which tokens it consumes, plus hints that help an AI assistant pick the right component. A parallel token-contract schema records each token\u2019s Figma variable, PrimeNG mapping and change risk — so drift between Figma, code and documentation is detectable by script.',
         'Around the contracts sits a knowledge base with a defined loading order: nine rules, four skills, four protocols with anti-drift tripwires, and a generated codebase index. Scaffolding makes the correct path the laziest path — one command generates a component with its stories, contract and SCSS file in the right layer.'
+      ]
+    },
+    {
+      heading: 'Plectrum: tokens, ITCSS and the vendor bridge',
+      paragraphs: [
+        'The styling foundation is an <strong>8-layer ITCSS architecture</strong> with <strong>BEMIT naming</strong> (<code>c-</code>/<code>o-</code>/<code>u-</code>/<code>is-</code>): layer, file name and class prefix are all derivable from the rule set, so style placement is decidable — by a junior developer or by an AI agent.',
+        '<strong>170+ Figma variables</strong> map 1:1 into CSS custom properties across a primitive → semantic → component chain; the entire token prefix is emitted from one SCSS variable, so a full white-label is a one-line change. PrimeNG is themed by assigning the vendor\u2019s own CSS variables from semantic tokens — never by depending on its internal DOM.'
       ]
     },
     {
@@ -350,11 +402,15 @@ export const solidarisStudy: CaseStudy = {
     ],
     system: [
       {
-        text: 'Two production applications consume one design system: no duplicated components or token definitions between iShare and iCRM.',
-        evidenceNote: 'Both apps consume the same shared UI and styles libraries in the monorepo.'
+        text: 'Two applications I redesigned — iCRM and iShare — consume one design system, with no duplicated components or token definitions between them.',
+        evidenceNote: 'Both consume the same shared UI and styles libraries in the monorepo.'
       },
       {
-        text: 'AI-assisted development now lands on-system by default — the rules live in the assistant\u2019s context, not in a wiki nobody loads.'
+        text: 'Plectrum is built for the wider internal estate: more than ten further applications are awaiting redesign on the same system.',
+        evidenceNote: 'Estimated from the organisation\u2019s application landscape; exact inventory not published.'
+      },
+      {
+        text: 'My AI-assisted delivery lands on-system by default — the rules live in the assistant\u2019s context, not in a wiki nobody loads. Adoption by the client developer teams is the next step.'
       },
       {
         text: 'Every token traces to a Figma variable; drift between design and code is detectable by script rather than by eye.'
@@ -369,6 +425,13 @@ export const solidarisStudy: CaseStudy = {
 
   metrics: [
     {
+      value: '9 + 4 + 4',
+      label: 'rules, skills and protocols governing AI-assisted delivery',
+      confidence: 'verified',
+      evidenceNote:
+        'The knowledge base with its defined loading order and anti-drift tripwires, alongside a per-component TypeScript contract and a generated codebase index.'
+    },
+    {
       value: '170+',
       label: 'Figma variables mapped 1:1 into the token architecture',
       confidence: 'verified',
@@ -381,10 +444,11 @@ export const solidarisStudy: CaseStudy = {
       evidenceNote: 'A coordinator plus six worker roles, defined in parallel for two editors and kept in sync.'
     },
     {
-      value: '2 → 1',
-      label: 'two production apps, one design system',
-      confidence: 'verified',
-      evidenceNote: 'iShare and iCRM consume the same shared libraries; no duplicated component or token definitions.'
+      value: '2 → 10+',
+      label: 'apps I redesigned, then the estate queued for Plectrum',
+      confidence: 'estimated',
+      evidenceNote:
+        'iCRM and iShare are the two I personally redesigned. More than ten further internal apps are awaiting redesign on Plectrum; exact inventory not published.'
     }
   ],
 

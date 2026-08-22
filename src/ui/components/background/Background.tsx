@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useMouseGradient } from '../../../hooks/useMouseGradient';
 import { GradientControls, GradientSettings, defaultSettings } from '../gradient-controls/GradientControls';
-import './Background.scss';
+import { read as readMotion } from './backgroundMotion';
 
 const vertexShaderSource = `
   attribute vec2 position;
@@ -30,6 +30,14 @@ const fragmentShaderSource = `
   uniform vec3 u_color1;
   uniform vec3 u_color2;
 
+  // Motion bus: an invisible presence that warps the wave field as it
+  // passes, driven by route transitions and loading states.
+  uniform vec2 u_presence;
+  uniform float u_presence_amp;
+  uniform float u_flow;
+  // Accumulated field offset. Increasing it slides waves to the right.
+  uniform float u_shift;
+
   // Simplified noise function for better performance
   float rand(vec2 n) { 
     return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
@@ -53,13 +61,29 @@ const fragmentShaderSource = `
     // Background color (dark theme)
     vec3 backgroundColor = vec3(0.165, 0.165, 0.196); // #2A2A32
     
-    // Apply scales with fewer calculations
-    vec2 st1 = st * u_scale;
-    vec2 st2 = st * u_scale2;
+    // Domain warp around the travelling presence: the same wave field
+    // deforms — nothing new is drawn on top of it. Presence stays in
+    // screen space; the field slides underneath via u_shift.
+    vec2 toward = st - u_presence;
+    float d = length(toward);
+    float swell = exp(-d * d * 9.0);
+    vec2 warp = normalize(toward + vec2(0.0001)) * swell * u_presence_amp * 0.04;
+
+    vec2 field = vec2(st.x - u_shift, st.y);
+    vec2 st1 = (field + warp) * u_scale;
+    vec2 st2 = (field - warp * 0.6) * u_scale2;
     
-    // Simplified noise calculation
-    float n1 = noise(st1 * u_multx + u_time * u_time_scale);
-    float n2 = noise(st2 * u_multy + u_time * u_time_scale * 0.5);
+    // u_time is integrated on the CPU. Flow speeds the current frame only —
+    // never scale accumulated time (that rewinds the field by session age).
+    float t = u_time * u_time_scale;
+    float n1 = noise(st1 * u_multx + t);
+    float n2 = noise(st2 * u_multy + t * 0.5);
+
+    // Punch contrast so the blobs read during a pulse, instead of flattening
+    // into the mean (which made the field look empty).
+    float punch = 1.0 + u_flow * 1.4;
+    n1 = clamp(0.5 + (n1 - 0.5) * punch, 0.0, 1.0);
+    n2 = clamp(0.5 + (n2 - 0.5) * punch, 0.0, 1.0);
     
     // Optimized color mixing
     vec3 color = mix(
@@ -76,8 +100,9 @@ const fragmentShaderSource = `
     vec3 spotlightColor = vec3(0.706, 0.565, 1.0);
     color = mix(color, spotlightColor, spotlight);
     
-    // Mix with background color
     color = mix(backgroundColor, color, color);
+
+    color += u_color1 * swell * u_flow * 0.035;
     
     // Optimized B&W conversion
     float bw = dot(color, vec3(0.299, 0.587, 0.114));
@@ -94,111 +119,63 @@ const isMobileDevice = () => {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 };
 
-// CSS Mobile Fallback Component
-function MobileFallbackBackground({ settings, mousePosition }: { 
-  settings: GradientSettings; 
-  mousePosition: { x: number; y: number } 
-}) {
-  const fallbackRef = useRef<HTMLDivElement>(null);
-  const [touchPosition, setTouchPosition] = useState({ x: 0, y: 0 });
-  const [isInteracting, setIsInteracting] = useState(false);
+/**
+ * Flow scales *rate*, not accumulated time. Multiplying `elapsed` by a
+ * factor rewinds or fast-forwards the field by session age.
+ */
+const FLOW_TIME_BOOST = 1.6;
+const MAX_FRAME_DT_SEC = 0.1;
 
-  // Handle touch events for mobile interaction
+function advanceFieldTime(
+  now: number,
+  flow: number,
+  lastFrameRef: React.MutableRefObject<number>,
+  fieldTimeRef: React.MutableRefObject<number>
+): number {
+  const prev = lastFrameRef.current;
+  lastFrameRef.current = now;
+  const dt =
+    prev === 0 ? 0 : Math.min(MAX_FRAME_DT_SEC, Math.max(0, (now - prev) / 1000));
+  const boost = Math.min(1, Math.max(0, flow)) * FLOW_TIME_BOOST;
+  fieldTimeRef.current += dt * (1 + boost);
+  return fieldTimeRef.current;
+}
+
+/** Live prefers-reduced-motion flag; when set, loops render one frame and stop. */
+function usePrefersReducedMotion(): boolean {
+  const [reduced, setReduced] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
+
   useEffect(() => {
-    if (!fallbackRef.current) return;
-
-    const element = fallbackRef.current;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      e.preventDefault();
-      setIsInteracting(true);
-      const touch = e.touches[0];
-      setTouchPosition({ x: touch.clientX, y: touch.clientY });
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
-      if (e.touches.length > 0) {
-        const touch = e.touches[0];
-        setTouchPosition({ x: touch.clientX, y: touch.clientY });
-      }
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      e.preventDefault();
-      setIsInteracting(false);
-    };
-
-    // Add touch event listeners
-    element.addEventListener('touchstart', handleTouchStart, { passive: false });
-    element.addEventListener('touchmove', handleTouchMove, { passive: false });
-    element.addEventListener('touchend', handleTouchEnd, { passive: false });
-
-    return () => {
-      element.removeEventListener('touchstart', handleTouchStart);
-      element.removeEventListener('touchmove', handleTouchMove);
-      element.removeEventListener('touchend', handleTouchEnd);
-    };
+    if (typeof window.matchMedia !== 'function') return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onChange = (event: MediaQueryListEvent) => setReduced(event.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  useEffect(() => {
-    if (!fallbackRef.current) return;
-
-    const element = fallbackRef.current;
-    
-    // Update CSS custom properties based on settings
-    element.style.setProperty('--brightness', settings.brightness.toString());
-    element.style.setProperty('--color1-r', Math.round(settings.red * 255).toString());
-    element.style.setProperty('--color1-g', Math.round(settings.green * 255).toString());
-    element.style.setProperty('--color1-b', Math.round(settings.blue * 255).toString());
-    element.style.setProperty('--color2-r', Math.round(settings.red2 * 255).toString());
-    element.style.setProperty('--color2-g', Math.round(settings.green2 * 255).toString());
-    element.style.setProperty('--color2-b', Math.round(settings.blue2 * 255).toString());
-    element.style.setProperty('--time-scale', settings.time.toString());
-    element.style.setProperty('--mouse-influence', settings.mouse.toString());
-    
-    // Use touch position if interacting, otherwise use mouse position
-    const activePosition = isInteracting ? touchPosition : mousePosition;
-    const normalizedX = (activePosition.x / window.innerWidth) * 100;
-    const normalizedY = (activePosition.y / window.innerHeight) * 100;
-    element.style.setProperty('--mouse-x', `${normalizedX}%`);
-    element.style.setProperty('--mouse-y', `${normalizedY}%`);
-    
-    // Add interaction state for enhanced effects
-    element.style.setProperty('--interaction-state', isInteracting ? '1' : '0');
-  }, [settings, mousePosition, touchPosition, isInteracting]);
-
-  return (
-    <div 
-      ref={fallbackRef}
-      className="mobile-background-fallback fixed inset-0 w-full h-full"
-      style={{ zIndex: -1 }}
-      data-touching={isInteracting}
-    >
-      {/* Floating blob elements for additional animation */}
-      <div className="floating-blob"></div>
-      <div className="floating-blob"></div>
-      <div className="floating-blob"></div>
-    </div>
-  );
+  return reduced;
 }
 
 // Canvas 2D Fallback Component - Performance optimized for mobile
-function Canvas2DFallbackBackground({ settings, mousePosition }: { 
-  settings: GradientSettings; 
-  mousePosition: { x: number; y: number } 
-}) {
+function Canvas2DFallbackBackground({ settings }: { settings: GradientSettings }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
-  const startTimeRef = useRef<number>(performance.now());
+  const lastFrameRef = useRef(0);
+  const fieldTimeRef = useRef(0);
   const [isVisible, setIsVisible] = useState(true);
   const frameSkipRef = useRef<number>(0);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   // Simplified noise function - optimized for mobile
   const noise = (x: number, y: number) => {
     // Simplified hash for better performance
     const hash = (x: number, y: number) => {
-      let h = Math.sin(x * 12.9898 + y * 4.1414) * 43758.5453;
+      const h = Math.sin(x * 12.9898 + y * 4.1414) * 43758.5453;
       return Math.abs(h - Math.floor(h));
     };
     
@@ -231,17 +208,11 @@ function Canvas2DFallbackBackground({ settings, mousePosition }: {
     ] as [number, number, number];
   };
 
-  // Performance-optimized animation loop
-  const animate = () => {
+  // Draws one frame; the loop is scheduled separately so reduced motion
+  // can render a single static field.
+  const drawFrame = () => {
     const canvas = canvasRef.current;
-    if (!canvas || !isVisible) return;
-
-    // Skip frames for better performance (30fps instead of 60fps)
-    frameSkipRef.current = (frameSkipRef.current + 1) % 2;
-    if (frameSkipRef.current !== 0) {
-      animationRef.current = requestAnimationFrame(animate);
-      return;
-    }
+    if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -251,7 +222,11 @@ function Canvas2DFallbackBackground({ settings, mousePosition }: {
     const imageData = ctx.createImageData(width, height);
     const data = imageData.data;
 
-    const time = (performance.now() - startTimeRef.current) / 1000;
+    const now = performance.now();
+    // Motion bus: per-pixel warp is too expensive at 30fps, so on mobile
+    // flow speeds the waves and punches their contrast.
+    const { flow, shiftX } = readMotion(now);
+    const time = advanceFieldTime(now, flow, lastFrameRef, fieldTimeRef);
     
     // Background color
     const backgroundColor: [number, number, number] = [0.165, 0.165, 0.196];
@@ -268,24 +243,29 @@ function Canvas2DFallbackBackground({ settings, mousePosition }: {
     const mobileScale2 = Math.min(settings.scale2, 1.5);
     const mobileMultX = Math.min(settings.multx, 1.5);
     const mobileMultY = Math.min(settings.multy, 1.5);
-    const mobileTime = settings.time * 0.7; // Slower animation for smoother performance
+    const mobileTime = settings.time * 0.7;
+    const brightness = settings.brightness;
+    const punch = 1 + flow * 1.4;
     
     for (let y = 0; y < height; y += step) {
       for (let x = 0; x < width; x += step) {
         // Normalize coordinates
-        const st = [x / width, y / height];
+        const st = [x / width - shiftX, y / height];
         
         // Apply simplified scales
         const st1 = [st[0] * mobileScale1, st[1] * mobileScale1];
         const st2 = [st[0] * mobileScale2, st[1] * mobileScale2];
         
         // Simplified noise calculations
-        const n1 = noise(st1[0] * mobileMultX + time * mobileTime, st1[1] * mobileMultX + time * mobileTime);
-        const n2 = noise(st2[0] * mobileMultY + time * mobileTime * 0.5, st2[1] * mobileMultY + time * mobileTime * 0.5);
-        
+        const rawN1 = noise(st1[0] * mobileMultX + time * mobileTime, st1[1] * mobileMultX + time * mobileTime);
+        const rawN2 = noise(st2[0] * mobileMultY + time * mobileTime * 0.5, st2[1] * mobileMultY + time * mobileTime * 0.5);
+
+        const n1 = Math.min(1, Math.max(0, 0.5 + (rawN1 - 0.5) * punch));
+        const n2 = Math.min(1, Math.max(0, 0.5 + (rawN2 - 0.5) * punch));
+
         // Simplified color mixing
-        const intensity1 = n1 * settings.brightness * 0.8;
-        const intensity2 = n2 * settings.brightness * 0.8;
+        const intensity1 = n1 * brightness * 0.8;
+        const intensity2 = n2 * brightness * 0.8;
         
         let finalColor = mixColors(
           [color1[0] * intensity1, color1[1] * intensity1, color1[2] * intensity1],
@@ -326,6 +306,21 @@ function Canvas2DFallbackBackground({ settings, mousePosition }: {
     }
     
     ctx.putImageData(imageData, 0, 0);
+  };
+
+  // Performance-optimized animation loop
+  const animate = () => {
+    const canvas = canvasRef.current;
+    if (!canvas || !isVisible) return;
+
+    // Skip frames for better performance (30fps instead of 60fps)
+    frameSkipRef.current = (frameSkipRef.current + 1) % 2;
+    if (frameSkipRef.current !== 0) {
+      animationRef.current = requestAnimationFrame(animate);
+      return;
+    }
+
+    drawFrame();
     animationRef.current = requestAnimationFrame(animate);
   };
 
@@ -375,15 +370,20 @@ function Canvas2DFallbackBackground({ settings, mousePosition }: {
 
   // Animation loop with performance throttling
   useEffect(() => {
-    if (isVisible) {
-      animate();
+    if (!isVisible) return;
+    lastFrameRef.current = performance.now();
+    if (prefersReducedMotion) {
+      // One static frame, no loop.
+      drawFrame();
+      return;
     }
+    animate();
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [settings, isVisible]); // Removed mousePosition for better performance
+  }, [settings, isVisible, prefersReducedMotion]);
 
   return (
     <canvas
@@ -399,13 +399,22 @@ export function Background() {
   const glRef = useRef<WebGLRenderingContext | null>(null);
   const programRef = useRef<WebGLProgram | null>(null);
   const animationFrameRef = useRef<number>();
-  const startTimeRef = useRef<number>(performance.now());
+  const lastFrameRef = useRef(0);
+  const fieldTimeRef = useRef(0);
   const uniformLocationsRef = useRef<Record<string, WebGLUniformLocation | null>>({});
   const [settings, setSettings] = useState<GradientSettings>(defaultSettings);
   const { mousePosition } = useMouseGradient();
+  // The rAF loop reads the mouse from a ref so pointer movement never
+  // tears down and restarts the loop (it used to restart on every move).
+  const mousePositionRef = useRef(mousePosition);
   const [isVisible, setIsVisible] = useState(true);
   const [webglSupported, setWebglSupported] = useState<boolean | null>(null);
   const [isMobile] = useState(() => isMobileDevice());
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    mousePositionRef.current = mousePosition;
+  }, [mousePosition]);
 
   // Detect WebGL support - prioritize desktop experience
   useEffect(() => {
@@ -483,7 +492,8 @@ export function Background() {
       const uniforms = [
         'u_resolution', 'u_mouse', 'u_time', 'u_multx', 'u_multy',
         'u_brightness', 'u_mouse_influence', 'u_scale', 'u_scale2',
-        'u_noise', 'u_bw', 'u_bw2', 'u_time_scale', 'u_color1', 'u_color2'
+        'u_noise', 'u_bw', 'u_bw2', 'u_time_scale', 'u_color1', 'u_color2',
+        'u_presence', 'u_presence_amp', 'u_flow', 'u_shift'
       ];
       
       uniforms.forEach(name => {
@@ -501,22 +511,26 @@ export function Background() {
       gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 
       return true;
-    } catch (error) {
+    } catch {
       setWebglSupported(false);
       return false;
     }
   };
 
-  // Original render loop - EXACTLY as before
-  const render = () => {
+  // Draws one frame with current uniforms; scheduling happens in the effect.
+  const drawFrame = () => {
     const gl = glRef.current;
-    if (!gl || !isVisible) return;
+    if (!gl) return;
 
-    const time = (performance.now() - startTimeRef.current) / 1000;
+    const now = performance.now();
     const uniforms = uniformLocationsRef.current;
 
-    const normalizedX = mousePosition.x / window.innerWidth;
-    const normalizedY = 1.0 - (mousePosition.y / window.innerHeight);
+    const mouse = mousePositionRef.current;
+    const normalizedX = mouse.x / window.innerWidth;
+    const normalizedY = 1.0 - (mouse.y / window.innerHeight);
+
+    const motion = readMotion(now);
+    const time = advanceFieldTime(now, motion.flow, lastFrameRef, fieldTimeRef);
 
     gl.uniform2f(uniforms.u_mouse!, normalizedX, normalizedY);
     gl.uniform1f(uniforms.u_time!, time);
@@ -532,8 +546,17 @@ export function Background() {
     gl.uniform1f(uniforms.u_bw2!, settings.bw2);
     gl.uniform3f(uniforms.u_color1!, settings.red, settings.green, settings.blue);
     gl.uniform3f(uniforms.u_color2!, settings.red2, settings.green2, settings.blue2);
+    gl.uniform2f(uniforms.u_presence!, motion.presenceX, motion.presenceY);
+    gl.uniform1f(uniforms.u_presence_amp!, motion.flow);
+    gl.uniform1f(uniforms.u_flow!, motion.flow);
+    gl.uniform1f(uniforms.u_shift!, motion.shiftX);
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  };
+
+  const render = () => {
+    if (!glRef.current || !isVisible) return;
+    drawFrame();
     animationFrameRef.current = requestAnimationFrame(render);
   };
 
@@ -573,17 +596,23 @@ export function Background() {
     };
   }, [webglSupported]);
 
-  // Render effect - original behavior
+  // Render effect: starts the loop once per settings/visibility change.
+  // Mouse position deliberately excluded — the loop reads it from a ref.
   useEffect(() => {
-    if (webglSupported && isVisible) {
-      render();
+    if (!webglSupported || !isVisible) return;
+    lastFrameRef.current = performance.now();
+    if (prefersReducedMotion) {
+      // One static frame, no loop.
+      drawFrame();
+      return;
     }
+    render();
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [settings, isVisible, mousePosition, webglSupported]);
+  }, [settings, isVisible, webglSupported, prefersReducedMotion]);
 
   // Handle resize - original behavior
   const handleResize = () => {
@@ -618,10 +647,7 @@ export function Background() {
       
       {/* Performance-optimized Canvas 2D fallback for mobile only */}
       {webglSupported === false && isMobile && (
-        <Canvas2DFallbackBackground 
-          settings={settings} 
-          mousePosition={mousePosition} 
-        />
+        <Canvas2DFallbackBackground settings={settings} />
       )}
       
       {import.meta.env.DEV && (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Card } from '../cards/Card';
 import { Button } from '../buttons/Button';
+import { Logo } from './Logo';
 import { cardBySlug } from '../../../content/caseStudies/cards';
 import { contact } from '../../../content/site';
 import { analytics } from '../../../utils/basicAnalytics';
@@ -84,12 +85,8 @@ export function Navigation() {
               <Card variant="nav" isSticky={isScrolled} className="c-navigation__card">
                 <nav className="c-navigation__content" aria-label="Main">
                   <div className="flex min-w-0 items-center gap-4 lg:gap-6">
-                    <Link
-                      to="/"
-                      className="c-navigation__link whitespace-nowrap font-semibold text-white"
-                      aria-label="Daniel Bodi Gil — home"
-                    >
-                      Daniel Bodi Gil
+                    <Link to="/" className="c-navigation__brand" aria-label="Daniel Bodi Gil — home">
+                      <Logo className="c-navigation__logo" />
                     </Link>
                     <ul className="c-navigation__menu">{renderLinks('desktop')}</ul>
                   </div>

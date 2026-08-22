@@ -17,8 +17,12 @@
 
 ## Solidaris
 
+- [x] **AI-governance claim scoped (Aug 2026)**: "AI-assisted development lands on-system by default" describes Daniel's own agent workflow; the client developer teams have **not yet adopted** the governance layer. Site copy updated accordingly. When the dev teams adopt it, that becomes a new verified outcome — capture the date and any drift evidence.
+- [x] **Decisions locked before arrival confirmed (Aug 2026)**: the stack (Angular, PrimeNG, monorepo), the product roadmap and the existence of the design system all predated the engagement; nothing proposed has been rejected so far. Constraints section reflects this.
+- [ ] Influence evidence to strengthen over time: designers and managers currently rely on Daniel's vision as the only UX-engineering/design-systems specialist — collect concrete examples (decisions deferred, plans adopted) as they occur.
 - [x] Approved anonymised screenshots — real captures added (iShare coded mockup: dossier + journey panel; iGED first draft; iCRM Figma prototype: inbox + timeline; all fictional data). Remaining schematics: token architecture, contracts index, agent workflow.
 - [ ] Confirm shipped vs. validated-prototype vs. concept status per workstream (iCRM inbox, timeline, drawers, iShare journey).
+- [ ] **Exact application-estate count** — currently published as "10+" estimated: two apps (iCRM, iShare) personally redesigned; more than ten further internal apps awaiting Plectrum. Confirm the inventory when it can be published.
 - [ ] User-test participant count, scenarios and findings for each iShare round.
 - [ ] Exact scope of direct iGED work (site currently claims cross-product integration only).
 - [ ] Exact official role title on the assignment.
@@ -43,6 +47,9 @@
   4. Dark-mode toggle on a worksheet story (~5s)
   5. Vehicle list: sticky-column shadow reacting to scroll (~5s)
 - [ ] PR/design-QA workflow evidence (anonymised screenshot or diagram).
+- [x] **App/team adoption confirmed (Aug 2026)**: two applications, each with its own dedicated team, later merged into one back-office app. Site copy updated (outcomes, system).
+- [x] **Coaching scope confirmed (Aug 2026)**: the five front-end developers (CSS architecture, BEM, via pairing and PR review) plus the two designers who joined (Figma branching and review workflows).
+- [x] **Governance honesty recorded (Aug 2026)**: contribution guides existed but few external contributions came — the system was mostly maintained by Daniel. Reflection updated; do not claim a thriving contribution model.
 - [ ] Exact team composition over time and design-team growth timeline.
 - [ ] Confirm FleetBridge product name may be used publicly.
 
@@ -66,6 +73,7 @@
 
 ## General
 
+- [x] **Positioning descriptor softened (Aug 2026)**: "Staff Product Design" → "Senior Product Design" on the homepage/hero; staff-leaning scope is carried by case evidence (multi-product standards at Solidaris, funding/process influence at Bridgestone) rather than a title claim. Revisit if multi-team adoption evidence lands.
 - [ ] Approved portrait photo.
 - [ ] **Two role-specific, ATS-readable CVs**: `Daniel-Bodi-Gil-Staff-Product-Designer.pdf` and `Daniel-Bodi-Gil-Design-Systems-UX-Engineer.pdf` in `public/cv/`. The site now links the single ATS-friendly `daniel-bodi-gil-cv.pdf`; role-specific download slots activate automatically once `contact.roleCvs` in `src/content/site.ts` is filled.
 - [x] **Trasis end date conflict**: resolved — site aligned to the CV (2019–2021).

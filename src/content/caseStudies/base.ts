@@ -10,9 +10,12 @@ export const baseStudy: CaseStudy = {
       'UI engineering origins: cross-browser component work in AEM for Base and JIM Mobile, a custom Flexbox/BEM grid with legacy fallbacks, and tooling that removed compile cycles.'
   },
 
+  impactStatement:
+    'Front-end iteration was decoupled from Java compile cycles, and layouts moved to a Flexbox/BEM grid that outlived the engagement.',
+
   hero: {
     summary:
-      'The technical origin story: two years inside Base\u2019s operations with Design is Dead, building pixel-accurate, cross-browser components for high-traffic telecom sites — and learning what senior, systematic teamwork looks like.',
+      'Two years inside Base\u2019s operations with Design is Dead, building pixel-accurate, cross-browser components for high-traffic telecom sites.',
     role: 'UI developer — pixel-accurate implementation, cross-browser compatibility, AEM component authoring.',
     period: '2016 – 2018 · at Design is Dead/Emakina',
     team: '2 UI developers, 4 full-stack and 2 back-end developers, 2 testers, an architect, a scrum master, a business analyst and a UX designer.',
@@ -75,6 +78,26 @@ export const baseStudy: CaseStudy = {
     }
   ],
 
+  constraints: {
+    items: [
+      {
+        constraint: 'The browser support matrix still included legacy Internet Explorer.',
+        soWhat:
+          'Engineered Flexbox fallbacks so layouts stayed consistent down to old IE instead of retreating to float grids.'
+      },
+      {
+        constraint: 'Every front-end change triggered a full Java/AEM compile — even pure CSS tweaks.',
+        soWhat: 'Researched and wired npm auto-reload scripts the whole team adopted.'
+      },
+      {
+        constraint: 'Content editors assembled pages freely in AEM.',
+        soWhat: 'Built components robust in any editor-assembled combination.'
+      }
+    ],
+    limitedBy:
+      'I was a UI developer in an embedded team: designs were owned by the UX designer and delivery by the full team.'
+  },
+
   decisions: [
     {
       id: 'decision-flex-grid',
@@ -108,6 +131,19 @@ export const baseStudy: CaseStudy = {
       resultState: 'Shipped'
     }
   ],
+
+  influence: {
+    aligned: [
+      'The front-end work on one Flexbox/BEM grid and component convention across the Base and JIM Mobile brands'
+    ],
+    convinced: [
+      'The team adopted the npm auto-reload workflow alongside the official Java build'
+    ],
+    changed: [
+      'Front-end iteration ran without compile cycles, across the embedded team',
+      'The grid and component patterns outlived the engagement and seeded my later grid work at Sopra'
+    ]
+  },
 
   craft: {
     intro: 'Shipped component work from the Base and JIM Mobile sites.',

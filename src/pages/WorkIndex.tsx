@@ -12,11 +12,11 @@ export function WorkIndex() {
   });
 
   return (
-    <div className="min-h-screen px-4 py-16 md:px-6 md:py-24">
-      <div className="mx-auto max-w-5xl">
+    <div className="min-h-screen py-16 md:py-24">
+      <div className="mx-auto max-w-6xl">
         <header className="mb-10 md:mb-14">
           <h1 className="mb-4 text-3xl font-bold text-purple-300 md:text-4xl">Selected work</h1>
-          <p className="max-w-3xl text-lg leading-relaxed text-gray-400">
+          <p className="text-lg leading-relaxed text-gray-400">
             Ordered by relevance, not chronology. The three flagship cases show product direction,
             design systems and implementation work in depth; the earlier projects show where those
             foundations come from.
@@ -42,7 +42,7 @@ export function WorkIndex() {
           <h2 id="earlier-heading" className="mb-2 text-xl font-semibold text-gray-200">
             Earlier foundations
           </h2>
-          <p className="mb-6 max-w-3xl text-sm leading-relaxed text-gray-500">
+          <p className="mb-6 text-sm leading-relaxed text-gray-500">
             Shorter reads. These projects built the engineering discipline behind the recent work.
           </p>
           <div className="space-y-4">

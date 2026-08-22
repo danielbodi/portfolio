@@ -304,74 +304,13 @@ export function TableOfContents({ variant = 'desktop', pathname, isVisible = tru
         <motion.aside 
           className="toc toc--desktop" 
           aria-label="Table of Contents"
-          initial={{ 
-            opacity: 0, 
-            x: 120,
-            scale: 0.9,
-            rotateY: 15,
-            filter: "blur(8px)"
-          }}
-          animate={{ 
-            opacity: 1, 
-            x: 0,
-            scale: 1,
-            rotateY: 0,
-            filter: "blur(0px)",
-                          transition: {
-                x: {
-                  duration: 0.8,
-                  delay: 1.0,
-                  ease: [0.16, 1, 0.3, 1] // Sophisticated easing - starts slow, ends fast
-                },
-                scale: {
-                  duration: 0.7,
-                  delay: 1.2,
-                  ease: [0.68, -0.55, 0.265, 1.55] // Back easing for subtle bounce
-                },
-                rotateY: {
-                  duration: 0.9,
-                  delay: 1.0,
-                  ease: [0.25, 0.46, 0.45, 0.94] // Smooth rotation
-                },
-                opacity: {
-                  duration: 0.6,
-                  delay: 1.05, // Start fade early so we see the slide-in
-                  ease: [0.4, 0, 0.2, 1]
-                },
-                filter: {
-                  duration: 0.7,
-                  delay: 1.15,
-                  ease: [0.4, 0, 0.2, 1]
-                }
-              }
-          }}
-          exit={{ 
-            opacity: 0, 
-            x: 80,
-            scale: 0.95,
-            rotateY: -10,
-            filter: "blur(4px)",
-            transition: {
-              duration: 0.4,
-              ease: [0.4, 0, 0.6, 1]
-            }
-          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }}
+          exit={{ opacity: 0, transition: { duration: 0.2, ease: [0.4, 0, 0.6, 1] } }}
         >
           <Card className="toc__card">
             <nav className="toc__nav">
-              <motion.div 
-                className="relative"
-                style={{ perspective: "1000px" }}
-                initial={{ rotateX: 5 }}
-                animate={{ 
-                  rotateX: 0,
-                  transition: {
-                    duration: 0.8,
-                    delay: 1.1,
-                    ease: [0.25, 0.46, 0.45, 0.94]
-                  }
-                }}
-              >
+              <div className="relative">
                 {/* Active border indicator */}
                 <div 
                   ref={activeBorderRef}
@@ -381,92 +320,25 @@ export function TableOfContents({ variant = 'desktop', pathname, isVisible = tru
                 {/* Navigation items */}
                 <ul ref={listRef} className="toc__list">
                   {headings.map((heading, index) => (
-                    <motion.li 
+                    <li 
                       key={`${heading.id}-${index}`}
                       data-id={heading.id}
                       className="toc__item"
                       style={{ paddingLeft: `${(heading.level - 2) * 1}rem` }}
-                      initial={{ 
-                        opacity: 0, 
-                        x: 40,
-                        scale: 0.8,
-                        rotateX: -15,
-                        filter: "blur(4px)"
-                      }}
-                      animate={{ 
-                        opacity: 1, 
-                        x: 0,
-                        scale: 1,
-                        rotateX: 0,
-                        filter: "blur(0px)",
-                                                  transition: {
-                            x: {
-                              duration: 0.5,
-                              delay: 1.3 + (index * 0.08),
-                              ease: [0.23, 1, 0.32, 1] // Smooth slide
-                            },
-                            scale: {
-                              duration: 0.4,
-                              delay: 1.4 + (index * 0.08),
-                              ease: [0.68, -0.55, 0.265, 1.55] // Bouncy scale
-                            },
-                            rotateX: {
-                              duration: 0.6,
-                              delay: 1.3 + (index * 0.08),
-                              ease: [0.25, 0.46, 0.45, 0.94]
-                            },
-                            opacity: {
-                              duration: 0.4,
-                              delay: 1.35 + (index * 0.08), // Earlier but still staggered
-                              ease: [0.4, 0, 0.2, 1]
-                            },
-                            filter: {
-                              duration: 0.4,
-                              delay: 1.4 + (index * 0.08),
-                              ease: [0.4, 0, 0.2, 1]
-                            }
-                          }
-                      }}
-                      exit={{ 
-                        opacity: 0, 
-                        x: 30,
-                        scale: 0.9,
-                        filter: "blur(2px)",
-                        transition: {
-                          duration: 0.25,
-                          delay: index * 0.03,
-                          ease: [0.4, 0, 0.6, 1]
-                        }
-                      }}
                     >
-                      <motion.button
+                      <button
                         onClick={() => handleClick(heading.id)}
                         className={`toc__link ${activeId === heading.id ? 'is-active' : ''}`}
                         aria-current={activeId === heading.id ? 'true' : undefined}
-                        whileHover={{
-                          scale: 1.02,
-                          x: 2,
-                          transition: {
-                            duration: 0.2,
-                            ease: [0.4, 0, 0.2, 1]
-                          }
-                        }}
-                        whileTap={{
-                          scale: 0.98,
-                          transition: {
-                            duration: 0.1,
-                            ease: [0.4, 0, 0.6, 1]
-                          }
-                        }}
                       >
                         {heading.text}
-                      </motion.button>
-                    </motion.li>
+                      </button>
+                    </li>
                   ))}
-                                  </ul>
-                </motion.div>
-              </nav>
-            </Card>
+                </ul>
+              </div>
+            </nav>
+          </Card>
         </motion.aside>
       )}
     </AnimatePresence>

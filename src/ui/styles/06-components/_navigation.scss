@@ -22,7 +22,9 @@
   }
 
   &__wrapper {
-    @apply max-w-5xl mx-auto;
+    /* Gutter lives on the App shell so this card is the same width as
+       the page column. Case-study TOC sits outside that shell. */
+    @apply w-full;
   }
 
   &__container {
@@ -62,6 +64,20 @@
 
   &__content {
     @apply flex justify-between items-center;
+  }
+
+  &__brand {
+    @apply flex flex-shrink-0 items-center text-white;
+    transition: color 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+
+    &:hover {
+      @apply text-purple-400;
+    }
+  }
+
+  &__logo {
+    // Height-driven: the 170x136 viewBox supplies the width.
+    @apply h-6 w-auto;
   }
 
   &__menu {

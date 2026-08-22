@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { careerProgression, earlierRoles } from '../../../content/site';
+import { Card } from '../cards/Card';
 
 /** Compact career progression replacing the long narrative (brief section 6.6). */
 export function CareerStrip() {
   return (
-    <section aria-labelledby="career-heading" className="border-y border-gray-700/40 bg-gray-900/30 px-4 py-16 md:px-6 md:py-20">
+    <section aria-labelledby="career-heading" className="py-16 md:py-20">
       <div className="mx-auto max-w-6xl">
         <h2 id="career-heading" className="mb-10 text-3xl font-bold text-purple-300 md:text-4xl">
           Career progression
         </h2>
+        <Card>
         <ol className="space-y-0">
           {careerProgression.map((step, index) => (
             <li
@@ -48,6 +50,7 @@ export function CareerStrip() {
             </span>
           ))}
         </p>
+        </Card>
       </div>
     </section>
   );

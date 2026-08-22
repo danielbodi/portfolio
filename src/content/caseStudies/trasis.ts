@@ -10,9 +10,12 @@ export const trasisStudy: CaseStudy = {
       'Designing and building the interface for a radiopharmaceutical quality-control device: realistic device visualisation, unambiguous workflows, accessibility for visual impairments, and task-based validation.'
   },
 
+  impactStatement:
+    'A team that had never worked with a designer shipped a safety-critical interface — and kept the design role through COVID-era cuts.',
+
   hero: {
     summary:
-      'The interface for the QC1, a device that runs quality-control tests on radiopharmaceuticals: complex laboratory workflows made unambiguous through realistic device visualisation, clear state design and validation with the technicians who run the tests.',
+      'The interface for the QC1, a device that runs quality-control tests on radiopharmaceuticals — complex laboratory workflows made unambiguous.',
     role: 'Sole designer — and front-end contributor — in an engineering team that had never worked with a designer.',
     period: '2019 – 2021 · via CTG',
     team: '1 UI/UX designer (me), 1 back-end developer, 1 product owner; domain experts consulted throughout.',
@@ -100,6 +103,30 @@ export const trasisStudy: CaseStudy = {
     }
   ],
 
+  constraints: {
+    items: [
+      {
+        constraint:
+          'No designer had ever worked with this team, and the value of the role was itself in question.',
+        soWhat:
+          'Twice-weekly visible progress — plans, reasoning, working prototypes — turned scepticism into demand for design.'
+      },
+      {
+        constraint:
+          'The domain was new to me: radiopharmacy knowledge had to come from the business experts.',
+        soWhat:
+          'Consulted domain experts at every iteration and anchored the flows in their process knowledge.'
+      },
+      {
+        constraint: 'One designer, one budget, a whole device interface.',
+        soWhat:
+          'Reused a UI kit for the foundations and spent the saved time on user-testing rounds instead of custom controls.'
+      }
+    ],
+    limitedBy:
+      'The budget ended before Storybook matured past a basic stage, and test metrics were reported rather than formally documented.'
+  },
+
   decisions: [
     {
       id: 'decision-realism',
@@ -186,6 +213,19 @@ export const trasisStudy: CaseStudy = {
       resultState: 'Shipped'
     }
   ],
+
+  influence: {
+    aligned: [
+      'Engineering and business around a fixed twice-weekly review of direction, reasoning and working prototypes'
+    ],
+    convinced: [
+      'A design-sceptical team and business — strongly enough that the design role was kept through COVID-era project cuts'
+    ],
+    changed: [
+      'Design reviews became part of the team\u2019s routine',
+      'The internal developer was coached to carry the front-end foundations after handover'
+    ]
+  },
 
   craft: {
     intro:

@@ -114,12 +114,32 @@ export interface CaseCard {
   deliveryState: DeliveryState;
 }
 
+/** Constraints that materially shaped the work — never used as excuses. */
+export interface ConstraintItem {
+  /** The constraint itself, stated plainly. */
+  constraint: string;
+  /** What was still changed given the constraint. */
+  soWhat: string;
+}
+
+/** How the organisation worked differently afterwards. */
+export interface Influence {
+  /** Who was aligned onto shared standards or direction. */
+  aligned: string[];
+  /** Who had to be convinced, and of what. */
+  convinced: string[];
+  /** What changed in how people worked. */
+  changed: string[];
+}
+
 export interface CaseStudy {
   card: CaseCard;
   seo: {
     title: string;
     description: string;
   };
+  /** The single most important thing that changed. One sentence, ~20 words. */
+  impactStatement: string;
   hero: {
     /** One-sentence project summary. */
     summary: string;
@@ -141,7 +161,13 @@ export interface CaseStudy {
   };
   framing: ProseSection;
   ownership: OwnershipGroup[];
+  constraints: {
+    items: ConstraintItem[];
+    /** What remained out of reach, stated plainly. */
+    limitedBy?: string;
+  };
   decisions: Decision[];
+  influence: Influence;
   craft: {
     intro: string;
     artefacts: Artefact[];

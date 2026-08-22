@@ -10,6 +10,9 @@ export const sopraBankingStudy: CaseStudy = {
       'BEM methodology, a custom Flexbox grid and atomic components for enterprise banking software — plus the coaching that made a junior front-end team adopt them.'
   },
 
+  impactStatement:
+    'A junior team\u2019s CSS went from float hacks to conventions they adopted by conviction — and kept after I left.',
+
   hero: {
     summary:
       'Enterprise banking software with a junior front-end team, float-based CSS and a PDF style guide. The work: modern CSS architecture, atomic components, and the coaching to make both stick.',
@@ -89,6 +92,29 @@ export const sopraBankingStudy: CaseStudy = {
     }
   ],
 
+  constraints: {
+    items: [
+      {
+        constraint:
+          'The team found BEM verbose and resisted it — while fighting daily CSS collisions and unpredictable overrides.',
+        soWhat:
+          'Taught through their own defects: every demonstration was a fix they needed anyway, and adoption came by conviction.'
+      },
+      {
+        constraint: 'Delivery could not pause for a full component rework.',
+        soWhat:
+          'Restructured progressively, prioritised by actual usage in prototypes, so the rework paid for itself instead of blocking the roadmap.'
+      },
+      {
+        constraint: 'Building a design system was beyond the engagement\u2019s scope.',
+        soWhat:
+          'Left a documented proposal for a web-based design system on top of the reworked foundations.'
+      }
+    ],
+    limitedBy:
+      'I left the project before the design-system proposal could be delivered; it remains a strategic direction, not a shipped system.'
+  },
+
   decisions: [
     {
       id: 'decision-bem',
@@ -151,6 +177,19 @@ export const sopraBankingStudy: CaseStudy = {
       resultState: 'Strategic proposal'
     }
   ],
+
+  influence: {
+    aligned: [
+      'Design output and front-end implementation on one component structure and naming convention'
+    ],
+    convinced: [
+      'A junior front-end team that adopted BEM and the new grid by conviction, not mandate — through pairing on their real problems'
+    ],
+    changed: [
+      'The team\u2019s CSS became organised, named and reusable, and the conventions survived my departure',
+      'Layouts moved from float hacks to a flexible, future-proof grid'
+    ]
+  },
 
   craft: {
     intro: 'Banking flows built on the reworked foundations during the engagement.',

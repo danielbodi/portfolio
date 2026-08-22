@@ -13,9 +13,14 @@ import { TableOfContents } from '../ui/components/table-of-contents/TableOfConte
 import { Tag } from '../ui/components/atoms/Tag/Tag';
 import { useSeo } from '../hooks/useSeo';
 import { analytics } from '../utils/basicAnalytics';
+import { Card } from '../ui/components/cards/Card';
 
 interface CaseStudyTemplateProps {
   study: CaseStudy;
+}
+
+function Surface({ children }: { children: React.ReactNode }) {
+  return <Card className="h-full">{children}</Card>;
 }
 
 function SectionHeading({ id, children }: { id: string; children: React.ReactNode }) {
@@ -64,13 +69,13 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
   }, [card.slug]);
 
   return (
-    <div className="case-page min-h-screen px-4 pb-24 pt-4 md:px-6 md:py-16 lg:px-0">
+    <div className="case-page min-h-screen pb-24 pt-4 md:py-16">
       {/* Mobile Table of Contents */}
       <div className="lg:hidden">
         <TableOfContents variant="mobile" pathname={pathname} />
       </div>
 
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-6xl">
         {/* ── Case hero ─────────────────────────────────────────────── */}
         <header className="mb-10">
           <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -87,9 +92,14 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
           <h1 className="mb-4 text-3xl font-bold leading-tight tracking-display text-purple-300 md:text-[2.6rem] md:leading-[1.15]">
             {card.title}
           </h1>
-          <p className="mb-8 max-w-3xl text-lg leading-relaxed text-gray-300">{hero.summary}</p>
+          <p className="mb-3 max-w-3xl text-xl font-medium leading-snug text-gray-100">
+            {study.impactStatement}
+          </p>
+          <p className="mb-8 max-w-3xl leading-relaxed text-gray-400">{hero.summary}</p>
 
-          <dl className="mb-8 grid gap-x-8 gap-y-4 rounded-xl border border-gray-700/60 bg-gray-900/40 p-5 sm:grid-cols-2 md:p-6 lg:grid-cols-4">
+          <div className="mb-8">
+          <Card>
+          <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
             <div>
               <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Role</dt>
               <dd className="mt-1 text-sm leading-relaxed text-gray-300">{hero.role}</dd>
@@ -123,6 +133,8 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
               </div>
             )}
           </dl>
+          </Card>
+          </div>
 
           <ArtefactFigure artefact={hero.image} fit="natural" />
         </header>
@@ -151,7 +163,7 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
           <SectionHeading id="scope-ownership">Scope and ownership</SectionHeading>
           <div className="grid gap-4 md:grid-cols-2">
             {study.ownership.map((group) => (
-              <div key={group.verb} className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+              <Surface key={group.verb}>
                 <div className="mb-3">
                   <OwnershipBadge verb={group.verb} />
                 </div>
@@ -163,9 +175,33 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Surface>
             ))}
           </div>
+        </section>
+
+        {/* ── Constraints ───────────────────────────────────────────── */}
+        <section className="mb-14" aria-labelledby="constraints">
+          <SectionHeading id="constraints">Constraints</SectionHeading>
+          <div className="max-w-3xl space-y-4">
+            {study.constraints.items.map((item, i) => (
+              <Surface key={i}>
+                <p className="text-sm leading-relaxed text-gray-300">{item.constraint}</p>
+                <p className="mt-2 text-sm leading-relaxed text-gray-400">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-purple-300">
+                    Still changed ·{' '}
+                  </span>
+                  {item.soWhat}
+                </p>
+              </Surface>
+            ))}
+          </div>
+          {study.constraints.limitedBy && (
+            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-gray-500">
+              <span className="font-semibold uppercase tracking-wide">Where it stopped · </span>
+              {study.constraints.limitedBy}
+            </p>
+          )}
         </section>
 
         {/* ── Key decisions ─────────────────────────────────────────── */}
@@ -175,6 +211,52 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
             {study.decisions.map((decision, index) => (
               <DecisionBlock key={decision.id} decision={decision} index={index} />
             ))}
+          </div>
+        </section>
+
+        {/* ── Influence ─────────────────────────────────────────────── */}
+        <section className="mb-14" aria-labelledby="influence">
+          <SectionHeading id="influence">Influence</SectionHeading>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Surface>
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
+                Who I aligned
+              </h3>
+              <ul className="space-y-1.5">
+                {study.influence.aligned.map((item, i) => (
+                  <li key={i} className="flex gap-2 text-sm leading-relaxed text-gray-300">
+                    <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-gray-600" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </Surface>
+            <Surface>
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
+                Who I convinced
+              </h3>
+              <ul className="space-y-1.5">
+                {study.influence.convinced.map((item, i) => (
+                  <li key={i} className="flex gap-2 text-sm leading-relaxed text-gray-300">
+                    <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-gray-600" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </Surface>
+            <Surface>
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
+                What changed in how people worked
+              </h3>
+              <ul className="space-y-1.5">
+                {study.influence.changed.map((item, i) => (
+                  <li key={i} className="flex gap-2 text-sm leading-relaxed text-gray-300">
+                    <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-gray-600" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </Surface>
           </div>
         </section>
 
@@ -220,7 +302,7 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
           <section className="mb-14" aria-labelledby="validation">
             <SectionHeading id="validation">Validation and iteration</SectionHeading>
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+              <Surface>
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">Method</h3>
                 <ul className="space-y-1.5">
                   {study.validation.method.map((item, i) => (
@@ -230,8 +312,8 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                     </li>
                   ))}
                 </ul>
-              </div>
-              <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+              </Surface>
+              <Surface>
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">What we observed</h3>
                 <ul className="space-y-1.5">
                   {study.validation.observed.map((item, i) => (
@@ -241,8 +323,8 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                     </li>
                   ))}
                 </ul>
-              </div>
-              <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+              </Surface>
+              <Surface>
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">What changed</h3>
                 <ul className="space-y-1.5">
                   {study.validation.changed.map((item, i) => (
@@ -252,11 +334,11 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                     </li>
                   ))}
                 </ul>
-              </div>
-              <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+              </Surface>
+              <Surface>
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">Limitations</h3>
                 <p className="text-sm leading-relaxed text-gray-400">{study.validation.limitations}</p>
-              </div>
+              </Surface>
             </div>
           </section>
         )}
@@ -272,19 +354,19 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
             </div>
           )}
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+            <Surface>
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">For users</h3>
               <OutcomeList items={study.outcomes.user} />
-            </div>
-            <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+            </Surface>
+            <Surface>
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">For the team and business</h3>
               <OutcomeList items={study.outcomes.team} />
-            </div>
-            <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+            </Surface>
+            <Surface>
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">For the system</h3>
               <OutcomeList items={study.outcomes.system} />
-            </div>
-            <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+            </Surface>
+            <Surface>
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">What I learned</h3>
               <ul className="space-y-3">
                 {study.outcomes.learning.map((item, i) => (
@@ -293,7 +375,7 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                   </li>
                 ))}
               </ul>
-            </div>
+            </Surface>
           </div>
         </section>
 
@@ -301,7 +383,7 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
         <section className="mb-14" aria-labelledby="reflection">
           <SectionHeading id="reflection">Reflection</SectionHeading>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+            <Surface>
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-emerald-300">I would repeat</h3>
               <ul className="space-y-2">
                 {study.reflection.repeat.map((item, i) => (
@@ -311,8 +393,8 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                   </li>
                 ))}
               </ul>
-            </div>
-            <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+            </Surface>
+            <Surface>
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-amber-300">I would change</h3>
               <ul className="space-y-2">
                 {study.reflection.change.map((item, i) => (
@@ -322,7 +404,7 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                   </li>
                 ))}
               </ul>
-            </div>
+            </Surface>
           </div>
           {study.reflection.next && (
             <p className="mt-4 max-w-3xl text-sm leading-relaxed text-gray-400">

@@ -5,6 +5,7 @@ import { WorkCard } from '../ui/components/work/WorkCard';
 import { useSeo } from '../hooks/useSeo';
 import { contact } from '../content/site';
 import { analytics } from '../utils/basicAnalytics';
+import { Card } from '../ui/components/cards/Card';
 
 interface RolePathPageProps {
   path: RolePath;
@@ -27,14 +28,14 @@ export function RolePathPage({ path, otherPath }: RolePathPageProps) {
   }, [path.slug]);
 
   return (
-    <div className="min-h-screen px-4 py-16 md:px-6 md:py-24">
-      <div className="mx-auto max-w-5xl">
+    <div className="min-h-screen py-16 md:py-24">
+      <div className="mx-auto max-w-6xl">
         <header className="mb-10">
           <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
             Curated path
           </p>
           <h1 className="mb-4 text-3xl font-bold text-purple-300 md:text-4xl">{path.title}</h1>
-          <p className="max-w-3xl text-lg leading-relaxed text-gray-400">{path.intro}</p>
+          <p className="text-lg leading-relaxed text-gray-400">{path.intro}</p>
         </header>
 
         <section aria-labelledby="focus-heading" className="mb-12">
@@ -68,7 +69,8 @@ export function RolePathPage({ path, otherPath }: RolePathPageProps) {
           </div>
         </section>
 
-        <footer className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-6">
+        <footer>
+          <Card>
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="mb-1 text-lg font-semibold text-gray-200">{path.cvNote}</h2>
@@ -90,6 +92,7 @@ export function RolePathPage({ path, otherPath }: RolePathPageProps) {
               </Link>
             </div>
           </div>
+          </Card>
         </footer>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { CaseStudy } from '../../../content/types';
+import { Card } from '../cards/Card';
 
 interface RecruiterSummaryProps {
   summary: CaseStudy['recruiterSummary'];
@@ -33,10 +34,8 @@ function BulletList({ items }: { items: string[] }) {
  */
 export function RecruiterSummary({ summary }: RecruiterSummaryProps) {
   return (
-    <section
-      aria-label="Case summary for quick review"
-      className="rounded-xl border border-purple-500/25 bg-purple-500/[0.06] p-5 md:p-6"
-    >
+    <section aria-label="Case summary for quick review">
+      <Card>
       <h2 id="recruiter-summary" className="mb-5 text-sm font-semibold uppercase tracking-wide text-gray-400">
         In 30 seconds
       </h2>
@@ -54,6 +53,7 @@ export function RecruiterSummary({ summary }: RecruiterSummaryProps) {
           <BulletList items={summary.evidence} />
         </Column>
       </div>
+      </Card>
     </section>
   );
 }

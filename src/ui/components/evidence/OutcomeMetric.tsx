@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metric } from '../../../content/types';
+import { Card } from '../cards/Card';
 
 interface OutcomeMetricProps {
   metric: Metric;
@@ -11,7 +12,8 @@ interface OutcomeMetricProps {
  */
 export function OutcomeMetric({ metric }: OutcomeMetricProps) {
   return (
-    <div className="flex h-full flex-col rounded-xl border border-gray-700/60 bg-gray-900/40 p-5">
+    <Card className="h-full">
+      <div className="flex h-full flex-col">
       <div className="text-3xl font-bold text-purple-300">{metric.value}</div>
       <div className="mt-1 text-sm text-gray-300">{metric.label}</div>
       <div className="mt-auto pt-3">
@@ -24,6 +26,7 @@ export function OutcomeMetric({ metric }: OutcomeMetricProps) {
           <p className="mt-2 text-xs leading-relaxed text-gray-500">{metric.evidenceNote}</p>
         )}
       </div>
-    </div>
+      </div>
+    </Card>
   );
 }

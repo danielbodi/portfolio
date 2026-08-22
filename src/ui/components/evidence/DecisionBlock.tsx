@@ -1,6 +1,8 @@
 import React from 'react';
 import { Decision } from '../../../content/types';
 import { DeliveryStateTag } from './DeliveryStateTag';
+import { ExpandableImage } from './ExpandableImage';
+import { Card } from '../cards/Card';
 
 interface DecisionBlockProps {
   decision: Decision;
@@ -32,10 +34,8 @@ function HtmlRow({ label, html }: { label: string; html: string }) {
  */
 export function DecisionBlock({ decision, index }: DecisionBlockProps) {
   return (
-    <article
-      id={decision.id}
-      className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-5 md:p-6"
-    >
+    <article id={decision.id}>
+      <Card>
       <h3 className="mb-4 flex items-baseline gap-3 text-lg font-semibold text-gray-100">
         <span className="text-sm font-bold text-purple-300">{String(index + 1).padStart(2, '0')}</span>
         {decision.title}
@@ -64,15 +64,15 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
         </dl>
         {decision.visual && (
           <figure className="mt-5 xl:mt-0 xl:self-start">
-            <img
+            <ExpandableImage
               src={decision.visual.src}
               alt={decision.visual.alt}
-              loading="lazy"
               className="w-full rounded-lg border border-gray-700/60 bg-gray-950/40"
             />
           </figure>
         )}
       </div>
+      </Card>
     </article>
   );
 }

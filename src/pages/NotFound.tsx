@@ -11,7 +11,7 @@ export function NotFound() {
   });
 
   return (
-    <div className="flex min-h-[70vh] items-center px-4 py-16 md:px-6">
+    <div className="flex min-h-[70vh] items-center py-16">
       <div className="mx-auto w-full max-w-3xl">
         <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-gray-500">404</p>
         <h1 className="mb-4 text-3xl font-bold text-purple-300 md:text-4xl">

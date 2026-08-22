@@ -17,7 +17,7 @@ export const solidarisCard: CaseCard = {
   roleShort: 'UX/UI Consultant · Design Systems · AI-Ready Governance',
   tags: ['AI-ready design system', 'Design tokens', 'Cross-product UX'],
   outcome:
-    'A machine-readable design system — contracts, rules and a 7-role agent workflow — consumed by two production apps, plus a shared case-reading model across iCRM, iShare and iGED (ongoing).',
+    'Plectrum made machine-readable — component contracts, a rule set and a seven-role agent workflow — behind two redesigned apps, with 10+ more of the estate queued (ongoing).',
   thumbnail: '/screenshots/solidaris-thumbnail.png',
   logo: '/company-logos/Logomark.svg',
   logoInvert: true,

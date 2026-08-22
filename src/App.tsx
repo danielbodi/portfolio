@@ -1,11 +1,13 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useParams, Navigate } from 'react-router-dom';
+import { useReducedMotion } from 'framer-motion';
 import { Navigation } from './ui/components/navigation/Navigation';
 import { Home } from './pages/Home';
 import { PageTransition } from './ui/components/page-transition/PageTransition';
 import { Background } from './ui/components/background/Background';
 import { GradientControls } from './ui/components/GradientControls';
 import { TableOfContents } from './ui/components/table-of-contents/TableOfContents';
+import { beginRouteLoad, endRouteLoad } from './ui/components/page-transition/routeLoading';
 import './utils/basicAnalytics';
 
 const WorkIndex = lazy(() => import('./pages/WorkIndex'));
@@ -38,6 +40,15 @@ function LegacyProjectRedirect() {
 }
 
 function RouteFallback() {
+  // Reporting here does two things: the background field carries the loading
+  // signal, and PageTransition holds its cover until this unmounts. Visible
+  // only outside a transition cover — notably under prefers-reduced-motion,
+  // where no cover is drawn.
+  useEffect(() => {
+    beginRouteLoad();
+    return () => endRouteLoad();
+  }, []);
+
   return (
     <div className="flex min-h-[50vh] items-center justify-center" role="status" aria-live="polite">
       <span className="text-sm text-gray-500">Loading…</span>
@@ -45,117 +56,97 @@ function RouteFallback() {
   );
 }
 
+/**
+ * PageTransition wraps the whole route table rather than each element: it has
+ * to survive navigations to sequence them. Mounted per route, every navigation
+ * would hand a freshly mounted instance its own initial render, which is
+ * exempt from the transition.
+ */
 function AnimatedRoutes() {
   const location = useLocation();
 
   return (
-    <Routes location={location}>
-        <Route
-          path="/"
-          element={
-            <PageTransition>
-              <Home />
-            </PageTransition>
-          }
-        />
+    <PageTransition>
+      <Routes location={location}>
+        <Route path="/" element={<Home />} />
         <Route
           path="/work"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <WorkIndex />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <WorkIndex />
+            </Suspense>
           }
         />
         <Route
           path="/work/solidaris"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <SolidarisProject />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <SolidarisProject />
+            </Suspense>
           }
         />
         <Route
           path="/work/bridgestone"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <BridgestoneProject />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <BridgestoneProject />
+            </Suspense>
           }
         />
         <Route
           path="/work/trasis"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <TraisProject />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <TraisProject />
+            </Suspense>
           }
         />
         <Route
           path="/work/sopra-banking"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <SopraProject />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <SopraProject />
+            </Suspense>
           }
         />
         <Route
           path="/work/base"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <BaseProject />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <BaseProject />
+            </Suspense>
           }
         />
         <Route
           path="/approach"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <Approach />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <Approach />
+            </Suspense>
           }
         />
         <Route
           path="/about"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <About />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <About />
+            </Suspense>
           }
         />
         <Route
           path="/staff-product-design"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <StaffProductDesign />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <StaffProductDesign />
+            </Suspense>
           }
         />
         <Route
           path="/design-engineering"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <DesignEngineering />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <DesignEngineering />
+            </Suspense>
           }
         />
         {/* Legacy routes */}
@@ -165,31 +156,46 @@ function AnimatedRoutes() {
         <Route
           path="*"
           element={
-            <PageTransition>
-              <Suspense fallback={<RouteFallback />}>
-                <NotFound />
-              </Suspense>
-            </PageTransition>
+            <Suspense fallback={<RouteFallback />}>
+              <NotFound />
+            </Suspense>
           }
         />
-    </Routes>
+      </Routes>
+    </PageTransition>
   );
 }
+
+/** Matches the page reveal: the shell eases while content is still covered. */
+const LAYOUT_MS = 500;
+const LAYOUT_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+/**
+ * Outer column width. Pages use different inner max-widths (About 3xl, work
+ * 5xl, home 6xl plus padding), and case studies add a TOC column — both
+ * used to snap the nav sideways. The shell carries the horizontal gutter
+ * (px-4 / md:px-6) so the nav card and the page column are the same width.
+ * The TOC slot still grows, but through a transition rather than a jump.
+ */
+const SHELL_MAX_WIDTH = '75rem';
 
 function AppContent() {
   const location = useLocation();
   const isCasePage = /^\/work\/.+/.test(location.pathname);
   const isHome = location.pathname === '/';
   const [tocVisible, setTocVisible] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const layoutTransition = prefersReducedMotion ? 'none' : `width ${LAYOUT_MS}ms ${LAYOUT_EASE}, margin-left ${LAYOUT_MS}ms ${LAYOUT_EASE}`;
 
   // Reset and control TOC visibility when route changes
   useEffect(() => {
     if (isCasePage) {
       setTocVisible(false);
-      // Show TOC after page transition starts
+      // Wait until the cover has lifted so the TOC fades in with the content,
+      // not into an empty column. Cover floor is 550ms.
       const timer = setTimeout(() => {
         setTocVisible(true);
-      }, 100); // Small delay to ensure clean transition
+      }, 480);
 
       return () => clearTimeout(timer);
     } else {
@@ -226,26 +232,41 @@ function AppContent() {
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
-      {/* Purple stays an accent: full presence on the home hero, dimmed to
-          neutral space on content and case pages (brief section 12). */}
-      <div aria-hidden="true" className={isHome ? undefined : 'opacity-30'}>
+      {/* Purple stays an accent: full on the home hero, dimmed on inner pages. */}
+      <div
+        aria-hidden="true"
+        style={{
+          opacity: isHome ? 1 : 0.3,
+          transition: 'opacity 400ms ease'
+        }}
+      >
         <Background />
       </div>
 
-      <div className="relative z-10 flex flex-row justify-center gap-[5rem]">
-        <div className="min-w-0 flex-1 lg:flex-initial">
+      <div className="relative z-10 flex flex-row justify-center">
+        <div className="min-w-0 w-full flex-1 px-4 md:px-6 lg:flex-initial" style={{ maxWidth: SHELL_MAX_WIDTH }}>
           <Navigation />
           <main id="main-content" tabIndex={-1}>
             <AnimatedRoutes />
           </main>
         </div>
 
-        {/* Desktop Table of Contents - Only show on case-study pages */}
-        {isCasePage && (
-          <div className="hidden lg:block">
+        {/* Always mounted on desktop so width can ease. Empty while shrinking
+            or expanding, so overflow-hidden is not needed (it would break
+            position: sticky on the TOC). */}
+        <div
+          className="hidden flex-none lg:block"
+          style={{
+            width: isCasePage ? '16rem' : 0,
+            marginLeft: isCasePage ? '5rem' : 0,
+            transition: layoutTransition
+          }}
+          aria-hidden={!isCasePage}
+        >
+          {isCasePage && (
             <TableOfContents variant="desktop" pathname={location.pathname} isVisible={tocVisible} />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

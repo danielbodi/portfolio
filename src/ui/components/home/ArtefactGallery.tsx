@@ -5,7 +5,7 @@ import { ArtefactFigure } from '../evidence';
 /** Compact gallery of concrete system and product artefacts (brief section 6.5). */
 export function ArtefactGallery() {
   return (
-    <section aria-labelledby="artefacts-heading" className="px-4 py-16 md:px-6 md:py-20">
+    <section aria-labelledby="artefacts-heading" className="py-16 md:py-20">
       <div className="mx-auto max-w-6xl">
         <h2 id="artefacts-heading" className="mb-3 text-3xl font-bold text-purple-300 md:text-4xl">
           Artefacts, not adjectives

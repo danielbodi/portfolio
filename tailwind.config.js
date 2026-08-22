@@ -8,6 +8,13 @@ export default {
       },
       animation: {
         bounce: 'bounce 1.5s infinite',
+        'lightbox-in': 'lightbox-in 180ms ease-out',
+      },
+      keyframes: {
+        'lightbox-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
       },
       /* Deliberate reading measure for long-form case-study prose */
       maxWidth: {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { flagshipCards } from '../../../content/caseStudies/cards';
 import { WorkCard } from '../work/WorkCard';
@@ -7,7 +6,7 @@ import { Card } from '../cards/Card';
 /** The three flagship cases, each with a project-specific CTA (brief section 6.3). */
 export function FeaturedCases() {
   return (
-    <section aria-labelledby="featured-heading" className="pb-10 pt-16 md:pb-14 md:pt-24">
+    <section id="selected-work" aria-labelledby="featured-heading" className="pb-10 pt-16 md:pb-14 md:pt-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>

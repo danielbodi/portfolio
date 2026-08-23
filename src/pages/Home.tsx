@@ -1,6 +1,6 @@
-import React from 'react';
+import { ArrowDown } from 'lucide-react';
 import { Hero } from '../ui/components/home/Hero';
-import { ProofBar } from '../ui/components/home/ProofBar';
+import { PositioningPillars } from '../ui/components/home/PositioningPillars';
 import { FeaturedCases } from '../ui/components/home/FeaturedCases';
 import { Capabilities } from '../ui/components/home/Capabilities';
 import { ArtefactGallery } from '../ui/components/home/ArtefactGallery';
@@ -18,8 +18,19 @@ export function Home() {
 
   return (
     <>
-      <Hero />
-      <ProofBar />
+      <div className="home-hero-viewport">
+        <Hero />
+        <PositioningPillars />
+        <a href="#selected-work" className="home-hero__scroll-cue">
+          <span>Scroll down</span>
+          <ArrowDown
+            size={16}
+            strokeWidth={1.8}
+            aria-hidden="true"
+            className="home-hero__scroll-icon"
+          />
+        </a>
+      </div>
       <FeaturedCases />
       <Capabilities />
       <ArtefactGallery />

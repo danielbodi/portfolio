@@ -1,4 +1,4 @@
-import { Artefact, Metric } from './types';
+import { Artefact } from './types';
 
 /**
  * Site-wide content: positioning, homepage sections, career progression,
@@ -15,14 +15,14 @@ export const positioning = {
 };
 
 export const hero = {
-  eyebrow: positioning.descriptor,
-  title: 'I design the systems behind complex products\u2014 and help teams ship them.',
+  eyebrow: 'Product design at systems scale',
+  title: 'I set direction for complex product ecosystems\u2014and build the systems teams use to ship them.',
   support:
-    'I turn complex workflows into clear product experiences, reusable design foundations and implementation-ready UI across Figma, Storybook and front-end systems.',
-  ctaPrimary: { label: 'View selected work', href: '/work' },
-  ctaSecondary: { label: 'Download CV', href: '/cv/daniel-bodi-gil-cv.pdf' },
+    'Across product, design and engineering, I turn ambiguous workflows into shared models, reusable foundations and production-ready experiences.',
+  ctaPrimary: { label: 'Explore selected work', href: '#selected-work' },
+  ctaSecondary: { label: 'See my Staff design path', href: '/staff-product-design' },
   contextLink: {
-    label: 'Currently building an AI-ready design system at Solidaris',
+    label: 'Now · Building an AI-ready design system at Solidaris',
     href: '/work/solidaris'
   }
 };
@@ -105,29 +105,32 @@ export const heroSpecimen = {
   }
 };
 
-export const proofBar: Metric[] = [
+export interface PositioningPillar {
+  id: string;
+  heading: string;
+  supportingLine: string;
+}
+
+export const positioningPillars: PositioningPillar[] = [
   {
-    value: '15 years',
-    label: 'across product design and front-end UI',
-    confidence: 'verified',
-    evidenceNote: 'Career start October 2010 (JL Gestion); continuous roles since.'
+    id: 'judgment',
+    heading: 'Judgment built over 15 years',
+    supportingLine: 'Across product design, systems and front-end delivery.'
   },
   {
-    value: 'AI-ready approach for design systems',
-    label: 'rules, skills and protocols governing AI-assisted delivery',
-    confidence: 'verified',
-    evidenceNote:
-      'Plectrum knowledge base: nine rules, four skills, four protocols, plus per-component TypeScript metadata contracts and a seven-role agent workflow. Used in my own AI-assisted delivery.'
+    id: 'ai-ready-systems',
+    heading: 'AI-ready design systems',
+    supportingLine: 'Rules, context and quality gates for AI-assisted delivery.'
   },
   {
-    value: 'Figma · Storybook · Angular · TypeScript',
-    label: 'the bridge between design and implementation',
-    confidence: 'verified'
+    id: 'production-fluency',
+    heading: 'Design-to-production fluency',
+    supportingLine: 'Figma and Storybook through Angular and TypeScript.'
   },
   {
-    value: 'B2B complexity',
-    label: 'healthcare, mobility, banking and telecom products',
-    confidence: 'verified'
+    id: 'b2b-ecosystems',
+    heading: 'Complex B2B ecosystems',
+    supportingLine: 'Healthcare, mobility, banking and telecom.'
   }
 ];
 

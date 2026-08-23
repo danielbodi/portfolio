@@ -1,54 +1,41 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { hero, contact } from '../../../content/site';
-import { analytics } from '../../../utils/basicAnalytics';
-import { HeroSpecimen } from './HeroSpecimen';
+import { hero } from '../../../content/site';
+import { InteractiveHeadline } from './InteractiveHeadline';
 
 /**
- * First viewport: positioning, then a specimen of the actual craft —
- * product UI plus a live token/contract fragment.
+ * First viewport: Daniel's positioning statement is both the message and the
+ * visual experience. The semantic headline remains the accessible baseline.
  */
 export function Hero() {
   return (
-    <section className="pb-10 pt-12 md:pb-12 md:pt-20" aria-labelledby="hero-heading">
-      <div className="mx-auto max-w-6xl">
-        <p className="mb-5 text-sm font-semibold uppercase tracking-[0.18em] text-purple-300">
-          {hero.eyebrow}
-        </p>
-        <h1
-          id="hero-heading"
-          className="mb-6 text-[2.15rem] font-bold leading-[1.08] tracking-display md:text-5xl lg:text-[3.35rem] lg:leading-[1.06]"
-        >
-          {hero.title}
-        </h1>
-        <p className="mb-8 text-base leading-relaxed text-gray-400 md:text-lg">
-          {hero.support}
-        </p>
-        <div className="mb-6 flex flex-wrap items-center gap-3">
-          <Link to={hero.ctaPrimary.href} className="c-button c-button--primary">
-            {hero.ctaPrimary.label}
-          </Link>
-          <a
-            href={hero.ctaSecondary.href}
-            download={contact.cv.fileName}
-            className="c-button c-button--secondary"
-            onClick={() => analytics.trackPortfolioEvent('cv_download', { variant: 'default', from: '/' })}
+    <section className="home-hero" aria-labelledby="hero-heading">
+      <div className="home-hero__stage">
+        <div className="home-hero__copy">
+          <p className="home-hero__eyebrow">
+            {hero.eyebrow}
+          </p>
+          <InteractiveHeadline />
+          <p className="home-hero__support">{hero.support}</p>
+          <div className="home-hero__actions">
+            <a href={hero.ctaPrimary.href} className="c-button c-button--primary">
+              {hero.ctaPrimary.label}
+            </a>
+            <Link to={hero.ctaSecondary.href} className="c-button c-button--secondary">
+              {hero.ctaSecondary.label}
+            </Link>
+          </div>
+          <Link
+            to={hero.contextLink.href}
+            className="home-hero__status group"
           >
-            {hero.ctaSecondary.label}
-          </a>
+            <span aria-hidden="true" className="home-hero__status-dot" />
+            <span>{hero.contextLink.label}</span>
+            <ArrowRight size={14} aria-hidden="true" className="home-hero__status-arrow" />
+          </Link>
         </div>
-        <Link
-          to={hero.contextLink.href}
-          className="group mb-12 inline-flex items-center gap-1.5 text-sm text-gray-400 underline-offset-4 hover:text-purple-300 hover:underline md:mb-16"
-        >
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          {hero.contextLink.label}
-          <ArrowRight size={14} aria-hidden="true" className="transition-transform group-hover:translate-x-0.5" />
-        </Link>
-
-        <HeroSpecimen />
       </div>
+
     </section>
   );
 }

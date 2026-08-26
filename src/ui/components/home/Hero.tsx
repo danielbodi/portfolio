@@ -18,34 +18,36 @@ export function Hero() {
           </p>
           <InteractiveHeadline />
           <p className="home-hero__support">{hero.support}</p>
-          <div className="home-hero__actions">
-            <a href={hero.ctaPrimary.href} className="c-button c-button--primary">
-              {hero.ctaPrimary.label}
-            </a>
-            <a
-              href={`mailto:${contact.email}`}
-              className="c-button c-button--secondary"
-              onClick={() => analytics.trackPortfolioEvent('contact_click', { from: '/' })}
+          <div className="home-hero__cta-group">
+            <div className="home-hero__actions">
+              <a href={hero.ctaPrimary.href} className="c-button c-button--primary">
+                {hero.ctaPrimary.label}
+              </a>
+              <a
+                href={`mailto:${contact.email}`}
+                className="c-button c-button--secondary"
+                onClick={() => analytics.trackPortfolioEvent('contact_click', { from: '/' })}
+              >
+                Contact me
+              </a>
+              <a
+                href={hero.ctaSecondary.href}
+                download={hero.ctaSecondary.download}
+                className="c-button c-button--secondary"
+                onClick={() => analytics.trackPortfolioEvent('cv_download', { variant: 'default', from: '/' })}
+              >
+                {hero.ctaSecondary.label}
+              </a>
+            </div>
+            <Link
+              to={hero.contextLink.href}
+              className="home-hero__status group"
             >
-              Contact me
-            </a>
-            <a
-              href={hero.ctaSecondary.href}
-              download={hero.ctaSecondary.download}
-              className="c-button c-button--secondary"
-              onClick={() => analytics.trackPortfolioEvent('cv_download', { variant: 'default', from: '/' })}
-            >
-              {hero.ctaSecondary.label}
-            </a>
+              <span aria-hidden="true" className="home-hero__status-dot" />
+              <span>{hero.contextLink.label}</span>
+              <ArrowRight size={14} aria-hidden="true" className="home-hero__status-arrow" />
+            </Link>
           </div>
-          <Link
-            to={hero.contextLink.href}
-            className="home-hero__status group"
-          >
-            <span aria-hidden="true" className="home-hero__status-dot" />
-            <span>{hero.contextLink.label}</span>
-            <ArrowRight size={14} aria-hidden="true" className="home-hero__status-arrow" />
-          </Link>
         </div>
       </div>
 

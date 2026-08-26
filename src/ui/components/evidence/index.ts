@@ -7,3 +7,4 @@ export { ExpandableImage } from "./ExpandableImage";
 export { ArtefactFigure } from "./ArtefactFigure";
 export { DecisionBlock } from "./DecisionBlock";
 export { RecruiterSummary } from "./RecruiterSummary";
+export { SystemEvidenceVisual } from "./SystemEvidenceVisual";

@@ -9,7 +9,6 @@ coverage
 # Production
 dist
 build
-.wrangler/
 
 # Misc
 .DS_Store

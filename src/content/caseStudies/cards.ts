@@ -28,19 +28,19 @@ export const solidarisCard: CaseCard = {
 export const bridgestoneCard: CaseCard = {
   slug: 'bridgestone',
   company: 'Bridgestone',
-  title: 'Bridgestone: CSS as the Single Source of Truth for a Fleet Platform\u2019s Design System',
+  title: 'Bridgestone: Making UI Quality Scale Beyond the Designer',
   shortTitle: 'Bridgestone',
   tier: 'flagship',
   period: '2019 – 2025',
   problem:
-    'FleetBridge was being built feature by feature with no design system — and design systems usually die of token duplication or documentation that drifts from production.',
-  roleShort: 'Product Designer · Design Systems & UX Engineering',
-  tags: ['CSS as SSOT', 'Self-updating Storybook', 'ITCSS/BEM', 'Modern CSS'],
+    'FleetBridge was shipping across several applications without shared product rules or an initial design-system mandate; late UI review could not become the permanent quality model.',
+  roleShort: 'Product Designer · UX Engineering · Design-System Enablement',
+  tags: ['Influence without authority', 'Product patterns', 'Storybook', 'Design governance'],
   evidence:
-    'Tokens written once in CSS feed the apps and a self-populating Storybook: 254 SCSS files, ~250 color tokens per theme derived from 15 base colors, documentation that cannot drift.',
+    'Live product patterns helped unlock dedicated system time; coaching, Storybook and explicit governance moved UI decisions earlier than pull-request review.',
   thumbnail: '/screenshots/bs-thumbnail.png',
   logo: '/company-logos/Bridgestone logo.png',
-  ctaLabel: 'Read the Bridgestone design system case study',
+  ctaLabel: 'Read how FleetBridge moved from UI bottleneck to shared system',
   deliveryState: 'In production'
 };
 

@@ -32,7 +32,7 @@ const defaultSettings: GradientSettings = {
   multx: 2,
   multy: 2,
   hue: 180,
-  brightness: 0.8,
+  brightness: 0.7,
   mouse: 0.3,
   scale: 1,
   scale2: 1,

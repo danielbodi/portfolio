@@ -9,7 +9,8 @@ import {
   OutcomeMetric,
   DeliveryStateTag,
   EvidenceClassTag,
-  EvidenceClaimCard
+  EvidenceClaimCard,
+  SystemEvidenceVisual
 } from '../ui/components/evidence';
 import { TableOfContents } from '../ui/components/table-of-contents/TableOfContents';
 import { Tag } from '../ui/components/atoms/Tag/Tag';
@@ -321,6 +322,11 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                       />
                     ))}
                   </div>
+                  {section.visual && (
+                    <div className="mt-5">
+                      <SystemEvidenceVisual visual={section.visual} />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

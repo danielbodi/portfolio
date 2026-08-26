@@ -22,7 +22,7 @@ export function Home() {
         <Hero />
         <PositioningPillars />
         <a href="#selected-work" className="home-hero__scroll-cue">
-          <span>Scroll down</span>
+          <span>See my work</span>
           <ArrowDown
             size={16}
             strokeWidth={1.8}

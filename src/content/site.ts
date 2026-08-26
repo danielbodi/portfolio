@@ -192,7 +192,7 @@ export const homeArtefacts: Artefact[] = [
     src: '/screenshots/bs/bs_desktop_storybook-home.png',
     alt: 'Bridgestone design system documentation home in Storybook',
     what: 'A Storybook that documents itself from the live CSS.',
-    why: 'Tokens live once in CSS; TypeScript parsers read the CSSOM and feed the swatches, docs tables and playgrounds — documentation cannot drift.',
+    why: 'CSS holds the foundation values; TypeScript parsers feed selected swatches, docs tables and playgrounds, reducing duplicate maintenance and drift risk.',
     contribution: 'Built the CSS-to-Storybook pipeline.',
     state: 'In production'
   },
@@ -209,9 +209,9 @@ export const homeArtefacts: Artefact[] = [
   {
     src: '/screenshots/bs/bs_desktop_ws-light.png',
     alt: 'Bridgestone vehicle worksheet interface, light theme',
-    what: 'Fleet worksheet UI on the shared component library.',
-    why: 'Dense operational data made consistent and scannable through system components.',
-    contribution: 'Designed the screens and their components.',
+    what: 'Fleet worksheet UI built on the custom foundation created for FleetBridge.',
+    why: 'Dense operational data organised through reusable components and product patterns developed for the platform.',
+    contribution: 'Designed the screens, components and shared patterns.',
     state: 'In production'
   },
   {
@@ -269,10 +269,10 @@ export const careerProgression: CareerStep[] = [
     heading: 'Design system ownership and UX engineering',
     company: 'Bridgestone · via CTG/Cegeka',
     period: '2019 – 2025',
-    scope: 'From sole designer to leading design workflows on a fleet-management platform.',
+    scope: 'From sole designer to establishing shared design workflows as the team grew.',
     contributions: [
-      'CSS as the single source of truth: tokens written once feed the apps and a self-updating Storybook',
-      'ITCSS/BEM architecture (254 SCSS files), browser-computed color system and pull-request reviews'
+      'Made the need for shared foundations observable through live product patterns after an initial investment refusal',
+      'Moved UI decisions earlier through coaching, Storybook, CSS architecture and explicit design governance'
     ],
     href: '/work/bridgestone'
   },

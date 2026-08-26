@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, useEffect, useCallback, useLayoutEffect } from 'react';
+import React, { ReactNode, useRef, useEffect, useCallback, useLayoutEffect, useMemo } from 'react';
 import { useMouseGradient } from '../../../hooks/useMouseGradient';
 import { useGradientSettings } from '../../../context/GradientSettingsContext';
 
@@ -83,18 +83,21 @@ export function Card({
   // Try to get gradient settings from context, fall back to defaults if not available
   let contextSettings;
   let getComputedColors;
-  let colorStops: ColorStop[] = [];
   
   try {
     const gradientContext = useGradientSettings();
     contextSettings = gradientContext?.settings;
     getComputedColors = gradientContext?.getComputedGradientColors;
-    colorStops = contextSettings?.colorStops || [];
-  } catch (error) {
+  } catch {
     console.warn('GradientSettings context not available, using default settings');
     contextSettings = defaultGradientSettings;
     getComputedColors = getDefaultColors;
   }
+
+  const colorStops: ColorStop[] = useMemo(
+    () => contextSettings?.colorStops || [],
+    [contextSettings?.colorStops]
+  );
   
   // Use settings from context if not provided as props
   const effectivePerformanceMode = performanceMode !== undefined ? performanceMode : contextSettings?.performanceMode || defaultGradientSettings.performanceMode;
@@ -159,7 +162,7 @@ export function Card({
       colors = getComputedColors ? 
         { ...(getComputedColors(intensity, isNested)), gradientPositions: '' } :
         getDefaultColors(intensity, isNested);
-    } catch (error) {
+    } catch {
       colors = getDefaultColors(intensity, isNested);
     }
     
@@ -249,7 +252,7 @@ export function Card({
 
     // Add smooth transition for gradient opacity based on intensity
     cardRef.current.style.setProperty('--gradient-opacity', intensity < 0.1 ? '0.3' : '1');
-  }, [isNav, isSticky, isNested, intensity, showShadow, adjustedDegree, getComputedColors, generateGradientPositions, colorStops]);
+  }, [isNav, isSticky, isNested, isGhost, intensity, showShadow, adjustedDegree, getComputedColors, generateGradientPositions, colorStops]);
   
   // This effect applies the colors immediately on mount using useLayoutEffect
   useLayoutEffect(() => {
@@ -385,11 +388,13 @@ export function Card({
       <div 
         className={contentClasses}
         style={{
-          background: isGhost ? 'transparent' : 'var(--content-bg, #32323A)'
+          background: isGhost
+            ? 'transparent'
+            : 'var(--content-bg-override, var(--content-bg, #32323A))'
         }}
       >
         {children}
       </div>
     </div>
   );
-} 
+}

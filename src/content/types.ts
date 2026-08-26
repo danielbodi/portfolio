@@ -128,6 +128,25 @@ export interface ProseSection {
   paragraphs: string[];
 }
 
+export type SystemEvidenceVisual =
+  | {
+      kind: 'image';
+      src: string;
+      alt: string;
+      caption?: string;
+    }
+  | {
+      kind: 'code';
+      code: string;
+      language?: string;
+      label?: string;
+      caption?: string;
+    };
+
+export interface SystemEvidenceSection extends ProseSection {
+  visual?: SystemEvidenceVisual;
+}
+
 export interface CaseCard {
   slug: string;
   company: string;
@@ -213,7 +232,7 @@ export interface CaseStudy {
     intro: string;
     artefacts: Artefact[];
   };
-  systemEvidence?: ProseSection[];
+  systemEvidence?: SystemEvidenceSection[];
   validation?: {
     method: string[];
     observed: string[];

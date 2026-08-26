@@ -7,8 +7,8 @@
 
 ## Metrics currently qualified on the site
 
-- [ ] **Bridgestone "60% faster development"** — `[EVIDENCE NEEDED: explain the baseline, activity measured and source of the 60% figure]`. Until then the site says "the team reported markedly faster development".
-- [ ] **Bridgestone "40+ components"** — confirm the component/guideline count from the Storybook or Figma inventory (currently published as "reported").
+- [x] **Bridgestone "~60% faster development"** — removed from public proof until the baseline, activity and source can be documented.
+- [x] **Bridgestone "40+ components"** — removed from public proof until a Storybook or Figma inventory export is available.
 - [ ] **Trasis "85% task success"** — `[EVIDENCE NEEDED: participant count, test tasks, baseline and calculation]`. Published as "reported" with a methodology note.
 - [ ] **Trasis "3x faster prototyping"** — `[EVIDENCE NEEDED: compared with what, over which period]`. Published as "reported".
 - [ ] **Sopra "40% faster prototyping" / "30% cost reduction"** — `[EVIDENCE NEEDED: how measured, baseline]`. Published as qualitative ("the design team reported faster prototyping").
@@ -40,6 +40,10 @@
 
 ## Bridgestone
 
+- [ ] [EVIDENCE NEEDED] Confirm the exact delivery state and provide inspectable visuals for the date picker and vehicle/axle/tyre configuration patterns.
+- [ ] [EVIDENCE NEEDED] Preserve a planning artefact or stakeholder record for the later allocation of dedicated design-system time.
+- [ ] [EVIDENCE NEEDED] Preserve examples of the UI pull-request gate, implementation-time coaching and Figma branch/onboarding workflow.
+- [ ] [EVIDENCE NEEDED] Reconcile the derived color-token count before publishing any total; the current case keeps only 15 base hues and two themes.
 - [ ] Component inventory export (Figma/Storybook) for the artefact gallery.
 - [ ] Visuals for the CSS-as-SSOT story (suggested in the case-study appendix):
   - [ ] the color palette story with light/dark swatches and search,

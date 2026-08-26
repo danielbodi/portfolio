@@ -23,6 +23,26 @@
       box-shadow: var(--default-shadow);
     }
   }
+
+  &--evidence-compact {
+    @apply overflow-hidden p-0 shadow-none;
+
+    --content-bg-override:
+      linear-gradient(
+        145deg,
+        rgba(180, 144, 255, 0.06) 0%,
+        rgba(180, 144, 255, 0) 58%
+      ),
+      #3d3d46;
+
+    > .c-card__gradient {
+      display: none;
+    }
+
+    > .c-card__content--nested {
+      border-radius: inherit;
+    }
+  }
   
   // Nav card styles - specific for navigation
   &--nav {
@@ -140,4 +160,4 @@
   }
   
 
-} 
+}

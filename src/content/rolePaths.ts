@@ -89,7 +89,7 @@ export const designEngineeringPath: RolePath = {
     {
       card: bridgestoneCard,
       emphasis:
-        'The deepest system evidence: CSS as the single source of truth — a BEM grammar strict enough to parse, a browser-computed color system (15 bases → ~250 tokens per theme), CSSOM parsers feeding a self-populating Storybook, and modern CSS replacing JavaScript in production.',
+        'The deepest system evidence: CSS as the authoritative source for documented foundations, a parseable BEM grammar, 15 base hues supporting two themes, selected CSSOM-fed Storybook pages and modern CSS in production.',
       links: [
         { label: 'System evidence', href: '/work/bridgestone#system-evidence' },
         { label: 'Key decisions', href: '/work/bridgestone#key-decisions' }

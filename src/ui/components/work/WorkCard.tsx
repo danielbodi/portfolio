@@ -22,7 +22,7 @@ interface WorkCardProps {
 }
 
 /**
- * Case-study card exposing problem, role, tags and one outcome, with a
+ * Case-study card exposing problem, role, tags and one evidence point, with a
  * project-specific accessible CTA (brief section 6.3).
  */
 export function WorkCard({
@@ -130,8 +130,8 @@ export function WorkCard({
             <p className="mb-4 text-sm leading-relaxed text-gray-400">{emphasis}</p>
           ) : (
             <p className="mb-4 text-sm leading-relaxed text-gray-400">
-              <span className="font-semibold uppercase tracking-wide text-gray-500">Outcome · </span>
-              {card.outcome}
+              <span className="font-semibold uppercase tracking-wide text-gray-500">Evidence · </span>
+              {card.evidence}
             </p>
           )}
 

@@ -16,20 +16,35 @@ export const positioning = {
 
 export const hero = {
   eyebrow: 'Product design at systems scale',
-  title: 'I set direction for complex product ecosystems\u2014and build the systems teams use to ship them.',
+  title: 'I design the systems behind complex products\u2014and help teams ship them.',
   support:
-    'Across product, design and engineering, I turn ambiguous workflows into shared models, reusable foundations and production-ready experiences.',
+    'I turn complex workflows into clear product experiences, reusable design foundations and implementation-ready UI across Figma, Storybook and front-end systems.',
   ctaPrimary: { label: 'Explore selected work', href: '#selected-work' },
-  ctaSecondary: { label: 'See my Staff design path', href: '/staff-product-design' },
+  ctaSecondary: {
+    label: 'Download CV',
+    href: '/cv/daniel-bodi-gil-cv.pdf',
+    download: 'daniel-bodi-gil-cv.pdf'
+  },
   contextLink: {
-    label: 'Now · Building an AI-ready design system at Solidaris',
+    label: 'Solidaris · ongoing through the planned October 2026 handoff',
     href: '/work/solidaris'
+  },
+  proof: {
+    href: '/work/solidaris',
+    image: {
+      src: '/screenshots/solidaris/ishare-affiliate-dossier.png',
+      alt: 'Anonymised iShare affiliate dossier prototype with a member summary, document list and workflow journey'
+    },
+    eyebrow: 'Solidaris · product prototype',
+    caption: 'A dossier view that makes documents, status and workflow easier to read together.',
+    evidenceClass: 'OUTPUT' as const,
+    state: 'Ongoing' as const
   }
 };
 
 /**
- * Homepage specimen: real product UI plus the machine-readable layer —
- * component metadata and the Solidaris supervisor pipeline.
+ * Optional technical specimen: production UI plus an experimental contract
+ * and workflow layer. The maturity of each part is stated in the caption.
  */
 export const heroSpecimen = {
   href: '/work/bridgestone',
@@ -39,7 +54,7 @@ export const heroSpecimen = {
     alt: 'Bridgestone UI design system home in Storybook: foundations, components, colours and icons documented from the live CSS'
   },
   caption:
-    'Bridgestone UI in Storybook \u2014 documentation generated from live CSS. Overlay: Plectrum component metadata and the Solidaris supervisor.',
+    'Bridgestone UI in production Storybook. Overlay: Solidaris contract and workflow outputs that remain experimental and are not presented as adopted.',
   state: 'In production' as const,
   contract: {
     kicker: 'Component contract',
@@ -69,10 +84,10 @@ export const heroSpecimen = {
     ]
   },
   supervisor: {
-    kicker: 'Agent workflow',
+    kicker: 'Workflow experiment',
     name: 'Solidaris',
-    role: 'Supervisor \u00b7 never writes code',
-    rule: 'Specialists implement. The supervisor only orchestrates.',
+    role: 'Proposed orchestration role',
+    rule: 'A documented role model for design-to-code work; independent use is not yet claimed.',
     grounding: 'Figma MCP \u00b7 PrimeNG MCP',
     steps: [
       {
@@ -118,9 +133,9 @@ export const positioningPillars: PositioningPillar[] = [
     supportingLine: 'Across product design, systems and front-end delivery.'
   },
   {
-    id: 'ai-ready-systems',
-    heading: 'AI-ready design systems',
-    supportingLine: 'Rules, context and quality gates for AI-assisted delivery.'
+    id: 'ai-assisted-systems',
+    heading: 'Systems for AI-assisted work',
+    supportingLine: 'Inspectable rules and boundaries, labelled by maturity.'
   },
   {
     id: 'production-fluency',
@@ -154,7 +169,7 @@ export const capabilities: Capability[] = [
   {
     id: 'systems',
     title: 'Systems',
-    text: 'I turn recurring product decisions into tokens, components, patterns and documentation — architected so they cannot drift from production.',
+    text: 'I turn recurring product decisions into tokens, components, patterns and documentation, then make the implementation boundary visible.',
     links: [
       { label: 'Bridgestone — system evidence', href: '/work/bridgestone#system-evidence' },
       { label: 'Solidaris — Plectrum patterns', href: '/work/solidaris#system-evidence' }
@@ -163,7 +178,7 @@ export const capabilities: Capability[] = [
   {
     id: 'delivery',
     title: 'Delivery',
-    text: 'I ship alongside developers: front-end architecture, Storybook, design QA in pull requests, and hands-on CSS coaching.',
+    text: 'I work close to delivery through front-end architecture, Storybook, design QA in pull requests, coded prototypes and hands-on CSS coaching.',
     links: [
       { label: 'Bridgestone — PR reviews and coaching', href: '/work/bridgestone#key-decisions' },
       { label: 'Sopra Banking — CSS architecture', href: '/work/sopra-banking#system-evidence' }
@@ -184,9 +199,11 @@ export const homeArtefacts: Artefact[] = [
   {
     src: '/screenshots/solidaris/token-architecture.svg',
     alt: 'Three-tier design token architecture with a PrimeNG bridge',
-    what: 'Three-tier token chain bridging Figma variables to PrimeNG.',
-    why: 'Lets the vendor library evolve without breaking the Solidaris theme.',
-    contribution: 'Defined the architecture; mapped 170+ variables.',
+    what: 'A proposed token-governance model linking Figma, semantic tokens and PrimeNG.',
+    why: 'Documents how product work could stay aligned with an inherited component foundation.',
+    contribution: 'Defined and documented the mapping approach.',
+    evidenceClass: 'OUTPUT',
+    evidenceNote: 'The exact implemented token inventory and synchronisation state are still being verified.',
     state: 'Ongoing'
   },
   {
@@ -199,11 +216,13 @@ export const homeArtefacts: Artefact[] = [
   },
   {
     src: '/screenshots/solidaris/contracts-index.svg',
-    alt: 'Machine-readable design-system contracts and knowledge base structure',
-    what: 'Machine-readable contracts and rules for AI-assisted development.',
-    why: 'With the rules in the assistant\u2019s context, my AI-assisted delivery produces on-system, accessible code by default — built for the client teams to adopt.',
-    contribution: 'Designed the contract schema and agent workflow.',
-    state: 'Ongoing'
+    alt: 'AI-oriented component contracts and knowledge-base structure',
+    what: 'Contract, rule and workflow files for an AI-assisted development experiment.',
+    why: 'Makes intended component usage, accessibility constraints and role boundaries inspectable.',
+    contribution: 'Designed the working model and documentation.',
+    evidenceClass: 'OUTPUT',
+    evidenceNote: 'No independent adoption, repeatability or delivery outcome is claimed.',
+    state: 'Strategic proposal'
   },
   {
     src: '/screenshots/trasis/trasis-qc1-spots--results.png',
@@ -216,10 +235,12 @@ export const homeArtefacts: Artefact[] = [
   {
     src: '/screenshots/solidaris/ishare-journey.png',
     alt: 'iShare journey panel: horizontal step summary with statuses above the expanded step detail, in the coded mockup',
-    what: 'Hybrid workflow journey, coded on Plectrum.',
-    why: 'Resolved the overview-versus-detail tension in document journeys.',
-    contribution: 'Designed both models and the tests that chose the hybrid.',
-    state: 'Validated prototype'
+    what: 'Hybrid workflow journey explored in an iShare prototype.',
+    why: 'Combines a compact overview with expandable step detail.',
+    contribution: 'Designed both models and prepared task-based comparison.',
+    evidenceClass: 'OUTPUT',
+    evidenceNote: 'Participant counts, scores and final delivery state are not published.',
+    state: 'Tested concept'
   }
 ];
 
@@ -236,11 +257,11 @@ export const careerProgression: CareerStep[] = [
   {
     heading: 'Product and systems leadership',
     company: 'Solidaris · via Cegeka',
-    period: 'Oct 2025 – present',
-    scope: 'Sole embedded consultant building an AI-ready design system across a healthcare application ecosystem.',
+    period: 'Oct 2025 – Oct 2026',
+    scope: 'Embedded consultancy across three product workstreams, extending inherited PrimeNG/Plectrum foundations and preparing an unfinished handoff.',
     contributions: [
-      'Plectrum design-system patterns and an AI-ready contract layer',
-      'Cross-product case-reading model spanning iCRM, iShare and iGED'
+      'Product research, prototypes and reusable case-management patterns',
+      'A product-local Figma fork, repository/Storybook outputs and AI-oriented working files'
     ],
     href: '/work/solidaris'
   },

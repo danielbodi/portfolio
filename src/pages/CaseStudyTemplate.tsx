@@ -7,7 +7,9 @@ import {
   DecisionBlock,
   ArtefactFigure,
   OutcomeMetric,
-  DeliveryStateTag
+  DeliveryStateTag,
+  EvidenceClassTag,
+  EvidenceClaimCard
 } from '../ui/components/evidence';
 import { TableOfContents } from '../ui/components/table-of-contents/TableOfContents';
 import { Tag } from '../ui/components/atoms/Tag/Tag';
@@ -158,6 +160,34 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
           </div>
         </section>
 
+        {/* ── Chronology ───────────────────────────────────────────── */}
+        {study.chronology && (
+          <section className="mb-14" aria-labelledby="chronology">
+            <SectionHeading id="chronology">{study.chronology.heading}</SectionHeading>
+            <p className="mb-8 max-w-3xl leading-relaxed text-gray-400">
+              {study.chronology.intro}
+            </p>
+            <ol className="relative max-w-4xl border-l border-gray-700/70 pl-6">
+              {study.chronology.items.map((item) => (
+                <li key={`${item.period}-${item.title}`} className="relative pb-8 last:pb-0">
+                  <span
+                    aria-hidden="true"
+                    className="absolute -left-[1.72rem] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-gray-950 bg-purple-400"
+                  />
+                  <div className="mb-2 flex flex-wrap items-center gap-2">
+                    <EvidenceClassTag label={item.label} />
+                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                      {item.period}
+                    </span>
+                  </div>
+                  <h3 className="mb-1 text-lg font-semibold text-gray-200">{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-gray-400">{item.description}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
         {/* ── Scope and ownership ───────────────────────────────────── */}
         <section className="mb-14" aria-labelledby="scope-ownership">
           <SectionHeading id="scope-ownership">Scope and ownership</SectionHeading>
@@ -220,7 +250,7 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
           <div className="grid gap-4 md:grid-cols-3">
             <Surface>
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
-                Who I aligned
+                Where alignment mattered
               </h3>
               <ul className="space-y-1.5">
                 {study.influence.aligned.map((item, i) => (
@@ -233,7 +263,7 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
             </Surface>
             <Surface>
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
-                Who I convinced
+                What I advocated
               </h3>
               <ul className="space-y-1.5">
                 {study.influence.convinced.map((item, i) => (
@@ -246,7 +276,7 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
             </Surface>
             <Surface>
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
-                What changed in how people worked
+                How the collaboration changed
               </h3>
               <ul className="space-y-1.5">
                 {study.influence.changed.map((item, i) => (
@@ -343,40 +373,78 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
           </section>
         )}
 
-        {/* ── Outcomes ──────────────────────────────────────────────── */}
+        {/* ── Outcomes / evidence status ───────────────────────────── */}
         <section className="mb-14" aria-labelledby="outcomes">
-          <SectionHeading id="outcomes">Outcomes</SectionHeading>
-          {study.metrics && study.metrics.length > 0 && (
-            <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {study.metrics.map((metric, i) => (
-                <OutcomeMetric key={i} metric={metric} />
-              ))}
-            </div>
-          )}
-          <div className="grid gap-4 md:grid-cols-2">
-            <Surface>
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">For users</h3>
-              <OutcomeList items={study.outcomes.user} />
-            </Surface>
-            <Surface>
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">For the team and business</h3>
-              <OutcomeList items={study.outcomes.team} />
-            </Surface>
-            <Surface>
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">For the system</h3>
-              <OutcomeList items={study.outcomes.system} />
-            </Surface>
-            <Surface>
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">What I learned</h3>
-              <ul className="space-y-3">
-                {study.outcomes.learning.map((item, i) => (
-                  <li key={i} className="text-sm leading-relaxed text-gray-300">
-                    {item}
-                  </li>
+          <SectionHeading id="outcomes">
+            {study.evidenceStatus ? 'Evidence and project state' : 'Outcomes'}
+          </SectionHeading>
+          {study.evidenceStatus ? (
+            <>
+              <p className="mb-8 max-w-3xl leading-relaxed text-gray-400">
+                {study.evidenceStatus.intro}
+              </p>
+              <div className="grid gap-4 md:grid-cols-2">
+                {study.evidenceStatus.claims.map((claim) => (
+                  <EvidenceClaimCard key={claim.id} claim={claim} />
                 ))}
-              </ul>
-            </Surface>
-          </div>
+              </div>
+              {study.evidenceStatus.measurementNote && (
+                <p className="mt-6 max-w-3xl rounded-lg border border-amber-500/25 bg-amber-500/5 p-4 text-sm leading-relaxed text-amber-100/80">
+                  {study.evidenceStatus.measurementNote}
+                </p>
+              )}
+              {study.outcomes.learning.length > 0 && (
+                <div className="mt-6 max-w-3xl">
+                  <Surface>
+                    <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
+                      What I learned
+                    </h3>
+                    <ul className="space-y-3">
+                      {study.outcomes.learning.map((item, i) => (
+                        <li key={i} className="text-sm leading-relaxed text-gray-300">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </Surface>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              {study.metrics && study.metrics.length > 0 && (
+                <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {study.metrics.map((metric, i) => (
+                    <OutcomeMetric key={i} metric={metric} />
+                  ))}
+                </div>
+              )}
+              <div className="grid gap-4 md:grid-cols-2">
+                <Surface>
+                  <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">For users</h3>
+                  <OutcomeList items={study.outcomes.user} />
+                </Surface>
+                <Surface>
+                  <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">For the team and business</h3>
+                  <OutcomeList items={study.outcomes.team} />
+                </Surface>
+                <Surface>
+                  <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">For the system</h3>
+                  <OutcomeList items={study.outcomes.system} />
+                </Surface>
+                <Surface>
+                  <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">What I learned</h3>
+                  <ul className="space-y-3">
+                    {study.outcomes.learning.map((item, i) => (
+                      <li key={i} className="text-sm leading-relaxed text-gray-300">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </Surface>
+              </div>
+            </>
+          )}
         </section>
 
         {/* ── Reflection ────────────────────────────────────────────── */}

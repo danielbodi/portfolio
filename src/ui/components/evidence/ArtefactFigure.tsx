@@ -1,6 +1,7 @@
 import React from 'react';
 import { Artefact } from '../../../content/types';
 import { DeliveryStateTag } from './DeliveryStateTag';
+import { EvidenceClassTag } from './EvidenceClassTag';
 import { ExpandableImage } from './ExpandableImage';
 import { Card } from '../cards/Card';
 
@@ -49,7 +50,10 @@ export function ArtefactFigure({ artefact, compact = false, fit = 'cover' }: Art
       <figcaption className="flex flex-1 flex-col gap-2 p-4">
         <div className="flex items-start justify-between gap-3">
           <p className="text-sm font-semibold leading-snug text-gray-200">{artefact.what}</p>
-          <DeliveryStateTag state={artefact.state} />
+          <div className="flex flex-wrap justify-end gap-2">
+            {artefact.evidenceClass && <EvidenceClassTag label={artefact.evidenceClass} />}
+            <DeliveryStateTag state={artefact.state} />
+          </div>
         </div>
         {!compact && artefact.why && (
           <p className="text-sm leading-relaxed text-gray-400">{artefact.why}</p>
@@ -58,6 +62,12 @@ export function ArtefactFigure({ artefact, compact = false, fit = 'cover' }: Art
           <p className="text-xs leading-relaxed text-gray-500">
             <span className="font-semibold uppercase tracking-wide text-gray-400">My part: </span>
             {artefact.contribution}
+          </p>
+        )}
+        {artefact.evidenceNote && (
+          <p className="text-xs leading-relaxed text-amber-200/70">
+            <span className="font-semibold uppercase tracking-wide">Evidence limit: </span>
+            {artefact.evidenceNote}
           </p>
         )}
         {!compact && artefact.technicalNote && (

@@ -8,7 +8,7 @@ import { Card } from '../ui/components/cards/Card';
 const pathPoints = [
   'Taught web design, then spent years building UI \u2014 high-traffic telecom sites at Design is Dead/Emakina, where cross-browser discipline and BEM became habits.',
   'At Sopra Banking I crossed from building UI to changing how a team builds it: CSS architecture, atomic components, coaching.',
-  'Consulting via CTG/Cegeka took that further \u2014 a safety-critical device at Trasis, six years of design-system ownership at Bridgestone, and now an AI-ready design system at Solidaris.'
+  'Consulting via CTG/Cegeka took that further \u2014 a safety-critical device at Trasis, six years of design-system ownership at Bridgestone, and an ongoing product-and-systems assignment at Solidaris.'
 ];
 
 const togetherPoints = [
@@ -48,14 +48,14 @@ export function About() {
           <section aria-labelledby="focus-heading">
             <Card>
               <h2 id="focus-heading" className="mb-2 text-2xl font-bold text-gray-100">
-                Current focus
+                Solidaris assignment · October 2025–October 2026
               </h2>
               <p className="leading-relaxed text-gray-400">
-                I work as a consultant embedded at Solidaris, a Belgian health insurance fund,
-                modernising the UX of a connected application ecosystem and evolving Plectrum, its
-                PrimeNG-based design system. A large part of that work is making the design system
-                consumable by machines as well as people, so that AI-assisted development strengthens
-                consistency instead of eroding it.
+                I work across three Solidaris product workstreams, extending an inherited
+                PrimeNG/Plectrum foundation through research, product prototypes, reusable patterns
+                and design-to-code artefacts. The wider programme continues beyond my planned
+                assignment handoff, so I separate concrete outputs from adoption and outcomes that
+                were not yet measurable.
               </p>
             </Card>
           </section>

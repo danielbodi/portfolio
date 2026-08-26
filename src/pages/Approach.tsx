@@ -21,7 +21,7 @@ const practice: PracticePoint[] = [
     capabilityId: 'systems',
     points: [
       'Recurring decisions become named patterns: case summaries, master lists, journeys, status semantics, drawers.',
-      'Tokens live exactly once — CSS as the source of truth at Bridgestone; 170+ Figma variables in a three-tier chain at Solidaris.'
+      'Keep inherited and created layers explicit — CSS is the production source of truth at Bridgestone; Solidaris shows a product-local token-governance proposal whose implementation state is still bounded.'
     ]
   },
   {

@@ -32,7 +32,7 @@ export const staffProductDesignPath: RolePath = {
   seoDescription:
     'Curated product design evidence: complex ecosystem UX at Solidaris, safety-critical design at Trasis and design-system leadership at Bridgestone.',
   intro:
-    'If you are evaluating me for a staff-level product design role, start here. The same case studies as the rest of the site, ordered for what these roles usually need to see first: problem framing in ambiguity, end-to-end ownership, decision quality and validated outcomes.',
+    'If you are evaluating me for a staff-level product design role, start here. The same case studies as the rest of the site, ordered around problem framing in ambiguity, ownership, decision quality and clearly bounded evidence.',
   focusPoints: [
     'Ownership of complex, ambiguous initiatives',
     'Information architecture across connected products',
@@ -43,7 +43,7 @@ export const staffProductDesignPath: RolePath = {
     {
       card: solidarisCard,
       emphasis:
-        'Cross-product strategy: reframing each application\u2019s purpose, a shared case-reading model, and trade-offs between overview and detailed work — as the only embedded consultant.',
+        'Ongoing product and systems work under inherited constraints: research, case-reading models, interaction trade-offs and a handoff whose limits are made explicit.',
       links: [
         { label: 'Key decisions', href: '/work/solidaris#key-decisions' },
         { label: 'Validation', href: '/work/solidaris#validation' }
@@ -83,7 +83,7 @@ export const designEngineeringPath: RolePath = {
     'Figma-to-code systems: tokens, components, documentation',
     'Storybook as a shared source of truth',
     'ITCSS/BEM CSS architecture and PrimeNG theming strategy',
-    'Implementation reviews, coaching and AI-ready governance'
+    'Implementation reviews, coaching and inspectable AI-assisted workflow experiments'
   ],
   entries: [
     {
@@ -98,7 +98,7 @@ export const designEngineeringPath: RolePath = {
     {
       card: solidarisCard,
       emphasis:
-        'Plectrum on PrimeNG: a three-tier token architecture, a vendor bridge that survives upgrades, and machine-readable contracts that make AI-assisted development land on-system.',
+        'An inherited PrimeNG/Plectrum baseline extended through product-local components, Storybook/repository outputs, token-governance material and AI-oriented contracts — all labelled by maturity and adoption state.',
       links: [
         { label: 'System evidence', href: '/work/solidaris#system-evidence' },
         { label: 'Key decisions', href: '/work/solidaris#key-decisions' }

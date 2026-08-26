@@ -1,4 +1,6 @@
 export { DeliveryStateTag } from "./DeliveryStateTag";
+export { EvidenceClassTag } from "./EvidenceClassTag";
+export { EvidenceClaimCard } from "./EvidenceClaimCard";
 export { OutcomeMetric } from "./OutcomeMetric";
 export { OwnershipBadge } from "./OwnershipBadge";
 export { ExpandableImage } from "./ExpandableImage";

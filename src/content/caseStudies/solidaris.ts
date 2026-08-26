@@ -1,114 +1,234 @@
-import { CaseStudy } from '../types';
+import { CaseStudy, EvidenceClaim } from '../types';
 import { solidarisCard } from './cards';
+
+const researchOutput: EvidenceClaim = {
+  id: 'solidaris-research-output',
+  evidenceClass: 'OUTPUT',
+  claim:
+    'Research activities and product prototypes were produced for the iCRM and iShare workstreams, alongside a first iGED interface draft.',
+  source: 'August 2026 project account and the anonymised portfolio artefacts shown on this page.',
+  scope: 'Product-local research, interaction design and prototype outputs.',
+  confidence: 'reported',
+  attribution: 'Daniel\u2019s reported work; inherited PrimeNG/Plectrum foundations are excluded.',
+  limitation:
+    'Participant counts, direct iGED scope and exact build, merge or deployment states are not public.',
+  deliveryState: 'Ongoing'
+};
+
+const systemOutput: EvidenceClaim = {
+  id: 'solidaris-system-output',
+  evidenceClass: 'OUTPUT',
+  claim:
+    'A product-local Figma fork, a small custom component set, repository and Storybook work, ITCSS/BEMIT structure, token-governance material and AI-oriented workflow files were created.',
+  source: 'August 2026 project account and schematic portfolio artefacts.',
+  scope: 'Working-layer outputs created around three product workstreams.',
+  confidence: 'reported',
+  attribution: 'Daniel\u2019s additions around an inherited PrimeNG/Plectrum baseline.',
+  limitation:
+    'Official source-of-truth status, upstream acceptance, independent use and adoption are not claimed.',
+  deliveryState: 'Ongoing'
+};
+
+const validationBoundary: EvidenceClaim = {
+  id: 'solidaris-validation-boundary',
+  evidenceClass: 'VALIDATED',
+  claim:
+    'The project account records a first round of scenario-based iShare prototype testing and a second round prepared around comprehension, navigation and trust.',
+  source: 'Solidaris product-domain reference supplied with this update.',
+  scope: 'Prototype-level research activity and direction only.',
+  confidence: 'reported',
+  attribution: 'Daniel designed the prototype comparisons and test framework.',
+  limitation:
+    'Participant profiles, sample size, scores, final approval and production effects are not published.',
+  deliveryState: 'Tested concept'
+};
+
+const handoffState: EvidenceClaim = {
+  id: 'solidaris-handoff-state',
+  evidenceClass: 'IN PROGRESS',
+  claim:
+    'The wider programme, final documentation, contribution path, next ownership and post-departure measurement remained open at the evidence snapshot.',
+  source: 'August 2026 project account.',
+  scope: 'Assignment handoff planned for October 2026.',
+  confidence: 'reported',
+  attribution: 'Programme state, not an outcome attributed to Daniel.',
+  limitation:
+    'The final handoff recipient and durable adoption were not yet established.',
+  deliveryState: 'Ongoing'
+};
 
 export const solidarisStudy: CaseStudy = {
   card: solidarisCard,
 
   seo: {
-    title: 'Solidaris — An AI-Ready Design System for a Healthcare Ecosystem | Daniel Bodi Gil',
+    title: 'Solidaris \u2014 Extending an Inherited PrimeNG/Plectrum Foundation | Daniel Bodi Gil',
     description:
-      'Building Plectrum, a machine-readable design system — token architecture, component contracts and a seven-role AI agent workflow — while modernising the UX of Solidaris\u2019s iCRM, iShare and iGED applications.'
+      'An ongoing product-design and UX-engineering assignment across iCRM, iShare and iGED, separating inherited foundations, product outputs, prototype evidence and unfinished handoff.'
   },
 
   impactStatement:
-    'I made the design system machine-readable — contracts and an agent workflow that keep AI-assisted delivery on-system.',
+    'I connected three product workstreams to an inherited PrimeNG/Plectrum foundation while keeping authorship, maturity and handoff limits explicit.',
 
   hero: {
     summary:
-      'Building an AI-ready design system for Solidaris\u2019s internal applications, grounded in a cross-product UX modernisation of iCRM, iShare and iGED.',
-    role: 'UX/UI Consultant — UX architecture, UX engineering, design systems and prototyping. Sole embedded Cegeka consultant.',
-    period: 'October 2025 – October 2026 · ongoing',
-    team: 'Embedded alone client-side, working directly with product owners, business analysts and Angular developers.',
+      'An ongoing UX modernisation across fragmented healthcare tools, combining product research, interaction design, reusable patterns and a design-to-code working layer.',
+    role:
+      'Consulting scope \u2014 product design, UX architecture, UX engineering and design-system contribution. Official assignment title not published.',
+    period: 'October 2025 \u2013 October 2026 \u00b7 wider programme ongoing',
+    team:
+      'Cegeka consultant embedded client-side, collaborating with product managers, business analysts, engineers and a separately evolving core design team.',
     context:
-      'Belgian health insurance fund. Internal tools used daily by front-office and back-office employees for healthcare and insurance casework.',
-    stack: ['Figma', 'Angular', 'PrimeNG', 'Plectrum', 'Storybook', 'SCSS · ITCSS/BEMIT', 'MCP · AI agents'],
+      'Internal healthcare operations across regional and product boundaries. PrimeNG, Plectrum and the wider consolidation direction predated the assignment.',
+    stack: [
+      'Figma',
+      'Angular',
+      'PrimeNG',
+      'Plectrum',
+      'Storybook',
+      'SCSS \u00b7 ITCSS/BEMIT',
+      'AI-assisted workflow experiment'
+    ],
     confidentialityNote:
-      'Screens on this page are high-fidelity mockups and prototypes using fictional affiliate data, plus schematic diagrams. Production data, real affiliate information and internal identifiers are not shown.',
+      'The visuals are anonymised or recreated with fictional affiliate data. This case does not claim production deployment, organisation-wide adoption or measurable impact where those states are not evidenced.',
     image: {
       src: '/screenshots/solidaris/ishare-affiliate-dossier.png',
-      alt: 'iShare affiliate dossier: affiliate header with alerts and identifiers, document-tracking list with status tags, and the workflow journey panel',
-      what: 'The iShare affiliate dossier — high-fidelity mockup coded with the Plectrum design system.',
-      why: 'One reading surface answers "what is the state of this case?": affiliate header, document tracking and the workflow journey, without reassembling fragments across applications.',
-      contribution: 'I designed the dossier model and the journey, and built the mockup on Plectrum.',
+      alt: 'Anonymised iShare affiliate dossier prototype with affiliate context, document tracking and a workflow journey',
+      what: 'The iShare affiliate dossier prototype.',
+      why:
+        'It explores one reading surface for affiliate context, documents, status and workflow without duplicating specialist processing tools.',
+      contribution: 'Designed the dossier model, information hierarchy and journey treatment.',
+      evidenceClass: 'OUTPUT',
+      evidenceNote:
+        'The portfolio does not present this artefact as a shipped product or as evidence of a user outcome.',
       state: 'Ongoing'
     }
   },
 
   recruiterSummary: {
     challenge:
-      'The teams ship daily with AI coding assistants on one design system — documentation written only for humans meant every AI-generated pull request was a drift vector. At the same time, employees reconstructed an affiliate\u2019s situation from fragmented tickets, documents and workflows across applications.',
+      'The work started inside fragmented products and governance, with PrimeNG and Plectrum already selected and the programme still evolving. Employees also had to reconstruct a case from tickets, documents, workflows and specialist systems.',
     ownership: [
-      'Plectrum design-system strategy: token architecture, patterns and AI-ready governance',
-      'Sole embedded consultant across iCRM, iShare and iGED integration',
-      'UX architecture, prototyping and scenario-based user testing'
+      'Research, UX direction and prototypes across the iCRM and iShare workstreams',
+      'Product-local design-system additions and reusable enterprise patterns',
+      'Repository, Storybook and documentation outputs intended to improve design-to-code continuity'
     ],
-    changed: [
-      'A machine-readable governance layer: component contracts, rules, skills, protocols and a seven-role agent workflow',
-      'A shared case-reading model: context, summary, attention, recent activity, detail, action, source',
-      'iCRM tickets became a work-oriented inbox; iShare reframed to affiliate-dossier comprehension with a hybrid journey'
-    ],
-    evidence: [
-      '170+ Figma variables mapped 1:1 into a three-tier token architecture',
-      'Two apps I redesigned on Plectrum; 10+ more of the estate awaiting the same system',
-      'iShare and iGED running as high-fidelity mockups coded on Plectrum',
-      'Task-based user testing on the iShare journey models'
-    ]
+    evidenceClaims: [researchOutput, systemOutput, validationBoundary, handoffState]
   },
 
   framing: {
-    heading: 'Why this mattered',
+    heading: 'Working inside an inherited system',
     paragraphs: [
-      'Solidaris\u2019s development teams use AI coding assistants every day — and a design system documented only for humans is invisible to those assistants.',
-      'Every AI-generated pull request then erodes consistency: hardcoded hex values, wrong component choices, off-system spacing. The design system itself had to become <strong>machine-readable</strong>, or it would drift faster than anyone could govern it.',
-      'The system exists to serve real work. Employees answer affiliates about cases that span <strong>iCRM</strong> (contacts and tickets), <strong>iShare</strong> (documents and process journeys) and <strong>iGED</strong> (operational document processing). The task rarely respects product boundaries — but the tools did, so employees mentally reassembled each case from disconnected screens full of truncated titles, unclear statuses and overlapping concepts.',
-      'These are expert users doing repetitive, information-heavy work; a visually dramatic redesign would reduce productivity. The success criteria were precise: an employee should understand the state, history and next step of a case quickly — and every recurring solution should land in <strong>Plectrum</strong> as a reusable, machine-documented pattern.'
+      'PrimeNG had already been selected and <strong>Plectrum already existed</strong> as a Solidaris-branded layer. I did not choose the vendor foundation or create the original system. My assignment was to work within those constraints across iCRM, iShare and a reported iGED scope.',
+      'The product problem was wider than any one screen. Employees had to understand one affiliate\u2019s situation across tickets, documents, statuses, workflows and source systems. The design direction therefore focused on a stable reading hierarchy: <strong>context \u2192 summary \u2192 attention \u2192 recent activity \u2192 detail \u2192 action \u2192 source</strong>.',
+      'While the contribution path to the core design team was initially limited, I created a product-local bridge: research and prototypes, a Figma fork with a small custom component set, and reported repository/Storybook work. The fork is presented here as a trade-off with divergence risk, not as uncomplicated governance success.',
+      'The programme was not complete at the August 2026 evidence snapshot. The case therefore separates concrete outputs, prototype-level validation, unfinished handoff and outcomes that were not yet measurable.'
+    ]
+  },
+
+  chronology: {
+    heading: 'How the work evolved',
+    intro:
+      'This chronology separates inherited context from my outputs and from work that was still open. Organisational events are not presented as outcomes caused by me.',
+    items: [
+      {
+        period: 'Starting point',
+        title: 'Fixed foundations and fragmented workstreams',
+        description:
+          'PrimeNG, the initial Plectrum layer, product roadmaps and the wider consolidation direction already existed. The products and regions still had different needs and ways of working.',
+        label: 'CONTEXT'
+      },
+      {
+        period: 'Early assignment',
+        title: 'Research and a recommendation to use Plectrum locally',
+        description:
+          'I ran reported shadowing, workshops and prototype testing, then recommended building the three product workstreams on the inherited Plectrum direction.',
+        label: 'OUTPUT'
+      },
+      {
+        period: 'Limited contribution path',
+        title: 'A product-local Figma bridge',
+        description:
+          'I forked the available Figma system and added a small set of product-specific components. The exact authorisation, upstream path and divergence controls remain part of the private verification backlog.',
+        label: 'OUTPUT'
+      },
+      {
+        period: 'During restructuring',
+        title: 'Repository, Storybook and design-to-code outputs',
+        description:
+          'While the core team changed independently, I continued the product work and created reported code, documentation and workflow artefacts. The restructuring is not attributed to my intervention.',
+        label: 'OUTPUT'
+      },
+      {
+        period: 'Later collaboration',
+        title: 'A more open contribution environment',
+        description:
+          'The supplied account describes later participation in a more open collaboration model. Formal decision rights, causal attribution and durable governance ownership are not claimed.',
+        label: 'CONTEXT'
+      },
+      {
+        period: 'Planned October 2026 handoff',
+        title: 'A useful foundation, with ownership still to resolve',
+        description:
+          'Documentation, contribution rules, next ownership, exact delivery states and post-departure measures still needed to be confirmed before the assignment ended.',
+        label: 'IN PROGRESS'
+      }
     ]
   },
 
   ownership: [
     {
+      verb: 'Inherited',
+      items: [
+        'PrimeNG as the component foundation and the original Plectrum layer',
+        'The wider Shell/consolidation direction and existing product roadmaps',
+        'Organisational restructuring of the core design team'
+      ]
+    },
+    {
       verb: 'Led',
       items: [
-        'Reframing each application around the question its users actually ask',
-        'Cross-product information architecture and navigation responsibilities (shell, app, tabs, steps, drawers)',
-        'The design-system pattern strategy: which solutions become reusable Plectrum patterns'
+        'Product research and UX direction across the iCRM and iShare workstreams',
+        'Reframing the interfaces around case comprehension rather than legacy screen structures',
+        'Prototype-led conversations about high-risk interaction decisions'
       ]
     },
     {
       verb: 'Designed',
       items: [
-        'iCRM: work-oriented ticket inbox, complementary timeline, proactivity and notification drawers',
-        'iShare: dossier summary and the hybrid horizontal/vertical workflow journey',
-        'Status semantics and readable interpretations alongside expert codes'
+        'iCRM ticket inbox, complementary history view and related-object patterns',
+        'iShare dossier summary and horizontal/vertical workflow explorations',
+        'Readable status semantics and contextual actions for dense expert workflows'
       ]
     },
     {
       verb: 'Implemented',
       items: [
-        'Three-tier token architecture with PrimeNG CSS-variable bridges',
-        'ITCSS/BEMIT styling foundations across the shared libraries',
-        'Machine-readable component contracts, rules, protocols and the AI agent workflow'
+        'Reported product-local repository and Storybook work',
+        'ITCSS/BEMIT structure and a small custom component set',
+        'Token-governance, contract and AI-oriented workflow artefacts'
       ]
     },
     {
       verb: 'Tested',
       items: [
-        'Scenario-based user tests combining observation with task-anchored ratings',
-        'Comparative evaluation of the horizontal and vertical journey models'
+        'Scenario-based prototype testing described in the project account',
+        'Comparison of overview-first and detail-first iShare journey models'
       ]
     },
     {
       verb: 'Influenced',
       items: [
-        'Business validation of action labels and result taxonomies for proactive signals',
-        'Source-system boundaries: surface context, link to the authoritative tool, never duplicate it'
+        'Recommended Plectrum for the local product workstreams',
+        'Reached out directly to the core design team and offered system-level contribution',
+        'Made product and implementation trade-offs concrete through working artefacts'
       ]
     },
     {
-      verb: 'Team outcome',
+      verb: 'In progress',
       items: [
-        'Angular delivery by the client development teams',
-        'Business rules and priorities owned by product owners and analysts'
+        'Exact upstream status of the Figma fork and custom components',
+        'Final Storybook documentation, contribution path and handoff owner',
+        'Independent use, adoption and outcome measurement'
       ]
     }
   ],
@@ -117,359 +237,290 @@ export const solidarisStudy: CaseStudy = {
     items: [
       {
         constraint:
-          'The big decisions predated me: the stack (Angular, PrimeNG, the monorepo), the product roadmap and the existence of the design system were all fixed before I arrived.',
+          'The foundational technology and design-system choices predated the assignment.',
         soWhat:
-          'I focused on the leverage that remained — how the system is architected, governed and consumed: the token bridge, the contracts, the patterns, the agent workflow.'
+          'I focused on the remaining leverage: product information architecture, reusable patterns, local implementation evidence and a clearer contribution path.'
       },
       {
         constraint:
-          'Sole embedded consultant on the client side: Angular delivery belongs to the client teams, business rules and priorities to product owners and analysts.',
+          'The initial path into the core design team and its decisions was limited.',
         soWhat:
-          'Influence runs through working prototypes and testable decisions — business and interaction questions became testable instead of debatable.'
+          'I created a product-local bridge and contacted the core team directly, while accepting the divergence risk of a fork.'
       },
       {
         constraint:
-          'The users are experts doing repetitive, information-heavy work; a visually dramatic redesign would reduce their productivity.',
+          'Expert users needed density, codes and operational speed rather than a visually dramatic simplification.',
         soWhat:
-          'Reframed each application around the question its users actually ask, instead of translating the legacy UI component for component.'
+          'The designs preserved expert information while adding hierarchy, readable interpretations and progressive disclosure.'
       },
       {
         constraint:
-          'Test participants were reachable only through intermediaries, which slowed iteration rounds.',
+          'The assignment was expected to end before the wider programme.',
         soWhat:
-          'Built scenario-based rounds around concrete tasks with anchored ratings, so each session produced actionable findings.'
+          'The case treats documentation, ownership and measurable follow-through as part of the design problem, not as an assumed success.'
       }
     ],
     limitedBy:
-      'The engagement is ongoing: the client developer teams have not yet adopted the AI governance layer, outcome metrics await approval after October 2026, and several workstreams (iCRM inbox, drawers) remain concepts pending business validation.'
+      'Exact build/deployment states, upstream acceptance, independent use, final handoff ownership and user or business outcomes were not yet established in the supplied evidence.'
   },
 
   decisions: [
     {
-      id: 'decision-ai',
-      title: 'Treat AI assistants as first-class design-system consumers',
-      tension:
-        'The teams generate code with AI assistants every day. Documentation written for humans is invisible to machines — so every AI-generated pull request was a potential drift vector.',
-      alternatives: [
-        'A style-guide wiki plus reviewer vigilance',
-        'Lint rules alone',
-        'A machine-readable contract layer with an orchestrated agent workflow'
-      ],
-      evidence:
-        'Recurring drift patterns in AI-generated code: hardcoded hex values, wrong component choices, off-system spacing, missing accessibility semantics.',
-      decision:
-        'Every component ships a <strong>TypeScript metadata contract</strong>: usage, anti-patterns, consumed tokens, AI hints. Token contracts mirror Figma variables and PrimeNG mappings, so drift is detectable by script. A knowledge base of <strong>nine rules, four skills and four protocols</strong> defines the constraints and their loading order, over a generated index that maps the codebase. On top of it, a <strong>seven-role agent team</strong> — grounded by Figma and PrimeNG MCP servers — runs research, architecture, engineering and QA.',
-      tradeOff: 'Up-front authoring and ongoing maintenance of the governance layer itself.',
-      result:
-        'In my own AI-assisted delivery, output lands on-system by default: semantic tokens, correct ITCSS placement, BEMIT naming and accessibility semantics on the first pass. Adoption by the client developer teams is the next step.',
-      resultState: 'Ongoing',
-      visual: {
-        src: '/screenshots/solidaris/ai-agent-workflow.svg',
-        alt: 'Seven-role AI agent workflow: coordinator, researcher, architect, engineer, developer, tester and auditor in a fan-out/fan-in pipeline'
-      }
-    },
-    {
-      id: 'decision-primeng',
-      title: 'Theme PrimeNG through its CSS variables, never its DOM',
-      tension:
-        'Two applications had to share one visual language on top of a vendor component library — without the selector-override wars that make every vendor upgrade a breaking event.',
-      alternatives: [
-        'Selector overrides and !important on PrimeNG internals',
-        'Wrap every PrimeNG component in a custom facade',
-        'A CSS-variable bridge plus selective wrapping'
-      ],
-      evidence:
-        'Override-based themes break on vendor upgrades because they depend on internal DOM; wrapping everything creates a maintenance bottleneck every time PrimeNG changes.',
-      decision:
-        'A three-tier token chain (primitive → semantic → component) where PrimeNG\u2019s own CSS variables are mapped to Plectrum\u2019s semantic tokens, scoped by BEM wrapper in dedicated settings files. Components are wrapped only when a smaller API, defaults or accessibility behaviour justify it.',
-      tradeOff:
-        'Requires discipline: raw <code>--p-*</code> variables outside the settings layer are treated as audit errors.',
-      result:
-        'PrimeNG upgrades stop shattering the theme; design decisions live in CSS where designers can read them; a full rebrand is a one-line prefix change.',
-      resultState: 'Ongoing',
-      visual: {
-        src: '/screenshots/solidaris/token-architecture.svg',
-        alt: 'Three-tier token architecture: primitive, semantic and component tiers with a PrimeNG bridge'
-      }
-    },
-    {
       id: 'decision-inbox',
-      title: 'Represent tickets as a work-oriented inbox, not bigger cards',
+      title: 'Keep expert density, change the ticket representation',
       tension:
-        'Legacy ticket cards tried to show everything — type, long title, status, dates, indicators, related requests — so titles truncated, cards ate vertical space and the latest action stayed invisible. Users needed both density and comprehension.',
+        'Large ticket cards exposed many fields but hid the latest activity and consumed too much vertical space. A narrow timeline lost the business subject that users recognised.',
       alternatives: [
-        'A denser, conservative ticket list',
-        'A business inbox oriented around the latest action',
-        'A hybrid master list with an inline activity summary',
-        'A compact card timeline in a narrow column'
+        'Keep the existing card structure and tune typography',
+        'Use a chronological timeline as the primary view',
+        'Use a dense master list with the business subject first and latest activity second'
       ],
       evidence:
-        'Analysis of the legacy cards and a timeline variant showed the representation model, not typography, was the problem: generic activities ("Outgoing email") repeat across tickets and cannot be the dominant identifier; a narrow timeline showed even less.',
+        'The supplied interaction analysis and iCRM prototypes show repeated generic activities, truncated subjects and the need to keep master-detail speed.',
       decision:
-        'A structured list where the business subject stays primary and the latest action becomes a strong secondary element, with status, alerts and related-request indicators scannable without opening items. Master-detail interaction preserved for operational speed.',
+        'Explore a <strong>work-oriented inbox</strong>: subject as the primary identifier, recent activity as secondary evidence, with status, alerts and related requests visible before opening the detail.',
       tradeOff:
-        'Less visual richness per ticket, and the timeline was demoted to a complementary "history of the dossier" view rather than the default.',
+        'Less visual richness per row, while the timeline becomes a complementary history view rather than the default.',
       result:
-        'A dossier that reads like a professional inbox: ordered by recent activity, clear about what changed last, dense enough for daily work.',
+        'A high-fidelity product direction and reusable list pattern; implementation and user outcome are not claimed.',
       resultState: 'Concept',
       visual: {
         src: '/screenshots/solidaris/icrm-inbox.png',
-        alt: 'iCRM ticket inbox and webrequest detail in the high-fidelity Figma prototype'
+        alt: 'iCRM ticket inbox concept with a dense master list and selected request detail'
       }
     },
     {
       id: 'decision-signals',
-      title: 'Separate proactive signals and notifications from tickets',
+      title: 'Give each business object the action it actually needs',
       tension:
-        'A coloured proactivity block lived inside the ticket area, and system notifications looked like items to process. Three different object types — tickets to work, signals to qualify, notifications to consult — shared one visual identity.',
+        'Tickets, proactive signals and system notifications appeared close together even though one is worked, one is qualified and one is consulted.',
       alternatives: [
-        'Keep everything inline in the ticket area',
-        'Separate tabs per object type',
-        'Dedicated contextual drawers with object-appropriate actions'
+        'Keep every object inline in the ticket area',
+        'Create separate destinations for every object type',
+        'Use contextual drawers with object-specific language and actions'
       ],
       evidence:
-        'Reconstructing the information model showed a notification is evidence that a message was sent, not a task; a proactive signal needs a recorded business result, not a "treated" flag.',
+        'The product-domain reference distinguishes their business consequences: a notification records delivery, while a proactive signal needs a meaningful result.',
       decision:
-        'Dedicated drawers. Signals get a decision panel — reason, context, expected action and a meaningful result to record ("affiliate informed", "already covered"…). Notifications get delivery-oriented statuses and a "View content" action, not "Process".',
+        'Explore dedicated contextual drawers and precise action language: qualify a signal, view a notification, work a ticket.',
       tradeOff:
-        'One more navigation layer, and the result taxonomy requires business validation before implementation.',
+        'Adds a contextual navigation layer and leaves the final business taxonomy dependent on stakeholder confirmation.',
       result:
-        'Interaction copy now matches consequence: qualify a signal, consult a notification, work a ticket. The recorded result preserves business value a simple flag would lose.',
+        'A clearer interaction model represented in concept artefacts, not a shipped behaviour.',
       resultState: 'Concept'
     },
     {
       id: 'decision-journey',
-      title: 'A hybrid workflow journey for iShare',
+      title: 'Combine workflow overview with expandable detail',
       tension:
-        'Document journeys needed both an at-a-glance answer to "where are we in the process?" and comfortable detailed work on a single step — and the two pull the layout in opposite directions.',
+        'A horizontal journey made the overall state easy to scan; a vertical journey gave each step room for dates, alerts, documents and actions.',
       alternatives: [
-        'Horizontal, overview-first stepper',
-        'Vertical, detail-first timeline/accordion',
-        'A hybrid of both'
+        'Horizontal, overview-first journey',
+        'Vertical, detail-first journey',
+        'A compact summary paired with expandable detail'
       ],
       evidence:
-        'Task-based tests: the first round revealed steps lacking prominence, related information needing stronger visibility and navigation buttons being missed. A second round was built around comprehension, active-step visibility, alert recognition, navigation and trust.',
+        'The project account records a first scenario-based test round and a second round prepared around active-step visibility, alert recognition, navigation and trust.',
       decision:
-        'The hybrid: a compact horizontal journey summary to orient, a vertical expandable structure to work, and persistent previous/next navigation to move confidently.',
-      tradeOff: 'Two synchronised representations of the same journey to keep consistent.',
-      result: 'The direction consolidated after testing; it also seeded a reusable "case overview" pattern for Plectrum.',
-      resultState: 'Validated prototype',
+        'Develop the hybrid direction: a compact journey summary for orientation and a vertical structure for detailed work.',
+      tradeOff:
+        'Two representations of the same process must remain synchronised and accessible.',
+      result:
+        'A tested concept and prototype direction. Participant counts, scores and final approval are not published.',
+      resultState: 'Tested concept',
       visual: {
         src: '/screenshots/solidaris/ishare-journey.png',
-        alt: 'iShare hybrid journey panel in the coded mockup: horizontal step summary above the expanded step detail'
+        alt: 'iShare workflow concept with a horizontal summary above expandable step detail'
       }
     }
   ],
 
   influence: {
     aligned: [
-      'Products that previously solved the same problem differently now share a pattern vocabulary: case summary, master list, journey, drawer',
-      'Source-system boundaries agreed across products: surface context, link to the authoritative tool, never duplicate it'
+      'Product work around a shared vocabulary: case summary, master list, journey, status and contextual drawer',
+      'Overview screens with links back to authoritative specialist tools rather than duplicated processing logic'
     ],
     convinced: [
-      'Product owners and analysts — of the object model and the reframing (work-oriented inbox, signals separated from notifications), through working prototypes that made trade-offs concrete',
-      'Business validation secured for action labels and result taxonomies on proactive signals'
+      'Recommended using the inherited Plectrum direction for the local product work',
+      'Advocated for a contribution path between product-specific needs and the core design-system work'
     ],
     changed: [
-      'As the only profile specialised in UX engineering for design systems, designers and managers rely on my vision and decisions for the system\u2019s direction',
-      'My AI-assisted delivery follows the design system by default — the rules live in the assistant\u2019s context, ready for the developer teams to adopt',
-      'Recurring solutions land in Plectrum as named, machine-documented patterns while the products are still being designed'
+      'The supplied account describes a later move from limited access to more open collaboration; formal governance ownership is not claimed',
+      'Concrete prototypes and system artefacts made product and implementation questions inspectable',
+      'Durable reuse by other teams and post-departure ownership remained to be measured'
     ]
   },
 
   craft: {
     intro:
-      'The system layer first, then the product surfaces it serves. Screens are high-fidelity mockups and Figma prototypes with fictional affiliate data — production screens cannot be shown. iShare and iGED are coded mockups running on Plectrum itself. Each visual is labeled with its delivery state.',
+      'These anonymised or recreated artefacts show the product reasoning and working layer. Each one separates evidence class from delivery state; none is used as shorthand for adoption or impact.',
     artefacts: [
       {
-        src: '/screenshots/solidaris/contracts-index.svg',
-        alt: 'Machine-readable layer: component contract fields and the .ai knowledge base structure',
-        what: 'The machine-readable governance layer: contracts, rules, skills, protocols and a generated codebase index.',
-        why: 'An AI assistant loads one JSON map and knows what exists and where, instead of grepping and hallucinating.',
-        contribution: 'I designed the contract schemas and authored the rules, skills and protocols.',
-        state: 'Ongoing'
-      },
-      {
-        src: '/screenshots/solidaris/ai-agent-workflow.svg',
-        alt: 'Seven-role AI agent team in a fan-out/fan-in pipeline: coordinator, researcher, architect, engineer, developer, tester, auditor',
-        what: 'The seven-role AI agent workflow mirroring a real design-system team.',
-        why: 'Research and architecture run in parallel, then engineering, implementation and QA — grounded by Figma and PrimeNG MCP servers so agents query real values instead of guessing.',
-        contribution: 'I designed the roles, the orchestration and the MCP grounding.',
-        state: 'Ongoing'
-      },
-      {
-        src: '/screenshots/solidaris/token-architecture.svg',
-        alt: 'Three-tier token architecture: primitive, semantic and component tiers with a PrimeNG bridge',
-        what: 'The three-tier token architecture with the PrimeNG bridge.',
-        why: 'Components consume meaning ("brand", "field border"), not raw values — so rebranding, theming and vendor upgrades stay cheap.',
-        contribution: 'I defined the architecture and mapped 170+ Figma variables into the settings layer.',
-        state: 'Ongoing'
-      },
-      {
         src: '/screenshots/solidaris/icrm-inbox.png',
-        alt: 'iCRM affiliate view in the Figma prototype: work-oriented ticket inbox with status tags and alerts on the left, webrequest detail with linked tickets on the right',
-        what: 'The iCRM case-reading model in the high-fidelity Figma prototype: inbox and detail.',
-        why: 'The business subject stays primary, the latest action is scannable, alerts read at a glance.',
-        contribution: 'I designed the representation model and the prototype.',
+        alt: 'iCRM affiliate view concept with a ticket inbox and selected request detail',
+        what: 'iCRM work-oriented ticket inbox.',
+        why: 'Keeps the recognised business subject primary and makes recent activity, status and alerts scannable.',
+        contribution: 'Designed the representation model and high-fidelity prototype.',
+        evidenceClass: 'OUTPUT',
+        evidenceNote: 'Implementation and production use are not claimed.',
         state: 'Concept'
       },
       {
         src: '/screenshots/solidaris/icrm-timeline.png',
-        alt: 'iCRM chronological view in the Figma prototype: the same dossier read as a dated history of actions next to the webrequest detail',
-        what: 'The complementary timeline: the same dossier read as chronological history.',
-        why: 'Generic activities cannot identify tickets — so the timeline became a secondary "history of the dossier" view.',
-        contribution: 'I designed the inbox/history toggle and the timeline reading.',
+        alt: 'iCRM chronological history concept beside a selected request detail',
+        what: 'A complementary dossier history.',
+        why: 'Uses chronology where it adds context without asking generic activities to identify a ticket.',
+        contribution: 'Designed the inbox/history relationship.',
+        evidenceClass: 'OUTPUT',
+        evidenceNote: 'Concept artefact; final business validation is not published.',
         state: 'Concept'
       },
       {
         src: '/screenshots/solidaris/ishare-journey.png',
-        alt: 'iShare journey panel in the coded mockup: horizontal step summary with statuses and previous/next navigation above the expanded step detail',
-        what: 'The hybrid document journey in the coded iShare mockup.',
-        why: 'Horizontal summary answers "where are we?"; the vertical structure supports the actual work.',
-        contribution: 'I designed both models and the task-based tests that selected the hybrid, then built it on Plectrum.',
-        state: 'Validated prototype'
+        alt: 'iShare hybrid journey with a horizontal status summary and expandable step detail',
+        what: 'The hybrid iShare journey direction.',
+        why: 'Balances rapid orientation with room for detailed document and workflow information.',
+        contribution: 'Designed the alternatives and the scenario-based comparison framework.',
+        evidenceClass: 'VALIDATED',
+        evidenceNote: 'Prototype-level testing only; sample, scores and final approval are not public.',
+        state: 'Tested concept'
+      },
+      {
+        src: '/screenshots/solidaris/ishare-affiliate-dossier.png',
+        alt: 'iShare affiliate dossier prototype with member context, document tracking and workflow',
+        what: 'The iShare dossier reading surface.',
+        why: 'Brings context, document status and journey information into one legible hierarchy.',
+        contribution: 'Designed the information architecture and prototype.',
+        evidenceClass: 'OUTPUT',
+        evidenceNote: 'Exact build and delivery state remain bounded to the artefact shown.',
+        state: 'Ongoing'
       },
       {
         src: '/screenshots/solidaris/iged-draft.png',
-        alt: 'iGED document-processing screen: business-domain navigation, filters and a dense document list with reception dates and states — first high-fidelity draft',
-        what: 'iGED — first high-fidelity draft, coded with Plectrum.',
-        why: 'The third application on the same system: shared tokens and patterns take a new product to a credible screen quickly.',
-        contribution: 'I designed and coded the draft on the shared design system.',
+        alt: 'First iGED interface draft with filters and a dense document list',
+        what: 'A first iGED interface draft.',
+        why: 'Explores dense document processing on the same visual foundation.',
+        contribution: 'Produced the draft shown; broader iGED ownership is not claimed.',
+        evidenceClass: 'OUTPUT',
+        evidenceNote: 'Direct iGED scope, merge and deployment state still require confirmation.',
         state: 'Concept'
+      },
+      {
+        src: '/screenshots/solidaris/token-architecture.svg',
+        alt: 'Proposed primitive, semantic and component token tiers with a PrimeNG bridge',
+        what: 'A token-governance and PrimeNG bridge model.',
+        why: 'Makes the intended relationship between design variables, semantic decisions and vendor tokens inspectable.',
+        contribution: 'Defined and documented the proposed mapping approach.',
+        evidenceClass: 'OUTPUT',
+        evidenceNote: 'No automated synchronisation or complete implemented inventory is claimed.',
+        state: 'Ongoing'
+      },
+      {
+        src: '/screenshots/solidaris/contracts-index.svg',
+        alt: 'AI-oriented component contracts, rules and knowledge-base structure',
+        what: 'AI-oriented contracts and working rules.',
+        why: 'Documents intended component usage, accessibility constraints and design-to-code boundaries.',
+        contribution: 'Designed the schemas and working documentation.',
+        evidenceClass: 'OUTPUT',
+        evidenceNote: 'Independent execution, repeatability and team adoption are not established.',
+        state: 'Strategic proposal'
+      },
+      {
+        src: '/screenshots/solidaris/ai-agent-workflow.svg',
+        alt: 'Proposed multi-role workflow for research, architecture, implementation and review',
+        what: 'A proposed multi-role design-to-code workflow.',
+        why: 'Makes responsibilities and review points explicit for AI-assisted work.',
+        contribution: 'Defined the role model and orchestration concept.',
+        evidenceClass: 'OUTPUT',
+        evidenceNote: 'This diagram proves the workflow definition, not reliable operation or adoption.',
+        state: 'Strategic proposal'
       }
     ]
   },
 
   systemEvidence: [
     {
-      heading: 'A governance layer machines can read',
+      heading: 'Inherited foundation versus local additions',
       paragraphs: [
-        'Every component ships a colocated <strong>TypeScript metadata contract</strong>: when to use it, when not to, which tokens it consumes, plus hints that help an AI assistant pick the right component. A parallel token-contract schema records each token\u2019s Figma variable, PrimeNG mapping and change risk — so drift between Figma, code and documentation is detectable by script.',
-        'Around the contracts sits a knowledge base with a defined loading order: nine rules, four skills, four protocols with anti-drift tripwires, and a generated codebase index. Scaffolding makes the correct path the laziest path — one command generates a component with its stories, contract and SCSS file in the right layer.'
+        '<strong>PrimeNG and the original Plectrum layer were inherited.</strong> The supplied account attributes the product-local Figma fork, a small custom component set, repository/Storybook work and ITCSS/BEMIT structure to my assignment.',
+        'The exact upstream status matters: a fork can unblock delivery, but it can also create a shadow system. The portfolio therefore does not claim that the fork or custom components became the official shared source.'
       ]
     },
     {
-      heading: 'Plectrum: tokens, ITCSS and the vendor bridge',
+      heading: 'Reusable enterprise patterns',
       paragraphs: [
-        'The styling foundation is an <strong>8-layer ITCSS architecture</strong> with <strong>BEMIT naming</strong> (<code>c-</code>/<code>o-</code>/<code>u-</code>/<code>is-</code>): layer, file name and class prefix are all derivable from the rule set, so style placement is decidable — by a junior developer or by an AI agent.',
-        '<strong>170+ Figma variables</strong> map 1:1 into CSS custom properties across a primitive → semantic → component chain; the entire token prefix is emitted from one SCSS variable, so a full white-label is a one-line change. PrimeNG is themed by assigning the vendor\u2019s own CSS variables from semantic tokens — never by depending on its internal DOM.'
+        'The product work identified recurring solutions such as affiliate context, case summaries, rich master lists, status semantics, workflow journeys, related-object navigation and contextual drawers.',
+        'The design principle was selective: use PrimeNG primitives directly when the inherited system is sufficient; add a thin facade or composed product pattern only when a recurring business or accessibility need justifies it.'
       ]
     },
     {
-      heading: 'Reusable enterprise patterns over wrapped primitives',
+      heading: 'AI-assisted workflow as an output, not an outcome',
       paragraphs: [
-        'Simple primitives stay direct PrimeNG usage under token control; thin facades exist only where a smaller API or accessibility default pays for itself. The leverage lives in composed <strong>product patterns</strong> — affiliate header, case summary, rich master list, workflow journey, contextual drawers — that encode how Solidaris work is actually performed.'
+        'Contract schemas, rules, skills and a multi-role workflow are presented as <strong>working artefacts</strong>. They describe intended component use, token boundaries, accessibility expectations and review responsibilities.',
+        'Without a traceable execution, failure correction, repeatability and independent use, this case does not call the system AI-ready, deterministic, adopted or production-grade.'
       ]
     }
   ],
 
   validation: {
     method: [
-      'Realistic scenarios instead of preference questions: identify the current state of a request, find the step requiring attention, locate a reception date, navigate to the next step, explain the situation as if speaking to an affiliate',
-      'Observation of completion (with and without help), errors, hesitation, navigation paths and action visibility',
-      'Five-point ratings always attached to a concrete task: ease, clarity, status visibility, next-step understanding, confidence, readability'
+      'Reported shadowing and workshops to understand product purpose and operational context',
+      'Scenario-based prototype tasks rather than preference-only questions',
+      'Observation paired with five-point ratings tied to concrete comprehension and navigation tasks'
     ],
     observed: [
-      'Workflow steps were not prominent enough in the first iShare round',
-      'Related information needed stronger visibility to be trusted',
-      'Previous/next navigation controls were not always noticed'
+      'The first iShare round reportedly found that workflow steps needed more prominence',
+      'Related information and alerts needed stronger visibility',
+      'Previous/next navigation was not always noticed'
     ],
     changed: [
-      'Stronger step prominence and alert visibility in the journey',
-      'Persistent, clearly visible previous/next navigation',
-      'The hybrid journey consolidated as the direction; a second test round was designed around comprehension, navigation and trust'
+      'The journey direction gave the active step and alerts stronger emphasis',
+      'Navigation remained visible between steps',
+      'A second round was prepared around comprehension, navigation and trust'
     ],
     limitations:
-      'Participant counts and per-round scores are not published here; the engagement is ongoing and approved metrics will be added once available (tracked in the content checklist). Findings above come from the first iShare round and stakeholder prototype walkthroughs.'
+      'Participant count, participant profiles, per-round scores, approver, final delivery state and production outcomes are not published. The findings remain prototype-level evidence from the supplied project account.'
   },
 
   outcomes: {
-    user: [
-      {
-        text: 'The state, history and next step of an affiliate case are designed to be readable without reconstructing them across applications — the latest action is visible from the ticket list.'
-      },
-      {
-        text: 'Expert codes (insurability, contribution states) remain for experienced employees, supplemented with human-readable interpretation for newer ones.'
-      }
-    ],
-    team: [
-      {
-        text: 'Working prototypes made business and interaction decisions testable instead of debatable, and gave stakeholders concrete trade-off discussions.'
-      },
-      {
-        text: 'A shared pattern vocabulary — case summary, master list, journey, drawer — now spans products that previously solved the same problem differently.'
-      }
-    ],
-    system: [
-      {
-        text: 'Two applications I redesigned — iCRM and iShare — consume one design system, with no duplicated components or token definitions between them.',
-        evidenceNote: 'Both consume the same shared UI and styles libraries in the monorepo.'
-      },
-      {
-        text: 'Plectrum is built for the wider internal estate: more than ten further applications are awaiting redesign on the same system.',
-        evidenceNote: 'Estimated from the organisation\u2019s application landscape; exact inventory not published.'
-      },
-      {
-        text: 'My AI-assisted delivery lands on-system by default — the rules live in the assistant\u2019s context, not in a wiki nobody loads. Adoption by the client developer teams is the next step.'
-      },
-      {
-        text: 'Every token traces to a Figma variable; drift between design and code is detectable by script rather than by eye.'
-      }
-    ],
+    user: [],
+    team: [],
+    system: [],
     learning: [
-      'Interaction copy is part of the product model: a button label must communicate the consequence of the action ("Qualify", "View content"), not merely sound familiar.',
-      'In expert tools, the goal is not to remove complexity but to make it legible — and to reveal it progressively.',
-      'A design system documented for machines turns AI assistance from a drift vector into an enforcement vector.'
+      'In inherited systems, authorship has to be explicit: extending a foundation is different from creating it.',
+      'A product-local fork can create momentum and risk at the same time; upstream ownership is part of the design.',
+      'In expert tools, the goal is not to remove complexity but to make it legible and progressively available.',
+      'AI-oriented documentation is an output until real execution, maintenance and independent use show an outcome.'
     ]
   },
 
-  metrics: [
-    {
-      value: '9 + 4 + 4',
-      label: 'rules, skills and protocols governing AI-assisted delivery',
-      confidence: 'verified',
-      evidenceNote:
-        'The knowledge base with its defined loading order and anti-drift tripwires, alongside a per-component TypeScript contract and a generated codebase index.'
-    },
-    {
-      value: '170+',
-      label: 'Figma variables mapped 1:1 into the token architecture',
-      confidence: 'verified',
-      evidenceNote: 'Count of variables in the Plectrum settings layer mirroring the Figma collections.'
-    },
-    {
-      value: '7',
-      label: 'specialised AI agents in the delivery workflow',
-      confidence: 'verified',
-      evidenceNote: 'A coordinator plus six worker roles, defined in parallel for two editors and kept in sync.'
-    },
-    {
-      value: '2 → 10+',
-      label: 'apps I redesigned, then the estate queued for Plectrum',
-      confidence: 'estimated',
-      evidenceNote:
-        'iCRM and iShare are the two I personally redesigned. More than ten further internal apps are awaiting redesign on Plectrum; exact inventory not published.'
-    }
-  ],
+  evidenceStatus: {
+    intro:
+      'The strongest available evidence is the work itself and the supplied project account. The classes below prevent an artefact, a positive reaction or an unfinished handoff from being presented as an outcome.',
+    claims: [researchOutput, systemOutput, validationBoundary, handoffState],
+    measurementNote:
+      'No user, delivery, adoption or business outcome is claimed at the August 2026 evidence snapshot. Before stronger publication, the next owners should confirm exact build states, independent users, contribution ownership, handoff acceptance and post-departure measures.'
+  },
 
   reflection: {
     repeat: [
-      'Reframe each product around the user\u2019s question before touching layouts — it prevented a component-for-component translation of the legacy UI.',
-      'Prototype the high-risk interactions and test with tasks, not preference.',
-      'Fold recurring solutions into the design system as named patterns while the products are still being designed.'
+      'Start from each product\u2019s real user question before translating legacy screens.',
+      'Prototype high-risk representations and workflows early.',
+      'Turn recurring product needs into named patterns while keeping inherited and local ownership visible.'
     ],
     change: [
-      'Establish the object model (ticket vs. signal vs. notification vs. document) with business stakeholders even earlier — several debates dissolved once it existed.',
-      'Push sooner for direct access to test participants; scheduling rounds through intermediaries slowed iteration.'
+      'Secure a documented contribution path to the core system before creating a product-local fork.',
+      'Record participant profiles, decision approvals and artefact delivery states as the work happens.',
+      'Define the handoff owner and adoption measures earlier so durable value can be evaluated before departure.'
     ],
     next:
-      'Continue implementation across the ecosystem, run the second iShare testing round, and add approved outcome metrics after October 2026.'
+      'Before the planned October 2026 handoff: confirm the exact state of every artefact, document divergence and contribution rules, name future owners and agree which outcomes will be measured after departure.'
   },
 
   connection: {
-    title: 'Where the system discipline comes from',
+    title: 'The production system evidence behind this approach',
     description:
-      'Six years at <strong>Bridgestone</strong> — building a design system and its front-end foundation from nothing — is what made this ecosystem work possible.',
+      'The <strong>Bridgestone</strong> case shows the longer-running design-system and front-end work where production state and team use are better established.',
     buttonText: 'Read the Bridgestone case',
     href: '/work/bridgestone'
   }

@@ -189,7 +189,7 @@ export const baseStudy: CaseStudy = {
   connection: {
     title: 'From foundations to ecosystems',
     description:
-      'Ten years later, the same systematic instinct runs a cross-product healthcare ecosystem and an AI-ready design system at <strong>Solidaris</strong>.',
+      'Ten years later, the same systematic instinct supports product and design-system work across an inherited healthcare ecosystem at <strong>Solidaris</strong>.',
     buttonText: 'Read the Solidaris case',
     href: '/work/solidaris'
   }

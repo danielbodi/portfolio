@@ -1,9 +1,9 @@
 # Content Checklist — Evidence and Assets Needed
 
 > Working checklist from the transformation brief (section 21). Items marked
-> `[EVIDENCE NEEDED]` are claims currently published with a "reported"
-> qualifier or replaced by qualitative statements. Nothing on the live site
-> should be upgraded to a hard number until its item here is resolved.
+> `[EVIDENCE NEEDED]` marks private verification work. Unresolved claims stay
+> out of polished public copy; the live site uses bounded qualitative wording
+> and separates evidence class from delivery state.
 
 ## Metrics currently qualified on the site
 
@@ -17,17 +17,26 @@
 
 ## Solidaris
 
-- [x] **AI-governance claim scoped (Aug 2026)**: "AI-assisted development lands on-system by default" describes Daniel's own agent workflow; the client developer teams have **not yet adopted** the governance layer. Site copy updated accordingly. When the dev teams adopt it, that becomes a new verified outcome — capture the date and any drift evidence.
-- [x] **Decisions locked before arrival confirmed (Aug 2026)**: the stack (Angular, PrimeNG, monorepo), the product roadmap and the existence of the design system all predated the engagement; nothing proposed has been rejected so far. Constraints section reflects this.
-- [ ] Influence evidence to strengthen over time: designers and managers currently rely on Daniel's vision as the only UX-engineering/design-systems specialist — collect concrete examples (decisions deferred, plans adopted) as they occur.
-- [x] Approved anonymised screenshots — real captures added (iShare coded mockup: dossier + journey panel; iGED first draft; iCRM Figma prototype: inbox + timeline; all fictional data). Remaining schematics: token architecture, contracts index, agent workflow.
-- [ ] Confirm shipped vs. validated-prototype vs. concept status per workstream (iCRM inbox, timeline, drawers, iShare journey).
-- [ ] **Exact application-estate count** — currently published as "10+" estimated: two apps (iCRM, iShare) personally redesigned; more than ten further internal apps awaiting Plectrum. Confirm the inventory when it can be published.
-- [ ] User-test participant count, scenarios and findings for each iShare round.
-- [ ] Exact scope of direct iGED work (site currently claims cross-product integration only).
-- [ ] Exact official role title on the assignment.
-- [ ] Stakeholder approval to name Solidaris, Plectrum, iCRM, iShare, iGED publicly.
-- [ ] Outcome data once available (post Oct 2026).
+- [x] **Inherited context separated (Aug 2026)**: PrimeNG, the original Plectrum layer, product roadmaps and the wider consolidation direction are not attributed to Daniel.
+- [x] **Public AI wording downgraded (Aug 2026)**: contracts, rules and the multi-role workflow are presented as OUTPUT / Strategic proposal, not as an AI-ready, deterministic or adopted system.
+- [x] **Unsupported public metrics removed (Aug 2026)**: no 170+, seven-agent outcome, two-app adoption or 10+ estate claim remains in visible Solidaris copy.
+- [x] **Ongoing/departure frame added (Aug 2026)**: the assignment is shown as October 2025–October 2026 with the wider programme, handoff and ownership still open.
+- [x] **Evidence classes added to the UI (Aug 2026)**: OUTPUT, VALIDATED, IN PROGRESS and OUTCOME are independent of lifecycle labels.
+- [x] Anonymised/recreated portfolio visuals use fictional data and carry explicit evidence and delivery labels.
+- [ ] [EVIDENCE NEEDED] Exact iGED and iShare build, merge, test, deployment and production states.
+- [ ] [EVIDENCE NEEDED] Exact technical meaning of each product using Plectrum.
+- [ ] [EVIDENCE NEEDED] What existed in Zeroheight versus Storybook, current publication state and independent users.
+- [ ] [EVIDENCE NEEDED] Inspectable contract/rule/skill files plus one traceable agent execution, failure and correction.
+- [ ] [EVIDENCE NEEDED] Timeline of the Figma fork, core-team outreach, restructuring, repository creation, later collaboration and planned departure.
+- [ ] [EVIDENCE NEEDED] User-test participant profiles/counts, scenarios, findings and design changes for each round.
+- [ ] [EVIDENCE NEEDED] iCRM readiness criteria and approver; do not call it implemented.
+- [ ] [EVIDENCE NEEDED] Exact inherited Plectrum baseline, fork authorisation, delta, divergence controls and upstream state.
+- [ ] [EVIDENCE NEEDED] Names and lifecycle states of each custom component.
+- [ ] [EVIDENCE NEEDED] Token inventory, source of truth and whether synchronisation is manual, documented, proposed or implemented.
+- [ ] [EVIDENCE NEEDED] Concrete later governance participation, without attributing the independent restructuring to Daniel.
+- [ ] [EVIDENCE NEEDED] Final handoff package, accepted owner, remaining dependencies and post-departure measures.
+- [ ] Exact official role title and direct product scope.
+- [ ] Publication approval for the names, screenshots, code, Storybook, tokens, contracts and organisational details.
 
 ## Bridgestone
 

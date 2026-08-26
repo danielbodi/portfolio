@@ -16,11 +16,18 @@ export type DeliveryState =
   | 'Strategic proposal'
   | 'Ongoing';
 
+/** What kind of proof a claim provides. This is separate from delivery state. */
+export type EvidenceClass = 'OUTPUT' | 'VALIDATED' | 'IN PROGRESS' | 'OUTCOME';
+
+/** Supporting labels for inherited context and unresolved private evidence work. */
+export type EvidenceMarker = 'CONTEXT' | 'NEEDS VERIFICATION' | 'UNKNOWN';
+
 /** Confidence qualifier for metrics. "reported" = stated but baseline not published. */
 export type Confidence = 'verified' | 'reported' | 'estimated';
 
 /** Ownership verbs allowed by the brief (section 7.4 / 13). */
 export type OwnershipVerb =
+  | 'Inherited'
   | 'Led'
   | 'Designed'
   | 'Implemented'
@@ -28,6 +35,7 @@ export type OwnershipVerb =
   | 'Tested'
   | 'Facilitated'
   | 'Influenced'
+  | 'In progress'
   | 'Team outcome';
 
 export interface Metric {
@@ -77,8 +85,41 @@ export interface Artefact {
   why?: string;
   /** Daniel's contribution. */
   contribution?: string;
+  /** The proof category. Kept separate from lifecycle state. */
+  evidenceClass?: EvidenceClass;
+  /** Scope, source or limitation that keeps the claim appropriately bounded. */
+  evidenceNote?: string;
   state: DeliveryState;
   technicalNote?: string;
+}
+
+export interface EvidenceClaim {
+  id: string;
+  evidenceClass: EvidenceClass;
+  claim: string;
+  source: string;
+  scope: string;
+  confidence: Confidence | 'unknown';
+  attribution: string;
+  limitation?: string;
+  deliveryState?: DeliveryState;
+}
+
+export interface ChronologyItem {
+  period: string;
+  title: string;
+  description: string;
+  label: EvidenceClass | EvidenceMarker;
+}
+
+export interface RecruiterSummaryContent {
+  challenge: string;
+  ownership: string[];
+  /** Legacy summary fields retained for cases not yet migrated to the evidence taxonomy. */
+  changed?: string[];
+  evidence?: string[];
+  /** Evidence-first summary used when claim classes need to be explicit. */
+  evidenceClaims?: EvidenceClaim[];
 }
 
 export interface ProseSection {
@@ -90,7 +131,7 @@ export interface ProseSection {
 export interface CaseCard {
   slug: string;
   company: string;
-  /** Outcome-oriented case title. */
+  /** Problem- or change-oriented case title. */
   title: string;
   /** Short name for navigation/breadcrumbs. */
   shortTitle: string;
@@ -100,8 +141,8 @@ export interface CaseCard {
   problem: string;
   roleShort: string;
   tags: string[];
-  /** One outcome, qualified where needed. */
-  outcome: string;
+  /** One verified evidence point; use an outcome only when one exists. */
+  evidence: string;
   thumbnail: string;
   logo: string;
   /**
@@ -153,13 +194,13 @@ export interface CaseStudy {
     confidentialityNote?: string;
     image: Artefact;
   };
-  recruiterSummary: {
-    challenge: string;
-    ownership: string[];
-    changed: string[];
-    evidence: string[];
-  };
+  recruiterSummary: RecruiterSummaryContent;
   framing: ProseSection;
+  chronology?: {
+    heading: string;
+    intro: string;
+    items: ChronologyItem[];
+  };
   ownership: OwnershipGroup[];
   constraints: {
     items: ConstraintItem[];
@@ -186,6 +227,12 @@ export interface CaseStudy {
     learning: string[];
   };
   metrics?: Metric[];
+  /** Replaces outcome-shaped copy when a project needs an explicit evidence ledger. */
+  evidenceStatus?: {
+    intro: string;
+    claims: EvidenceClaim[];
+    measurementNote?: string;
+  };
   reflection: {
     repeat: string[];
     change: string[];

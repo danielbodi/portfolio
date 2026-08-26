@@ -1,6 +1,7 @@
 import React from 'react';
 import { CaseStudy } from '../../../content/types';
 import { Card } from '../cards/Card';
+import { EvidenceClaimCard } from './EvidenceClaimCard';
 
 interface RecruiterSummaryProps {
   summary: CaseStudy['recruiterSummary'];
@@ -33,6 +34,31 @@ function BulletList({ items }: { items: string[] }) {
  * challenge, ownership, what changed, evidence (brief section 7.2).
  */
 export function RecruiterSummary({ summary }: RecruiterSummaryProps) {
+  if (summary.evidenceClaims?.length) {
+    return (
+      <section aria-label="Case summary for quick review">
+        <Card>
+          <h2 id="recruiter-summary" className="mb-5 text-sm font-semibold uppercase tracking-wide text-gray-400">
+            In 30 seconds
+          </h2>
+          <div className="mb-6 grid gap-6 md:grid-cols-2">
+            <Column title="The challenge">
+              <p className="text-sm leading-relaxed text-gray-300">{summary.challenge}</p>
+            </Column>
+            <Column title="My ownership">
+              <BulletList items={summary.ownership} />
+            </Column>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {summary.evidenceClaims.map((claim) => (
+              <EvidenceClaimCard key={claim.id} claim={claim} compact />
+            ))}
+          </div>
+        </Card>
+      </section>
+    );
+  }
+
   return (
     <section aria-label="Case summary for quick review">
       <Card>
@@ -47,10 +73,10 @@ export function RecruiterSummary({ summary }: RecruiterSummaryProps) {
           <BulletList items={summary.ownership} />
         </Column>
         <Column title="What changed">
-          <BulletList items={summary.changed} />
+          <BulletList items={summary.changed ?? []} />
         </Column>
         <Column title="Evidence">
-          <BulletList items={summary.evidence} />
+          <BulletList items={summary.evidence ?? []} />
         </Column>
       </div>
       </Card>

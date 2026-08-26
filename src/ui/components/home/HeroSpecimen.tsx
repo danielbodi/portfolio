@@ -5,8 +5,8 @@ import { Card } from '../cards/Card';
 import { DeliveryStateTag } from '../evidence';
 
 /**
- * First-impression visual: real product UI with the machine-readable
- * layer in front — component metadata and the Solidaris supervisor.
+ * Optional technical specimen: production UI with experimental contract and
+ * orchestration outputs in front, with maturity stated in the caption.
  */
 export function HeroSpecimen() {
   const { image, chrome, contract, supervisor, caption, state, href } = heroSpecimen;

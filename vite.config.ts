@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { sites } from '@openai/sites-vite-plugin';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -70,10 +71,29 @@ const gradientSettingsSaver = (): Plugin => {
   };
 };
 
-export default defineConfig({
+export default defineConfig(async () => {
+  process.env.WRANGLER_WRITE_LOGS ??= 'false';
+  process.env.WRANGLER_LOG_PATH ??= '.wrangler/logs';
+  process.env.MINIFLARE_REGISTRY_PATH ??= '.wrangler/registry';
+
+  const { cloudflare } = await import('@cloudflare/vite-plugin');
+
+  return {
   plugins: [
     react(),
-    gradientSettingsSaver()
+    sites(),
+    gradientSettingsSaver(),
+    cloudflare({
+      config: {
+        name: 'server',
+        main: 'src/worker.ts',
+        compatibility_date: '2026-05-22',
+        assets: {
+          binding: 'ASSETS',
+          not_found_handling: 'single-page-application'
+        }
+      }
+    })
   ],
   optimizeDeps: {
     include: ['lucide-react'],
@@ -101,4 +121,5 @@ export default defineConfig({
       }
     }
   }
+  };
 });

@@ -1,6 +1,6 @@
 <svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="1280" height="720" fill="#0F172A"/>
-  <text x="640" y="80" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#A78BFA" font-weight="700">Machine-readable layer: contracts, rules, skills &amp; protocols</text>
+  <text x="640" y="80" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#A78BFA" font-weight="700">AI-oriented working layer: contracts, rules &amp; guidance</text>
   <rect x="110" y="130" width="500" height="440" rx="14" fill="#1E293B" stroke="#334155"/>
   <text x="140" y="175" font-family="Segoe UI, Arial, sans-serif" font-size="21" fill="#E2E8F0" font-weight="600">Component contract (.metadata.ts)</text>
   <text x="140" y="220" font-family="Consolas, monospace" font-size="16" fill="#7DD3FC">component: { name, bemBlock,</text>
@@ -15,17 +15,17 @@
   <rect x="670" y="130" width="500" height="440" rx="14" fill="#1E293B" stroke="#334155"/>
   <text x="700" y="175" font-family="Segoe UI, Arial, sans-serif" font-size="21" fill="#E2E8F0" font-weight="600">.ai/ knowledge base</text>
   <rect x="700" y="205" width="440" height="64" rx="10" fill="#312E81" stroke="#7C3AED"/>
-  <text x="720" y="232" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#E2E8F0">rules/ &#8212; 9 files</text>
+  <text x="720" y="232" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#E2E8F0">rules/ &#8212; documented constraints</text>
   <text x="720" y="256" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#C7D2FE">constraints that must never be violated</text>
   <rect x="700" y="283" width="440" height="64" rx="10" fill="#312E81" stroke="#7C3AED"/>
-  <text x="720" y="310" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#E2E8F0">skills/ &#8212; 4 files</text>
+  <text x="720" y="310" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#E2E8F0">skills/ &#8212; working guidance</text>
   <text x="720" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#C7D2FE">how to do things right</text>
   <rect x="700" y="361" width="440" height="64" rx="10" fill="#312E81" stroke="#7C3AED"/>
-  <text x="720" y="388" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#E2E8F0">contracts/protocols &#8212; 4 protocols</text>
-  <text x="720" y="412" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#C7D2FE">loading order, anti-drift tripwires</text>
+  <text x="720" y="388" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#E2E8F0">contracts/protocols &#8212; role boundaries</text>
+  <text x="720" y="412" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#C7D2FE">proposed loading order and checks</text>
   <rect x="700" y="439" width="440" height="64" rx="10" fill="#312E81" stroke="#7C3AED"/>
-  <text x="720" y="466" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#E2E8F0">index.json &#8212; generated codebase map</text>
-  <text x="720" y="490" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#C7D2FE">agents load one file, know what exists</text>
-  <text x="700" y="545" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#94A3B8">+ 40-page token governance constitution</text>
-  <text x="640" y="660" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#64748B">Schematic &#8212; structure recreated for confidentiality</text>
+  <text x="720" y="466" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#E2E8F0">index.json &#8212; proposed codebase map</text>
+  <text x="720" y="490" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#C7D2FE">intended discovery entry point</text>
+  <text x="700" y="545" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#94A3B8">+ token-governance working notes</text>
+  <text x="640" y="660" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#64748B">Concept schematic &#8212; output, not independent adoption evidence</text>
 </svg>

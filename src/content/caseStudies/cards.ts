@@ -8,20 +8,20 @@ import { CaseCard } from '../types';
 export const solidarisCard: CaseCard = {
   slug: 'solidaris',
   company: 'Solidaris',
-  title: 'Solidaris: An AI-Ready Design System for a Healthcare Application Ecosystem',
+  title: 'Solidaris: Extending an Inherited PrimeNG/Plectrum Foundation Across Three Product Workstreams',
   shortTitle: 'Solidaris',
   tier: 'flagship',
-  period: 'Oct 2025 – present',
+  period: 'Oct 2025 – Oct 2026 · ongoing programme',
   problem:
-    'Two teams ship daily with AI coding assistants on one design system — documentation written only for humans meant every AI-generated pull request eroded consistency.',
-  roleShort: 'UX/UI Consultant · Design Systems · AI-Ready Governance',
-  tags: ['AI-ready design system', 'Design tokens', 'Cross-product UX'],
-  outcome:
-    'Plectrum made machine-readable — component contracts, a rule set and a seven-role agent workflow — behind two redesigned apps, with 10+ more of the estate queued (ongoing).',
+    'Three healthcare product workstreams needed a coherent UX and implementation path while PrimeNG, Plectrum and the wider programme were already in motion.',
+  roleShort: 'Consulting scope · Product design · UX architecture · Design-system contribution',
+  tags: ['Enterprise UX', 'Inherited design system', 'Design-to-code'],
+  evidence:
+    'Research, product prototypes, a product-local Figma fork and repository/Storybook outputs — with delivery, adoption and handoff still explicitly bounded.',
   thumbnail: '/screenshots/solidaris-thumbnail.png',
   logo: '/company-logos/Logomark.svg',
   logoInvert: true,
-  ctaLabel: 'Read the Solidaris AI-ready design-system case study',
+  ctaLabel: 'Read the Solidaris product and systems case study',
   deliveryState: 'Ongoing'
 };
 
@@ -36,7 +36,7 @@ export const bridgestoneCard: CaseCard = {
     'FleetBridge was being built feature by feature with no design system — and design systems usually die of token duplication or documentation that drifts from production.',
   roleShort: 'Product Designer · Design Systems & UX Engineering',
   tags: ['CSS as SSOT', 'Self-updating Storybook', 'ITCSS/BEM', 'Modern CSS'],
-  outcome:
+  evidence:
     'Tokens written once in CSS feed the apps and a self-populating Storybook: 254 SCSS files, ~250 color tokens per theme derived from 15 base colors, documentation that cannot drift.',
   thumbnail: '/screenshots/bs-thumbnail.png',
   logo: '/company-logos/Bridgestone logo.png',
@@ -55,7 +55,7 @@ export const trasisCard: CaseCard = {
     'Lab technicians needed to schedule and read radiopharmaceutical quality-control tests on a new device without ambiguity in a high-consequence workflow.',
   roleShort: 'Product Designer · UX Engineering',
   tags: ['Safety-critical UX', 'Prototyping', 'User testing'],
-  outcome:
+  evidence:
     'Device-realistic visualisations and validated task flows; testing reported high task success (methodology documented in the case).',
   thumbnail: '/screenshots/trasis-thumbnail.png',
   logo: '/company-logos/trasis logo.png',
@@ -74,7 +74,7 @@ export const sopraBankingCard: CaseCard = {
     'A junior front-end team was accumulating technical debt on float-based CSS, with a PDF style guide instead of scalable design foundations.',
   roleShort: 'Senior UI/UX Designer',
   tags: ['BEM', 'CSS architecture', 'Coaching'],
-  outcome:
+  evidence:
     'BEM structure, a custom Flexbox grid and atomic components adopted by the team; the design team reported faster prototyping.',
   thumbnail: '/screenshots/sbs-thumbnail.png',
   logo: '/company-logos/sopra logo.png',
@@ -93,7 +93,7 @@ export const baseCard: CaseCard = {
     'High-traffic telecom websites needed pixel-accurate, cross-browser UI components that content authors could assemble in Adobe Experience Manager.',
   roleShort: 'UI Developer',
   tags: ['AEM', 'AngularJS', 'Cross-browser'],
-  outcome:
+  evidence:
     'A custom Flexbox/BEM grid with legacy-browser fallbacks and an npm auto-reload workflow that removed compile cycles from front-end changes.',
   thumbnail: '/screenshots/base-thumbnail.png',
   logo: '/company-logos/base logo.png',

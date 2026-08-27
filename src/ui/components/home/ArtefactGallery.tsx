@@ -11,8 +11,8 @@ export function ArtefactGallery() {
           Artefacts, not adjectives
         </h2>
         <p className="mb-10 max-w-2xl text-gray-400">
-          Concrete pieces of the work: production UI, tokens, documentation and validated models.
-          Every item is labeled with its delivery state.
+          Production interfaces, system documentation, prototypes and proposals—each labelled by
+          evidence class and delivery state.
         </p>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {homeArtefacts.map((artefact) => (

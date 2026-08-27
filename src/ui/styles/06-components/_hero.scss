@@ -58,7 +58,7 @@
   margin-inline: -0.75rem;
   padding-inline: 0.75rem;
   isolation: isolate;
-  overflow: clip;
+  overflow: visible;
   perspective: 900px;
 }
 
@@ -339,7 +339,7 @@
   }
 
   .positioning-pillars__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .positioning-pillars__item {

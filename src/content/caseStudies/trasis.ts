@@ -42,12 +42,12 @@ export const trasisStudy: CaseStudy = {
     ],
     changed: [
       'Internal device processes (fluid channels, reagents, rotations) became visible and trackable in real time',
-      'Test scheduling and results became readable at a glance, with data-driven graphs and tables',
+      'Test scheduling and results were structured with data-driven graphs, tables and redundant state cues',
       'A team unfamiliar with designers built design reviews into its routine'
     ],
     evidence: [
       'Shipped interface for the QC1 device',
-      'High task success reported in testing (method note in Validation)',
+      'Task-based prototype testing informed revisions; participant counts, task lists and calculations were not formally documented',
       'Stakeholder buy-in strong enough to keep the design role through COVID-era cuts'
     ]
   },
@@ -55,9 +55,8 @@ export const trasisStudy: CaseStudy = {
   framing: {
     heading: 'Why this mattered',
     paragraphs: [
-      'The QC1 performs quality control on <strong>radiopharmaceuticals</strong> — injecting reagents, flushing channels, rotating components, scheduling tests and reporting results. Its operators are trained technicians, but the workflows are long, the states are many, and the cost of misreading the interface is real: wasted radioactive material, invalidated tests, delays in releasing doses.',
-      'The starting constraints: no designer had ever worked with this team, the domain was new to me, and the interface had to represent <strong>physical hardware</strong> — valves, columns, injectors, tubes — whose state the technician must understand at all times.',
-      'Success meant an interface a technician could trust: what the device is doing now, what happens next, what the results mean, and no ambiguity anywhere a decision is made.'
+      'QC1 performs quality control on <strong>radiopharmaceuticals</strong>. Technicians needed to see what the device was doing, what happened next and what each result meant; a misread state could waste material, invalidate a test or delay dose release.',
+      'The interface also had to represent physical hardware faithfully in a domain new to me, so the design relied on domain experts and repeated task-based prototypes.'
     ]
   },
 
@@ -96,10 +95,6 @@ export const trasisStudy: CaseStudy = {
       items: [
         'Twice-weekly stakeholder sessions that turned scepticism about design into demand for it'
       ]
-    },
-    {
-      verb: 'Team outcome',
-      items: ['Device firmware and back-end by the engineering team; domain rules by the business']
     }
   ],
 
@@ -116,15 +111,10 @@ export const trasisStudy: CaseStudy = {
           'The domain was new to me: radiopharmacy knowledge had to come from the business experts.',
         soWhat:
           'Consulted domain experts at every iteration and anchored the flows in their process knowledge.'
-      },
-      {
-        constraint: 'One designer, one budget, a whole device interface.',
-        soWhat:
-          'Reused a UI kit for the foundations and spent the saved time on user-testing rounds instead of custom controls.'
       }
     ],
     limitedBy:
-      'The budget ended before Storybook matured past a basic stage, and test metrics were reported rather than formally documented.'
+      'The budget ended before Storybook matured past a basic stage, and the retained testing record does not support publishing participant counts or task-level success rates.'
   },
 
   decisions: [
@@ -169,8 +159,8 @@ export const trasisStudy: CaseStudy = {
       result: 'High-fidelity prototypes early and often — which is what made frequent validation possible at all.',
       resultState: 'Shipped',
       visual: {
-        src: '/screenshots/trasis/trasis-qc1-homepage.png',
-        alt: 'QC1 home screen built on the extended kit: schedules and test entry points'
+        src: '/screenshots/trasis/trasis-qc1-new-tap-creation-page.png',
+        alt: 'QC1 protocol creation flow combining reusable controls with domain-specific steps'
       }
     },
     {
@@ -193,24 +183,6 @@ export const trasisStudy: CaseStudy = {
         src: '/screenshots/trasis/trasis-qc1-spots--results.png',
         alt: 'Spot-test results with redundant encodings beyond colour'
       }
-    },
-    {
-      id: 'decision-cadence',
-      title: 'Earn the team\u2019s trust through cadence, not argument',
-      tension:
-        'Neither the business nor the developer had worked with a designer; the value of the role was itself in question.',
-      alternatives: [
-        'Deliver quietly and let the work speak eventually',
-        'A fixed twice-weekly session showing plan, direction, reasoning and working prototypes'
-      ],
-      evidence:
-        'Scepticism feeds on invisibility; consistent visible progress is the counter-evidence.',
-      decision:
-        'Twice-weekly follow-ups with the team and stakeholders: the design-system plan, interface direction, the reasoning behind decisions, and interactive prototypes showing real progress.',
-      tradeOff: 'Meeting cadence costs production time.',
-      result:
-        'The business recognised the speed and quality the system approach enabled; the design role remained through COVID-era project cuts.',
-      resultState: 'Shipped'
     }
   ],
 
@@ -219,7 +191,7 @@ export const trasisStudy: CaseStudy = {
       'Engineering and business around a fixed twice-weekly review of direction, reasoning and working prototypes'
     ],
     convinced: [
-      'A design-sceptical team and business — strongly enough that the design role was kept through COVID-era project cuts'
+      'A design-sceptical team and business through visible reasoning and working prototypes'
     ],
     changed: [
       'Design reviews became part of the team\u2019s routine',
@@ -240,35 +212,11 @@ export const trasisStudy: CaseStudy = {
         state: 'Shipped'
       },
       {
-        src: '/screenshots/trasis/trasis-qc1-real-parts-ui.png',
-        alt: 'Realistic illustrations of QC1 device components used in the interface',
-        what: 'The realistic component illustrations.',
-        why: 'The interface mirrors the machine — valves, columns, injectors and tubes drawn as the technician knows them.',
-        contribution: 'Illustrated in Illustrator; composed into interactive process schemas.',
-        state: 'Shipped'
-      },
-      {
-        src: '/screenshots/trasis/trasis-qc1-spots--results.png',
-        alt: 'QC test results with measurements and pass/fail states',
-        what: 'Spot-test results: precise measurements, unambiguous outcomes.',
-        why: 'Decisions get made on this screen; the data presentation had to be exact and redundant beyond colour.',
-        contribution: 'Designed the data visualisation and state system.',
-        state: 'Shipped'
-      },
-      {
         src: '/screenshots/trasis/trasis-qc1-appearance--results.png',
         alt: 'Colour and clarity test results with visual references',
         what: 'Appearance-test results with visual references.',
         why: 'Subjective assessments (colour, clarity) anchored against reference visuals to reduce inter-operator variance.',
         contribution: 'Designed the comparison interaction.',
-        state: 'Shipped'
-      },
-      {
-        src: '/screenshots/trasis/trasis-qc1-new-tap-creation-page.png',
-        alt: 'Test protocol creation interface',
-        what: 'Protocol (TAP) creation.',
-        why: 'Long configuration flows broken into a guided, validated sequence.',
-        contribution: 'Designed the flow and form patterns.',
         state: 'Shipped'
       },
       {
@@ -294,9 +242,8 @@ export const trasisStudy: CaseStudy = {
 
   validation: {
     method: [
-      'Frequent task-based sessions on interactive prototypes, with scenarios drawn from real QC workflows',
-      'Business and domain-expert input each iteration (radiopharmacy was new to me — the domain knowledge had to come from them)',
-      'Twice-weekly stakeholder reviews of direction and working prototypes'
+      'Task-based prototype sessions and twice-weekly stakeholder walkthroughs using realistic QC scenarios',
+      'Domain-expert review at each iteration because radiopharmacy knowledge came from the business'
     ],
     observed: [
       'Comprehension gaps in early flow drafts, especially around scheduling and multi-step test setup',
@@ -307,7 +254,7 @@ export const trasisStudy: CaseStudy = {
       'The results presentation evolved toward redundant encodings and reference-anchored comparisons'
     ],
     limitations:
-      'The engagement reported 85% task success and 3\u00d7 faster prototyping; participant counts, task lists and baselines were not formally documented, so both figures are presented as reported estimates (see content checklist). Domain validity relied on business experts rather than independent research.'
+      'Task-success and prototyping-speed figures were reported during the engagement, but participant counts, task lists, calculations and baselines were not preserved. They are therefore not published as portfolio metrics. Domain validity relied on business experts rather than independent research.'
   },
 
   outcomes: {
@@ -323,10 +270,6 @@ export const trasisStudy: CaseStudy = {
       {
         text: 'A team that had never worked with a designer kept the role through COVID-era cuts and built design reviews into its routine.',
         evidenceNote: 'Many parallel projects were cancelled in that period; this engagement continued.'
-      },
-      {
-        text: 'Prototyping speed reported at roughly 3\u00d7 after the design-system approach was adopted.',
-        evidenceNote: 'Reported estimate; baseline not formally documented (see content checklist).'
       }
     ],
     system: [
@@ -346,19 +289,6 @@ export const trasisStudy: CaseStudy = {
 
   metrics: [
     {
-      value: '85%',
-      label: 'task success reported in user testing',
-      confidence: 'reported',
-      evidenceNote:
-        'Figure from testing during the engagement; participant count, tasks and calculation to be documented (see content checklist).'
-    },
-    {
-      value: '3\u00d7',
-      label: 'faster prototyping reported after the system approach',
-      confidence: 'reported',
-      evidenceNote: 'Reported comparison with pre-system prototyping; baseline not formally documented.'
-    },
-    {
       value: 'Shipped',
       label: 'QC1 interface delivered, with handover coaching',
       confidence: 'verified',
@@ -374,7 +304,7 @@ export const trasisStudy: CaseStudy = {
     ],
     change: [
       'Secure the Storybook investment earlier — it reached only a basic stage before budget end.',
-      'Document test metrics formally at the time; the strongest numbers from this project are reported rather than verifiable.'
+      'Document participant counts, task definitions, calculations and baselines at the time so validation evidence remains publishable.'
     ]
   },
 

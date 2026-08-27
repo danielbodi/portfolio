@@ -47,7 +47,7 @@ export function ArtefactFigure({ artefact, compact = false, fit = 'cover' }: Art
           />
         )}
       </div>
-      <figcaption className="flex flex-1 flex-col gap-2 p-4">
+      <figcaption className={`flex flex-1 flex-col gap-2 ${compact ? 'p-4' : 'p-5'}`}>
         <div className="flex items-start justify-between gap-3">
           <p className="text-sm font-semibold leading-snug text-gray-200">{artefact.what}</p>
           <div className="flex flex-wrap justify-end gap-2">
@@ -55,23 +55,11 @@ export function ArtefactFigure({ artefact, compact = false, fit = 'cover' }: Art
             <DeliveryStateTag state={artefact.state} />
           </div>
         </div>
-        {!compact && artefact.why && (
-          <p className="text-sm leading-relaxed text-gray-400">{artefact.why}</p>
-        )}
         {artefact.contribution && (
-          <p className="text-xs leading-relaxed text-gray-500">
-            <span className="font-semibold uppercase tracking-wide text-gray-400">My part: </span>
+          <p className="text-xs leading-relaxed text-gray-400">
+            <span className="font-semibold uppercase tracking-wide text-gray-300">My part: </span>
             {artefact.contribution}
           </p>
-        )}
-        {artefact.evidenceNote && (
-          <p className="text-xs leading-relaxed text-amber-200/70">
-            <span className="font-semibold uppercase tracking-wide">Evidence limit: </span>
-            {artefact.evidenceNote}
-          </p>
-        )}
-        {!compact && artefact.technicalNote && (
-          <p className="text-xs leading-relaxed text-gray-500">{artefact.technicalNote}</p>
         )}
       </figcaption>
     </figure>

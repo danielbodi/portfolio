@@ -9,11 +9,9 @@ import {
   OutcomeMetric,
   DeliveryStateTag,
   EvidenceClassTag,
-  EvidenceClaimCard,
   SystemEvidenceVisual
 } from '../ui/components/evidence';
 import { TableOfContents } from '../ui/components/table-of-contents/TableOfContents';
-import { Tag } from '../ui/components/atoms/Tag/Tag';
 import { useSeo } from '../hooks/useSeo';
 import { analytics } from '../utils/basicAnalytics';
 import { Card } from '../ui/components/cards/Card';
@@ -40,14 +38,65 @@ function OutcomeList({ items }: { items: OutcomeItem[] }) {
       {items.map((item, i) => (
         <li key={i} className="text-sm leading-relaxed text-gray-300">
           <span dangerouslySetInnerHTML={{ __html: item.text }} />
-          {item.evidenceNote && (
-            <span className="mt-1 block text-xs leading-relaxed text-gray-500">
-              {item.evidenceNote}
-            </span>
-          )}
         </li>
       ))}
     </ul>
+  );
+}
+
+function EvidenceAndLimitations({ study }: { study: CaseStudy }) {
+  const evidenceBasis = study.evidenceStatus
+    ? [study.evidenceStatus.intro]
+    : (study.recruiterSummary.evidence ?? []).slice(0, 3);
+  const outcomeNotes = [
+    ...study.outcomes.user,
+    ...study.outcomes.team,
+    ...study.outcomes.system
+  ].flatMap((item) => (item.evidenceNote ? [item.evidenceNote] : []));
+  const boundaryCandidates = study.evidenceStatus
+    ? [study.evidenceStatus.measurementNote, study.hero.confidentialityNote]
+    : [study.validation?.limitations, study.constraints.limitedBy, ...outcomeNotes];
+  const limitations = [...new Set(
+    boundaryCandidates.filter((item): item is string => Boolean(item))
+  )].slice(0, 3);
+
+  return (
+    <div className="grid gap-4 md:grid-cols-2">
+      <Surface>
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
+          Evidence basis
+        </h3>
+        <ul className="space-y-2">
+          {evidenceBasis.map((item) => (
+            <li key={item} className="flex gap-2 text-sm leading-relaxed text-gray-300">
+              <span
+                aria-hidden="true"
+                className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-gray-500"
+              />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Surface>
+      {limitations.length > 0 && (
+        <Surface>
+          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-amber-300">
+            Boundaries
+          </h3>
+          <ul className="space-y-2">
+            {limitations.map((item) => (
+              <li key={item} className="flex gap-2 text-sm leading-relaxed text-gray-300">
+                <span
+                  aria-hidden="true"
+                  className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-amber-400/70"
+                />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </Surface>
+      )}
+    </div>
   );
 }
 
@@ -101,42 +150,22 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
           <p className="mb-8 max-w-3xl leading-relaxed text-gray-400">{hero.summary}</p>
 
           <div className="mb-8">
-          <Card>
-          <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div>
-              <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Role</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-gray-300">{hero.role}</dd>
-            </div>
-            <div>
-              <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Period</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-gray-300">{hero.period}</dd>
-            </div>
-            <div>
-              <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Team</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-gray-300">{hero.team}</dd>
-            </div>
-            <div>
-              <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Context</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-gray-300">{hero.context}</dd>
-            </div>
-            <div className="sm:col-span-2 lg:col-span-4">
-              <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Stack</dt>
-              <dd className="mt-2 flex flex-wrap gap-2">
-                {hero.stack.map((item) => (
-                  <Tag key={item} variant="dark">
-                    {item}
-                  </Tag>
-                ))}
-              </dd>
-            </div>
-            {hero.confidentialityNote && (
-              <div className="sm:col-span-2 lg:col-span-4">
-                <dt className="sr-only">Confidentiality note</dt>
-                <dd className="text-xs leading-relaxed text-gray-500">{hero.confidentialityNote}</dd>
-              </div>
-            )}
-          </dl>
-          </Card>
+            <Card>
+              <dl className="grid gap-x-8 gap-y-4 md:grid-cols-3">
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wide text-gray-400">Role</dt>
+                  <dd className="mt-1 text-sm leading-relaxed text-gray-300">{hero.role}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wide text-gray-400">Period</dt>
+                  <dd className="mt-1 text-sm leading-relaxed text-gray-300">{hero.period}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wide text-gray-400">Context</dt>
+                  <dd className="mt-1 text-sm leading-relaxed text-gray-300">{hero.context}</dd>
+                </div>
+              </dl>
+            </Card>
           </div>
 
           <ArtefactFigure artefact={hero.image} fit="natural" />
@@ -158,6 +187,42 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                 dangerouslySetInnerHTML={{ __html: paragraph }}
               />
             ))}
+          </div>
+        </section>
+
+        {/* ── Key decisions ─────────────────────────────────────────── */}
+        <section className="mb-14" aria-labelledby="key-decisions">
+          <SectionHeading id="key-decisions">Key decisions</SectionHeading>
+          <div className="space-y-6">
+            {study.decisions.map((decision, index) => (
+              <DecisionBlock key={decision.id} decision={decision} index={index} />
+            ))}
+          </div>
+        </section>
+
+        {/* ── Product craft ─────────────────────────────────────────── */}
+        <section className="mb-14" aria-labelledby="product-craft">
+          <SectionHeading id="product-craft">Product craft</SectionHeading>
+          <p
+            className="mb-8 max-w-3xl leading-relaxed text-gray-400"
+            dangerouslySetInnerHTML={{ __html: study.craft.intro }}
+          />
+          <div className="space-y-6">
+            {study.craft.artefacts[0] && (
+              <ArtefactFigure artefact={study.craft.artefacts[0]} fit="natural" />
+            )}
+            {study.craft.artefacts.length > 1 && (
+              <div className="grid gap-6 md:grid-cols-2">
+                {study.craft.artefacts.slice(1).map((artefact) => (
+                  <ArtefactFigure
+                    key={artefact.src}
+                    artefact={artefact}
+                    compact
+                    fit="natural"
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
@@ -227,22 +292,6 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
               </Surface>
             ))}
           </div>
-          {study.constraints.limitedBy && (
-            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-gray-500">
-              <span className="font-semibold uppercase tracking-wide">Where it stopped · </span>
-              {study.constraints.limitedBy}
-            </p>
-          )}
-        </section>
-
-        {/* ── Key decisions ─────────────────────────────────────────── */}
-        <section className="mb-14" aria-labelledby="key-decisions">
-          <SectionHeading id="key-decisions">Key decisions</SectionHeading>
-          <div className="space-y-6">
-            {study.decisions.map((decision, index) => (
-              <DecisionBlock key={decision.id} decision={decision} index={index} />
-            ))}
-          </div>
         </section>
 
         {/* ── Influence ─────────────────────────────────────────────── */}
@@ -291,20 +340,6 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
           </div>
         </section>
 
-        {/* ── Product craft ─────────────────────────────────────────── */}
-        <section className="mb-14" aria-labelledby="product-craft">
-          <SectionHeading id="product-craft">Product craft</SectionHeading>
-          <p
-            className="mb-8 max-w-3xl leading-relaxed text-gray-400"
-            dangerouslySetInnerHTML={{ __html: study.craft.intro }}
-          />
-          <div className="space-y-8">
-            {study.craft.artefacts.map((artefact) => (
-              <ArtefactFigure key={artefact.src} artefact={artefact} fit="natural" />
-            ))}
-          </div>
-        </section>
-
         {/* ── System and engineering evidence ───────────────────────── */}
         {study.systemEvidence && study.systemEvidence.length > 0 && (
           <section className="mb-14" aria-labelledby="system-evidence">
@@ -313,20 +348,20 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
               {study.systemEvidence.map((section, i) => (
                 <div key={i}>
                   <h3 className="mb-3 text-lg font-semibold text-gray-200">{section.heading}</h3>
-                  <div className="max-w-3xl space-y-4">
-                    {section.paragraphs.map((paragraph, j) => (
+                  {section.visual && (
+                    <div className="mb-5">
+                      <SystemEvidenceVisual visual={section.visual} />
+                    </div>
+                  )}
+                  <div className="max-w-3xl space-y-3">
+                    {section.paragraphs.slice(0, 2).map((paragraph, j) => (
                       <p
                         key={j}
-                        className="leading-relaxed text-gray-400"
+                        className={j === 0 ? 'leading-relaxed text-gray-400' : 'text-sm leading-relaxed text-gray-400'}
                         dangerouslySetInnerHTML={{ __html: paragraph }}
                       />
                     ))}
                   </div>
-                  {section.visual && (
-                    <div className="mt-5">
-                      <SystemEvidenceVisual visual={section.visual} />
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
@@ -337,13 +372,18 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
         {study.validation && (
           <section className="mb-14" aria-labelledby="validation">
             <SectionHeading id="validation">Validation and iteration</SectionHeading>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 lg:grid-cols-3">
               <Surface>
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">Method</h3>
+                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
+                  Method
+                </h3>
                 <ul className="space-y-1.5">
-                  {study.validation.method.map((item, i) => (
+                  {study.validation.method.slice(0, 2).map((item, i) => (
                     <li key={i} className="flex gap-2 text-sm leading-relaxed text-gray-300">
-                      <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-gray-600" />
+                      <span
+                        aria-hidden="true"
+                        className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-gray-500"
+                      />
                       {item}
                     </li>
                   ))}
@@ -371,51 +411,17 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                   ))}
                 </ul>
               </Surface>
-              <Surface>
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">Limitations</h3>
-                <p className="text-sm leading-relaxed text-gray-400">{study.validation.limitations}</p>
-              </Surface>
             </div>
           </section>
         )}
 
-        {/* ── Outcomes / evidence status ───────────────────────────── */}
+        {/* ── Outcomes / evidence boundaries ──────────────────────── */}
         <section className="mb-14" aria-labelledby="outcomes">
           <SectionHeading id="outcomes">
-            {study.evidenceStatus ? 'Evidence and project state' : 'Outcomes'}
+            {study.evidenceStatus ? 'Evidence and limitations' : 'Outcomes'}
           </SectionHeading>
           {study.evidenceStatus ? (
-            <>
-              <p className="mb-8 max-w-3xl leading-relaxed text-gray-400">
-                {study.evidenceStatus.intro}
-              </p>
-              <div className="grid gap-4 md:grid-cols-2">
-                {study.evidenceStatus.claims.map((claim) => (
-                  <EvidenceClaimCard key={claim.id} claim={claim} />
-                ))}
-              </div>
-              {study.evidenceStatus.measurementNote && (
-                <p className="mt-6 max-w-3xl rounded-lg border border-amber-500/25 bg-amber-500/5 p-4 text-sm leading-relaxed text-amber-100/80">
-                  {study.evidenceStatus.measurementNote}
-                </p>
-              )}
-              {study.outcomes.learning.length > 0 && (
-                <div className="mt-6 max-w-3xl">
-                  <Surface>
-                    <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
-                      What I learned
-                    </h3>
-                    <ul className="space-y-3">
-                      {study.outcomes.learning.map((item, i) => (
-                        <li key={i} className="text-sm leading-relaxed text-gray-300">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </Surface>
-                </div>
-              )}
-            </>
+            <EvidenceAndLimitations study={study} />
           ) : (
             <>
               {study.metrics && study.metrics.length > 0 && (
@@ -438,54 +444,53 @@ export function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
                   <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">For the system</h3>
                   <OutcomeList items={study.outcomes.system} />
                 </Surface>
-                <Surface>
-                  <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">What I learned</h3>
-                  <ul className="space-y-3">
-                    {study.outcomes.learning.map((item, i) => (
-                      <li key={i} className="text-sm leading-relaxed text-gray-300">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </Surface>
               </div>
             </>
           )}
         </section>
 
+        {!study.evidenceStatus && (
+          <section className="mb-14" aria-labelledby="evidence-limitations">
+            <SectionHeading id="evidence-limitations">Evidence and limitations</SectionHeading>
+            <EvidenceAndLimitations study={study} />
+          </section>
+        )}
+
         {/* ── Reflection ────────────────────────────────────────────── */}
         <section className="mb-14" aria-labelledby="reflection">
           <SectionHeading id="reflection">Reflection</SectionHeading>
-          <div className="grid gap-4 md:grid-cols-2">
-            <Surface>
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-emerald-300">I would repeat</h3>
-              <ul className="space-y-2">
-                {study.reflection.repeat.map((item, i) => (
-                  <li key={i} className="flex gap-2 text-sm leading-relaxed text-gray-300">
-                    <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-gray-600" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </Surface>
-            <Surface>
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-amber-300">I would change</h3>
-              <ul className="space-y-2">
-                {study.reflection.change.map((item, i) => (
-                  <li key={i} className="flex gap-2 text-sm leading-relaxed text-gray-300">
-                    <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-gray-600" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </Surface>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {study.reflection.repeat[0] && (
+              <Surface>
+                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-emerald-300">
+                  I would repeat
+                </h3>
+                <p className="text-sm leading-relaxed text-gray-300">
+                  {study.reflection.repeat[0]}
+                </p>
+              </Surface>
+            )}
+            {study.reflection.change[0] && (
+              <Surface>
+                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-amber-300">
+                  I would change
+                </h3>
+                <p className="text-sm leading-relaxed text-gray-300">
+                  {study.reflection.change[0]}
+                </p>
+              </Surface>
+            )}
+            {study.reflection.next && (
+              <Surface>
+                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-purple-300">
+                  Next
+                </h3>
+                <p className="text-sm leading-relaxed text-gray-300">
+                  {study.reflection.next}
+                </p>
+              </Surface>
+            )}
           </div>
-          {study.reflection.next && (
-            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-gray-400">
-              <span className="font-semibold uppercase tracking-wide text-gray-500">Next · </span>
-              {study.reflection.next}
-            </p>
-          )}
         </section>
 
         {/* ── Connection to another case ─────────────────────────────── */}

@@ -69,9 +69,10 @@ export const bridgestoneStudy: CaseStudy = {
   card: bridgestoneCard,
 
   seo: {
-    title: 'Bridgestone — Making UI Quality Scale Beyond the Designer | Daniel Bodi Gil',
+    title:
+      'Bridgestone — Building Shared UI Foundations Without an Initial Mandate | Daniel Bodi Gil',
     description:
-      'How shared product patterns, developer coaching, Storybook and production-backed CSS foundations turned late UI review into a more scalable FleetBridge workflow.'
+      'How live product work, temporary UI review, coaching, Storybook and production-backed CSS foundations moved FleetBridge quality into earlier shared practices.'
   },
 
   impactStatement:
@@ -123,8 +124,7 @@ export const bridgestoneStudy: CaseStudy = {
     heading: 'The problem was not individual developer effort',
     paragraphs: [
       'When I joined FleetBridge, the business had already defined the needs and feature backlog. Unlike a conventional discovery-first double diamond, design entered inside definition and delivery; research insights and improvements would have to feed later iterations. The applications in my scope were built from scratch in Angular. To design consistently before a coded system existed, I adapted an Ant Design UI kit in Figma and extended it with custom FleetBridge components; the coded foundation followed later through delivery.',
-      'I argued for dedicated design-system work, but the immediate priority remained the backlog. The request for time and resources did not initially land, so waiting for a formal mandate would have left the delivery model unchanged.',
-      'The consequences appeared in pull requests, demos and retrospectives: repeated UI decisions, inconsistent implementations and expensive rework. This was not a story about blaming developers. They were being asked to translate custom interaction decisions without enough shared patterns, documentation or implementation guidance.',
+      'Dedicated design-system time was initially declined while the backlog remained the priority. The consequences appeared in pull requests, demos and retrospectives: repeated decisions, inconsistent implementations and rework—not because developers lacked effort, but because they lacked shared product patterns and implementation guidance.',
       'I worked on two things at once: deliver the product and turn repeated UI decisions into reusable foundations. The bigger change was moving quality from late personal review into the team’s daily workflow.'
     ]
   },
@@ -142,17 +142,10 @@ export const bridgestoneStudy: CaseStudy = {
         label: 'CONTEXT'
       },
       {
-        period: 'Early phase',
-        title: 'The investment case did not initially land',
-        description:
-          'I repeatedly explained the need for shared foundations, but no dedicated mandate, time or resources were assigned.',
-        label: 'CONTEXT'
-      },
-      {
         period: 'Built through delivery',
         title: 'Product work became the proof',
         description:
-          'I first adapted an Ant Design UI kit in Figma and added custom FleetBridge components. Coded foundations, utilities and Storybook guidance followed later as live features were delivered.',
+          'With no dedicated mandate, I adapted an Ant Design UI kit in Figma and added custom FleetBridge components. Coded foundations, utilities and Storybook guidance followed as live features were delivered.',
         label: 'OUTPUT'
       },
       {
@@ -163,17 +156,10 @@ export const bridgestoneStudy: CaseStudy = {
         label: 'VALIDATED'
       },
       {
-        period: 'Earlier collaboration',
-        title: 'Correction became coaching',
+        period: 'Earlier collaboration and investment',
+        title: 'Correction became coaching—and product evidence changed the decision',
         description:
-          'Developers increasingly involved me during implementation. Pairing, HTML/CSS coaching, patterns and documentation moved decisions earlier.',
-        label: 'OUTCOME'
-      },
-      {
-        period: 'Investment',
-        title: 'Observable product differences changed the decision',
-        description:
-          'After stakeholders saw system-backed patterns working in the product, dedicated design-system time and resources were allocated.',
+          'Developers increasingly involved design during implementation, while system-backed product patterns helped stakeholders see the difference. Dedicated design-system time and resources were later allocated.',
         label: 'OUTCOME'
       },
       {
@@ -208,12 +194,7 @@ export const bridgestoneStudy: CaseStudy = {
       items: [
         'The shared SCSS/ITCSS foundation and BEM nomenclature',
         'Selected CSSOM-to-Storybook foundation pages and interactive documentation',
-        'Production UI behaviours and utilities used by FleetBridge screens'
-      ]
-    },
-    {
-      verb: 'Documented',
-      items: [
+        'Production UI behaviours and utilities used by FleetBridge screens',
         'Foundations, component anatomy, contribution guidance and implementation examples in Storybook',
         'The onboarding path for designers and developers using the shared system'
       ]
@@ -231,14 +212,6 @@ export const bridgestoneStudy: CaseStudy = {
         'The later decision to allocate design-system time by making the product difference observable',
         'Earlier design involvement in delivery and implementation conversations'
       ]
-    },
-    {
-      verb: 'Team outcome',
-      items: [
-        'Production features and shared-system work were delivered by the full cross-functional team',
-        'The reverse-diamond delivery approach was shaped with the other designers',
-        'Stakeholders owned investment decisions; developers and designers carried the shared workflow'
-      ]
     }
   ],
 
@@ -246,15 +219,9 @@ export const bridgestoneStudy: CaseStudy = {
     items: [
       {
         constraint:
-          'There was no initial mandate, budget line or protected backlog for a design system.',
+          'There was no initial mandate or protected backlog, and arguments alone did not change the investment decision.',
         soWhat:
-          'I tied system work to recurring product needs, starting with foundations and patterns that could immediately support delivery.'
-      },
-      {
-        constraint:
-          'Arguments alone did not change the investment decision.',
-        soWhat:
-          'I kept the need visible through demos and retrospectives, then used concrete product patterns to show the difference between one-off and reusable work.'
+          'I tied system work to recurring product needs and used demos of working patterns to show the difference between one-off and reusable delivery.'
       },
       {
         constraint:
@@ -392,20 +359,16 @@ export const bridgestoneStudy: CaseStudy = {
   influence: {
     aligned: [
       'Front-end developers and design around the same patterns through implementation-time pairing, pull-request review and Storybook references',
-      'Incoming designers around a shared onboarding and Figma branch-review workflow',
-      'The wider delivery team around UI quality as a system responsibility rather than an individual preference'
+      'Incoming designers around a shared onboarding and Figma branch-review workflow'
     ],
     convinced: [
       'Stakeholders to allocate design-system time after concrete product work made the difference observable',
-      'The delivery organisation to involve design earlier than the final pull request',
-      'Developers to ask for design and HTML/CSS input while implementation choices were still inexpensive to change'
+      'The delivery organisation to involve design while implementation choices were still inexpensive to change'
     ],
     changed: [
       'A reverse-diamond loop gave later insights a route back into product and system improvements',
       'Late correction became earlier collaboration and coaching',
-      'Repeated product decisions became documented patterns and implementation guidance',
-      'A trust-based two-designer workflow became explicit governance suitable for a distributed team',
-      'Even back-end colleagues began informally recognising UI pattern issues—a qualitative signal that the principles were spreading beyond design'
+      'Repeated product decisions and a trust-based design workflow became documented patterns, guidance and explicit governance'
     ]
   },
 
@@ -423,17 +386,6 @@ export const bridgestoneStudy: CaseStudy = {
           'I designed the list patterns and component states and implemented the CSS-driven sticky-column affordance.',
         evidenceClass: 'OUTPUT',
         evidenceNote: 'Product implementation evidence; no task-performance study was recorded.',
-        state: 'In production'
-      },
-      {
-        src: '/screenshots/bs/bs_desktop_ws-light.png',
-        alt: 'Vehicle worksheet interface in light theme showing maintenance details',
-        what: 'Worksheet flow, light theme.',
-        why:
-          'The worksheet combines maintenance details, statuses and actions in one expert working view.',
-        contribution: 'I designed the flow and the composite patterns it exercises.',
-        evidenceClass: 'OUTPUT',
-        evidenceNote: 'Shown as shipped product work, not as measured usability impact.',
         state: 'In production'
       },
       {

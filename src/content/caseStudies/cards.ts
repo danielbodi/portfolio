@@ -8,39 +8,39 @@ import { CaseCard } from '../types';
 export const solidarisCard: CaseCard = {
   slug: 'solidaris',
   company: 'Solidaris',
-  title: 'Solidaris: Extending an Inherited PrimeNG/Plectrum Foundation Across Three Product Workstreams',
+  title: 'Solidaris: Connecting Fragmented Product Delivery to a Shared Design-System Direction',
   shortTitle: 'Solidaris',
   tier: 'flagship',
   period: 'Oct 2025 – Oct 2026 · ongoing programme',
   problem:
-    'Three healthcare product workstreams needed a coherent UX and implementation path while PrimeNG, Plectrum and the wider programme were already in motion.',
-  roleShort: 'Consulting scope · Product design · UX architecture · Design-system contribution',
-  tags: ['Enterprise UX', 'Inherited design system', 'Design-to-code'],
+    'Regional products were expected to converge while product teams and central design-system governance still operated separately. The work needed to support local delivery without creating another shadow system.',
+  roleShort: 'Product design · UX architecture · Design-system contribution',
+  tags: ['Cross-product UX', 'Influence without authority', 'Design-system governance'],
   evidence:
-    'Research, product prototypes, a product-local Figma fork and repository/Storybook outputs — with delivery, adoption and handoff still explicitly bounded.',
+    'I started outside the core decision loop and later contributed directly to the renewed collaboration. Product prototypes, a local Plectrum bridge and ongoing handoff evidence show the path; long-term adoption remains unmeasured.',
   thumbnail: '/screenshots/solidaris-thumbnail.png',
   logo: '/company-logos/Logomark.svg',
   logoInvert: true,
-  ctaLabel: 'Read the Solidaris product and systems case study',
+  ctaLabel: 'Read how local delivery connected to the shared system direction',
   deliveryState: 'Ongoing'
 };
 
 export const bridgestoneCard: CaseCard = {
   slug: 'bridgestone',
   company: 'Bridgestone',
-  title: 'Bridgestone: Making UI Quality Scale Beyond the Designer',
+  title: 'Bridgestone: Building Shared UI Foundations Without an Initial Design-System Mandate',
   shortTitle: 'Bridgestone',
   tier: 'flagship',
   period: '2019 – 2025',
   problem:
-    'FleetBridge was shipping across several applications without shared product rules or an initial design-system mandate; late UI review could not become the permanent quality model.',
-  roleShort: 'Product Designer · UX Engineering · Design-System Enablement',
-  tags: ['Influence without authority', 'Product patterns', 'Storybook', 'Design governance'],
+    'FleetBridge was being built by a distributed team without shared UI foundations or dedicated system time. Late UI review protected quality, but became a delivery bottleneck.',
+  roleShort: 'Product design · UX engineering · UI foundations and enablement',
+  tags: ['Product patterns', 'Storybook', 'UX engineering'],
   evidence:
-    'Live product patterns helped unlock dedicated system time; coaching, Storybook and explicit governance moved UI decisions earlier than pull-request review.',
+    'Reusable foundations, product patterns, Storybook, CSS utilities, onboarding and Figma branching were delivered through live product work. Stakeholders later allocated dedicated design-system time.',
   thumbnail: '/screenshots/bs-thumbnail.png',
   logo: '/company-logos/Bridgestone logo.png',
-  ctaLabel: 'Read how FleetBridge moved from UI bottleneck to shared system',
+  ctaLabel: 'Read the Bridgestone UI foundations case study',
   deliveryState: 'In production'
 };
 
@@ -56,7 +56,7 @@ export const trasisCard: CaseCard = {
   roleShort: 'Product Designer · UX Engineering',
   tags: ['Safety-critical UX', 'Prototyping', 'User testing'],
   evidence:
-    'Device-realistic visualisations and validated task flows; testing reported high task success (methodology documented in the case).',
+    'A shipped QC1 interface with device-realistic visualisations and task-based prototype testing; participant counts and task-level results were not preserved.',
   thumbnail: '/screenshots/trasis-thumbnail.png',
   logo: '/company-logos/trasis logo.png',
   ctaLabel: 'Read the Trasis QC1 case study',
@@ -102,8 +102,8 @@ export const baseCard: CaseCard = {
 };
 
 export const allCards: CaseCard[] = [
-  solidarisCard,
   bridgestoneCard,
+  solidarisCard,
   trasisCard,
   sopraBankingCard,
   baseCard

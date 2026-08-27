@@ -7,7 +7,7 @@ export function WorkIndex() {
   useSeo({
     title: 'Selected Work — Daniel Bodi Gil',
     description:
-      'Flagship case studies in enterprise product design, design systems and UX engineering: Solidaris, Bridgestone and Trasis, with earlier foundations at Sopra Banking and Base.',
+      'Flagship case studies in enterprise product design, design systems and UX engineering: Bridgestone, Solidaris and Trasis, with earlier foundations at Sopra Banking and Base.',
     path: '/work'
   });
 

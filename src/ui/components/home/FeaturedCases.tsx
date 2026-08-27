@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { flagshipCards } from '../../../content/caseStudies/cards';
 import { WorkCard } from '../work/WorkCard';
-import { Card } from '../cards/Card';
 
 /** The three flagship cases, each with a project-specific CTA (brief section 6.3). */
 export function FeaturedCases() {
@@ -14,8 +13,8 @@ export function FeaturedCases() {
               Selected work
             </h2>
             <p className="max-w-2xl text-gray-400">
-              Three flagship cases: a healthcare application ecosystem, a design system for a fleet
-              platform, and a safety-critical device interface.
+              A production UI foundation for fleet operations, ongoing healthcare product-and-systems
+              work, and a shipped interface for radiopharmaceutical quality control.
             </p>
           </div>
           <Link to="/work" className="c-button c-button--secondary flex-shrink-0">
@@ -27,26 +26,6 @@ export function FeaturedCases() {
           {flagshipCards.map((card, index) => (
             <WorkCard key={card.slug} card={card} imagePosition={index % 2 === 0 ? 'left' : 'right'} />
           ))}
-        </div>
-
-        <div className="mt-10">
-          <Card>
-            <p className="mb-3 text-sm font-semibold text-gray-300">Hiring for a specific role?</p>
-            <div className="flex flex-wrap gap-x-6 gap-y-2">
-              <Link
-                to="/staff-product-design"
-                className="text-sm text-purple-300 underline-offset-4 hover:underline"
-              >
-                Staff product design path — strategy, ambiguity, validation
-              </Link>
-              <Link
-                to="/design-engineering"
-                className="text-sm text-purple-300 underline-offset-4 hover:underline"
-              >
-                Design engineering path — tokens, Storybook, architecture
-              </Link>
-            </div>
-          </Card>
         </div>
       </div>
     </section>

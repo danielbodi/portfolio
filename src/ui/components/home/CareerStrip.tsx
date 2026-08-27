@@ -35,7 +35,7 @@ export function CareerStrip() {
                     to={step.href}
                     className="text-sm text-purple-300 underline-offset-4 hover:underline"
                   >
-                    Read the case
+                    Read the {step.company.split(' · ')[0]} case
                   </Link>
                 )}
               </div>

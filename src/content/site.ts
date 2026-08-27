@@ -26,7 +26,7 @@ export const hero = {
     download: 'daniel-bodi-gil-cv.pdf'
   },
   contextLink: {
-    label: 'Solidaris · ongoing through the planned October 2026 handoff',
+    label: 'Solidaris · assignment ongoing · handoff planned for October 2026',
     href: '/work/solidaris'
   },
   proof: {
@@ -35,8 +35,9 @@ export const hero = {
       src: '/screenshots/solidaris/ishare-affiliate-dossier.png',
       alt: 'Anonymised iShare affiliate dossier prototype with a member summary, document list and workflow journey'
     },
-    eyebrow: 'Solidaris · product prototype',
-    caption: 'A dossier view that makes documents, status and workflow easier to read together.',
+    eyebrow: 'Solidaris · ongoing product output',
+    caption:
+      'A dossier concept bringing affiliate context, documents, status and workflow into one reading surface.',
     evidenceClass: 'OUTPUT' as const,
     state: 'Ongoing' as const
   }
@@ -128,24 +129,19 @@ export interface PositioningPillar {
 
 export const positioningPillars: PositioningPillar[] = [
   {
-    id: 'judgment',
-    heading: 'Judgment built over 15 years',
-    supportingLine: 'Across product design, systems and front-end delivery.'
+    id: 'product-direction',
+    heading: 'Complex product direction',
+    supportingLine: 'Healthcare, mobility, banking and high-consequence workflows.'
   },
   {
-    id: 'ai-assisted-systems',
-    heading: 'Systems for AI-assisted work',
-    supportingLine: 'Inspectable rules and boundaries, labelled by maturity.'
+    id: 'shared-foundations',
+    heading: 'Reusable UI foundations',
+    supportingLine: 'Product patterns, Storybook and front-end architecture grounded in delivery.'
   },
   {
     id: 'production-fluency',
     heading: 'Design-to-production fluency',
-    supportingLine: 'Figma and Storybook through Angular and TypeScript.'
-  },
-  {
-    id: 'b2b-ecosystems',
-    heading: 'Complex B2B ecosystems',
-    supportingLine: 'Healthcare, mobility, banking and telecom.'
+    supportingLine: 'Figma through Angular, TypeScript and CSS.'
   }
 ];
 
@@ -160,7 +156,7 @@ export const capabilities: Capability[] = [
   {
     id: 'product-direction',
     title: 'Product direction',
-    text: 'I reframe products around the question their users actually ask — turning ambiguous, workflow-heavy domains into a direction that can be prototyped and tested.',
+    text: 'I frame complex workflows around the decisions users need to make, then turn that direction into prototypes that can be tested and refined.',
     links: [
       { label: 'Solidaris — key decisions', href: '/work/solidaris#key-decisions' },
       { label: 'Trasis — strategic framing', href: '/work/trasis#strategic-framing' }
@@ -169,16 +165,19 @@ export const capabilities: Capability[] = [
   {
     id: 'systems',
     title: 'Systems',
-    text: 'I turn recurring product decisions into tokens, components, patterns and documentation, then make the implementation boundary visible.',
+    text: 'I turn recurring product decisions into reusable foundations, patterns and documentation, with inherited and product-local layers made explicit.',
     links: [
       { label: 'Bridgestone — system evidence', href: '/work/bridgestone#system-evidence' },
-      { label: 'Solidaris — Plectrum patterns', href: '/work/solidaris#system-evidence' }
+      {
+        label: 'Solidaris — inherited foundations and product-local outputs',
+        href: '/work/solidaris#system-evidence'
+      }
     ]
   },
   {
     id: 'delivery',
     title: 'Delivery',
-    text: 'I work close to delivery through front-end architecture, Storybook, design QA in pull requests, coded prototypes and hands-on CSS coaching.',
+    text: 'I work close to implementation through Storybook, front-end architecture, pull-request review and hands-on coaching.',
     links: [
       { label: 'Bridgestone — PR reviews and coaching', href: '/work/bridgestone#key-decisions' },
       { label: 'Sopra Banking — CSS architecture', href: '/work/sopra-banking#system-evidence' }
@@ -191,8 +190,8 @@ export const homeArtefacts: Artefact[] = [
   {
     src: '/screenshots/bs/bs_desktop_storybook-home.png',
     alt: 'Bridgestone design system documentation home in Storybook',
-    what: 'A Storybook that documents itself from the live CSS.',
-    why: 'CSS holds the foundation values; TypeScript parsers feed selected swatches, docs tables and playgrounds, reducing duplicate maintenance and drift risk.',
+    what: 'Selected Storybook foundation pages populated from production CSS.',
+    why: 'CSS custom properties feed documented values and interactive examples, reducing duplicate maintenance.',
     contribution: 'Built the CSS-to-Storybook pipeline.',
     state: 'In production'
   },
@@ -209,26 +208,16 @@ export const homeArtefacts: Artefact[] = [
   {
     src: '/screenshots/bs/bs_desktop_ws-light.png',
     alt: 'Bridgestone vehicle worksheet interface, light theme',
-    what: 'Fleet worksheet UI built on the custom foundation created for FleetBridge.',
-    why: 'Dense operational data organised through reusable components and product patterns developed for the platform.',
-    contribution: 'Designed the screens, components and shared patterns.',
+    what: 'A FleetBridge worksheet built from reusable table, form, status and action patterns.',
+    why: 'Shows shared product decisions inside a dense operational workflow.',
+    contribution: 'Designed the workflow and the reusable patterns it exercises.',
     state: 'In production'
-  },
-  {
-    src: '/screenshots/solidaris/contracts-index.svg',
-    alt: 'AI-oriented component contracts and knowledge-base structure',
-    what: 'Contract, rule and workflow files for an AI-assisted development experiment.',
-    why: 'Makes intended component usage, accessibility constraints and role boundaries inspectable.',
-    contribution: 'Designed the working model and documentation.',
-    evidenceClass: 'OUTPUT',
-    evidenceNote: 'No independent adoption, repeatability or delivery outcome is claimed.',
-    state: 'Strategic proposal'
   },
   {
     src: '/screenshots/trasis/trasis-qc1-spots--results.png',
     alt: 'Trasis QC1 quality-control test results screen',
     what: 'Quality-control results for a radiopharmaceutical device.',
-    why: 'Technicians read precise measurements and pass/fail states at a glance.',
+    why: 'Presents precise measurements and pass/fail states in one results view.',
     contribution: 'Designed the data presentation and state system.',
     state: 'Shipped'
   },
@@ -255,24 +244,24 @@ export interface CareerStep {
 
 export const careerProgression: CareerStep[] = [
   {
-    heading: 'Product and systems leadership',
+    heading: 'Product design and systems contribution',
     company: 'Solidaris · via Cegeka',
     period: 'Oct 2025 – Oct 2026',
-    scope: 'Embedded consultancy across three product workstreams, extending inherited PrimeNG/Plectrum foundations and preparing an unfinished handoff.',
+    scope: 'Embedded consultancy across ongoing healthcare product work, working within inherited PrimeNG/Plectrum foundations and preparing a bounded handoff.',
     contributions: [
-      'Product research, prototypes and reusable case-management patterns',
-      'A product-local Figma fork, repository/Storybook outputs and AI-oriented working files'
+      'Research and prototypes for complex case-management workflows',
+      'Product-local Figma, repository and Storybook outputs with their delivery state made explicit'
     ],
     href: '/work/solidaris'
   },
   {
-    heading: 'Design system ownership and UX engineering',
+    heading: 'Product design, UI foundations and UX engineering',
     company: 'Bridgestone · via CTG/Cegeka',
     period: '2019 – 2025',
-    scope: 'From sole designer to establishing shared design workflows as the team grew.',
+    scope: 'Built product patterns and system foundations inside a distributed FleetBridge team, initially without a design-system mandate.',
     contributions: [
-      'Made the need for shared foundations observable through live product patterns after an initial investment refusal',
-      'Moved UI decisions earlier through coaching, Storybook, CSS architecture and explicit design governance'
+      'Reusable foundations, Storybook and CSS utilities grounded in live product work',
+      'Earlier collaboration, onboarding and Figma branch review after late UI review became a bottleneck'
     ],
     href: '/work/bridgestone'
   },

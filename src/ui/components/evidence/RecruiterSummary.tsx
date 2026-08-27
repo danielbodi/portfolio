@@ -35,6 +35,11 @@ function BulletList({ items }: { items: string[] }) {
  */
 export function RecruiterSummary({ summary }: RecruiterSummaryProps) {
   if (summary.evidenceClaims?.length) {
+    const priorityClaims = [
+      ...summary.evidenceClaims.filter((claim) => claim.evidenceClass === 'OUTCOME'),
+      ...summary.evidenceClaims.filter((claim) => claim.evidenceClass !== 'OUTCOME')
+    ].slice(0, 3);
+
     return (
       <section aria-label="Case summary for quick review">
         <Card>
@@ -49,11 +54,17 @@ export function RecruiterSummary({ summary }: RecruiterSummaryProps) {
               <BulletList items={summary.ownership} />
             </Column>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {summary.evidenceClaims.map((claim) => (
-              <EvidenceClaimCard key={claim.id} claim={claim} compact />
+          <div className="grid gap-4 md:grid-cols-3">
+            {priorityClaims.map((claim) => (
+              <EvidenceClaimCard key={claim.id} claim={claim} />
             ))}
           </div>
+          <a
+            href="#outcomes"
+            className="mt-5 inline-flex text-sm font-medium text-purple-300 underline-offset-4 hover:underline"
+          >
+            Read the evidence boundaries
+          </a>
         </Card>
       </section>
     );
@@ -65,7 +76,7 @@ export function RecruiterSummary({ summary }: RecruiterSummaryProps) {
       <h2 id="recruiter-summary" className="mb-5 text-sm font-semibold uppercase tracking-wide text-gray-400">
         In 30 seconds
       </h2>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-3">
         <Column title="The challenge">
           <p className="text-sm leading-relaxed text-gray-300">{summary.challenge}</p>
         </Column>
@@ -73,10 +84,7 @@ export function RecruiterSummary({ summary }: RecruiterSummaryProps) {
           <BulletList items={summary.ownership} />
         </Column>
         <Column title="What changed">
-          <BulletList items={summary.changed ?? []} />
-        </Column>
-        <Column title="Evidence">
-          <BulletList items={summary.evidence ?? []} />
+          <BulletList items={(summary.changed?.length ? summary.changed : summary.evidence) ?? []} />
         </Column>
       </div>
       </Card>

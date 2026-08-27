@@ -9,8 +9,8 @@
 
 - [x] **Bridgestone "~60% faster development"** — removed from public proof until the baseline, activity and source can be documented.
 - [x] **Bridgestone "40+ components"** — removed from public proof until a Storybook or Figma inventory export is available.
-- [ ] **Trasis "85% task success"** — `[EVIDENCE NEEDED: participant count, test tasks, baseline and calculation]`. Published as "reported" with a methodology note.
-- [ ] **Trasis "3x faster prototyping"** — `[EVIDENCE NEEDED: compared with what, over which period]`. Published as "reported".
+- [ ] **Trasis "85% task success"** — `[EVIDENCE NEEDED: participant count, test tasks, baseline and calculation]`. Not published; recover the test record before reinstating.
+- [ ] **Trasis "3x faster prototyping"** — `[EVIDENCE NEEDED: compared with what, over which period]`. Not published; recover the baseline before reinstating.
 - [ ] **Sopra "40% faster prototyping" / "30% cost reduction"** — `[EVIDENCE NEEDED: how measured, baseline]`. Published as qualitative ("the design team reported faster prototyping").
 - [ ] **Base "75% layout speed" / "95% cross-browser"** — `[EVIDENCE NEEDED: source]`. Removed from the case; qualitative statements used instead.
 - [ ] **"15 years" experience** — verified against career data (start Oct 2010). Re-verify yearly.

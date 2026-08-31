@@ -30,7 +30,8 @@
   }
 
   &__nav {
-    @apply w-64;
+    /* Matches the 14rem rail column reserved in App.tsx. */
+    @apply w-56;
     
     &--mobile {
       @apply px-4 w-full;
@@ -90,7 +91,10 @@
     }
   }
 
+  /* Height is set from the active item so the bar spans wrapped titles; `h-7`
+     is only the pre-measurement fallback. */
   &__active-border {
-    @apply absolute left-0 w-0.5 h-7 bg-purple-400 transition-transform duration-200 ease-[cubic-bezier(0.33,1,0.68,1)];
+    @apply absolute left-0 w-0.5 h-7 bg-purple-400 duration-200 ease-[cubic-bezier(0.33,1,0.68,1)];
+    transition-property: transform, height;
   }
 } 

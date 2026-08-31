@@ -40,7 +40,7 @@ export function TableOfContents({ variant = 'desktop', pathname, isVisible = tru
     const collect = (): { items: TOCItem[]; elements: HTMLElement[] } => {
       const root = routeRoot();
       if (!root) return { items: [], elements: [] };
-      const elements = Array.from(root.querySelectorAll<HTMLElement>('h2[id], h3[id]')).filter(
+      const elements = Array.from(root.querySelectorAll<HTMLElement>('h2[id]')).filter(
         (element) => element.id && element.textContent?.trim()
       );
       return {
@@ -143,11 +143,25 @@ export function TableOfContents({ variant = 'desktop', pathname, isVisible = tru
     if (activeBorderRef.current && listRef.current && activeId) {
       const activeElement = listRef.current.querySelector(`[data-id="${activeId}"]`) as HTMLElement;
       if (activeElement) {
-        const { offsetTop } = activeElement;
+        const { offsetTop, offsetHeight } = activeElement;
         activeBorderRef.current.style.transform = `translateY(${offsetTop}px)`;
+        /* Chapter titles wrap to two lines, which a fixed-height bar under-marks. */
+        activeBorderRef.current.style.height = `${offsetHeight}px`;
       }
     }
   }, [activeId, headings]);
+
+  /**
+   * The chaptered case template carries the deep-linked id on the `<section>`
+   * and a separate `${id}-title` on its `<h2>`, and this rail scans headings.
+   * Scroll to whichever element declares the heading as its accessible label,
+   * so the chapter number and eyebrow above the heading stay in view and a
+   * rail click lands where a `/work/<case>#<chapter>` deep link lands.
+   */
+  const scrollTargetFor = (heading: HTMLElement, id: string): HTMLElement => {
+    const labelled = heading.closest<HTMLElement>('[aria-labelledby]');
+    return labelled?.getAttribute('aria-labelledby') === id ? labelled : heading;
+  };
 
   const handleClick = (id: string) => {
     const root = pathname
@@ -157,7 +171,7 @@ export function TableOfContents({ variant = 'desktop', pathname, isVisible = tru
       ?? document.getElementById(id);
     if (element) {
       const offset = 140; // Increased offset to account for sticky header and spacing
-      const elementPosition = element.getBoundingClientRect().top;
+      const elementPosition = scrollTargetFor(element, id).getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - offset;
 
       window.scrollTo({

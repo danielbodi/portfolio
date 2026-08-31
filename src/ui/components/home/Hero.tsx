@@ -20,15 +20,12 @@ export function Hero() {
           <p className="home-hero__support">{hero.support}</p>
           <div className="home-hero__cta-group">
             <div className="home-hero__actions">
-              <a href={hero.ctaPrimary.href} className="c-button c-button--primary">
-                {hero.ctaPrimary.label}
-              </a>
               <a
                 href={`mailto:${contact.email}`}
-                className="c-button c-button--secondary"
+                className="c-button c-button--primary"
                 onClick={() => analytics.trackPortfolioEvent('contact_click', { from: '/' })}
               >
-                Contact me
+                {hero.ctaTalk.label}
               </a>
               <a
                 href={hero.ctaSecondary.href}

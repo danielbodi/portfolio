@@ -4,8 +4,8 @@ import {
   useRef
 } from 'react';
 
-const FIRST_CLAUSE = 'I design the systems behind complex products—';
-const SECOND_CLAUSE = 'and help teams ship them.';
+const FIRST_CLAUSE = 'I design the systems behind complex products';
+const SECOND_CLAUSE = 'and build what teams ship them with.';
 const HEADLINE_TEXT = FIRST_CLAUSE + '\n' + SECOND_CLAUSE;
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 const FINE_POINTER_QUERY = '(hover: hover) and (pointer: fine)';

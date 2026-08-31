@@ -1,9 +1,10 @@
 import React from 'react';
-import { CaseStudyTemplate } from './CaseStudyTemplate';
+import { VisualCaseStudyTemplate } from './VisualCaseStudyTemplate';
 import { solidarisStudy } from '../content/caseStudies/solidaris';
+import { solidarisVisualStory } from '../content/caseStudies/visualStories';
 
 export function SolidarisProject() {
-  return <CaseStudyTemplate study={solidarisStudy} />;
+  return <VisualCaseStudyTemplate study={solidarisStudy} story={solidarisVisualStory} />;
 }
 
 export default SolidarisProject;

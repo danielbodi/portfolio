@@ -1,4 +1,4 @@
-import { Artefact } from './types';
+import { Artefact } from "./types";
 
 /**
  * Site-wide content: positioning, homepage sections, career progression,
@@ -6,41 +6,42 @@ import { Artefact } from './types';
  */
 
 export const positioning = {
-  name: 'Daniel Bodi Gil',
-  /** Discipline framing — Senior claimed, staff-leaning scope carried by case evidence. */
-  descriptor: 'Senior Product Design · Design Systems · UX Engineering',
-  seoTitle: 'Daniel Bodi Gil — Product Design, Design Systems & UX Engineering',
+  name: "Daniel Bodi Gil",
+  /** Discipline framing — no level word; scope is carried by the case evidence. */
+  descriptor: "Product Design · Design Systems · UX Engineering",
+  seoTitle: "Daniel Bodi Gil — Product Design, Design Systems & UX Engineering",
   seoDescription:
-    'Portfolio of Daniel Bodi Gil, a product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.'
+    "Portfolio of Daniel Bodi Gil, a product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.",
 };
 
 export const hero = {
-  eyebrow: 'Product design at systems scale',
-  title: 'I design the systems behind complex products\u2014and help teams ship them.',
+  eyebrow: "Product design at systems scale",
+  title:
+    "I design the systems behind complex products and build what teams ship them with.",
   support:
-    'I turn complex workflows into clear product experiences, reusable design foundations and implementation-ready UI across Figma, Storybook and front-end systems.',
-  ctaPrimary: { label: 'Explore selected work', href: '#selected-work' },
+    "I turn complex workflows into clear product experiences, reusable design foundations and implementation-ready UI across Figma, Storybook and front-end systems.",
+  ctaTalk: { label: "Let's talk" },
   ctaSecondary: {
-    label: 'Download CV',
-    href: '/cv/daniel-bodi-gil-cv.pdf',
-    download: 'daniel-bodi-gil-cv.pdf'
+    label: "Download CV",
+    href: "/cv/daniel-bodi-gil-cv.pdf",
+    download: "daniel-bodi-gil-cv.pdf",
   },
   contextLink: {
-    label: 'Solidaris · assignment ongoing · handoff planned for October 2026',
-    href: '/work/solidaris'
+    label: "Solidaris · assignment ongoing · handoff planned for October 2026",
+    href: "/work/solidaris",
   },
   proof: {
-    href: '/work/solidaris',
+    href: "/work/solidaris",
     image: {
-      src: '/screenshots/solidaris/ishare-affiliate-dossier.png',
-      alt: 'Anonymised iShare affiliate dossier prototype with a member summary, document list and workflow journey'
+      src: "/screenshots/solidaris/ishare-affiliate-dossier.png",
+      alt: "Anonymised iShare affiliate dossier prototype with a member summary, document list and workflow journey",
     },
-    eyebrow: 'Solidaris · ongoing product output',
+    eyebrow: "Solidaris · ongoing product output",
     caption:
-      'A dossier concept bringing affiliate context, documents, status and workflow into one reading surface.',
-    evidenceClass: 'OUTPUT' as const,
-    state: 'Ongoing' as const
-  }
+      "A dossier concept bringing affiliate context, documents, status and workflow into one reading surface.",
+    evidenceClass: "OUTPUT" as const,
+    state: "Ongoing" as const,
+  },
 };
 
 /**
@@ -48,77 +49,78 @@ export const hero = {
  * and workflow layer. The maturity of each part is stated in the caption.
  */
 export const heroSpecimen = {
-  href: '/work/bridgestone',
-  chrome: 'Bridgestone UI \u00b7 Storybook',
+  href: "/work/bridgestone",
+  chrome: "Bridgestone UI \u00b7 Storybook",
   image: {
-    src: '/screenshots/bs/bs_desktop_storybook-home.png',
-    alt: 'Bridgestone UI design system home in Storybook: foundations, components, colours and icons documented from the live CSS'
+    src: "/screenshots/bs/bs_desktop_storybook-home.png",
+    alt: "Bridgestone UI design system home in Storybook: foundations, components, colours and icons documented from the live CSS",
   },
   caption:
-    'Bridgestone UI in production Storybook. Overlay: Solidaris contract and workflow outputs that remain experimental and are not presented as adopted.',
-  state: 'In production' as const,
+    "Bridgestone UI in production Storybook. Overlay: Solidaris contract and workflow outputs that remain experimental and are not presented as adopted.",
+  state: "In production" as const,
   contract: {
-    kicker: 'Component contract',
-    file: 'journey.metadata.ts',
-    schema: 'ComponentMetadata',
+    kicker: "Component contract",
+    file: "journey.metadata.ts",
+    schema: "ComponentMetadata",
     fields: [
       {
-        key: 'component',
-        value: "name: 'Journey'  bemBlock: 'c-journey'  itcssLayer: '06-components'"
+        key: "component",
+        value:
+          "name: 'Journey'  bemBlock: 'c-journey'  itcssLayer: '06-components'",
       },
       {
-        key: 'usage',
-        value: 'antiPatterns \u2192 a linear stepper for a single-step form'
+        key: "usage",
+        value: "antiPatterns \u2192 a linear stepper for a single-step form",
       },
       {
-        key: 'accessibility',
-        value: "wcagLevel: 'AA'"
+        key: "accessibility",
+        value: "wcagLevel: 'AA'",
       },
       {
-        key: 'tokens',
-        value: '--pds-color-brand  --pds-color-text  --pds-color-text-muted'
+        key: "tokens",
+        value: "--pds-color-brand  --pds-color-text  --pds-color-text-muted",
       },
       {
-        key: 'aiHints',
-        value: "keywords: ['workflow', 'journey', 'status']"
-      }
-    ]
+        key: "aiHints",
+        value: "keywords: ['workflow', 'journey', 'status']",
+      },
+    ],
   },
   supervisor: {
-    kicker: 'Workflow experiment',
-    name: 'Solidaris',
-    role: 'Proposed orchestration role',
-    rule: 'A documented role model for design-to-code work; independent use is not yet claimed.',
-    grounding: 'Figma MCP \u00b7 PrimeNG MCP',
+    kicker: "Workflow experiment",
+    name: "Solidaris",
+    role: "Proposed orchestration role",
+    rule: "A documented role model for design-to-code work; independent use is not yet claimed.",
+    grounding: "Figma MCP \u00b7 PrimeNG MCP",
     steps: [
       {
-        id: 'research',
+        id: "research",
         parallel: true,
         roles: [
-          { name: 'UX Researcher', hint: 'Figma MCP' },
-          { name: 'Architect', hint: 'SSOT / ITCSS' }
-        ]
+          { name: "UX Researcher", hint: "Figma MCP" },
+          { name: "Architect", hint: "SSOT / ITCSS" },
+        ],
       },
       {
-        id: 'engineer',
+        id: "engineer",
         parallel: false,
-        roles: [{ name: 'UX Engineer', hint: 'authors tokens \u00b7 SCSS' }]
+        roles: [{ name: "UX Engineer", hint: "authors tokens \u00b7 SCSS" }],
       },
       {
-        id: 'implement',
+        id: "implement",
         parallel: false,
-        roles: [{ name: 'Frontend Dev', hint: 'writes Angular \u00b7 ARIA' }]
+        roles: [{ name: "Frontend Dev", hint: "writes Angular \u00b7 ARIA" }],
       },
       {
-        id: 'qa',
+        id: "qa",
         parallel: true,
         roles: [
-          { name: 'Tester', hint: 'WCAG AA' },
-          { name: 'Token Auditor', hint: 'Figma drift' }
-        ]
-      }
-    ]
-  }
+          { name: "Tester", hint: "WCAG AA" },
+          { name: "Token Auditor", hint: "Figma drift" },
+        ],
+      },
+    ],
+  },
 };
 
 export interface PositioningPillar {
@@ -129,20 +131,22 @@ export interface PositioningPillar {
 
 export const positioningPillars: PositioningPillar[] = [
   {
-    id: 'product-direction',
-    heading: 'Complex product direction',
-    supportingLine: 'Healthcare, mobility, banking and high-consequence workflows.'
+    id: "product-direction",
+    heading: "Complex product direction",
+    supportingLine:
+      "Healthcare, mobility, banking and high-consequence workflows.",
   },
   {
-    id: 'shared-foundations',
-    heading: 'Reusable UI foundations',
-    supportingLine: 'Product patterns, Storybook and front-end architecture grounded in delivery.'
+    id: "shared-foundations",
+    heading: "Reusable UI foundations",
+    supportingLine:
+      "Product patterns, Storybook and front-end architecture grounded in delivery.",
   },
   {
-    id: 'production-fluency',
-    heading: 'Design-to-production fluency',
-    supportingLine: 'Figma through Angular, TypeScript and CSS.'
-  }
+    id: "production-fluency",
+    heading: "Design-to-production fluency",
+    supportingLine: "Figma through Angular, TypeScript and CSS.",
+  },
 ];
 
 export interface Capability {
@@ -154,83 +158,101 @@ export interface Capability {
 
 export const capabilities: Capability[] = [
   {
-    id: 'product-direction',
-    title: 'Product direction',
-    text: 'I frame complex workflows around the decisions users need to make, then turn that direction into prototypes that can be tested and refined.',
+    id: "product-direction",
+    title: "Product direction",
+    text: "I frame complex workflows around the decisions users need to make, then turn that direction into prototypes that can be tested and refined.",
     links: [
-      { label: 'Solidaris — key decisions', href: '/work/solidaris#key-decisions' },
-      { label: 'Trasis — strategic framing', href: '/work/trasis#strategic-framing' }
-    ]
-  },
-  {
-    id: 'systems',
-    title: 'Systems',
-    text: 'I turn recurring product decisions into reusable foundations, patterns and documentation, with inherited and product-local layers made explicit.',
-    links: [
-      { label: 'Bridgestone — system evidence', href: '/work/bridgestone#system-evidence' },
       {
-        label: 'Solidaris — inherited foundations and product-local outputs',
-        href: '/work/solidaris#system-evidence'
-      }
-    ]
+        label: "Solidaris — product tension",
+        href: "/work/solidaris#fragmented-tools",
+      },
+      {
+        label: "Trasis — physical mental model",
+        href: "/work/trasis#physical-model",
+      },
+    ],
   },
   {
-    id: 'delivery',
-    title: 'Delivery',
-    text: 'I work close to implementation through Storybook, front-end architecture, pull-request review and hands-on coaching.',
+    id: "systems",
+    title: "Systems",
+    text: "I turn recurring product decisions into reusable foundations, patterns and documentation, with inherited and product-local layers made explicit.",
     links: [
-      { label: 'Bridgestone — PR reviews and coaching', href: '/work/bridgestone#key-decisions' },
-      { label: 'Sopra Banking — CSS architecture', href: '/work/sopra-banking#system-evidence' }
-    ]
-  }
+      {
+        label: "Bridgestone — the token pipeline, live in the page",
+        href: "/work/bridgestone#demo-bridgestone-token-pipeline",
+      },
+      {
+        label: "Solidaris — inherited foundations and product-local outputs",
+        href: "/work/solidaris#shared-contribution",
+      },
+    ],
+  },
+  {
+    id: "delivery",
+    title: "Delivery",
+    text: "I work close to implementation through Storybook, front-end architecture, pull-request review and hands-on coaching.",
+    links: [
+      {
+        label: "Bridgestone — PR reviews and coaching",
+        href: "/work/bridgestone#earlier-collaboration",
+      },
+      {
+        label: "Sopra Banking — CSS architecture",
+        href: "/work/sopra-banking#system-evidence",
+      },
+    ],
+  },
 ];
 
 /** Compact artefact gallery for the homepage. Every item carries a delivery state. */
 export const homeArtefacts: Artefact[] = [
   {
-    src: '/screenshots/bs/bs_desktop_storybook-home.png',
-    alt: 'Bridgestone design system documentation home in Storybook',
-    what: 'Selected Storybook foundation pages populated from production CSS.',
-    why: 'CSS custom properties feed documented values and interactive examples, reducing duplicate maintenance.',
-    contribution: 'Built the CSS-to-Storybook pipeline.',
-    state: 'In production'
+    src: "/screenshots/bs/bs_desktop_storybook-home.png",
+    alt: "Bridgestone design system documentation home in Storybook",
+    what: "Selected Storybook foundation pages populated from production CSS.",
+    why: "CSS custom properties feed documented values and interactive examples, reducing duplicate maintenance.",
+    contribution: "Built the CSS-to-Storybook pipeline.",
+    state: "In production",
   },
   {
-    src: '/screenshots/solidaris/token-architecture.svg',
-    alt: 'Three-tier design token architecture with a PrimeNG bridge',
-    what: 'A proposed token-governance model linking Figma, semantic tokens and PrimeNG.',
-    why: 'Documents how product work could stay aligned with an inherited component foundation.',
-    contribution: 'Defined and documented the mapping approach.',
-    evidenceClass: 'OUTPUT',
-    evidenceNote: 'The exact implemented token inventory and synchronisation state are still being verified.',
-    state: 'Ongoing'
+    src: "/screenshots/solidaris/token-architecture.svg",
+    alt: "Three-tier design token architecture with a PrimeNG bridge",
+    what: "A proposed token-governance model linking Figma, semantic tokens and PrimeNG.",
+    why: "Documents how product work could stay aligned with an inherited component foundation.",
+    contribution: "Defined and documented the mapping approach.",
+    evidenceClass: "OUTPUT",
+    evidenceNote:
+      "The exact implemented token inventory and synchronisation state are still being verified.",
+    state: "Ongoing",
   },
   {
-    src: '/screenshots/bs/bs_desktop_ws-light.png',
-    alt: 'Bridgestone vehicle worksheet interface, light theme',
-    what: 'A FleetBridge worksheet built from reusable table, form, status and action patterns.',
-    why: 'Shows shared product decisions inside a dense operational workflow.',
-    contribution: 'Designed the workflow and the reusable patterns it exercises.',
-    state: 'In production'
+    src: "/screenshots/bs/bs_desktop_ws-light.png",
+    alt: "Bridgestone vehicle worksheet interface, light theme",
+    what: "A FleetBridge worksheet built from reusable table, form, status and action patterns.",
+    why: "Shows shared product decisions inside a dense operational workflow.",
+    contribution:
+      "Designed the workflow and the reusable patterns it exercises.",
+    state: "In production",
   },
   {
-    src: '/screenshots/trasis/trasis-qc1-spots--results.png',
-    alt: 'Trasis QC1 quality-control test results screen',
-    what: 'Quality-control results for a radiopharmaceutical device.',
-    why: 'Presents precise measurements and pass/fail states in one results view.',
-    contribution: 'Designed the data presentation and state system.',
-    state: 'Shipped'
+    src: "/screenshots/trasis/trasis-qc1-spots--results.png",
+    alt: "Trasis QC1 quality-control test results screen",
+    what: "Quality-control results for a radiopharmaceutical device.",
+    why: "Presents precise measurements and pass/fail states in one results view.",
+    contribution: "Designed the data presentation and state system.",
+    state: "Shipped",
   },
   {
-    src: '/screenshots/solidaris/ishare-journey.png',
-    alt: 'iShare journey panel: horizontal step summary with statuses above the expanded step detail, in the coded mockup',
-    what: 'Hybrid workflow journey explored in an iShare prototype.',
-    why: 'Combines a compact overview with expandable step detail.',
-    contribution: 'Designed both models and prepared task-based comparison.',
-    evidenceClass: 'OUTPUT',
-    evidenceNote: 'Participant counts, scores and final delivery state are not published.',
-    state: 'Tested concept'
-  }
+    src: "/screenshots/solidaris/ishare-journey.png",
+    alt: "iShare journey panel: horizontal step summary with statuses above the expanded step detail, in the coded mockup",
+    what: "Hybrid workflow journey explored in an iShare prototype.",
+    why: "Combines a compact overview with expandable step detail.",
+    contribution: "Designed both models and prepared task-based comparison.",
+    evidenceClass: "OUTPUT",
+    evidenceNote:
+      "Participant counts, scores and final delivery state are not published.",
+    state: "Tested concept",
+  },
 ];
 
 export interface CareerStep {
@@ -244,80 +266,82 @@ export interface CareerStep {
 
 export const careerProgression: CareerStep[] = [
   {
-    heading: 'Product design and systems contribution',
-    company: 'Solidaris · via Cegeka',
-    period: 'Oct 2025 – Oct 2026',
-    scope: 'Embedded consultancy across ongoing healthcare product work, working within inherited PrimeNG/Plectrum foundations and preparing a bounded handoff.',
+    heading: "Product design and systems contribution",
+    company: "Solidaris · via Cegeka",
+    period: "Oct 2025 – Oct 2026",
+    scope:
+      "Embedded consultancy across ongoing healthcare product work, working within inherited PrimeNG/Plectrum foundations and preparing a bounded handoff.",
     contributions: [
-      'Research and prototypes for complex case-management workflows',
-      'Product-local Figma, repository and Storybook outputs with their delivery state made explicit'
+      "Research and prototypes for complex case-management workflows",
+      "Product-local Figma, repository and Storybook outputs with their delivery state made explicit",
     ],
-    href: '/work/solidaris'
+    href: "/work/solidaris",
   },
   {
-    heading: 'Product design, UI foundations and UX engineering',
-    company: 'Bridgestone · via CTG/Cegeka',
-    period: '2019 – 2025',
-    scope: 'Built product patterns and system foundations inside a distributed FleetBridge team, initially without a design-system mandate.',
+    heading: "Product design, UI foundations and UX engineering",
+    company: "Bridgestone · via CTG/Cegeka",
+    period: "2019 – 2025",
+    scope:
+      "Built product patterns and system foundations inside a distributed FleetBridge team, initially without a design-system mandate.",
     contributions: [
-      'Reusable foundations, Storybook and CSS utilities grounded in live product work',
-      'Earlier collaboration, onboarding and Figma branch review after late UI review became a bottleneck'
+      "Reusable foundations, Storybook and CSS utilities grounded in live product work",
+      "Earlier collaboration, onboarding and Figma branch review after late UI review became a bottleneck",
     ],
-    href: '/work/bridgestone'
+    href: "/work/bridgestone",
   },
   {
-    heading: 'Safety-critical product design',
-    company: 'Trasis · via CTG',
-    period: '2019 – 2021',
-    scope: 'Interface for a radiopharmaceutical quality-control device.',
+    heading: "Safety-critical product design",
+    company: "Trasis · via CTG",
+    period: "2019 – 2021",
+    scope: "Interface for a radiopharmaceutical quality-control device.",
     contributions: [
-      'Device-realistic visualisation system and test workflows',
-      'Task-based validation with laboratory users'
+      "Device-realistic visualisation system and test workflows",
+      "Task-based validation with laboratory users",
     ],
-    href: '/work/trasis'
+    href: "/work/trasis",
   },
   {
-    heading: 'Front-end architecture and team enablement',
-    company: 'Sopra Banking Software',
-    period: '2018',
-    scope: 'Design reinforcement for enterprise banking software.',
+    heading: "Front-end architecture and team enablement",
+    company: "Sopra Banking Software",
+    period: "2018",
+    scope: "Design reinforcement for enterprise banking software.",
     contributions: [
-      'BEM methodology and a custom Flexbox grid replacing float layouts',
-      'Atomic components and hands-on developer coaching'
+      "BEM methodology and a custom Flexbox grid replacing float layouts",
+      "Atomic components and hands-on developer coaching",
     ],
-    href: '/work/sopra-banking'
+    href: "/work/sopra-banking",
   },
   {
-    heading: 'UI engineering foundations',
-    company: 'Base · at Design is Dead/Emakina',
-    period: '2016 – 2018',
-    scope: 'UI development for high-traffic telecom websites.',
+    heading: "UI engineering foundations",
+    company: "Base · at Design is Dead/Emakina",
+    period: "2016 – 2018",
+    scope: "UI development for high-traffic telecom websites.",
     contributions: [
-      'Cross-browser component work in Adobe Experience Manager',
-      'npm tooling that removed compile cycles from front-end changes'
+      "Cross-browser component work in Adobe Experience Manager",
+      "npm tooling that removed compile cycles from front-end changes",
     ],
-    href: '/work/base'
-  }
+    href: "/work/base",
+  },
 ];
 
 export const earlierRoles = [
-  { company: 'Stepstone', role: 'Front-End Developer', period: '2015' },
-  { company: 'BTI Belgium', role: 'Web Designer', period: '2011 – 2015' },
-  { company: 'JL Gestion', role: 'Web Design Trainer', period: '2010 – 2011' }
+  { company: "Stepstone", role: "Front-End Developer", period: "2015" },
+  { company: "BTI Belgium", role: "Web Designer", period: "2011 – 2015" },
+  { company: "JL Gestion", role: "Web Design Trainer", period: "2010 – 2011" },
 ];
 
 export const contact = {
-  email: 'daniel.bodi.gil@gmail.com',
-  location: 'Morlanwelz, Belgium · Europe/Brussels',
+  email: "daniel.bodi.gil@gmail.com",
+  location: "Morlanwelz, Belgium · Europe/Brussels",
   cv: {
     /**
      * Single CV until role-specific variants are provided
      * (see CONTENT_CHECKLIST.md — the brief forbids generating CVs here).
      */
-    file: '/cv/daniel-bodi-gil-cv.pdf',
-    fileName: 'daniel-bodi-gil-cv.pdf',
-    label: 'Download CV'
+    file: "/cv/daniel-bodi-gil-cv.pdf",
+    fileName: "daniel-bodi-gil-cv.pdf",
+    label: "Download CV",
   },
   /** Populated once role-specific, ATS-friendly PDFs exist in public/cv/. */
-  roleCvs: [] as { label: string; file: string; fileName: string }[]
+  roleCvs: [] as { label: string; file: string; fileName: string }[],
 };

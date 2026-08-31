@@ -158,6 +158,13 @@ export interface CaseCard {
   period: string;
   /** One-line problem statement. */
   problem: string;
+  /**
+   * Short forms for the scannable /work index rows. Compressions of `title`
+   * and `problem` — never a different claim. Both fall back to the long form,
+   * which stays authoritative for home cards and SEO titles.
+   */
+  indexTitle?: string;
+  indexProblem?: string;
   roleShort: string;
   tags: string[];
   /** One verified evidence point; use an outcome only when one exists. */

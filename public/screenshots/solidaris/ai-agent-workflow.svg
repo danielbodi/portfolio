@@ -1,33 +1,70 @@
-<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1280" height="720" fill="#0F172A"/>
-  <text x="640" y="70" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#A78BFA" font-weight="700">Proposed multi-role workflow &#8212; design-to-code experiment</text>
-  <rect x="510" y="110" width="260" height="70" rx="14" fill="#312E81" stroke="#7C3AED" stroke-width="2"/>
-  <text x="640" y="145" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" fill="#E2E8F0" font-weight="600">Orchestration role</text>
-  <text x="640" y="168" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#C7D2FE">coordinates proposed handoffs</text>
-  <line x1="580" y1="180" x2="370" y2="240" stroke="#7C3AED" stroke-width="2"/>
-  <line x1="700" y1="180" x2="910" y2="240" stroke="#7C3AED" stroke-width="2"/>
-  <rect x="220" y="240" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
-  <text x="370" y="272" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">UX Researcher</text>
-  <text x="370" y="293" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">Figma MCP &#183; design brief</text>
-  <rect x="760" y="240" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
-  <text x="910" y="272" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">Architect</text>
-  <text x="910" y="293" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">system constraints &#183; ITCSS</text>
-  <line x1="370" y1="304" x2="640" y2="364" stroke="#7C3AED" stroke-width="2"/>
-  <line x1="910" y1="304" x2="640" y2="364" stroke="#7C3AED" stroke-width="2"/>
-  <rect x="490" y="364" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
-  <text x="640" y="396" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">UX Engineer</text>
-  <text x="640" y="417" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">tokens &#183; BEMIT SCSS &#183; stories</text>
-  <line x1="640" y1="428" x2="640" y2="468" stroke="#7C3AED" stroke-width="2"/>
-  <rect x="490" y="468" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
-  <text x="640" y="500" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">Frontend Dev</text>
-  <text x="640" y="521" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">Angular &#183; signals &#183; ARIA</text>
-  <line x1="590" y1="532" x2="370" y2="582" stroke="#7C3AED" stroke-width="2"/>
-  <line x1="690" y1="532" x2="910" y2="582" stroke="#7C3AED" stroke-width="2"/>
-  <rect x="220" y="582" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
-  <text x="370" y="614" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">Tester</text>
-  <text x="370" y="635" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">stories &#183; unit tests &#183; WCAG AA</text>
-  <rect x="760" y="582" width="300" height="64" rx="12" fill="#1E293B" stroke="#334155"/>
-  <text x="910" y="614" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#E2E8F0">Token Auditor</text>
-  <text x="910" y="635" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">prefix &#183; coverage &#183; mapping review</text>
-  <text x="640" y="695" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#64748B">Strategic proposal &#8212; independent execution and repeatability not established</text>
+<svg width="1200" height="560" viewBox="0 0 1200 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="aw-title aw-desc">
+  <title id="aw-title">Proposed multi-role design-to-code workflow, marked up by a later review</title>
+  <desc id="aw-desc">Four stages on one path. Stage 1 runs two readers in parallel: a UX Researcher reading Figma and an Architect reading the repository. Stage 2 is the UX Engineer alone, writing tokens and SCSS. Stage 3 is the Frontend Dev alone, writing the same component files. Stage 4 runs two readers in parallel over the finished build: a Tester and a Token Auditor. An Orchestration role sits above stage 1. A dashed amber outline marks the three boxes a later review argues against: Orchestration is a graph runner rather than an agent, the Tester's mechanical half is scriptable with axe-core, and the Token Auditor is deterministic and belongs in continuous integration.</desc>
+
+  <style>
+    text { font-family: 'Segoe UI', Arial, sans-serif; }
+    .mid { text-anchor: middle; }
+    .t-role { font-size: 22px; font-weight: 600; fill: #E2E8F0; }
+    .t-io { font-size: 16px; fill: #94A3B8; }
+    .t-verdict { font-size: 16px; fill: #FBBF24; }
+    .t-num { font-size: 22px; font-weight: 700; fill: #E2E8F0; }
+    .t-mode { font-size: 13px; font-weight: 600; fill: #A78BFA; letter-spacing: 1.2px; }
+    .box { fill: #1E293B; stroke: #334155; stroke-width: 1.75; }
+    /* The coordinating layer, distinguished by stroke rather than by fill: the
+       review argues it away, so it should not be the loudest thing on the page. */
+    .accent { fill: #1E293B; stroke: #7C3AED; stroke-width: 2; }
+    .ring { fill: none; stroke: #F59E0B; stroke-width: 2; stroke-dasharray: 8 5; }
+    .flow { fill: none; stroke: #7C3AED; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+
+  <rect width="1200" height="560" fill="#0F172A"/>
+
+  <!-- Orchestration: proposed, then argued against -->
+  <rect class="accent" x="140" y="36" width="1020" height="72" rx="12"/>
+  <rect class="ring" x="132" y="28" width="1036" height="88" rx="16"/>
+  <text class="t-role mid" x="650" y="68">Orchestration</text>
+  <text class="t-verdict mid" x="650" y="94">a graph runner, not an agent</text>
+  <path class="flow" d="M650 120 L650 138 M642 130 L650 138 L658 130"/>
+
+  <!-- Stage 1 — two readers, so they run together -->
+  <text class="t-num" x="28" y="174">1</text>
+  <text class="t-mode" x="28" y="194">PARALLEL</text>
+  <rect class="box" x="140" y="144" width="498" height="64" rx="12"/>
+  <text class="t-role mid" x="389" y="174">UX Researcher</text>
+  <text class="t-io mid" x="389" y="196">reads Figma</text>
+  <rect class="box" x="662" y="144" width="498" height="64" rx="12"/>
+  <text class="t-role mid" x="911" y="174">Architect</text>
+  <text class="t-io mid" x="911" y="196">reads the repository</text>
+  <path class="flow" d="M650 212 L650 238 M642 230 L650 238 L658 230"/>
+
+  <!-- Stage 2 — the only writer of tokens -->
+  <text class="t-num" x="28" y="274">2</text>
+  <text class="t-mode" x="28" y="294">SERIAL</text>
+  <rect class="box" x="140" y="244" width="1020" height="64" rx="12"/>
+  <text class="t-role mid" x="650" y="274">UX Engineer</text>
+  <text class="t-io mid" x="650" y="296">writes tokens and SCSS</text>
+  <path class="flow" d="M650 312 L650 338 M642 330 L650 338 L658 330"/>
+
+  <!-- Stage 3 — writes into stage 2's files, so it cannot overlap -->
+  <text class="t-num" x="28" y="374">3</text>
+  <text class="t-mode" x="28" y="394">SERIAL</text>
+  <rect class="box" x="140" y="344" width="1020" height="64" rx="12"/>
+  <text class="t-role mid" x="650" y="374">Frontend Dev</text>
+  <text class="t-io mid" x="650" y="396">writes the same component files</text>
+  <path class="flow" d="M650 412 L650 430 M642 422 L650 430 L658 422"/>
+
+  <!-- Stage 4 — two readers again, both marked by the review -->
+  <text class="t-num" x="28" y="474">4</text>
+  <text class="t-mode" x="28" y="494">PARALLEL</text>
+  <rect class="box" x="140" y="444" width="498" height="92" rx="12"/>
+  <rect class="ring" x="132" y="436" width="514" height="108" rx="16"/>
+  <text class="t-role mid" x="389" y="474">Tester</text>
+  <text class="t-io mid" x="389" y="496">reads the build</text>
+  <text class="t-verdict mid" x="389" y="522">mechanical half is axe-core</text>
+  <rect class="box" x="662" y="444" width="498" height="92" rx="12"/>
+  <rect class="ring" x="654" y="436" width="514" height="108" rx="16"/>
+  <text class="t-role mid" x="911" y="474">Token Auditor</text>
+  <text class="t-io mid" x="911" y="496">reads the build</text>
+  <text class="t-verdict mid" x="911" y="522">deterministic — belongs in CI</text>
 </svg>

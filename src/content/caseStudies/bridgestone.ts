@@ -76,7 +76,7 @@ export const bridgestoneStudy: CaseStudy = {
   },
 
   impactStatement:
-    'I made the need for a design system observable, then moved UI quality from my reviews into foundations the team could use earlier.',
+    'The team built every FleetBridge component itself and dedicated resources were refused, so I built the foundation inside feature delivery, then moved UI quality out of my reviews and into tools the team could use earlier.',
 
   hero: {
     summary:
@@ -136,7 +136,7 @@ export const bridgestoneStudy: CaseStudy = {
     items: [
       {
         period: 'Starting point',
-        title: 'Delivery began inside the second diamond',
+        title: 'Invert the double diamond around delivery',
         description:
           'Business needs and feature definitions were already supplied. Design had to start from those commitments, deliver, then turn later insights and feedback into improvements.',
         label: 'CONTEXT'

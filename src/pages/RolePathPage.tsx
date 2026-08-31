@@ -61,6 +61,7 @@ export function RolePathPage({ path, otherPath }: RolePathPageProps) {
               <WorkCard
                 key={entry.card.slug}
                 card={entry.card}
+                variant="role"
                 emphasis={entry.emphasis}
                 links={entry.links}
                 imagePosition={index % 2 === 0 ? 'left' : 'right'}

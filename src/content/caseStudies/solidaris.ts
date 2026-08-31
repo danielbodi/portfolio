@@ -83,7 +83,7 @@ export const solidarisStudy: CaseStudy = {
   },
 
   impactStatement:
-    'I started outside the central design-system decision loop and became an active contributor to the renewed core collaboration by connecting product delivery to its shared direction.',
+    'I started outside the central design-system decisions and worked my way into them, by connecting three converging products to the shared direction and building the repository this work did not have.',
 
   hero: {
     summary:

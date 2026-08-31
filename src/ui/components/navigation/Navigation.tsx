@@ -92,13 +92,8 @@ export function Navigation() {
                   </div>
                   {isScrolled && (
                     <div className="c-navigation__actions">
-                      <Link to="/#selected-work" className="c-button c-button--primary">
-                        <span className="hidden xl:inline">Explore selected work</span>
-                        <span className="xl:hidden">Explore work</span>
-                      </Link>
-                      <Button variant="secondary" onClick={handleContact}>
-                        <span className="hidden xl:inline">Contact me</span>
-                        <span className="xl:hidden">Contact</span>
+                      <Button variant="primary" onClick={handleContact}>
+                        Let's talk
                       </Button>
                       <Button variant="secondary" onClick={handleCvDownload} aria-label="Download CV">
                         <span className="hidden xl:inline">Download CV</span>
@@ -129,7 +124,7 @@ export function Navigation() {
             {renderLinks('mobile')}
             <li className="c-navigation__item">
               <button onClick={handleContact} className="c-navigation__link">
-                Contact
+                Let's talk
               </button>
             </li>
             <li className="c-navigation__item">

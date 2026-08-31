@@ -1,9 +1,10 @@
 import React from 'react';
-import { CaseStudyTemplate } from './CaseStudyTemplate';
+import { VisualCaseStudyTemplate } from './VisualCaseStudyTemplate';
 import { bridgestoneStudy } from '../content/caseStudies/bridgestone';
+import { bridgestoneVisualStory } from '../content/caseStudies/visualStories';
 
 export function BridgestoneProject() {
-  return <CaseStudyTemplate study={bridgestoneStudy} />;
+  return <VisualCaseStudyTemplate study={bridgestoneStudy} story={bridgestoneVisualStory} />;
 }
 
 export default BridgestoneProject;

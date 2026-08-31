@@ -133,8 +133,15 @@ export function PageTransition({ children }: PageTransitionProps) {
     };
   }, [phase, location.pathname]);
 
+  // No cover, no motion — but the route marker still has to be here.
+  // TableOfContents scopes its heading scan to [data-route], so dropping it
+  // left the rail empty for every reduced-motion visitor.
   if (prefersReducedMotion) {
-    return <div className="relative">{children}</div>;
+    return (
+      <div className="relative" data-route={location.pathname}>
+        {children}
+      </div>
+    );
   }
 
   const covered = phase === 'transit';

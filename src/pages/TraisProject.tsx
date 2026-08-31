@@ -1,9 +1,10 @@
 import React from 'react';
-import { CaseStudyTemplate } from './CaseStudyTemplate';
+import { VisualCaseStudyTemplate } from './VisualCaseStudyTemplate';
 import { trasisStudy } from '../content/caseStudies/trasis';
+import { trasisVisualStory } from '../content/caseStudies/visualStories';
 
 export function TraisProject() {
-  return <CaseStudyTemplate study={trasisStudy} />;
+  return <VisualCaseStudyTemplate study={trasisStudy} story={trasisVisualStory} />;
 }
 
 export default TraisProject;

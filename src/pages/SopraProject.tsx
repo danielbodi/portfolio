@@ -1,9 +1,9 @@
-import React from 'react';
-import { CaseStudyTemplate } from './CaseStudyTemplate';
+import { VisualCaseStudyTemplate } from './VisualCaseStudyTemplate';
 import { sopraBankingStudy } from '../content/caseStudies/sopraBanking';
+import { sopraVisualStory } from '../content/caseStudies/visualStories';
 
 export function SopraProject() {
-  return <CaseStudyTemplate study={sopraBankingStudy} />;
+  return <VisualCaseStudyTemplate study={sopraBankingStudy} story={sopraVisualStory} />;
 }
 
 export default SopraProject;

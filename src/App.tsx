@@ -181,7 +181,12 @@ const SHELL_MAX_WIDTH = '75rem';
 
 function AppContent() {
   const location = useLocation();
-  const isCasePage = /^\/work\/.+/.test(location.pathname);
+  // Every case page, not just the two legacy ones: the chaptered flagships are
+  // the longest reads on the site. Listed explicitly so an unknown /work/* slug
+  // (404) never reserves the rail column.
+  const hasCaseStudyToc = /^\/work\/(bridgestone|solidaris|trasis|sopra-banking|base)$/.test(
+    location.pathname
+  );
   const isHome = location.pathname === '/';
   const [tocVisible, setTocVisible] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -189,7 +194,7 @@ function AppContent() {
 
   // Reset and control TOC visibility when route changes
   useEffect(() => {
-    if (isCasePage) {
+    if (hasCaseStudyToc) {
       setTocVisible(false);
       // Wait until the cover has lifted so the TOC fades in with the content,
       // not into an empty column. Cover floor is 550ms.
@@ -201,7 +206,7 @@ function AppContent() {
     } else {
       setTocVisible(false);
     }
-  }, [location.pathname, isCasePage]);
+  }, [location.pathname, hasCaseStudyToc]);
 
   // Deep links into case sections (e.g. /work/bridgestone#system-evidence):
   // wait for the lazy route to mount, then scroll to the anchored heading.
@@ -243,7 +248,10 @@ function AppContent() {
         <Background />
       </div>
 
-      <div className="relative z-10 flex flex-row justify-center">
+      {/* xl:px-8 keeps the shell-plus-rail group symmetrically framed on viewports
+          too narrow for both at full size (everything below ~1550px): the shell
+          shrinks inside the padding instead of pinning flush to the left edge. */}
+      <div className="relative z-10 flex flex-row justify-center xl:px-8">
         <div className="min-w-0 w-full flex-1 px-4 md:px-6 lg:flex-initial" style={{ maxWidth: SHELL_MAX_WIDTH }}>
           <Navigation />
           <main id="main-content" tabIndex={-1}>
@@ -253,21 +261,34 @@ function AppContent() {
 
         {/* Always mounted on desktop so width can ease. Empty while shrinking
             or expanding, so overflow-hidden is not needed (it would break
-            position: sticky on the TOC). */}
+            position: sticky on the TOC). Gated to xl: below 1280px a reserved
+            column squeezes the article under ~700px, so the collapsible bar
+            below covers those widths instead. */}
         <div
-          className="hidden flex-none lg:block"
+          className="hidden flex-none xl:block"
           style={{
-            width: isCasePage ? '16rem' : 0,
-            marginLeft: isCasePage ? '5rem' : 0,
+            width: hasCaseStudyToc ? '14rem' : 0,
+            marginLeft: hasCaseStudyToc ? '3rem' : 0,
             transition: layoutTransition
           }}
-          aria-hidden={!isCasePage}
+          aria-hidden={!hasCaseStudyToc}
         >
-          {isCasePage && (
+          {hasCaseStudyToc && (
             <TableOfContents variant="desktop" pathname={location.pathname} isVisible={tocVisible} />
           )}
         </div>
       </div>
+
+      {/* Chapter navigation for phones: a collapsed bar that slides in from the
+          top once the reader is into the page. Only below md — the top edge is
+          free there because the site navigation docks to the bottom, while from
+          md up the sticky pill nav owns it. Between md and xl the case pages
+          run full width without a chapter rail. */}
+      {hasCaseStudyToc && (
+        <div className="md:hidden">
+          <TableOfContents variant="mobile" pathname={location.pathname} />
+        </div>
+      )}
     </div>
   );
 }

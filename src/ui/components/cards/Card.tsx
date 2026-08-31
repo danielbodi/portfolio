@@ -366,12 +366,7 @@ export function Card({
   const contentClasses = `c-card__content ${isNested ? 'c-card__content--nested' : ''} ${isGhost ? 'c-card__content--ghost' : ''} ${className.includes('px-0') || className.includes('py-0') ? 'c-card__content--no-padding' : ''}`;
   
   return (
-    <div
-      ref={cardRef}
-      className={cardClasses}
-      onClick={onClick}
-      aria-disabled={effectiveDisableAnimation ? 'true' : undefined}
-    >
+    <div ref={cardRef} className={cardClasses} onClick={onClick}>
       {/* Gradient background layer */}
       {!isGhost && (
         <div 

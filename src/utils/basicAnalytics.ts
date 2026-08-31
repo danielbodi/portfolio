@@ -138,7 +138,9 @@ export class BasicAnalytics {
       //   body: JSON.stringify(this.events)
       // });
       
-      console.log('Analytics events captured:', this.events);
+      if (import.meta.env.DEV) {
+        console.log('Analytics events captured:', this.events);
+      }
       this.events = []; // Clear sent events
     } catch (error) {
       console.warn('Failed to send analytics:', error);

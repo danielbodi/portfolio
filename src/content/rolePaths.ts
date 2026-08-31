@@ -45,8 +45,8 @@ export const staffProductDesignPath: RolePath = {
       emphasis:
         'Ongoing product and systems work under inherited constraints: research, case-reading models, interaction trade-offs and a handoff whose limits are made explicit.',
       links: [
-        { label: 'Key decisions', href: '/work/solidaris#key-decisions' },
-        { label: 'Validation', href: '/work/solidaris#validation' }
+        { label: 'Product tension', href: '/work/solidaris#fragmented-tools' },
+        { label: 'Influence path', href: '/work/solidaris#shared-contribution' }
       ]
     },
     {
@@ -54,16 +54,16 @@ export const staffProductDesignPath: RolePath = {
       emphasis:
         'Product craft under constraints: a high-consequence workflow made unambiguous, validated with task-based testing and iterated from observation.',
       links: [
-        { label: 'Strategic framing', href: '/work/trasis#strategic-framing' },
-        { label: 'Validation', href: '/work/trasis#validation' }
+        { label: 'Physical model', href: '/work/trasis#physical-model' },
+        { label: 'Validation evidence', href: '/work/trasis#status-results' }
       ]
     },
     {
       card: bridgestoneCard,
       emphasis:
-        'Influence beyond the screen: turning an unplanned design system into a funded initiative, then raising quality through reviews, documentation and coaching.',
+        'Influence beyond the screen: a refused design-system request turned into a funded initiative, then quality raised through reviews, documentation and coaching.',
       links: [
-        { label: 'Key decisions', href: '/work/bridgestone#key-decisions' },
+        { label: 'Influence', href: '/work/bridgestone#make-value-visible' },
         { label: 'Outcomes', href: '/work/bridgestone#outcomes' }
       ]
     }
@@ -91,17 +91,18 @@ export const designEngineeringPath: RolePath = {
       emphasis:
         'The deepest system evidence: CSS as the authoritative source for documented foundations, a parseable BEM grammar, 15 base hues supporting two themes, selected CSSOM-fed Storybook pages and modern CSS in production.',
       links: [
-        { label: 'System evidence', href: '/work/bridgestone#system-evidence' },
-        { label: 'Key decisions', href: '/work/bridgestone#key-decisions' }
+        { label: 'System evidence', href: '/work/bridgestone#shared-source' },
+        { label: 'Governance', href: '/work/bridgestone#shared-capability' }
       ]
     },
     {
       card: solidarisCard,
       emphasis:
-        'An inherited PrimeNG/Plectrum baseline extended through product-local components, Storybook/repository outputs, token-governance material and AI-oriented contracts — all labelled by maturity and adoption state.',
+        'A fixed PrimeNG/Plectrum baseline extended through product research, a bounded local fork and the first repository these applications had — then a route back into the core team’s decisions.',
       links: [
-        { label: 'System evidence', href: '/work/solidaris#system-evidence' },
-        { label: 'Key decisions', href: '/work/solidaris#key-decisions' }
+        { label: 'System bridge', href: '/work/solidaris#shared-contribution' },
+        { label: 'Workflow experiment', href: '/work/solidaris#workflow-experiment' },
+        { label: 'Tested journey', href: '/work/solidaris#ishare' }
       ]
     },
     {
@@ -114,7 +115,7 @@ export const designEngineeringPath: RolePath = {
       card: trasisCard,
       emphasis:
         'Design and implementation in one pair of hands: device-realistic UI designed and built within an Nx/Angular workspace with ITCSS and BEM.',
-      links: [{ label: 'System evidence', href: '/work/trasis#system-evidence' }]
+      links: [{ label: 'Delivery and handover', href: '/work/trasis#continuity' }]
     }
   ],
   cvNote: 'Design systems and UX engineering CV'

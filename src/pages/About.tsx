@@ -1,10 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { useSeo } from '../hooks/useSeo';
-import { contact } from '../content/site';
-import { analytics } from '../utils/basicAnalytics';
 import { SectionHeader } from '../ui/components/layout/SectionHeader';
 import { CareerTimeline } from '../ui/components/about/CareerTimeline';
+import { ContactCta } from '../ui/components/contact/ContactCta';
 
 const pathPoints = [
   'Taught web design, then spent years building UI \u2014 high-traffic telecom sites at Design is Dead/Emakina, where cross-browser discipline and BEM became habits.',
@@ -112,37 +109,11 @@ export function About() {
             ))}
           </ul>
         </section>
-
-        <section
-          className="border-t border-gray-700/60 py-12 md:py-16"
-          aria-labelledby="contact-heading"
-        >
-          <h2 id="contact-heading" className="mb-3 text-xl font-semibold text-gray-100">
-            Location and contact
-          </h2>
-          <p className="mb-6 text-gray-400">{contact.location}</p>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href={`mailto:${contact.email}`}
-              className="c-button c-button--primary"
-              onClick={() => analytics.trackPortfolioEvent('contact_click', { from: '/about' })}
-            >
-              Email me
-            </a>
-            <a
-              href={contact.cv.file}
-              download={contact.cv.fileName}
-              className="c-button c-button--secondary"
-              onClick={() => analytics.trackPortfolioEvent('cv_download', { variant: 'default', from: '/about' })}
-            >
-              {contact.cv.label}
-            </a>
-            <Link to="/work" className="c-button c-button--secondary">
-              View selected work
-            </Link>
-          </div>
-        </section>
       </div>
+
+      {/* Outside the column wrapper: the card carries its own, so nesting two
+          identical max-widths would add a level that changes nothing. */}
+      <ContactCta from="/about" includeWorkLink className="pt-12 md:pt-16" />
     </div>
   );
 }

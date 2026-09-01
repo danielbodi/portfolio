@@ -4,7 +4,7 @@ import { PositioningPillars } from '../ui/components/home/PositioningPillars';
 import { FeaturedCases } from '../ui/components/home/FeaturedCases';
 import { Capabilities } from '../ui/components/home/Capabilities';
 import { ArtefactGallery } from '../ui/components/home/ArtefactGallery';
-import { ContactCta } from '../ui/components/home/ContactCta';
+import { ContactCta } from '../ui/components/contact/ContactCta';
 import { useSeo } from '../hooks/useSeo';
 import { positioning } from '../content/site';
 
@@ -33,7 +33,7 @@ export function Home() {
       <FeaturedCases />
       <Capabilities />
       <ArtefactGallery />
-      <ContactCta />
+      <ContactCta from="/" />
 
       {/* Bottom spacing for mobile navigation */}
       <div className="h-16 md:h-0"></div>

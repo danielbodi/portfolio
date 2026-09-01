@@ -15,7 +15,7 @@ const edges = [
 
 function NodeCard({ number, label }: { number: string; label: string }) {
   return (
-    <div className="h-full rounded-xl border border-white/20 bg-slate-800 px-4 py-3.5 text-center">
+    <div className="h-full rounded-xl border border-gray-700/60 bg-[#32323A] px-4 py-3.5 text-center">
       <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-purple-200">
         {number}
       </p>

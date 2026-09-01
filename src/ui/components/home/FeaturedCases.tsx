@@ -1,6 +1,10 @@
-import { flagshipCards } from '../../../content/caseStudies/cards';
+import { allCards, flagshipCards } from '../../../content/caseStudies/cards';
 import { SelectedWorkSection } from '../work/SelectedWorkSection';
 import { TextLink } from '../links/TextLink';
+
+/** Copy elsewhere spells counts out, so a bare digit here would read as a typo. */
+const countWords = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+const totalCases = countWords[allCards.length] ?? String(allCards.length);
 
 /** The three flagship cases, teasing the full index at /work. */
 export function FeaturedCases() {
@@ -14,7 +18,7 @@ export function FeaturedCases() {
       cards={flagshipCards}
       footer={
         <TextLink to="/work" className="mt-8">
-          See all five cases, including earlier foundations
+          See all {totalCases} cases, including earlier foundations
         </TextLink>
       }
     />

@@ -1,12 +1,29 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { contact } from '../../../content/site';
 import { analytics } from '../../../utils/basicAnalytics';
 import { Card } from '../cards/Card';
 
-/** Contact and CV close (brief section 5, homepage order items 9–10). */
-export function ContactCta() {
+interface ContactCtaProps {
+  /** Analytics origin for the contact and CV events. */
+  from: string;
+  /** Adds a route into the case index; omit where the page already links there. */
+  includeWorkLink?: boolean;
+  /** Vertical rhythm only — the block itself stays identical across pages. */
+  className?: string;
+}
+
+/**
+ * The closing ask. Home and About both end on this card, so the pitch, the
+ * contact facts and the analytics wiring exist once, and the highest-intent
+ * moment on either page carries the same weight.
+ */
+export function ContactCta({
+  from,
+  includeWorkLink = false,
+  className = 'py-16 md:py-24'
+}: ContactCtaProps) {
   return (
-    <section aria-labelledby="contact-heading" className="py-16 md:py-24">
+    <section aria-labelledby="contact-heading" className={className}>
       <div className="mx-auto max-w-6xl">
         <Card>
           <h2 id="contact-heading" className="mb-3 text-3xl font-bold text-gray-100 md:text-4xl">
@@ -22,7 +39,7 @@ export function ContactCta() {
             <a
               href={`mailto:${contact.email}`}
               className="c-button c-button--primary"
-              onClick={() => analytics.trackPortfolioEvent('contact_click', { from: '/' })}
+              onClick={() => analytics.trackPortfolioEvent('contact_click', { from })}
             >
               Email me
             </a>
@@ -30,10 +47,15 @@ export function ContactCta() {
               href={contact.cv.file}
               download={contact.cv.fileName}
               className="c-button c-button--secondary"
-              onClick={() => analytics.trackPortfolioEvent('cv_download', { variant: 'default', from: '/' })}
+              onClick={() => analytics.trackPortfolioEvent('cv_download', { variant: 'default', from })}
             >
               {contact.cv.label}
             </a>
+            {includeWorkLink && (
+              <Link to="/work" className="c-button c-button--secondary">
+                View selected work
+              </Link>
+            )}
           </div>
         </Card>
       </div>

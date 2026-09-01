@@ -141,40 +141,16 @@
   gap: 0.75rem;
 }
 
-.home-hero__status {
-  display: inline-flex;
-  max-width: 100%;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.25rem;
-  color: #96939f;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  text-underline-offset: 0.25rem;
-  transition: color 160ms ease;
-}
-
-.home-hero__status:hover {
-  color: #cfb9ff;
-  text-decoration: underline;
-}
-
+/* Live-status dot inside the hero's TextLink (link styling comes from TextLink). */
 .home-hero__status-dot {
+  display: inline-block;
   width: 0.42rem;
   height: 0.42rem;
-  flex: none;
+  margin-right: 0.45rem;
   border-radius: 999px;
   background: #6ee7b7;
   box-shadow: 0 0 0 4px rgba(110, 231, 183, 0.08);
-}
-
-.home-hero__status-arrow {
-  flex: none;
-  transition: transform 160ms ease;
-}
-
-.home-hero__status:hover .home-hero__status-arrow {
-  transform: translateX(0.18rem);
+  vertical-align: 0.06em;
 }
 
 .home-hero__scroll-cue {
@@ -195,7 +171,8 @@
 }
 
 .home-hero__scroll-cue:hover {
-  color: #cfb9ff;
+  /* Matches Tailwind purple-300, the shared link colour. */
+  color: #d8b4fe;
 }
 
 .home-hero__scroll-icon {
@@ -325,8 +302,6 @@
   }
 
 
-  .home-hero__status,
-  .home-hero__status-arrow,
   .home-hero__scroll-cue {
     transition: none;
   }

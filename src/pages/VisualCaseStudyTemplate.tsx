@@ -17,6 +17,7 @@ import {
   SystemEvidenceVisual
 } from '../ui/components/evidence';
 import { DefinitionStrip, EvidenceStatusBadge, StoryFigure } from '../ui/components/story';
+import { StoryDiagram } from '../ui/components/story/diagrams/registry';
 import { LiveDemo } from '../ui/components/demos';
 
 interface VisualCaseStudyTemplateProps {
@@ -134,6 +135,33 @@ function VisualMedia({ media, study, sharesRow = false }: MediaProps) {
     );
   }
 
+  if (media.kind === 'diagram') {
+    const showState =
+      media.state &&
+      media.state !== media.evidenceStatus &&
+      !(media.evidenceStatus && REDUNDANT_STATES[media.evidenceStatus]?.includes(media.state));
+    const badges =
+      media.evidenceStatus || showState ? (
+        <>
+          {media.evidenceStatus && <EvidenceStatusBadge status={media.evidenceStatus} />}
+          {showState && media.state && <DeliveryStateTag state={media.state} />}
+        </>
+      ) : undefined;
+
+    return (
+      <StoryFigure
+        plate="dark"
+        label={media.label}
+        caption={media.caption}
+        myPart={media.myPart}
+        badges={badges}
+        mediaLayout="block"
+      >
+        <StoryDiagram diagramId={media.diagramId} />
+      </StoryFigure>
+    );
+  }
+
   const showState =
     media.state &&
     media.state !== media.evidenceStatus &&
@@ -146,9 +174,9 @@ function VisualMedia({ media, study, sharesRow = false }: MediaProps) {
       </>
     ) : undefined;
 
-  /* Diagrams here are authored SVGs carrying their own dark canvas; a light plate
-     framed them in white bands. Screenshots are PNGs and still need the plate. */
-  const plate = media.src.endsWith('.svg') ? 'dark' : 'light';
+  /* Authored SVGs carry their own dark canvas. Screenshots letterbox onto a
+     plate sampled from the image itself inside ExpandableImage. */
+  const plate = media.src.endsWith('.svg') ? 'dark' : 'none';
 
   return (
     <StoryFigure
@@ -161,10 +189,11 @@ function VisualMedia({ media, study, sharesRow = false }: MediaProps) {
       <ExpandableImage
         src={media.src}
         alt={media.alt}
+        frameClassName={sharesRow ? 'lg:aspect-[16/9]' : undefined}
         className={
           sharesRow
-            ? 'h-auto w-full object-contain object-top lg:aspect-[16/9]'
-            : 'h-auto max-h-[70vh] w-full object-contain object-top'
+            ? 'h-auto w-full object-contain object-center lg:h-full lg:w-full'
+            : 'h-auto max-h-[70vh] w-full object-contain object-center'
         }
       />
     </StoryFigure>
@@ -186,7 +215,10 @@ function MediaGrid({
   const needsFullWidth =
     singleColumn ||
     media.length === 1 ||
-    media.some((item) => item.kind === 'live-demo' || item.kind === 'video') ||
+    media.some(
+      (item) =>
+        item.kind === 'live-demo' || item.kind === 'video' || item.kind === 'diagram'
+    ) ||
     media.every((item) => item.kind === 'system-evidence');
   /* Two columns at most. Three dense UI screenshots across the measure land at
      roughly 350px each, where the caption outweighs the thing it describes. */

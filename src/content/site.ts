@@ -213,6 +213,8 @@ export const homeArtefacts: Artefact[] = [
     why: "CSS custom properties feed documented values and interactive examples, reducing duplicate maintenance.",
     contribution: "Built the CSS-to-Storybook pipeline.",
     state: "In production",
+    href: "/work/bridgestone#shared-source",
+    caseLabel: "Bridgestone",
   },
   {
     src: "/screenshots/solidaris/token-architecture.svg",
@@ -224,6 +226,8 @@ export const homeArtefacts: Artefact[] = [
     evidenceNote:
       "The exact implemented token inventory and synchronisation state are still being verified.",
     state: "Ongoing",
+    href: "/work/solidaris#shared-contribution",
+    caseLabel: "Solidaris",
   },
   {
     src: "/screenshots/bs/bs_desktop_ws-light.png",
@@ -233,6 +237,8 @@ export const homeArtefacts: Artefact[] = [
     contribution:
       "Designed the workflow and the reusable patterns it exercises.",
     state: "In production",
+    href: "/work/bridgestone#product-patterns",
+    caseLabel: "Bridgestone",
   },
   {
     src: "/screenshots/trasis/trasis-qc1-spots--results.png",
@@ -241,6 +247,8 @@ export const homeArtefacts: Artefact[] = [
     why: "Presents precise measurements and pass/fail states in one results view.",
     contribution: "Designed the data presentation and state system.",
     state: "Shipped",
+    href: "/work/trasis#status-results",
+    caseLabel: "Trasis",
   },
   {
     src: "/screenshots/solidaris/ishare-journey.png",
@@ -252,6 +260,105 @@ export const homeArtefacts: Artefact[] = [
     evidenceNote:
       "Participant counts, scores and final delivery state are not published.",
     state: "Tested concept",
+    href: "/work/solidaris#ishare",
+    caseLabel: "Solidaris",
+  },
+  {
+    src: "/screenshots/bs/bs_desktop_vehicle-list-light.png",
+    alt: "FleetBridge vehicle list using shared table, filter and status patterns",
+    what: "A FleetBridge vehicle list using shared table, filter and status patterns.",
+    why: "The same product decisions appear across operational contexts instead of one-off screens.",
+    contribution:
+      "Translated recurring list and status decisions into documented patterns.",
+    state: "In production",
+    href: "/work/bridgestone#product-patterns",
+    caseLabel: "Bridgestone",
+  },
+  {
+    src: "/screenshots/solidaris/ishare-affiliate-dossier.png",
+    alt: "Anonymised iShare affiliate dossier prototype with affiliate context, document tracking and a workflow journey",
+    what: "One reading surface for affiliate context, documents, status and the active workflow step.",
+    why: "Anonymised prototype used in scenario-based tests; fictional affiliate data.",
+    contribution:
+      "Designed the dossier model, information hierarchy and journey treatment, and tested them.",
+    evidenceClass: "OUTPUT",
+    evidenceNote:
+      "Participant counts, scores and final delivery state are not published.",
+    state: "Tested concept",
+    href: "/work/solidaris#ishare",
+    caseLabel: "Solidaris",
+  },
+  {
+    src: "/screenshots/trasis/trasis-qc1-homepage.png",
+    alt: "QC1 device interface home screen from the archived project material",
+    what: "The device entry point: available test modules, live state and the work waiting on the machine.",
+    contribution: "Designed the device overview and module entry point.",
+    state: "Shipped",
+    href: "/work/trasis",
+    caseLabel: "Trasis",
+  },
+  {
+    src: "/screenshots/bs/bs_desktop_storybook-tag.png",
+    alt: "Storybook documentation explaining the anatomy of a FleetBridge tag component",
+    what: "Production-backed Storybook guidance for a FleetBridge tag component.",
+    why: "Shared rules made review less dependent on memory.",
+    contribution:
+      "Documented component anatomy in Storybook for onboarding and review.",
+    state: "In production",
+    href: "/work/bridgestone#shared-capability",
+    caseLabel: "Bridgestone",
+  },
+  {
+    src: "/screenshots/solidaris/icrm-inbox.png",
+    alt: "Anonymised iCRM inbox concept with a dense master list beside a selected request",
+    what: "A work-oriented inbox: subject first, recent activity second, status and alerts before the detail opens.",
+    contribution:
+      "Designed the dense master-list pattern and information hierarchy.",
+    evidenceClass: "OUTPUT",
+    evidenceNote: "Implementation and user outcome are not claimed.",
+    state: "Concept",
+    href: "/work/solidaris#icrm",
+    caseLabel: "Solidaris",
+  },
+  {
+    src: "/screenshots/trasis/trasis-qc1-real-parts-ui.png",
+    alt: "QC1 interface showing realistic representations of physical device parts",
+    what: "A reusable vector system for valves, columns, injectors and tubes, matching the technicians’ physical mental model.",
+    contribution: "Designed the hardware-to-interface mapping.",
+    state: "Shipped",
+    href: "/work/trasis#physical-model",
+    caseLabel: "Trasis",
+  },
+  {
+    src: "/screenshots/solidaris/iged-draft.png",
+    alt: "First iGED interface draft with a dense document list",
+    what: "The first iGED draft applying status, filtering and dense-list principles to document processing.",
+    contribution:
+      "Designed the first draft; the wider iGED programme has its own owners.",
+    evidenceClass: "OUTPUT",
+    state: "Ongoing",
+    href: "/work/solidaris#iged",
+    caseLabel: "Solidaris",
+  },
+  {
+    src: "/screenshots/trasis/trasis-qc1-dashboard.png",
+    alt: "QC1 dashboard with test schedules and component monitoring",
+    what: "Schedules, live device state and monitoring in one hierarchy.",
+    contribution: "Designed the device overview hierarchy.",
+    state: "Shipped",
+    href: "/work/trasis#status-results",
+    caseLabel: "Trasis",
+  },
+  {
+    src: "/screenshots/solidaris/icrm-timeline.png",
+    alt: "iCRM chronological history concept beside a selected request detail",
+    what: "Chronology as complementary context beside a selected request, built around expert scanning speed.",
+    contribution: "Designed the inbox and history relationship.",
+    evidenceClass: "OUTPUT",
+    evidenceNote: "Implementation and user outcome are not claimed.",
+    state: "Concept",
+    href: "/work/solidaris#icrm",
+    caseLabel: "Solidaris",
   },
 ];
 

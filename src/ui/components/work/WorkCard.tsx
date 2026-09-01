@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { CaseCard } from '../../../content/types';
 import { DeliveryStateTag } from '../evidence';
 import { Card } from '../cards/Card';
+import { TextLink } from '../links/TextLink';
 import { analytics } from '../../../utils/basicAnalytics';
 
 interface WorkCardProps {
@@ -151,12 +152,7 @@ export function WorkCard({
             <ul className="relative z-20 mt-4 flex flex-wrap gap-x-5 gap-y-1">
               {links.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-purple-300 underline-offset-4 hover:underline"
-                  >
-                    {link.label}
-                  </Link>
+                  <TextLink to={link.href}>{link.label}</TextLink>
                 </li>
               ))}
             </ul>

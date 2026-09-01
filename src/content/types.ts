@@ -91,6 +91,10 @@ export interface Artefact {
   evidenceNote?: string;
   state: DeliveryState;
   technicalNote?: string;
+  /** Case-study route, optionally hashed to the chapter that shows this artefact. */
+  href?: string;
+  /** Company or case name used in the card link, e.g. "Bridgestone". */
+  caseLabel?: string;
 }
 
 export interface EvidenceClaim {

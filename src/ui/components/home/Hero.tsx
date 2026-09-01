@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import { contact, hero } from '../../../content/site';
 import { InteractiveHeadline } from './InteractiveHeadline';
+import { TextLink } from '../links/TextLink';
 import { analytics } from '../../../utils/basicAnalytics';
 
 /**
@@ -36,14 +35,10 @@ export function Hero() {
                 {hero.ctaSecondary.label}
               </a>
             </div>
-            <Link
-              to={hero.contextLink.href}
-              className="home-hero__status group"
-            >
+            <TextLink to={hero.contextLink.href} className="mt-5">
               <span aria-hidden="true" className="home-hero__status-dot" />
-              <span>{hero.contextLink.label}</span>
-              <ArrowRight size={14} aria-hidden="true" className="home-hero__status-arrow" />
-            </Link>
+              {hero.contextLink.label}
+            </TextLink>
           </div>
         </div>
       </div>

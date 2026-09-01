@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSeo } from '../hooks/useSeo';
-import { contact, earlierRoles } from '../content/site';
+import { contact } from '../content/site';
 import { analytics } from '../utils/basicAnalytics';
-import { Card } from '../ui/components/cards/Card';
+import { SectionHeader } from '../ui/components/layout/SectionHeader';
+import { CareerTimeline } from '../ui/components/about/CareerTimeline';
 
 const pathPoints = [
   'Taught web design, then spent years building UI \u2014 high-traffic telecom sites at Design is Dead/Emakina, where cross-browser discipline and BEM became habits.',
@@ -34,9 +35,10 @@ export function About() {
   return (
     <div className="min-h-screen py-16 md:py-24">
       <div className="mx-auto max-w-6xl">
-        <header className="mb-12">
-          <h1 className="mb-4 text-3xl font-bold text-purple-300 md:text-4xl">About</h1>
-          <p className="text-lg leading-relaxed text-gray-400">
+        <header className="mb-16">
+          <h1 className="text-3xl font-bold text-purple-300 md:text-4xl">About</h1>
+          <div className="mt-4 h-1 w-10 rounded bg-purple-400" aria-hidden="true" />
+          <p className="mt-8 text-lg leading-relaxed text-gray-400">
             I have spent around 15 years working in the space between interface design and front-end
             delivery. I started by building UI, moved deeper into product and user experience, and
             increasingly focused on the systems, patterns and decisions that help teams ship coherent
@@ -44,118 +46,101 @@ export function About() {
           </p>
         </header>
 
-        <div className="mb-10 space-y-6">
-          <section aria-labelledby="focus-heading">
-            <Card>
-              <h2 id="focus-heading" className="mb-2 text-2xl font-bold text-gray-100">
-                Solidaris assignment · October 2025–October 2026
-              </h2>
-              <p className="leading-relaxed text-gray-400">
-                I work across three Solidaris product workstreams, extending an inherited
-                PrimeNG/Plectrum foundation through research, product prototypes, reusable patterns
-                and design-to-code artefacts. The wider programme continues beyond my planned
-                assignment handoff, so I separate concrete outputs from adoption and outcomes that
-                were not yet measurable.
-              </p>
-            </Card>
-          </section>
+        <section
+          className="border-t border-gray-700/60 py-12 md:py-16"
+          aria-labelledby="progression-heading"
+        >
+          <SectionHeader
+            number="01"
+            eyebrow="Path"
+            title="How I got here"
+            titleId="progression-heading"
+          />
+          <p className="mb-6 text-gray-400">
+            The pattern: I&apos;m most useful where design decisions and implementation reality
+            have to meet.
+          </p>
+          <ul className="space-y-3">
+            {pathPoints.map((point) => (
+              <li key={point} className="flex gap-2 text-sm leading-relaxed text-gray-300">
+                <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />
+                {point}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-12">
+            <CareerTimeline />
+          </div>
+        </section>
 
-          <section aria-labelledby="progression-heading">
-            <Card>
-              <h2 id="progression-heading" className="mb-2 text-2xl font-bold text-gray-100">
-                How I got here
-              </h2>
-              <p className="mb-4 text-gray-400">
-                The pattern: I&apos;m most useful where design decisions and implementation reality
-                have to meet.
-              </p>
-              <ul className="space-y-2.5">
-                {pathPoints.map((point) => (
-                  <li key={point} className="flex gap-2 text-sm leading-relaxed text-gray-300">
-                    <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          </section>
+        <section
+          className="border-t border-gray-700/60 py-12 md:py-16"
+          aria-labelledby="reinforce-heading"
+        >
+          <SectionHeader
+            number="02"
+            eyebrow="Design x engineering"
+            title="Why the two backgrounds matter together"
+            titleId="reinforce-heading"
+          />
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {togetherPoints.map((point) => (
+              <li key={point} className="flex gap-2 text-sm leading-relaxed text-gray-300">
+                <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />
+                {point}
+              </li>
+            ))}
+          </ul>
+        </section>
 
-          <section aria-labelledby="reinforce-heading">
-            <Card>
-              <h2 id="reinforce-heading" className="mb-4 text-2xl font-bold text-gray-100">
-                Why the two backgrounds matter together
-              </h2>
-              <ul className="grid gap-2.5 sm:grid-cols-2">
-                {togetherPoints.map((point) => (
-                  <li key={point} className="flex gap-2 text-sm leading-relaxed text-gray-300">
-                    <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          </section>
+        <section
+          className="border-t border-gray-700/60 py-12 md:py-16"
+          aria-labelledby="style-heading"
+        >
+          <SectionHeader
+            number="03"
+            eyebrow="Working style"
+            title="Working style"
+            titleId="style-heading"
+          />
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {workingStyle.map((item) => (
+              <li key={item} className="flex gap-2 text-sm leading-relaxed text-gray-300">
+                <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
 
-          <section aria-labelledby="style-heading">
-            <Card>
-              <h2 id="style-heading" className="mb-4 text-2xl font-bold text-gray-100">
-                Working style
-              </h2>
-              <ul className="grid gap-2.5 sm:grid-cols-2">
-                {workingStyle.map((item) => (
-                  <li key={item} className="flex gap-2 text-sm leading-relaxed text-gray-300">
-                    <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          </section>
-
-          <section aria-labelledby="earlier-heading">
-            <Card>
-              <h2 id="earlier-heading" className="mb-4 text-2xl font-bold text-gray-100">
-                Earlier roles
-              </h2>
-              <ul className="grid gap-2.5 sm:grid-cols-2">
-                {earlierRoles.map((role) => (
-                  <li key={role.company} className="flex gap-2 text-sm leading-relaxed text-gray-300">
-                    <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />
-                    {role.role} · {role.company} · {role.period}
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          </section>
-        </div>
-
-        <section aria-labelledby="contact-heading">
-          <Card>
-            <h2 id="contact-heading" className="mb-2 text-xl font-semibold text-gray-100">
-              Location and contact
-            </h2>
-            <p className="mb-4 text-gray-400">{contact.location}</p>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={`mailto:${contact.email}`}
-                className="c-button c-button--primary"
-                onClick={() => analytics.trackPortfolioEvent('contact_click', { from: '/about' })}
-              >
-                Email me
-              </a>
-              <a
-                href={contact.cv.file}
-                download={contact.cv.fileName}
-                className="c-button c-button--secondary"
-                onClick={() => analytics.trackPortfolioEvent('cv_download', { variant: 'default', from: '/about' })}
-              >
-                {contact.cv.label}
-              </a>
-              <Link to="/work" className="c-button c-button--secondary">
-                View selected work
-              </Link>
-            </div>
-          </Card>
+        <section
+          className="border-t border-gray-700/60 py-12 md:py-16"
+          aria-labelledby="contact-heading"
+        >
+          <h2 id="contact-heading" className="mb-3 text-xl font-semibold text-gray-100">
+            Location and contact
+          </h2>
+          <p className="mb-6 text-gray-400">{contact.location}</p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={`mailto:${contact.email}`}
+              className="c-button c-button--primary"
+              onClick={() => analytics.trackPortfolioEvent('contact_click', { from: '/about' })}
+            >
+              Email me
+            </a>
+            <a
+              href={contact.cv.file}
+              download={contact.cv.fileName}
+              className="c-button c-button--secondary"
+              onClick={() => analytics.trackPortfolioEvent('cv_download', { variant: 'default', from: '/about' })}
+            >
+              {contact.cv.label}
+            </a>
+            <Link to="/work" className="c-button c-button--secondary">
+              View selected work
+            </Link>
+          </div>
         </section>
       </div>
     </div>

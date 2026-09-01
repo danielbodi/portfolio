@@ -2,6 +2,7 @@ import React from 'react';
 import { CaseStudy } from '../../../content/types';
 import { Card } from '../cards/Card';
 import { EvidenceClaimCard } from './EvidenceClaimCard';
+import { TextLink } from '../links/TextLink';
 
 interface RecruiterSummaryProps {
   summary: CaseStudy['recruiterSummary'];
@@ -59,12 +60,9 @@ export function RecruiterSummary({ summary }: RecruiterSummaryProps) {
               <EvidenceClaimCard key={claim.id} claim={claim} />
             ))}
           </div>
-          <a
-            href="#outcomes"
-            className="mt-5 inline-flex text-sm font-medium text-purple-300 underline-offset-4 hover:underline"
-          >
+          <TextLink to="#outcomes" className="mt-5">
             Read the evidence boundaries
-          </a>
+          </TextLink>
         </Card>
       </section>
     );

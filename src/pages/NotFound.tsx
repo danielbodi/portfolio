@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSeo } from '../hooks/useSeo';
 import { flagshipCards } from '../content/caseStudies/cards';
+import { TextLink } from '../ui/components/links/TextLink';
 
 export function NotFound() {
   useSeo({
@@ -27,18 +28,11 @@ export function NotFound() {
         <nav aria-label="Suggested destinations">
           <ul className="space-y-2">
             <li>
-              <Link to="/work" className="text-gray-300 underline-offset-4 hover:text-purple-300 hover:underline">
-                Browse the selected work
-              </Link>
+              <TextLink to="/work">Browse the selected work</TextLink>
             </li>
             {flagshipCards.map((card) => (
               <li key={card.slug}>
-                <Link
-                  to={`/work/${card.slug}`}
-                  className="text-gray-300 underline-offset-4 hover:text-purple-300 hover:underline"
-                >
-                  {card.ctaLabel}
-                </Link>
+                <TextLink to={`/work/${card.slug}`}>{card.ctaLabel}</TextLink>
               </li>
             ))}
           </ul>

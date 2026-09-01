@@ -4,7 +4,6 @@ import { PositioningPillars } from '../ui/components/home/PositioningPillars';
 import { FeaturedCases } from '../ui/components/home/FeaturedCases';
 import { Capabilities } from '../ui/components/home/Capabilities';
 import { ArtefactGallery } from '../ui/components/home/ArtefactGallery';
-import { CareerStrip } from '../ui/components/home/CareerStrip';
 import { ContactCta } from '../ui/components/home/ContactCta';
 import { useSeo } from '../hooks/useSeo';
 import { positioning } from '../content/site';
@@ -34,7 +33,6 @@ export function Home() {
       <FeaturedCases />
       <Capabilities />
       <ArtefactGallery />
-      <CareerStrip />
       <ContactCta />
 
       {/* Bottom spacing for mobile navigation */}

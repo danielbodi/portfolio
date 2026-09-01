@@ -2,23 +2,53 @@ import React, { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Maximize2, X } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
+import {
+  getCachedImagePlateColor,
+  sampleImagePlateColor,
+  setCachedImagePlateColor,
+} from '../../../utils/imagePlateColor';
 
 interface ExpandableImageProps {
   src: string;
   alt: string;
   className?: string;
+  /** Aspect / size of the letterbox frame. Plate colour paints this surface. */
+  frameClassName?: string;
 }
 
 /**
  * Thumbnail that opens a full-viewport lightbox. Used for decision visuals
  * and artefact figures that would otherwise be too small to read.
  */
-export function ExpandableImage({ src, alt, className }: ExpandableImageProps) {
+export function ExpandableImage({ src, alt, className, frameClassName }: ExpandableImageProps) {
   const [open, setOpen] = useState(false);
+  const [plateColor, setPlateColor] = useState<string | undefined>(() => getCachedImagePlateColor(src));
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const labelId = useId();
   const prefersReducedMotion = useReducedMotion();
+
+  const capturePlateColor = useCallback(
+    (image: HTMLImageElement) => {
+      const cached = getCachedImagePlateColor(src);
+      if (cached) {
+        setPlateColor(cached);
+        return;
+      }
+      const sampled = sampleImagePlateColor(image);
+      if (!sampled) return;
+      setCachedImagePlateColor(src, sampled);
+      setPlateColor(sampled);
+    },
+    [src]
+  );
+
+  useEffect(() => {
+    setPlateColor(getCachedImagePlateColor(src));
+    const image = imageRef.current;
+    if (image?.complete) capturePlateColor(image);
+  }, [src, capturePlateColor]);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -46,6 +76,8 @@ export function ExpandableImage({ src, alt, className }: ExpandableImageProps) {
     };
   }, [open, close]);
 
+  const plateStyle = plateColor ? { backgroundColor: plateColor } : undefined;
+
   return (
     <>
       <button
@@ -53,9 +85,20 @@ export function ExpandableImage({ src, alt, className }: ExpandableImageProps) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={`Expand image: ${alt}`}
-        className="group relative block w-full cursor-zoom-in rounded-lg text-left"
+        className={`group relative block w-full cursor-zoom-in overflow-hidden rounded-lg text-left ${
+          frameClassName ?? ''
+        }`}
+        style={plateStyle}
       >
-        <img src={src} alt={alt} loading="lazy" className={className} />
+        <img
+          ref={imageRef}
+          src={src}
+          alt={alt}
+          loading="lazy"
+          className={className}
+          style={plateStyle}
+          onLoad={(event) => capturePlateColor(event.currentTarget)}
+        />
         <span
           aria-hidden="true"
           className="pointer-events-none absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-md bg-gray-950/80 text-gray-200 opacity-80 ring-1 ring-white/10 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
@@ -83,7 +126,8 @@ export function ExpandableImage({ src, alt, className }: ExpandableImageProps) {
               <img
                 src={src}
                 alt=""
-                className="max-h-[82vh] w-auto max-w-full rounded-lg border border-gray-700/60 bg-gray-950 object-contain shadow-2xl"
+                className="max-h-[82vh] w-auto max-w-full rounded-lg border border-gray-700/60 object-contain shadow-2xl"
+                style={plateStyle}
               />
               <figcaption
                 id={labelId}

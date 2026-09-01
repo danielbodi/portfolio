@@ -1,0 +1,117 @@
+/*
+ * Homepage artefact marquee: two full-bleed rows scrolling in opposite
+ * directions. Each track is two identical copies so translateX(-50%) loops
+ * without a seam.
+ */
+
+.artefact-marquee {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  overflow-x: clip;
+  overflow-y: visible;
+  padding-block: 1.75rem;
+}
+
+.artefact-marquee__row {
+  isolation: isolate;
+  overflow: visible;
+
+  &+& {
+    margin-top: 1.5rem;
+  }
+
+  &:hover,
+  &:focus-within {
+    .artefact-marquee__track {
+      animation-play-state: paused;
+    }
+  }
+}
+
+.artefact-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: artefact-marquee 50s linear infinite;
+}
+
+.artefact-marquee__row--reverse .artefact-marquee__track {
+  animation-duration: 44s;
+  animation-direction: reverse;
+}
+
+.artefact-marquee__slide {
+  position: relative;
+  z-index: 0;
+  flex: none;
+  width: min(28rem, 82vw);
+  padding-right: 1rem;
+
+  @media (min-width: 768px) {
+    width: 36rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (min-width: 1280px) {
+    width: 42rem;
+    padding-right: 1.75rem;
+  }
+
+  &:hover,
+  &:focus-within {
+    z-index: 2;
+  }
+
+  .c-card {
+    transform-origin: center center;
+    transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+}
+
+.artefact-marquee__row:not(.artefact-marquee__row--reverse) .artefact-marquee__slide:hover .c-card,
+.artefact-marquee__row:not(.artefact-marquee__row--reverse) .artefact-marquee__slide:focus-within .c-card {
+  transform: translate3d(0, -0.85rem, 0) scale(1.05);
+}
+
+.artefact-marquee__row--reverse .artefact-marquee__slide:hover .c-card,
+.artefact-marquee__row--reverse .artefact-marquee__slide:focus-within .c-card {
+  transform: translate3d(0, 0.85rem, 0) scale(1.05);
+}
+
+@keyframes artefact-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .artefact-marquee__track {
+    animation: none;
+    will-change: auto;
+  }
+
+  .artefact-marquee__row {
+    overflow-x: auto;
+  }
+
+  .artefact-marquee__slide--clone {
+    display: none;
+  }
+
+  .artefact-marquee__slide .c-card {
+    transition: none;
+  }
+
+  .artefact-marquee__row:not(.artefact-marquee__row--reverse) .artefact-marquee__slide:hover .c-card,
+  .artefact-marquee__row:not(.artefact-marquee__row--reverse) .artefact-marquee__slide:focus-within .c-card,
+  .artefact-marquee__row--reverse .artefact-marquee__slide:hover .c-card,
+  .artefact-marquee__row--reverse .artefact-marquee__slide:focus-within .c-card {
+    transform: none;
+  }
+}

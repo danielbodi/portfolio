@@ -18,6 +18,12 @@ export type VisualEvidenceStatus =
  */
 export type VisualDemoId = "bridgestone-token-pipeline";
 
+/** Responsive diagrams resolved by the story diagram registry. */
+export type VisualDiagramId =
+  | "solidaris-agent-delegation"
+  | "solidaris-token-architecture"
+  | "solidaris-contracts-index";
+
 /**
  * A technique re-implemented so it runs in the page. The registry supplies the
  * label, heading, description and provenance line; the fields below only exist
@@ -34,6 +40,16 @@ export interface VisualStoryLiveDemo {
   evidenceStatus?: VisualEvidenceStatus;
 }
 
+export interface VisualStoryDiagram {
+  kind: "diagram";
+  diagramId: VisualDiagramId;
+  label?: string;
+  caption?: string;
+  myPart?: string;
+  evidenceStatus?: VisualEvidenceStatus;
+  state?: DeliveryState;
+}
+
 export type VisualStoryMedia =
   | {
       kind: "image";
@@ -45,6 +61,7 @@ export type VisualStoryMedia =
       evidenceStatus?: VisualEvidenceStatus;
       state?: DeliveryState;
     }
+  | VisualStoryDiagram
   | {
       kind: "video";
       src: string;
@@ -587,9 +604,8 @@ export const solidarisVisualStory: VisualStory = {
       ],
       media: [
         {
-          kind: "image",
-          src: "/screenshots/solidaris/token-architecture.svg",
-          alt: "Proposed primitive, semantic and component token tiers connected to the inherited PrimeNG foundation",
+          kind: "diagram",
+          diagramId: "solidaris-token-architecture",
           label: "Token tiers",
           caption:
             "Product variables and semantic decisions mapped onto the inherited PrimeNG/Plectrum foundation.",
@@ -599,9 +615,8 @@ export const solidarisVisualStory: VisualStory = {
           state: "Strategic proposal",
         },
         {
-          kind: "image",
-          src: "/screenshots/solidaris/contracts-index.svg",
-          alt: "Machine-readable component contracts, working rules and knowledge-base structure",
+          kind: "diagram",
+          diagramId: "solidaris-contracts-index",
           label: "Component contracts",
           caption:
             "Contract schemas state intended use, token boundaries and accessibility expectations, which makes design-to-code constraints inspectable rather than tacit.",
@@ -642,38 +657,37 @@ export const solidarisVisualStory: VisualStory = {
     {
       id: "workflow-experiment",
       number: "06",
-      eyebrow: "Workflow experiment",
-      title: "Design the graph, then audit it",
+      eyebrow: "Orchestration strategy",
+      title: "Turn direction into coordinated delivery",
       paragraphs: [
-        "Two rules produced the shape of this workflow, and neither one is the number of roles.",
-        "<strong>Data dependency</strong>: the UX Engineer is a join waiting on both research roles, and the Frontend Dev cannot start before tokens exist.",
-        "<strong>Write conflict</strong>: the UX Engineer and the Frontend Dev edit the same component’s files, so they would clobber each other even with no data passing between them.",
-        "What falls out is <em>parallelise readers, serialise writers</em> — one research role reads Figma while the other reads the repository, and the QA pair both read one finished artefact and write to disjoint paths.",
-        "The dashed layer is a later review of my own proposal, and it argues against three of the seven boxes. Orchestration is a graph runner, not an agent: with the contracts fixed and the shape static, a model in that slot adds a round trip and a lossy summary at every hop. The Token Auditor is deterministic — prefix, coverage and drift are a lint rule plus a declared-versus-used diff, so they belong in CI on every commit. The Tester splits down the middle: axe-core covers the mechanical half of WCAG AA, while writing meaningful tests is judgement, kept separate from the Frontend Dev because a reviewer who did not write the code finds more.",
+        "I use one supervisor to turn either a Figma node or a scoped written prompt into a delivery brief. It does not implement the component: it frames the target, delegates bounded outcomes to six specialist subagents and waits for their work to converge.",
+        "The brief never starts from a blank slate. Every specialist works from the system direction established above: Plectrum tokens, component contracts and index, existing PrimeNG patterns, Storybook states and WCAG expectations. Figma supplies the source intent when it is available; a prompt-only route must make the intent, constraints and acceptance criteria explicit before delegation.",
+        "The first parallel phase grounds the work. The UX Researcher reads Figma and relevant PrimeNG patterns while the Architect checks the repository, contracts, index and source-of-truth boundaries. Their outputs join before the UX Engineer translates the direction into tokens, BEMIT SCSS and stories; the Frontend Dev then builds the Angular component against those outputs.",
+        "The final parallel review starts from one finished snapshot. The Tester validates behaviour, stories and accessibility while the Token Auditor inspects semantic coverage, PrimeNG mappings and drift. The supervisor consolidates changed files, evidence, open issues and next steps for human review.",
+        "The strategy is not seven agents doing the same work at once. It is targeted concurrency where ownership is independent, sequencing where one specialist consumes another’s output, and one accountable integration path at the end.",
       ],
       media: [
         {
-          kind: "image",
-          src: "/screenshots/solidaris/ai-agent-workflow.svg",
-          alt: "Four-stage workflow: two readers in parallel, then two writers in sequence, then two readers in parallel again, with a dashed amber outline marking Orchestration, the Token Auditor and half of the Tester as work that does not need an agent",
-          label: "Proposal and review in one diagram",
+          kind: "diagram",
+          diagramId: "solidaris-agent-delegation",
+          label: "Multi-agent delegation strategy",
           caption:
-            "Solid strokes are the workflow as proposed; the dashed layer is the review pass.",
+            "A Figma design or scoped prompt is grounded in the same system direction, split into bounded specialist work and brought back through one integration and review path.",
           myPart:
-            "Defined the role model and the stage dependencies, then wrote the review that removes three of its own boxes.",
+            "Designed the supervisor contract, six specialist roles, shared context and controlled delegation-and-convergence workflow.",
           evidenceStatus: "Prototype",
           state: "Strategic proposal",
         },
       ],
       evidenceLine:
-        "Two stages are marked parallel in the workflow definition and the two middle stages are not, so the staged shape was deliberate. This chapter evidences that definition and my review of it — not production-grade operation or adoption.",
+        "The agent contracts and workflow definition evidence the delegation strategy and its intended parallel-and-converge shape. They do not establish production-scale concurrency, autonomous reliability, adoption or measured speed gains.",
       decision: {
         constraint:
-          "Parallelism was limited by which roles write to the same files, not by how many roles the graph contains.",
+          "A Figma design or scoped prompt had to survive delegation without losing product intent or the established system direction.",
         choice:
-          "A staged graph with two parallel pairs: readers run together, writers run in sequence.",
+          "A non-coding supervisor creates role-specific briefs, delegates bounded outcomes and joins them at defined gates.",
         tradeOff:
-          "A four-stage critical path caps the achievable speed-up — more agents widen a stage, they cannot shorten the path.",
+          "Only independent scopes run in parallel; dependent delivery stays sequenced and every contribution returns through one integration path.",
       },
     },
   ],

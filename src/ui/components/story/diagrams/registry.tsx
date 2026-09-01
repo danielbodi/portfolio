@@ -3,11 +3,13 @@ import type { VisualDiagramId } from '../../../../content/caseStudies/visualStor
 import { AgentDelegationWorkflow } from '../AgentDelegationWorkflow';
 import { ContractsIndexDiagram } from './ContractsIndexDiagram';
 import { TokenArchitectureDiagram } from './TokenArchitectureDiagram';
+import { ReverseDiamondsDiagram } from './ReverseDiamondsDiagram';
 
 const diagramRegistry: Record<VisualDiagramId, ComponentType> = {
   'solidaris-agent-delegation': AgentDelegationWorkflow,
   'solidaris-token-architecture': TokenArchitectureDiagram,
-  'solidaris-contracts-index': ContractsIndexDiagram
+  'solidaris-contracts-index': ContractsIndexDiagram,
+  'bridgestone-reverse-diamonds': ReverseDiamondsDiagram
 };
 
 export function StoryDiagram({ diagramId }: { diagramId: VisualDiagramId }) {

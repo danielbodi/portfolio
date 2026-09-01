@@ -22,7 +22,8 @@ export type VisualDemoId = "bridgestone-token-pipeline";
 export type VisualDiagramId =
   | "solidaris-agent-delegation"
   | "solidaris-token-architecture"
-  | "solidaris-contracts-index";
+  | "solidaris-contracts-index"
+  | "bridgestone-reverse-diamonds";
 
 /**
  * A technique re-implemented so it runs in the page. The registry supplies the
@@ -173,9 +174,8 @@ export const bridgestoneVisualStory: VisualStory = {
       ],
       media: [
         {
-          kind: "image",
-          src: "/screenshots/bs/bs_design-approach.png",
-          alt: "Diagram comparing a conventional double diamond with the reverse-diamond delivery approach used for FleetBridge",
+          kind: "diagram",
+          diagramId: "bridgestone-reverse-diamonds",
           label: "Process model",
           caption:
             "Definition and delivery came first; research insights and improvements fed later iterations.",

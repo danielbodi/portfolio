@@ -86,6 +86,7 @@ export const sopraBankingCard: CaseCard = {
   period: "2018",
   problem:
     "A junior front-end team was accumulating technical debt on float-based CSS, with a PDF style guide instead of scalable design foundations.",
+  indexTitle: "Modernising CSS architecture and design workflows",
   indexProblem:
     "Float-based CSS debt and a PDF style guide instead of foundations.",
   roleShort: "Senior UI/UX Designer",
@@ -108,6 +109,7 @@ export const baseCard: CaseCard = {
   period: "2016 – 2018",
   problem:
     "High-traffic telecom websites needed pixel-accurate, cross-browser UI components that content authors could assemble in Adobe Experience Manager.",
+  indexTitle: "Front-end foundations for high-traffic telecom",
   indexProblem:
     "Cross-browser telecom UI that content authors could assemble in AEM.",
   roleShort: "UI Developer",
@@ -129,6 +131,8 @@ export const allCards: CaseCard[] = [
 ];
 
 export const flagshipCards = allCards.filter((c) => c.tier === "flagship");
+
+export const supportingCards = allCards.filter((c) => c.tier === "supporting");
 
 export function cardBySlug(slug: string): CaseCard | undefined {
   return allCards.find((c) => c.slug === slug);

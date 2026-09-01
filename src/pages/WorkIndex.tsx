@@ -1,33 +1,43 @@
-import React from 'react';
-import { flagshipCards } from '../content/caseStudies/cards';
-import { WorkCard } from '../ui/components/work/WorkCard';
+import { flagshipCards, supportingCards } from '../content/caseStudies/cards';
+import { SelectedWorkSection } from '../ui/components/work/SelectedWorkSection';
 import { useSeo } from '../hooks/useSeo';
 
 export function WorkIndex() {
   useSeo({
     title: 'Selected Work — Daniel Bodi Gil',
     description:
-      'Flagship case studies in enterprise product design, design systems and UX engineering: Bridgestone, Solidaris and Trasis.',
+      'Case studies in enterprise product design, design systems and UX engineering: Bridgestone, Solidaris, Trasis, Sopra Banking and Base.',
     path: '/work'
   });
 
   return (
-    <div className="min-h-screen py-16 md:py-24">
-      <div className="mx-auto max-w-6xl">
-        <header className="mb-10 md:mb-14">
-          <h1 className="mb-4 text-3xl font-bold text-purple-300 md:text-4xl">Selected work</h1>
-          <p className="text-lg leading-relaxed text-gray-400">
-            Three flagship cases in enterprise product design, design systems and UX engineering.
-          </p>
-        </header>
+    <>
+      <SelectedWorkSection
+        id="selected-work"
+        headingId="featured-heading"
+        headingLevel={1}
+        title="Selected work"
+        description="Three flagship cases in enterprise product design, design systems and UX engineering."
+        cards={flagshipCards}
+      />
 
-        <div className="space-y-4">
-          {flagshipCards.map((card) => (
-            <WorkCard key={card.slug} card={card} variant="index" />
-          ))}
-        </div>
-      </div>
-    </div>
+      {/* The earlier roles carry the front-end practice the flagships build on,
+          so they belong in the index rather than only in the About timeline —
+          as compact rows, to keep the page scannable after three full cards. */}
+      <SelectedWorkSection
+        id="earlier-foundations"
+        headingId="earlier-foundations-heading"
+        headingLevel={2}
+        title="Earlier foundations"
+        description="Front-end architecture and UI engineering roles the later system work was built on."
+        cards={supportingCards}
+        variant="index"
+        className="pb-16 pt-6 md:pb-24 md:pt-10"
+      />
+
+      {/* Bottom spacing for mobile navigation */}
+      <div className="h-16 md:h-0"></div>
+    </>
   );
 }
 

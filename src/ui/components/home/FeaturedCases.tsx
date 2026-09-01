@@ -1,26 +1,22 @@
 import { flagshipCards } from '../../../content/caseStudies/cards';
-import { WorkCard } from '../work/WorkCard';
+import { SelectedWorkSection } from '../work/SelectedWorkSection';
+import { TextLink } from '../links/TextLink';
 
-/** The three flagship cases. */
+/** The three flagship cases, teasing the full index at /work. */
 export function FeaturedCases() {
   return (
-    <section id="selected-work" aria-labelledby="featured-heading" className="pb-10 pt-16 md:pb-14 md:pt-24">
-      <div className="mx-auto max-w-6xl">
-        <header className="mb-10">
-          <h2 id="featured-heading" className="mb-3 text-3xl font-bold text-purple-300 md:text-4xl">
-            Selected work
-          </h2>
-          <p className="max-w-2xl text-gray-400">
-            Three cases where product direction became shared capability.
-          </p>
-        </header>
-
-        <div className="space-y-6">
-          {flagshipCards.map((card, index) => (
-            <WorkCard key={card.slug} card={card} imagePosition={index % 2 === 0 ? 'left' : 'right'} />
-          ))}
-        </div>
-      </div>
-    </section>
+    <SelectedWorkSection
+      id="selected-work"
+      headingId="featured-heading"
+      headingLevel={2}
+      title="Selected work"
+      description="Three cases where product direction became shared capability."
+      cards={flagshipCards}
+      footer={
+        <TextLink to="/work" className="mt-8">
+          See all five cases, including earlier foundations
+        </TextLink>
+      }
+    />
   );
 }

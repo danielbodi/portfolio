@@ -3,7 +3,6 @@ import { Hero } from '../ui/components/home/Hero';
 import { PositioningPillars } from '../ui/components/home/PositioningPillars';
 import { FeaturedCases } from '../ui/components/home/FeaturedCases';
 import { Capabilities } from '../ui/components/home/Capabilities';
-import { ArtefactGallery } from '../ui/components/home/ArtefactGallery';
 import { ContactCta } from '../ui/components/contact/ContactCta';
 import { useSeo } from '../hooks/useSeo';
 import { positioning } from '../content/site';
@@ -32,7 +31,6 @@ export function Home() {
       </div>
       <FeaturedCases />
       <Capabilities />
-      <ArtefactGallery />
       <ContactCta from="/" />
 
       {/* Bottom spacing for mobile navigation */}

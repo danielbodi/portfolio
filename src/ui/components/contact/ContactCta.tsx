@@ -24,7 +24,7 @@ export function ContactCta({
 }: ContactCtaProps) {
   return (
     <section aria-labelledby="contact-heading" className={className}>
-      <div className="mx-auto max-w-6xl">
+      <div data-scroll-reveal className="mx-auto max-w-6xl">
         <Card>
           <h2 id="contact-heading" className="mb-3 text-3xl font-bold text-gray-100 md:text-4xl">
             Working on something complex?

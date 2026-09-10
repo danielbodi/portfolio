@@ -37,6 +37,7 @@ const fragmentShaderSource = `
   uniform float u_flow;
   // Accumulated field offset. Increasing it slides waves to the right.
   uniform float u_shift;
+  uniform float u_scroll_y;
 
   // Simplified noise function for better performance
   float rand(vec2 n) { 
@@ -69,7 +70,7 @@ const fragmentShaderSource = `
     float swell = exp(-d * d * 9.0);
     vec2 warp = normalize(toward + vec2(0.0001)) * swell * u_presence_amp * 0.04;
 
-    vec2 field = vec2(st.x - u_shift, st.y);
+    vec2 field = vec2(st.x - u_shift, st.y + u_scroll_y);
     vec2 st1 = (field + warp) * u_scale;
     vec2 st2 = (field - warp * 0.6) * u_scale2;
     
@@ -225,7 +226,7 @@ function Canvas2DFallbackBackground({ settings }: { settings: GradientSettings }
     const now = performance.now();
     // Motion bus: per-pixel warp is too expensive at 30fps, so on mobile
     // flow speeds the waves and punches their contrast.
-    const { flow, shiftX } = readMotion(now);
+    const { flow, shiftX, scrollY } = readMotion(now);
     const time = advanceFieldTime(now, flow, lastFrameRef, fieldTimeRef);
     
     // Background color
@@ -250,7 +251,7 @@ function Canvas2DFallbackBackground({ settings }: { settings: GradientSettings }
     for (let y = 0; y < height; y += step) {
       for (let x = 0; x < width; x += step) {
         // Normalize coordinates
-        const st = [x / width - shiftX, y / height];
+        const st = [x / width - shiftX, y / height - scrollY];
         
         // Apply simplified scales
         const st1 = [st[0] * mobileScale1, st[1] * mobileScale1];
@@ -493,7 +494,7 @@ export function Background() {
         'u_resolution', 'u_mouse', 'u_time', 'u_multx', 'u_multy',
         'u_brightness', 'u_mouse_influence', 'u_scale', 'u_scale2',
         'u_noise', 'u_bw', 'u_bw2', 'u_time_scale', 'u_color1', 'u_color2',
-        'u_presence', 'u_presence_amp', 'u_flow', 'u_shift'
+        'u_presence', 'u_presence_amp', 'u_flow', 'u_shift', 'u_scroll_y'
       ];
       
       uniforms.forEach(name => {
@@ -550,6 +551,7 @@ export function Background() {
     gl.uniform1f(uniforms.u_presence_amp!, motion.flow);
     gl.uniform1f(uniforms.u_flow!, motion.flow);
     gl.uniform1f(uniforms.u_shift!, motion.shiftX);
+    gl.uniform1f(uniforms.u_scroll_y!, motion.scrollY);
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   };

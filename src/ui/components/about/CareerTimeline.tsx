@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { careerProgression, earlierRoles } from '../../../content/site';
 import { TextLink } from '../links/TextLink';
 
@@ -14,27 +13,15 @@ function startYear(period: string): string {
  * the fading tail absorbs the former "Earlier roles" list.
  */
 export function CareerTimeline() {
-  const reduceMotion = useReducedMotion();
-
-  const revealProps = (index: number) =>
-    reduceMotion
-      ? { initial: false as const }
-      : {
-          initial: { opacity: 0, y: 16 },
-          whileInView: { opacity: 1, y: 0 },
-          viewport: { once: true, margin: '-40px 0px' },
-          transition: { duration: 0.45, delay: index * 0.05, ease: 'easeOut' as const }
-        };
-
   return (
     <ol>
       {careerProgression.map((step, index) => {
         const isCurrent = index === 0;
         const year = startYear(step.period);
         return (
-          <motion.li
+          <li
+            data-scroll-reveal
             key={step.company}
-            {...revealProps(index)}
             className="group grid grid-cols-[1.75rem_1fr] gap-x-3 md:grid-cols-[8rem_1.75rem_1fr] md:gap-x-4"
           >
             {/* Year rail (md+): the numeral is decorative; the period line carries the info */}
@@ -92,13 +79,13 @@ export function CareerTimeline() {
                 </TextLink>
               )}
             </div>
-          </motion.li>
+          </li>
         );
       })}
 
       {/* Earlier roles: fading tail of the spine */}
-      <motion.li
-        {...revealProps(careerProgression.length)}
+      <li
+        data-scroll-reveal
         className="grid grid-cols-[1.75rem_1fr] gap-x-3 md:grid-cols-[8rem_1.75rem_1fr] md:gap-x-4"
       >
         <div className="hidden md:block" />
@@ -116,7 +103,7 @@ export function CareerTimeline() {
             ))}
           </ul>
         </div>
-      </motion.li>
+      </li>
     </ol>
   );
 }

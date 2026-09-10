@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState, useEffect } from 'react';
+import React, { Suspense, lazy, useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useParams, Navigate } from 'react-router-dom';
 import { useReducedMotion } from 'framer-motion';
 import { Navigation } from './ui/components/navigation/Navigation';
@@ -9,6 +9,8 @@ import { GradientControls } from './ui/components/GradientControls';
 import { TableOfContents } from './ui/components/table-of-contents/TableOfContents';
 import { beginRouteLoad, endRouteLoad } from './ui/components/page-transition/routeLoading';
 import './utils/basicAnalytics';
+import { useScrollReveals } from './hooks/useScrollReveals';
+import { useBackgroundScroll } from './ui/components/background/backgroundMotion';
 
 const WorkIndex = lazy(() => import('./pages/WorkIndex'));
 const SolidarisProject = lazy(() =>
@@ -181,6 +183,10 @@ const SHELL_MAX_WIDTH = '75rem';
 
 function AppContent() {
   const location = useLocation();
+  const mainRef = useRef<HTMLElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
+  useScrollReveals(mainRef, location.pathname);
+  useBackgroundScroll(location.pathname, backgroundRef);
   // Every case page, not just the two legacy ones: the chaptered flagships are
   // the longest reads on the site. Listed explicitly so an unknown /work/* slug
   // (404) never reserves the rail column.
@@ -239,10 +245,11 @@ function AppContent() {
       </a>
       {/* Purple stays an accent: full on the home hero, dimmed on inner pages. */}
       <div
+        ref={backgroundRef}
         aria-hidden="true"
         style={{
-          opacity: isHome ? 1 : 0.3,
-          transition: 'opacity 400ms ease'
+          opacity: isHome ? 'var(--background-opacity, 1)' : 0.42,
+          transition: prefersReducedMotion ? 'none' : 'opacity 400ms ease'
         }}
       >
         <Background />
@@ -254,7 +261,7 @@ function AppContent() {
       <div className="relative z-10 flex flex-row justify-center xl:px-8">
         <div className="min-w-0 w-full flex-1 px-4 md:px-6 lg:flex-initial" style={{ maxWidth: SHELL_MAX_WIDTH }}>
           <Navigation />
-          <main id="main-content" tabIndex={-1}>
+          <main ref={mainRef} id="main-content" tabIndex={-1}>
             <AnimatedRoutes />
           </main>
         </div>

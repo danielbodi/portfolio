@@ -234,7 +234,7 @@ function MediaGrid({
         const spans = spansLast && index === media.length - 1;
 
         return (
-          <div key={`${item.kind}-${index}`} className={`h-full${spans ? ' lg:col-span-2' : ''}`}>
+          <div data-scroll-reveal key={`${item.kind}-${index}`} className={`h-full${spans ? ' lg:col-span-2' : ''}`}>
             <VisualMedia media={item} study={study} sharesRow={!needsFullWidth && !spans} />
           </div>
         );
@@ -245,7 +245,7 @@ function MediaGrid({
 
 function StoryCopy({ paragraphs }: { paragraphs: string[] }) {
   return (
-    <div className="story-copy space-y-4 text-base leading-relaxed text-gray-300 [&_strong]:font-medium [&_strong]:text-gray-100">
+    <div data-scroll-reveal className="story-copy space-y-4 text-base leading-relaxed text-gray-300 [&_strong]:font-medium [&_strong]:text-gray-100">
       {paragraphs.map((paragraph, index) => (
         <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
       ))}
@@ -259,7 +259,7 @@ function StorySequence({
   items: NonNullable<VisualStory['chapters'][number]['sequence']>;
 }) {
   return (
-    <ol className={`mt-8 grid gap-3 ${items.length === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3'}`}>
+    <ol data-scroll-reveal className={`mt-8 grid gap-3 ${items.length === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3'}`}>
       {items.map((item, index) => (
         <li
           key={`${item.label}-${index}`}
@@ -389,7 +389,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
             </div>
           )}
 
-          <div className="mt-10 md:mt-14">
+          <div data-scroll-reveal className="mt-10 md:mt-14">
             <VisualMedia media={story.heroMedia} study={study} />
           </div>
         </header>
@@ -404,7 +404,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
               className="border-t border-gray-700/60 py-16 md:py-24"
               aria-labelledby={`${chapter.id}-title`}
             >
-              <div className="mb-6 max-w-3xl">
+              <div data-scroll-reveal className="mb-6 max-w-3xl">
                 <div className="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em]">
                   <span className="text-purple-300">{chapter.number}</span>
                   <span className="h-px w-8 bg-gray-700" aria-hidden="true" />
@@ -463,7 +463,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
               )}
               {chapter.sequence && <StorySequence items={chapter.sequence} />}
               {chapter.sources && (
-                <nav className="mt-7 flex flex-wrap gap-x-6 gap-y-3" aria-label={chapter.title + ' sources'}>
+                <nav data-scroll-reveal className="mt-7 flex flex-wrap gap-x-6 gap-y-3" aria-label={chapter.title + ' sources'}>
                   {chapter.sources.map((source) => (
                     <TextLink key={source.href} to={source.href} newTab>
                       {source.label}
@@ -476,7 +476,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
         })}
 
         <section className="border-t border-gray-700/60 py-16 md:py-24" aria-labelledby="outcomes">
-          <div className="mb-9 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div data-scroll-reveal className="mb-9 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-purple-300">
                 Evidence
@@ -492,7 +492,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
               Claims are deliberately separated from the limits of the available evidence.
             </p>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div data-scroll-reveal-children className="grid gap-4 md:grid-cols-3">
             {story.outcomes.map((outcome) => (
               <Card key={outcome.label} className="h-full">
                 <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
@@ -525,7 +525,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
           >
             Reflection
           </h2>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div data-scroll-reveal-children className="grid gap-4 md:grid-cols-3">
             <ReflectionCard label="I would repeat" text={story.reflection.repeat} accent="emerald" />
             <ReflectionCard label="I would change" text={story.reflection.change} accent="amber" />
             <ReflectionCard label="Next" text={story.reflection.next} accent="purple" />
@@ -533,7 +533,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
         </section>
 
         {study.connection && (
-          <footer className="border-t border-gray-700/60 pt-9">
+          <footer data-scroll-reveal className="border-t border-gray-700/60 pt-9">
             <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">

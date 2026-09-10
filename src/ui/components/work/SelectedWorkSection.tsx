@@ -39,14 +39,14 @@ export function SelectedWorkSection({
   return (
     <section id={id} aria-labelledby={headingId} className={className}>
       <div className="mx-auto max-w-6xl">
-        <header className="mb-10">
+        <header data-scroll-reveal className="mb-10">
           <Heading id={headingId} className="mb-3 text-3xl font-bold text-purple-300 md:text-4xl">
             {title}
           </Heading>
           <p className="max-w-2xl text-gray-400">{description}</p>
         </header>
 
-        <div className={variant === 'index' ? 'space-y-4' : 'space-y-6'}>
+        <div data-scroll-reveal-children className={variant === 'index' ? 'space-y-4' : 'space-y-6'}>
           {cards.map((card, index) => (
             <WorkCard
               key={card.slug}

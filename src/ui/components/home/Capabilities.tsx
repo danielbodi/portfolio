@@ -11,15 +11,15 @@ export function Capabilities() {
   return (
     <section aria-labelledby="capabilities-heading" className="py-16 md:py-20">
       <div className="mx-auto max-w-6xl">
-        <h2 id="capabilities-heading" className="mb-3 text-3xl font-bold text-purple-300 md:text-4xl">
+        <h2 data-scroll-reveal id="capabilities-heading" className="mb-3 text-3xl font-bold text-purple-300 md:text-4xl">
           How I create leverage
         </h2>
-        <p className="mb-10 max-w-2xl text-gray-400">
+        <p data-scroll-reveal className="mb-10 max-w-2xl text-gray-400">
           Three connected capabilities — each case study shows them working together.
         </p>
         <div className="grid gap-8 md:grid-cols-3 md:gap-6">
           {capabilities.map((capability, index) => (
-            <article key={capability.id} className="border-t border-gray-700/60 pt-6">
+            <article data-scroll-reveal key={capability.id} className="border-t border-gray-700/60 pt-6">
               <div className="mb-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em]">
                 <span className="text-purple-300">{String(index + 1).padStart(2, '0')}</span>
                 <span className="h-px w-8 bg-gray-700" aria-hidden="true" />
@@ -36,7 +36,7 @@ export function Capabilities() {
             </article>
           ))}
         </div>
-        <div className="mt-10">
+        <div data-scroll-reveal className="mt-10">
           <TextLink to="/approach">
             Read the full approach, including the quality standards I hold work to
           </TextLink>

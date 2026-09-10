@@ -56,7 +56,7 @@ export function RolePathPage({ path, otherPath }: RolePathPageProps) {
           <h2 id="evidence-heading" className="mb-6 text-xl font-semibold text-gray-200">
             Evidence, in the order that matters for this role
           </h2>
-          <div className="space-y-6">
+          <div data-scroll-reveal-children className="space-y-6">
             {path.entries.map((entry, index) => (
               <WorkCard
                 key={entry.card.slug}

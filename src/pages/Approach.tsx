@@ -65,7 +65,7 @@ export function Approach() {
           </p>
         </header>
 
-        <div className="mb-16 md:mb-20">
+        <div data-scroll-reveal className="mb-16 md:mb-20">
           <CapabilityLoopDiagram />
         </div>
 
@@ -87,7 +87,7 @@ export function Approach() {
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
                 In practice
               </h3>
-              <ul className="mb-6 space-y-3">
+              <ul data-scroll-reveal className="mb-6 space-y-3">
                 {points.map((point, i) => (
                   <li key={i} className="flex gap-2 text-sm leading-relaxed text-gray-300">
                     <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />
@@ -116,7 +116,7 @@ export function Approach() {
             title="Quality standards I hold work to"
             titleId="standards-heading"
           />
-          <ul className="grid gap-4 sm:grid-cols-2">
+          <ul data-scroll-reveal className="grid gap-4 sm:grid-cols-2">
             {qualityStandards.map((standard, i) => (
               <li key={i} className="flex gap-2 text-sm leading-relaxed text-gray-300">
                 <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />

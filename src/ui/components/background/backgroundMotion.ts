@@ -12,7 +12,7 @@
  * `useBackgroundActivity()` and re-renders only on transitions.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type RefObject } from "react";
 
 export interface MotionSample {
   /** Overall activity 0..1 — scales contrast punch and wave speed. */
@@ -22,6 +22,8 @@ export interface MotionSample {
   presenceY: number;
   /** Accumulated horizontal field offset. Increases move waves right. */
   shiftX: number;
+  /** Shallow, reversible vertical depth offset in viewport units. */
+  scrollY: number;
 }
 
 const PULSE_RISE_FRACTION = 0.3;
@@ -65,6 +67,56 @@ let activePulse: Pulse | null = null;
 let shiftDir = 1;
 let shiftX = 0;
 let lastReadAt = 0;
+
+let scrollTarget = 0;
+let scrollDepth = 0;
+let scrollVelocity = 0;
+let scrollImpulse = 0;
+let scrollEventAt = 0;
+let scrollStrength = 1;
+
+/** Passive input only; the existing canvas loop performs all easing.
+ * Route resets and large anchor jumps do not inject a velocity burst.
+ */
+export function useBackgroundScroll(pathname: string, backgroundRef: RefObject<HTMLDivElement>): void {
+  useEffect(() => {
+    scrollStrength = pathname === '/' ? 1 : 0.7;
+    scrollImpulse = 0;
+    scrollVelocity = 0;
+    let previousY = window.scrollY;
+    let previousAt = performance.now();
+    const updateDepth = (y: number) => {
+      const height = Math.max(1, window.innerHeight);
+      // Strongest around the hero; lower homepage sections favour reading.
+      const opacity = 1 - Math.min(1, Math.max(0, y) / (height * 0.85)) * 0.55;
+      backgroundRef.current?.style.setProperty('--background-opacity', String(opacity));
+      scrollTarget = Math.tanh(Math.max(0, y) / (height * 1.5)) * 0.075 * scrollStrength;
+    };
+    updateDepth(previousY);
+    const onScroll = () => {
+      const now = performance.now();
+      const y = Math.max(0, window.scrollY);
+      const delta = y - previousY;
+      const elapsed = Math.max(16, now - previousAt);
+      previousY = y;
+      previousAt = now;
+      updateDepth(y);
+      if (reducedMotion || document.hidden) return;
+      const jumping = Math.abs(delta) > window.innerHeight * 0.75;
+      const transitioning = activePulse !== null && pulseAlive(activePulse, now);
+      scrollImpulse = jumping || transitioning ? 0 : Math.max(-1, Math.min(1, delta / elapsed / 1.4));
+      scrollEventAt = now;
+    };
+    const onResize = () => updateDepth(window.scrollY);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+      scrollImpulse = 0;
+    };
+  }, [pathname, backgroundRef]);
+}
 
 let loadingCount = 0;
 /** When flow last started rising from idle (for the ease-in). */
@@ -239,7 +291,11 @@ function loadingFlow(now: number): number {
  */
 export function read(now: number): MotionSample {
   if (reducedMotion) {
-    return { flow: 0, presenceX: 0.5, presenceY: 0.5, shiftX };
+    scrollDepth = 0;
+    scrollVelocity = 0;
+    scrollImpulse = 0;
+    lastReadAt = now;
+    return { flow: 0, presenceX: 0.5, presenceY: 0.5, shiftX, scrollY: 0 };
   }
 
   const dt =
@@ -276,7 +332,24 @@ export function read(now: number): MotionSample {
     shiftX += dt * flow * SHIFT_SPEED * shiftDir;
   }
 
-  return { flow, presenceX, presenceY, shiftX };
+  // Low-pass the signed velocity, then let it decay when input stops.
+  // Scroll energy never stacks on top of the stronger route/loading pulse.
+  const impulse = scrollImpulse * Math.exp(-Math.max(0, now - scrollEventAt) / 160);
+  const ease = 1 - Math.exp(-dt / 0.18);
+  scrollVelocity += (impulse - scrollVelocity) * ease;
+  scrollDepth += (scrollTarget - scrollDepth) * (1 - Math.exp(-dt / 0.32));
+  const scrollFlow = Math.abs(scrollVelocity) * 0.28 * scrollStrength;
+  if (scrollFlow > flow) {
+    flow = scrollFlow;
+    presenceX = 0.5;
+    presenceY = 0.5 + scrollVelocity * 0.15;
+  }
+
+  return {
+    flow, presenceX, presenceY,
+    shiftX: shiftX + scrollVelocity * 0.04 * scrollStrength,
+    scrollY: scrollDepth + scrollVelocity * 0.028 * scrollStrength
+  };
 }
 
 /**

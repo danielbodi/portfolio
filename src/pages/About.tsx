@@ -57,7 +57,7 @@ export function About() {
             The pattern: I&apos;m most useful where design decisions and implementation reality
             have to meet.
           </p>
-          <ul className="space-y-3">
+          <ul data-scroll-reveal className="space-y-3">
             {pathPoints.map((point) => (
               <li key={point} className="flex gap-2 text-sm leading-relaxed text-gray-300">
                 <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />
@@ -80,7 +80,7 @@ export function About() {
             title="Why the two backgrounds matter together"
             titleId="reinforce-heading"
           />
-          <ul className="grid gap-4 sm:grid-cols-2">
+          <ul data-scroll-reveal className="grid gap-4 sm:grid-cols-2">
             {togetherPoints.map((point) => (
               <li key={point} className="flex gap-2 text-sm leading-relaxed text-gray-300">
                 <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />
@@ -100,7 +100,7 @@ export function About() {
             title="Working style"
             titleId="style-heading"
           />
-          <ul className="grid gap-4 sm:grid-cols-2">
+          <ul data-scroll-reveal className="grid gap-4 sm:grid-cols-2">
             {workingStyle.map((item) => (
               <li key={item} className="flex gap-2 text-sm leading-relaxed text-gray-300">
                 <span aria-hidden="true" className="mt-[0.55em] h-1 w-1 flex-shrink-0 rounded-full bg-purple-400" />

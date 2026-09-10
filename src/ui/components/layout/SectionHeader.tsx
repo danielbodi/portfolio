@@ -14,7 +14,7 @@ interface SectionHeaderProps {
  */
 export function SectionHeader({ number, eyebrow, title, titleId }: SectionHeaderProps) {
   return (
-    <div className="mb-6">
+    <div data-scroll-reveal className="mb-6">
       <div className="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em]">
         <span className="text-purple-300">{number}</span>
         <span className="h-px w-8 bg-gray-700" aria-hidden="true" />

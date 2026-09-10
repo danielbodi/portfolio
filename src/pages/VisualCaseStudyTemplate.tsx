@@ -411,6 +411,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
                 </div>
                 <h2
                   id={`${chapter.id}-title`}
+                  data-toc-label={chapter.tocLabel}
                   className={`text-3xl font-bold leading-tight tracking-display text-gray-100 ${
                     isSplit ? 'md:text-4xl' : 'md:text-5xl'
                   }`}
@@ -460,6 +461,22 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
                 </>
               )}
               {chapter.sequence && <StorySequence items={chapter.sequence} />}
+              {chapter.sources && (
+                <nav className="mt-7 flex flex-wrap gap-x-6 gap-y-3" aria-label={chapter.title + ' sources'}>
+                  {chapter.sources.map((source) => (
+                    <a
+                      key={source.href}
+                      href={source.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-sm text-sm font-medium text-purple-300 underline decoration-purple-400/40 underline-offset-4 hover:text-purple-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-300"
+                    >
+                      {source.label} <span aria-hidden="true">↗</span>
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  ))}
+                </nav>
+              )}
             </section>
           );
         })}

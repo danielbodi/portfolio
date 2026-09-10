@@ -8,27 +8,27 @@ import { CaseCard } from "../types";
 export const solidarisCard: CaseCard = {
   slug: "solidaris",
   company: "Solidaris",
-  title: "Connecting fragmented healthcare tools to a shared system",
+  title: "Making Plectrum a system teams can build with",
   shortTitle: "Solidaris",
   tier: "flagship",
   period: "Oct 2025 – Oct 2026",
   problem:
     "Regional products had to converge on a foundation that was already fixed, with the design-system decisions held in another region.",
-  indexTitle: "Product delivery tied to a shared system",
+  indexTitle: "From product needs to a usable design system",
   indexProblem:
-    "The foundation was already fixed and the decisions sat elsewhere.",
-  roleShort: "Product design · UX architecture · Design-system contribution",
+    "An inherited UI kit needed a live catalogue, a reviewed token pipeline and a contribution model.",
+  roleShort: "Sole system lead & implementer · Product design",
   tags: [
-    "Cross-product UX",
-    "Influence without authority",
-    "Design-system governance",
+    "Storybook & developer experience",
+    "Token architecture",
+    "Contribution & ownership",
   ],
   evidence:
-    "A bounded Plectrum bridge and the first repository these apps had opened a path into the core team’s decisions; adoption remains ongoing.",
-  thumbnail: "/screenshots/solidaris-thumbnail.png",
+    "I led and built Storybook, both token flows, CSS and metadata sources of truth, CI gates and all foundations. My assignment ends in October 2026.",
+  thumbnail: "/screenshots/solidaris/storybook-introduction.png",
   logo: "/company-logos/Logomark.svg",
   logoInvert: true,
-  ctaLabel: "Read how local delivery connected to the shared system direction",
+  ctaLabel: "Explore the Plectrum architecture and Storybook",
   deliveryState: "Ongoing",
 };
 

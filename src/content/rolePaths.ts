@@ -98,10 +98,10 @@ export const designEngineeringPath: RolePath = {
     {
       card: solidarisCard,
       emphasis:
-        'A fixed PrimeNG/Plectrum baseline extended through product research, a bounded local fork and the first repository these applications had — then a route back into the core team’s decisions.',
+        'Sole leadership and implementation of Plectrum system engineering: Storybook, both Figma–repository flows, CSS and metadata sources of truth, CI gates and every foundation. The assignment ends in October 2026.',
       links: [
-        { label: 'System bridge', href: '/work/solidaris#shared-contribution' },
-        { label: 'Workflow experiment', href: '/work/solidaris#workflow-experiment' },
+        { label: 'Token architecture', href: '/work/solidaris#shared-contribution' },
+        { label: 'Contracts & AI', href: '/work/solidaris#workflow-experiment' },
         { label: 'Tested journey', href: '/work/solidaris#ishare' }
       ]
     },

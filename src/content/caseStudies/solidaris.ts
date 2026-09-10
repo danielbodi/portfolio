@@ -19,13 +19,13 @@ const systemOutput: EvidenceClaim = {
   id: 'solidaris-system-output',
   evidenceClass: 'OUTPUT',
   claim:
-    'A product-local Figma fork, a small custom component set, repository and Storybook work, ITCSS/BEMIT structure, token-governance material and AI-oriented workflow files were created.',
-  source: 'August 2026 project account and schematic portfolio artefacts.',
-  scope: 'Working-layer outputs created around three product workstreams.',
-  confidence: 'reported',
-  attribution: 'Daniel\u2019s additions around an inherited PrimeNG/Plectrum baseline.',
+    'The deployed Plectrum Storybook exposes live foundations, typed component contracts, ownership, CSS architecture and a recorded Figma-to-repository token promotion.',
+  source: 'Deployed Storybook reviewed on 10 September 2026; Daniel explicitly confirmed sole leadership and implementation of the system work.',
+  scope: 'Public catalogue and its documented architecture, developed around an inherited Plectrum foundation.',
+  confidence: 'verified',
+  attribution: 'Daniel led and implemented the system engineering himself: both token flows, CSS and metadata sources of truth, CI gates, Storybook and all foundations.',
   limitation:
-    'Official source-of-truth status, upstream acceptance, independent use and adoption are not claimed.',
+    'Private CI was not independently executed. Registry publication, independent adoption and handoff acceptance remain open.',
   deliveryState: 'Ongoing'
 };
 
@@ -47,7 +47,7 @@ const handoffState: EvidenceClaim = {
   id: 'solidaris-handoff-state',
   evidenceClass: 'IN PROGRESS',
   claim:
-    'The wider programme, final documentation, contribution path, next ownership and post-departure measurement remained open at the evidence snapshot.',
+    'Consumer documentation is intended to stay in Storybook; broader architecture and operating knowledge will move to the team documentation platform for the October handoff.',
   source: 'August 2026 project account.',
   scope: 'Assignment handoff planned for October 2026.',
   confidence: 'reported',
@@ -77,20 +77,20 @@ export const solidarisStudy: CaseStudy = {
 
   seo: {
     title:
-      'Solidaris \u2014 Connecting Fragmented Product Delivery to a Shared Design System | Daniel Bodi Gil',
+      'Solidaris Plectrum — Storybook, Token Architecture & Design-System Strategy | Daniel Bodi Gil',
     description:
-      'An ongoing healthcare product-and-systems assignment showing the move from outside the core design-system loop to active contribution, with adoption and handoff limits kept explicit.'
+      'Sole leadership and implementation of Plectrum system engineering: Storybook, both token flows, CSS and metadata sources of truth, CI gates and all foundations. Solidaris assignment ends October 2026.'
   },
 
   impactStatement:
-    'I started outside the central design-system decisions and worked my way into them, by connecting three converging products to the shared direction and building the repository this work did not have.',
+    'I led and implemented the full design-system engineering work myself, connecting product design to Storybook, both token flows, CSS and metadata sources of truth, CI gates and all foundations.',
 
   hero: {
     summary:
-      'An ongoing UX modernisation across fragmented healthcare tools, combining product research, interaction design, reusable patterns and a design-to-code working layer.',
+      'An ongoing product and design-system assignment combining research, interaction design, Storybook engineering, token architecture and contribution strategy.',
     role:
-      'Consulting scope \u2014 product design, UX architecture, UX engineering and design-system contribution. Official assignment title not published.',
-    period: 'October 2025 \u2013 October 2026 \u00b7 wider programme ongoing',
+      'Sole lead and implementer of the design-system engineering work, alongside product design and UX architecture.',
+    period: 'October 2025 – October 2026 · assignment ends in October',
     team:
       'Cegeka consultant embedded client-side, collaborating with product managers, business analysts, engineers and a separately evolving core design team.',
     context:
@@ -102,20 +102,20 @@ export const solidarisStudy: CaseStudy = {
       'Plectrum',
       'Storybook',
       'SCSS \u00b7 ITCSS/BEMIT',
-      'AI-assisted workflow experiment'
+      'Contract-driven AI workflow'
     ],
     confidentialityNote:
-      'The visuals are anonymised or recreated with fictional affiliate data. This case does not claim production deployment, organisation-wide adoption or measurable impact where those states are not evidenced.',
+      'Storybook captures show the deployed catalogue. Product imagery is anonymised or recreated with fictional affiliate data. Package release, adoption and completed handoff remain separate milestones.',
     image: {
-      src: '/screenshots/solidaris/ishare-affiliate-dossier.png',
-      alt: 'Anonymised iShare affiliate dossier prototype with affiliate context, document tracking and a workflow journey',
-      what: 'The iShare affiliate dossier prototype.',
+      src: '/screenshots/solidaris/storybook-introduction.png',
+      alt: 'Live Plectrum Storybook introduction with consumer and contributor entry points',
+      what: 'The deployed Plectrum Storybook.',
       why:
-        'It explores one reading surface for affiliate context, documents, status and workflow without duplicating specialist processing tools.',
-      contribution: 'Designed the dossier model, information hierarchy and journey treatment.',
+        'It connects installation, component discovery, live foundations and contribution guidance.',
+      contribution: 'Led and implemented the Storybook and the full system architecture documented in it.',
       evidenceClass: 'OUTPUT',
       evidenceNote:
-        'The portfolio does not present this artefact as a shipped product or as evidence of a user outcome.',
+        'Captured 10 September 2026. The catalogue is deployed; packages remain pre-release.',
       state: 'Ongoing'
     }
   },
@@ -126,7 +126,7 @@ export const solidarisStudy: CaseStudy = {
     ownership: [
       'Research, UX direction and prototypes across the iCRM and iShare workstreams',
       'Product-local design-system additions and reusable enterprise patterns',
-      'Repository, Storybook and documentation outputs intended to improve design-to-code continuity',
+      'Sole leadership and implementation of Storybook, both token flows, CSS and metadata sources of truth, all foundations and CI gates',
       'Direct outreach and later contribution to the renewed core design-system collaboration'
     ],
     evidenceClaims: [researchOutput, contributionOutcome, handoffState]
@@ -136,7 +136,7 @@ export const solidarisStudy: CaseStudy = {
     heading: 'Working inside an inherited system',
     paragraphs: [
       'PrimeNG and the original Plectrum layer predated my assignment. I worked within those constraints across iCRM, iShare and a reported iGED scope, helping employees read one affiliate story across fragmented tickets, documents, workflows and source systems.',
-      'With limited initial access to the core design-system team, I created a product-local bridge through research, prototypes, a Figma fork and reported repository/Storybook work. This remained an ongoing, divergence-prone working layer: the page presents it as output and prototype evidence, not proof of adoption or impact.'
+      'A bounded local fork and product prototypes established concrete needs. The work developed into a live Storybook, reviewed inbound token sync and documented contribution path; independent consumer adoption remains to be demonstrated.'
     ]
   },
 
@@ -170,7 +170,7 @@ export const solidarisStudy: CaseStudy = {
         period: 'Planned October 2026 handoff',
         title: 'A useful foundation, with ownership still to resolve',
         description:
-          'Documentation, contribution rules, next ownership, exact delivery states and post-departure measures still needed to be confirmed before the assignment ended.',
+          'Contribution and ownership rules are now documented. The next steps are documentation transfer, a confirmed maintainer, first registry release and an accepted handoff rehearsal.',
         label: 'IN PROGRESS'
       }
     ]
@@ -190,7 +190,8 @@ export const solidarisStudy: CaseStudy = {
       items: [
         'Product research and UX direction across the iCRM and iShare workstreams',
         'Reframing the interfaces around case comprehension rather than legacy screen structures',
-        'Prototype-led conversations about high-risk interaction decisions'
+        'Prototype-led conversations about high-risk interaction decisions',
+        'Technical direction and sole implementation of the design-system engineering work'
       ]
     },
     {
@@ -204,9 +205,9 @@ export const solidarisStudy: CaseStudy = {
     {
       verb: 'Implemented',
       items: [
-        'Reported product-local repository and Storybook work',
-        'ITCSS/BEMIT structure and a small custom component set',
-        'Token-governance, contract and AI-oriented workflow artefacts'
+        'Storybook and every foundation, including live catalogues, playgrounds and documentation',
+        'CSS source of truth, ITCSS/BEMIT architecture and custom components',
+        'Both Figma–repository token flows, metadata source of truth, generated index, CI gates and AI workflow protocols'
       ]
     },
     {
@@ -242,7 +243,7 @@ export const solidarisStudy: CaseStudy = {
       }
     ],
     limitedBy:
-      'My engagement is scheduled to end in October 2026 while the wider programme continues. Exact build states, upstream acceptance, independent use and final handoff ownership were not yet established; post-departure adoption, maintenance and product impact fall outside this case’s evidence window unless later evidence is added.'
+      'My Solidaris assignment ends in October 2026. Exact build states, upstream acceptance, independent use and final handoff ownership were not yet established; post-departure adoption, maintenance and product impact fall outside this case’s evidence window unless later evidence is added.'
   },
 
   decisions: [
@@ -263,11 +264,11 @@ export const solidarisStudy: CaseStudy = {
       tradeOff:
         'Less visual richness per row, while the timeline becomes a complementary history view rather than the default.',
       result:
-        'A high-fidelity product direction and reusable list pattern; implementation and user outcome are not claimed.',
+        'A subject-first product direction; the available image shows the earlier card-based prototype, not a final compact list or a measured user outcome.',
       resultState: 'Concept',
       visual: {
         src: '/screenshots/solidaris/icrm-inbox.png',
-        alt: 'iCRM ticket inbox concept with a dense master list and selected request detail'
+        alt: 'Earlier iCRM prototype with large ticket cards and selected request details'
       }
     },
     {
@@ -363,15 +364,15 @@ export const solidarisStudy: CaseStudy = {
     {
       heading: 'Inherited foundation versus local additions',
       paragraphs: [
-        '<strong>PrimeNG and the original Plectrum layer were inherited.</strong> The supplied account attributes the product-local Figma fork, a small custom component set, repository/Storybook work and ITCSS/BEMIT structure to my assignment.',
-        'The exact upstream status matters: a fork can unblock delivery, but it can also create a shadow system. The portfolio therefore does not claim that the fork or custom components became the official shared source.'
+        '<strong>PrimeNG and the original Plectrum UI Kit were inherited.</strong> I led and implemented all of the system engineering described here myself: the repository, Storybook, both token flows, CSS and metadata sources of truth, CI gates and every foundation.',
+        'The current catalogue distinguishes Core components from application-owned work, with a proposal and promotion path. The first registry release and independent consumer upgrades remain open.'
       ],
       visual: {
         kind: 'image',
-        src: '/screenshots/solidaris/token-architecture.svg',
-        alt: 'Proposed primitive, semantic and component token tiers with a PrimeNG bridge',
+        src: '/screenshots/solidaris/storybook-sync-status.png',
+        alt: 'Published sync status recording a promoted Figma-to-repository token change',
         caption:
-          'A proposed mapping between product variables, semantic decisions and the inherited PrimeNG/Plectrum foundation; automated synchronisation is not claimed.'
+          'The deployed catalogue records an inbound token promotion on 7 September 2026. Reverse automated writes to Figma remain parked.'
       }
     },
     {
@@ -384,21 +385,21 @@ export const solidarisStudy: CaseStudy = {
     {
       heading: 'Machine-readable contracts',
       paragraphs: [
-        'Contract schemas and working rules documented intended component use, token boundaries and accessibility expectations.',
+        'Typed metadata feeds component documentation and a generated index. The published strategy defines props, docs, index and consumed-token checks.',
         'These files are outputs. Independent execution, repeatability and team adoption are not established.'
       ],
       visual: {
         kind: 'image',
-        src: '/screenshots/solidaris/contracts-index.svg',
-        alt: 'AI-oriented component contracts, rules and knowledge-base structure',
+        src: '/screenshots/solidaris/storybook-form-field.png',
+        alt: 'Form Field documentation with contract guidance and visible ownership',
         caption:
           'The structure makes design-to-code constraints inspectable; it does not prove reliable autonomous execution.'
       }
     },
     {
-      heading: 'A proposed multi-role workflow',
+      heading: 'A documented specialist workflow',
       paragraphs: [
-        'A documented workflow assigned research, architecture, implementation and review responsibilities across specialised roles.',
+        'The published AI strategy assigns research, architecture, styling, Angular implementation and review to specialist roles using a shared contract model.',
         'The diagram proves the workflow definition, not production-grade operation or adoption.'
       ],
       visual: {
@@ -454,7 +455,7 @@ export const solidarisStudy: CaseStudy = {
       handoffState
     ],
     measurementNote:
-      'Exact build states, upstream acceptance, independent use, handoff acceptance and post-departure effects. No quantified user, adoption or business-performance outcome is claimed at the August 2026 snapshot.'
+      'As of 10 September 2026, catalogue output and a published sync record are inspectable. First registry release, independent consumer use, handoff acceptance and quantified impact remain unverified.'
   },
 
   reflection: {

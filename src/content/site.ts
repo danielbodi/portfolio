@@ -27,7 +27,7 @@ export const hero = {
     download: "daniel-bodi-gil-cv.pdf",
   },
   contextLink: {
-    label: "Solidaris · assignment ongoing · handoff planned for October 2026",
+    label: "Solidaris · assignment ends October 2026 · handoff in preparation",
     href: "/work/solidaris",
   },
   proof: {
@@ -182,7 +182,7 @@ export const capabilities: Capability[] = [
         href: "/work/bridgestone#demo-bridgestone-token-pipeline",
       },
       {
-        label: "Solidaris — inherited foundations and product-local outputs",
+        label: "Solidaris — token architecture and Storybook",
         href: "/work/solidaris#shared-contribution",
       },
     ],
@@ -217,16 +217,16 @@ export const homeArtefacts: Artefact[] = [
     caseLabel: "Bridgestone",
   },
   {
-    src: "/screenshots/solidaris/token-architecture.svg",
-    alt: "Three-tier design token architecture with a PrimeNG bridge",
-    what: "A proposed token-governance model linking Figma, semantic tokens and PrimeNG.",
-    why: "Documents how product work could stay aligned with an inherited component foundation.",
-    contribution: "Defined and documented the mapping approach.",
+    src: "/screenshots/solidaris/storybook-token-finder.png",
+    alt: "Plectrum token finder with semantic roles and live CSS values",
+    what: "A live foundation catalogue connecting semantic roles to compiled CSS.",
+    why: "Helps consumers choose an implementation token from the task they are solving.",
+    contribution: "Led and built all Storybook foundations and both directions of the token pipeline.",
     evidenceClass: "OUTPUT",
     evidenceNote:
-      "The exact implemented token inventory and synchronisation state are still being verified.",
+      "Captured from the deployed Storybook on 10 September 2026; packages remain pre-release.",
     state: "Ongoing",
-    href: "/work/solidaris#shared-contribution",
+    href: "/work/solidaris#storybook",
     caseLabel: "Solidaris",
   },
   {
@@ -310,10 +310,10 @@ export const homeArtefacts: Artefact[] = [
   },
   {
     src: "/screenshots/solidaris/icrm-inbox.png",
-    alt: "Anonymised iCRM inbox concept with a dense master list beside a selected request",
-    what: "A work-oriented inbox: subject first, recent activity second, status and alerts before the detail opens.",
+    alt: "Earlier anonymised iCRM prototype with ticket cards and selected request details",
+    what: "A card-based iCRM prototype that informed the later subject-first reading-order direction.",
     contribution:
-      "Designed the dense master-list pattern and information hierarchy.",
+      "Designed the prototype and explored the subsequent information hierarchy.",
     evidenceClass: "OUTPUT",
     evidenceNote: "Implementation and user outcome are not claimed.",
     state: "Concept",
@@ -373,14 +373,14 @@ export interface CareerStep {
 
 export const careerProgression: CareerStep[] = [
   {
-    heading: "Product design and systems contribution",
+    heading: "Product design and design-system leadership",
     company: "Solidaris · via Cegeka",
     period: "Oct 2025 – Oct 2026",
     scope:
-      "Embedded consultancy across ongoing healthcare product work, working within inherited PrimeNG/Plectrum foundations and preparing a bounded handoff.",
+      "Sole lead and implementer of the design-system engineering work, alongside healthcare product design. Assignment ends in October 2026.",
     contributions: [
       "Research and prototypes for complex case-management workflows",
-      "Product-local Figma, repository and Storybook outputs with their delivery state made explicit",
+      "Storybook, both token flows, CSS and metadata sources of truth, CI gates and every foundation",
     ],
     href: "/work/solidaris",
   },

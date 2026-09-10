@@ -47,7 +47,7 @@ export function TableOfContents({ variant = 'desktop', pathname, isVisible = tru
         elements,
         items: elements.map((element) => ({
           id: element.id,
-          text: element.textContent?.trim() || '',
+          text: element.dataset.tocLabel || element.textContent?.trim() || '',
           level: parseInt(element.tagName[1], 10)
         }))
       };

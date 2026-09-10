@@ -23,7 +23,7 @@ const practice: PracticePoint[] = [
     capabilityId: 'systems',
     points: [
       'Recurring decisions become named patterns: case summaries, master lists, journeys, status semantics, drawers.',
-      'Keep inherited and created layers explicit — CSS is the production source of truth at Bridgestone; Solidaris shows a product-local token-governance proposal whose implementation state is still bounded.'
+      'Keep ownership explicit — CSS is the production source of truth at Bridgestone; Solidaris connects an inherited UI Kit to a reviewed token pipeline, live Storybook and documented contribution model.'
     ]
   },
   {

@@ -4,7 +4,7 @@ import { TextLink } from '../links/TextLink';
 
 /**
  * "How I create leverage" — three connected capabilities (brief section 6.4).
- * A condensed preview of the Approach page: same numbers, eyebrow and titles
+ * A condensed preview of the Approach page: same numbers and titles
  * as its sections 01–03, in the site's open numbered-section language.
  */
 export function Capabilities() {
@@ -23,7 +23,6 @@ export function Capabilities() {
               <div className="mb-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em]">
                 <span className="text-purple-300">{String(index + 1).padStart(2, '0')}</span>
                 <span className="h-px w-8 bg-gray-700" aria-hidden="true" />
-                <span className="text-gray-500">Capability</span>
               </div>
               <h3 className="mb-3 text-xl font-semibold text-gray-100">{capability.title}</h3>
               <p className="mb-5 text-sm leading-relaxed text-gray-400">{capability.text}</p>

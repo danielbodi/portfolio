@@ -442,8 +442,8 @@ export const contact = {
   location: "Morlanwelz, Belgium · Europe/Brussels",
   cv: {
     /**
-     * Single CV until role-specific variants are provided
-     * (see CONTENT_CHECKLIST.md — the brief forbids generating CVs here).
+     * Rebuilt CV: scripts/cv/content.json + scripts/build_cv.py
+     * Keep this public path stable so every download button serves the same file.
      */
     file: "/cv/daniel-bodi-gil-cv.pdf",
     fileName: "daniel-bodi-gil-cv.pdf",

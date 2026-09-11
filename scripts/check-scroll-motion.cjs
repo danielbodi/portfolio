@@ -127,7 +127,7 @@ async function sample(page) {
     await page.waitForURL('**/about');
     await page.locator('h1').filter({ hasText: 'About' }).waitFor();
     await page.waitForTimeout(900);
-    assert(await page.locator('li[data-scroll-reveal]').count() >= 5, 'Timeline shares reversible reveals');
+    assert(await page.locator('.career-timeline__row [data-scroll-reveal]').count() >= 5, 'Timeline shares reversible reveals');
 
     const mobile = await browser.newPage({
       ignoreHTTPSErrors: true,

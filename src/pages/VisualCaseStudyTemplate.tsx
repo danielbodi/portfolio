@@ -21,6 +21,9 @@ import { StoryDiagram } from '../ui/components/story/diagrams/registry';
 import { LiveDemo } from '../ui/components/demos';
 import { TextLink } from '../ui/components/links/TextLink';
 
+// One measure for chapter titles, decisions and prose; evidence uses the page width.
+const READING_COLUMN = 'w-full max-w-[46rem]';
+
 interface VisualCaseStudyTemplateProps {
   study: CaseStudy;
   story: VisualStory;
@@ -208,8 +211,7 @@ function MediaGrid({
 }: {
   media: VisualStoryMedia[];
   study: CaseStudy;
-  /** Split chapters hand the media a little over half the measure; splitting it
-      again shrinks dense diagrams below the size at which they can be read. */
+  /** Keep an authored visual sequence stacked, even when it contains only screenshots. */
   singleColumn?: boolean;
 }) {
   /* Demos and stacked system evidence need the full measure to stay readable. */
@@ -245,7 +247,7 @@ function MediaGrid({
 
 function StoryCopy({ paragraphs }: { paragraphs: string[] }) {
   return (
-    <div data-scroll-reveal className="story-copy space-y-4 text-base leading-relaxed text-gray-300 [&_strong]:font-medium [&_strong]:text-gray-100">
+    <div data-scroll-reveal className="story-copy space-y-5 text-[1.0625rem] leading-[1.75] md:text-lg md:leading-[1.75] text-gray-300 [&_strong]:font-medium [&_strong]:text-gray-100">
       {paragraphs.map((paragraph, index) => (
         <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
       ))}
@@ -353,7 +355,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
           <h1 className="max-w-5xl text-4xl font-bold leading-[1.04] tracking-display text-purple-300 md:text-6xl lg:text-7xl">
             {story.title}
           </h1>
-          <p className="mt-7 max-w-3xl text-lg leading-relaxed text-gray-300 md:text-xl">
+          <p className={`mt-7 ${READING_COLUMN} text-lg leading-relaxed text-gray-300 md:text-xl`}>
             {story.statement}
           </p>
 
@@ -395,8 +397,6 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
         </header>
 
         {story.chapters.map((chapter) => {
-          const isSplit = chapter.layout === 'split';
-
           return (
             <section
               key={chapter.id}
@@ -404,7 +404,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
               className="border-t border-gray-700/60 py-16 md:py-24"
               aria-labelledby={`${chapter.id}-title`}
             >
-              <div data-scroll-reveal className="mb-6 max-w-3xl">
+              <div data-scroll-reveal className={`mb-7 ${READING_COLUMN}`}>
                 <div className="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em]">
                   <span className="text-purple-300">{chapter.number}</span>
                   <span className="h-px w-8 bg-gray-700" aria-hidden="true" />
@@ -413,16 +413,14 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
                 <h2
                   id={`${chapter.id}-title`}
                   data-toc-label={chapter.tocLabel}
-                  className={`text-3xl font-bold leading-tight tracking-display text-gray-100 ${
-                    isSplit ? 'md:text-4xl' : 'md:text-5xl'
-                  }`}
+                  className="text-3xl font-bold leading-tight tracking-display text-gray-100 md:text-5xl"
                 >
                   {chapter.title}
                 </h2>
               </div>
               {chapter.decision && (
                 <DefinitionStrip
-                  className="mb-10"
+                  className={`mb-9 ${READING_COLUMN}`}
                   items={[
                     { label: 'Constraint', text: chapter.decision.constraint },
                     { label: 'Choice', text: chapter.decision.choice },
@@ -430,40 +428,20 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
                   ]}
                 />
               )}
-              {isSplit ? (
-                <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
-                  {/* Five columns rather than four: at four, a chapter with more than
-                      one paragraph wraps at roughly 35 characters a line. */}
-                  <div className="lg:col-span-5">
-                    <StoryCopy paragraphs={chapter.paragraphs} />
-                    {chapter.evidenceLine && (
-                      <p className="mt-6 border-l-2 border-purple-500/60 pl-4 text-sm leading-relaxed text-gray-400">
-                        {chapter.evidenceLine}
-                      </p>
-                    )}
-                  </div>
-                  <div className="lg:col-span-7">
-                    {chapter.media.length > 0 && (
-                      <MediaGrid media={chapter.media} study={study} singleColumn />
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className="mb-10 max-w-3xl">
-                    <StoryCopy paragraphs={chapter.paragraphs} />
-                  </div>
-                  {chapter.media.length > 0 && <MediaGrid media={chapter.media} study={study} />}
-                  {chapter.evidenceLine && (
-                    <p className="mt-6 max-w-4xl border-l-2 border-purple-500/60 pl-4 text-sm leading-relaxed text-gray-400">
-                      {chapter.evidenceLine}
-                    </p>
-                  )}
-                </>
+              <div className={`mb-10 md:mb-12 ${READING_COLUMN}`}>
+                <StoryCopy paragraphs={chapter.paragraphs} />
+              </div>
+              {chapter.media.length > 0 && (
+                <MediaGrid media={chapter.media} study={study} singleColumn={chapter.layout === 'split'} />
+              )}
+              {chapter.evidenceLine && (
+                <p className={`mt-6 ${READING_COLUMN} border-l-2 border-purple-500/60 pl-4 text-sm leading-relaxed text-gray-400`}>
+                  {chapter.evidenceLine}
+                </p>
               )}
               {chapter.sequence && <StorySequence items={chapter.sequence} />}
               {chapter.sources && (
-                <nav data-scroll-reveal className="mt-7 flex flex-wrap gap-x-6 gap-y-3" aria-label={chapter.title + ' sources'}>
+                <nav data-scroll-reveal className={`mt-7 ${READING_COLUMN} flex flex-wrap gap-x-6 gap-y-3`} aria-label={chapter.title + ' sources'}>
                   {chapter.sources.map((source) => (
                     <TextLink key={source.href} to={source.href} newTab>
                       {source.label}

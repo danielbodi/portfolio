@@ -1,0 +1,17 @@
+{
+  "name": "Portfolio (Vite + React + TS)",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "npm run dev",
+      "description": "Vite dev server (HTTPS) for the portfolio app on port 5173."
+    }
+  ],
+  "ports": [
+    {
+      "name": "Vite dev server",
+      "port": 5173
+    }
+  ]
+}

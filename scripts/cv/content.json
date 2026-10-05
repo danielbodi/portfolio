@@ -7,23 +7,23 @@
   "email": "daniel.bodi.gil@gmail.com",
   "website": "danielbodigil.com",
   "linkedin": "linkedin.com/in/danielbodi",
-  "summary": "Product designer and UX engineer with 15+ years across enterprise healthcare, mobility, banking and telecom. Leads system strategy and implements it hands-on, connecting product research to reusable UI, token pipelines, CSS architecture and developer tooling. At Solidaris, sole lead and implementer of the design-system engineering work, from both Figma/repository flows to metadata, CI gates, Storybook and every foundation.",
-  "competencies": "Design-system architecture and governance | Storybook | Figma | Design tokens and CSS sources of truth | Angular / TypeScript | PrimeNG | ITCSS / BEMIT | Metadata contracts and CI | AI-assisted development | UX research and prototype testing | Information architecture | Accessibility (WCAG AA)",
+  "summary": "Product designer and UX engineer with 15+ years across enterprise healthcare, mobility, banking and telecom. Leads system strategy and implements it hands-on, connecting product research to reusable UI, token pipelines, CSS architecture and developer tooling. At Solidaris, sole lead and implementer of Plectrum, an AI-first design system, from agent and contracts to governance, foundations and CI.",
+  "competencies": "Design-system architecture and governance | Storybook | Figma | Design tokens and CSS sources of truth | Angular / TypeScript | PrimeNG | ITCSS / BEMIT | Contract-Driven Development and CI | AI agents and MCP | UX research and prototype testing | Information architecture | Accessibility (WCAG AA)",
   "page_one_roles": [
     {
       "company": "Solidaris (via Cegeka)",
       "role": "UX Engineer / Design System Owner",
       "period": "Oct 2025 - Present",
-      "note": "Assignment ends October 2026",
-      "intro": "Sole lead and implementer of the system engineering for Plectrum, alongside product design across iShare, iCRM and an initial iGED interface draft. Built on the existing PrimeNG/Plectrum UI Kit foundation.",
+      "note": "Assignment ends 8 October 2026",
+      "intro": "Sole lead and implementer of Plectrum, an AI-first design system, alongside product design across iShare, iCRM and an initial iGED draft. Built on the existing PrimeNG/Plectrum UI Kit foundation.",
       "bullets": [
-        "Designed and implemented both token flows: Figma-to-repository imports through staging, drift checks and reviewed promotion; repository-to-Figma proposal and write tooling with designer review.",
-        "Established CSS as the source of truth for rendered foundations and application styling. Structured shared SCSS with ITCSS/BEMIT, semantic tokens and contained PrimeNG theme bridges.",
-        "Built the metadata source of truth: typed component contracts, a generated discovery index and documentation shared by developers and AI agents. Defined specialist roles and implementation protocols.",
-        "Implemented CI gates for token drift, contract/Angular API alignment, documentation consistency and generated-file freshness, plus packed-consumer checks and coordinated package versioning.",
-        "Built the live Storybook and every foundation, including token discovery, spacing and typography playgrounds, component states and usage guidance. Defined contribution, ownership and promotion rules.",
-        "Led product research, shadowing, workshops and scenario-based prototype testing. Designed case-comprehension and expert-workflow patterns across the healthcare applications.",
-        "Preparing the October handoff: consumer guidance stays in Storybook; architecture decisions and operating knowledge transfer to the team's documentation platform."
+        "Built /plectrum, an agent that recommends what to reuse or compose from the installed component catalogue and workflow rules, served by a versioned Plectrum MCP alongside Figma, PrimeNG and Storybook MCPs.",
+        "Applied Contract-Driven Development: colocated metadata, a process contract, a team registry and protocols generate the catalogue, indexes and documentation shared by developers and agents.",
+        "Redesigned governance after stakeholder feedback: teams build locally without approval; the agent raises reuse, usage reports reach Core on merge, and Core promotes what is worth sharing.",
+        "Built a developer toolkit that installs Angular and Storybook targets, SCSS layers, tests, CI and agent instructions in an application, with conflict-aware upgrades.",
+        "Designed and implemented both token flows between Figma and code, with designer review. Made compiled CSS the source of truth and built Storybook and every foundation.",
+        "Implemented CI gates for metadata/API alignment, token drift and generated files. Added opt-out telemetry and a Core dashboard that turns usage and search data into inspectable recommendations.",
+        "Led product research, workshops and prototype testing. Released 2.1.0 with toolkit 0.7.2 and prepared the handoff in the starter, contracts, Storybook and runbooks."
       ],
       "link": "https://danielbodigil.com/work/solidaris",
       "link_label": "Case study: danielbodigil.com/work/solidaris"

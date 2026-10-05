@@ -87,7 +87,7 @@ flow.extend([section('Languages'), para(data['languages'])])
 args.output.parent.mkdir(parents=True, exist_ok=True)
 doc = SimpleDocTemplate(str(args.output), pagesize=A4, leftMargin=43, rightMargin=43, topMargin=34, bottomMargin=47,
     title='Daniel Bodi Gil - Product Design, Design Systems & UX Engineering', author=data['name'],
-    subject='Professional CV - updated September 2026', pageCompression=1)
+    subject='Professional CV - updated October 2026', pageCompression=1)
 doc.build(flow, onFirstPage=page_chrome, onLaterPages=page_chrome)
 if doc.page != 2:
     raise RuntimeError(f'Expected two pages, generated {doc.page}; adjust layout before publishing.')

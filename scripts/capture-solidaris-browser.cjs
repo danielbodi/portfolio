@@ -12,32 +12,44 @@ const playwrightModule = process.env.PLAYWRIGHT_MODULE || path.resolve(__dirname
 const { chromium } = require(playwrightModule);
 const assets = path.resolve(__dirname, '../public');
 const rawDir = fs.mkdtempSync(path.join(os.tmpdir(), 'plectrum-browser-capture-'));
-const storybook = 'https://solidaris-danielbodigil.github.io/solidaris-plectrum/storybook/releases/2.1.0-devkit-0.7.2/';
+// STORYBOOK_URL points the catalogue capture at a local build (with trailing slash).
+const storybook = process.env.STORYBOOK_URL || 'https://solidaris-danielbodigil.github.io/solidaris-plectrum/storybook/releases/2.1.0-devkit-0.7.2/';
 const dashboard = 'https://solidaris-danielbodigil.github.io/solidaris-plectrum/dashboard/#/design-system/overview';
 const viewport = { width: 1600, height: 900 };
 
 const pause = (page, ms) => page.waitForTimeout(ms);
 
-function encode(raw, output, focusX) {
+function encode(raw, output, focusX, seconds) {
   // The discovery clip gets a small zoom; the dashboard stays fully framed
   // so both the recommendation drawer and provenance labels remain legible.
-  // Ease the move to a stop at both ends. Upscaling before zoompan gives its
-  // integer crop coordinates enough precision to avoid one-pixel stepping.
-  const easeIn = '(1-cos(PI*(on-100)/75))/2';
-  const easeOut = '(1+cos(PI*(on-430)/75))/2';
-  const zoom = `1+0.06*if(lt(on,100),0,if(lt(on,175),${easeIn},if(lt(on,430),1,if(lt(on,505),${easeOut},0))))`;
+  // zoompan snaps its crop to whole pixels, which reads as stepping on a slow
+  // zoom. perspective samples the source at fractional corner positions
+  // instead, so every frame moves by a sub-pixel amount. A smootherstep curve
+  // starts and stops the move without a visible jolt.
+  const fps = 50;
+  const ramp = (start, length) => `clip((on-${start})/${length},0,1)`;
+  const smooth = p => `(${p}*${p}*${p}*(${p}*(${p}*6-15)+10))`;
+  const zoomIn = smooth(ramp(4 * fps, 3 * fps));
+  const zoomOut = smooth(ramp(17.2 * fps, 3 * fps));
+  const z = `(1+0.06*(${zoomIn}-${zoomOut}))`;
+  const left = `(W-W/${z})*${focusX}`;
+  const top = `(H-H/${z})*0.25`;
+  const right = `(${left}+W/${z})`;
+  const bottom = `(${top}+H/${z})`;
   const filter = focusX == null
-    ? 'fps=25,scale=1280:720,format=yuv420p'
-    : `fps=25,scale=3200:1800:flags=lanczos,zoompan=z='${zoom}':x='(iw-iw/zoom)*${focusX}':y='(ih-ih/zoom)*0.25':d=1:s=1280x720:fps=25,format=yuv420p`;
+    ? `fps=${fps},scale=1280:720:flags=lanczos,format=yuv420p`
+    : `fps=${fps},scale=2560:1440:flags=lanczos,` +
+      `perspective=x0='${left}':y0='${top}':x1='${right}':y1='${top}':x2='${left}':y2='${bottom}':x3='${right}':y3='${bottom}':interpolation=cubic:eval=frame,` +
+      'scale=1280:720:flags=lanczos,format=yuv420p';
   execFileSync('ffmpeg', [
     '-hide_banner', '-loglevel', 'error', '-y',
-    '-ss', '1', '-i', raw, '-an', '-vf', filter,
-    '-c:v', 'libx264', '-preset', 'medium', '-crf', '22',
+    '-ss', '1', ...(seconds ? ['-t', String(seconds)] : []), '-i', raw, '-an', '-vf', filter,
+    '-c:v', 'libx264', '-preset', 'slow', '-crf', '20',
     '-movflags', '+faststart', output,
   ], { stdio: 'inherit' });
 }
 
-async function record(browser, name, workflow, focusX) {
+async function record(browser, name, workflow, focusX, seconds) {
   const context = await browser.newContext({
     viewport,
     deviceScaleFactor: 1,
@@ -52,7 +64,7 @@ async function record(browser, name, workflow, focusX) {
     const video = page.video();
     await context.close();
     const output = path.join(assets, 'videos', `${name}.mp4`);
-    encode(await video.path(), output, focusX);
+    encode(await video.path(), output, focusX, seconds);
     console.log(`${name}: ${output}`);
   } catch (error) {
     await context.close().catch(() => {});
@@ -60,9 +72,26 @@ async function record(browser, name, workflow, focusX) {
   }
 }
 
+const drawerDocs = page => page.frameLocator('#storybook-preview-iframe').locator('h1', { hasText: /^Drawer$/ });
+
+// A local dev Storybook compiles each page on first visit. Load both pages
+// once, unrecorded, so the take shows them as quickly as a static build would.
+async function warmCatalogue(browser) {
+  const page = await browser.newPage({ viewport });
+  try {
+    await page.goto(`${storybook}iframe.html?id=start-here-catalogue--docs&viewMode=docs`, { waitUntil: 'domcontentloaded' });
+    await page.getByRole('link', { name: 'Accordion', exact: true }).first().waitFor({ timeout: 120000 });
+    await page.goto(`${storybook}?path=/docs/custom-components-drawer--docs`, { waitUntil: 'domcontentloaded' });
+    await drawerDocs(page).waitFor({ timeout: 120000 });
+  } finally {
+    await page.close();
+  }
+}
+
 async function catalogue(page) {
   await page.goto(`${storybook}iframe.html?id=start-here-catalogue--docs&viewMode=docs`, { waitUntil: 'domcontentloaded' });
   await page.getByRole('heading', { name: 'Find a component' }).waitFor();
+  await page.getByRole('link', { name: 'Accordion', exact: true }).first().waitFor();
   await pause(page, 2700);
   const search = page.getByRole('searchbox');
   await search.click();
@@ -75,6 +104,7 @@ async function catalogue(page) {
   await pause(page, 2000);
   await drawer.click();
   await page.waitForURL(/custom-components-drawer--docs/, { timeout: 20000 });
+  await drawerDocs(page).waitFor({ timeout: 30000 });
   await pause(page, 6000);
   // Keep the documented component and its Core ownership in view.
   await page.mouse.move(1000, 630);
@@ -106,7 +136,8 @@ async function coreInsights(page) {
   const browser = await chromium.launch({ channel: 'msedge', headless: true });
   try {
     if (process.env.CAPTURE_ONLY !== 'dashboard') {
-      await record(browser, 'solidaris-component-discovery', catalogue, 0.43);
+      await warmCatalogue(browser);
+      await record(browser, 'solidaris-component-discovery', catalogue, 0.43, 24.5);
     }
     if (process.env.CAPTURE_ONLY !== 'catalogue') {
       await record(browser, 'solidaris-core-insights', coreInsights, null);

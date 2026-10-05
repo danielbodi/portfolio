@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 import type { VisualDiagramId } from '../../../../content/caseStudies/visualStories';
 import { AgentDelegationWorkflow } from '../AgentDelegationWorkflow';
+import { PlectrumOperatingModelDiagram } from './PlectrumOperatingModelDiagram';
 import { ContractsIndexDiagram } from './ContractsIndexDiagram';
 import { TokenArchitectureDiagram } from './TokenArchitectureDiagram';
 import { ReverseDiamondsDiagram } from './ReverseDiamondsDiagram';
@@ -8,6 +9,7 @@ import { HandoffDiagram } from './HandoffDiagram';
 
 const diagramRegistry: Record<VisualDiagramId, ComponentType> = {
   'solidaris-agent-delegation': AgentDelegationWorkflow,
+  'solidaris-operating-model': PlectrumOperatingModelDiagram,
   'solidaris-token-architecture': TokenArchitectureDiagram,
   'solidaris-contracts-index': ContractsIndexDiagram,
   'solidaris-handoff': HandoffDiagram,

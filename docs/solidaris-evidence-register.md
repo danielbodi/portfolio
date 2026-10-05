@@ -1,0 +1,67 @@
+# Solidaris / Plectrum evidence register
+
+Snapshot: 4 October 2026. This working file supports the [case study plan](./plan-refonte-solidaris-plectrum.md). Public copy is written in English. The portfolio checkout is `a80d230` at the start of this work; the inspected Plectrum checkout is `f59d9c3`. The published release below points to a different, immutable revision. Keep those snapshots distinct.
+
+## Evidence language
+
+- **Verified output**: source, generated artefact, release manifest or recorded run demonstrates that a capability exists. State the version and what was actually checked.
+- **Demonstration**: a controlled walkthrough or synthetic dataset shows behaviour. It does not establish independent adoption.
+- **Reported**: a project account or a person describes work that cannot be independently checked here. Attribute it.
+- **Prototype**: a design or test artefact, without a production claim.
+- **Open**: implementation or external outcome still needs evidence. An absent report means coverage is unknown.
+
+`Verified` in the case study must be scoped to the output it accompanies. It does not imply that the user effect, customer adoption or handoff was independently validated.
+
+## Claim ledger
+
+| ID | Public claim allowed | Source / revision | Status and boundary | Planned placement |
+| --- | --- | --- | --- | --- |
+| S01 | Daniel led and implemented the design system engineering at Solidaris, alongside product design. | Daniel's direct account in this conversation; earlier case study account. | **Reported ownership.** PrimeNG and the initial Plectrum kit predated this work. Avoid credit for those upstream products. | Hero, role fact, card. |
+| S02 | Plectrum publishes UI, theme and styles packages at 2.1.0 and a developer toolkit at 0.7.2. | [GitHub release](https://github.com/solidaris-danielbodigil/solidaris-plectrum/releases/tag/plectrum-v2.1.0-devkit-0.7.2), `release.json`; published 4 October 2026, revision `d9728941ea4e9971bcdb160760716d8d53bd7375`. | **Verified release manifest.** Packages are in GitHub Packages with private registry access. Do not claim that every application upgraded. | Hero, portability, outcome. |
+| S03 | The release binds a versioned Storybook and an immutable contract snapshot to the packages. | Same `release.json`, `contracts.json` SHA-256 and documentation URL. | **Verified artefact.** The live Storybook preview and versioned release must not be conflated. | Contracts, continuity. |
+| S04 | Storybook foundations expose rendered values from compiled CSS, with usage, playgrounds and component guidance. | `S/libs/ui/src/docs/`, `S/libs/styles/src/`; existing September portfolio captures. | **Source and historic visual evidence.** Recapture if showing the October release; a September image keeps its September date. | Foundations. |
+| S05 | Component metadata, process, registry and protocols generate a portable catalogue for docs, CLI and the installed agent. | `S/.ai/contracts/README.md`, `process.json`, `registry.json`, `schema/`, `S/tools/contracts/`, `S/tools/devkit/README.md`. | **Implemented architecture.** Colocated metadata owns component facts, `process.json` owns workflows, CSS owns rendered values. Curated prose is not all generated. | CDD diagram and copy. |
+| S06 | The installed Plectrum MCP answers from the versioned local catalogue; PrimeNG, Figma and a running Storybook provide complementary context. | `S/libs/ui/src/docs/use-the-agent.mdx`, `ai-strategy.mdx`, `S/.ai/contracts/process.json`, `S/tools/devkit/src/mcp-server.mjs`. | **Documented and implemented configuration.** PrimeNG needs network, Figma needs access, Storybook needs a local server. Record the exact setup of any demo. | Agent workflow, MCP table. |
+| S07 | Storybook MCP exposes `test-run` as local feedback; story tests remain a separate CI gate. | `S/.ai/contracts/process.json` (`test-run` note), `S/libs/ui/.storybook/main.ts` (`@storybook/addon-mcp`), `S/.github/workflows/ci.yml`. | **Configured capability.** Do not show a successful run without recording one. The existing portfolio's “not wired” sentence is stale. | Quality paragraph, evidence limit. |
+| S08 | Teams can create and deliver local components without Core approval; sharing follows an explicit proposal, review and release path. | `S/tools/devkit/README.md`, `S/.ai/contracts/process.json`, `S/.ai/decisions/2026-09-25-pipeline-contracts-and-distribution.md`. | **Implemented governance model.** No real external candidate has completed the full accepted, shipped and adopted cycle in the available record. | Governance chapter and diagram. |
+| S09 | The starter and toolkit bootstrap install local structure, checks and editor guidance; update reports managed-file conflicts. | `S/tools/consumers/starter/README.md`, `S/tools/devkit/README.md`, bootstrap/update source and tests. Clean-consumer smoke test reported in the linked review. | **Tooling and smoke test.** Independent onboarding by a consumer team needs a separate observation. | Portability chapter. |
+| S10 | Figma-to-repository tokens pass through staging, audit and reviewed promotion; code-origin tokens have a proposal path to Figma through the agent/MCP or plugin. | `S/libs/ui/src/docs/token-pipeline-figma.mdx`, `S/.github/workflows/tokens-sync.yml`, `S/tools/tokens/`, `S/tools/figma-plugin/`. | **Documented implementation.** The Figma Variables REST API path requiring Enterprise is a different transport. Do not imply an unattended two-way sync or completed external round trip. | Token diagram and copy. |
+| S11 | CI checks contract drift, token drift, metadata/Angular props, stories/interactions/accessibility, package installation and dashboard build. | `S/.github/workflows/ci.yml`, pack-smoke scripts. | **Configured gates and run evidence need separate citation.** `tokens:validate-preset` is advisory in main CI; Chromatic is conditional. Automated a11y is not certification. | Quality chapter. |
+| S12 | Local MCP/CLI telemetry records tool name, component ID and outcome; application reporting shares aggregates without request text, code, file names or person IDs. | `S/tools/devkit/src/telemetry.mjs`, `S/libs/ui/src/docs/use-the-agent.mdx`, `S/.ai/contracts/process.json`. | **Implemented mechanism.** Collection is configurable; reporting is a separate opt-in. Commit trailers are declared signals, not productivity measures. | Telemetry chapter. |
+| S13 | Core dashboard separates Demo from Reported, combines repository facts with reports, and uses deterministic recommendation rules. | `S/.ai/decisions/2026-10-03-core-dashboard.md`, `S/apps/dashboard/src/app/design-system/`, `S/libs/insights/`, `S/tools/insights/`. | **Implemented dashboard.** Demo seed is isolated from real reports. Facts are generated at build; freshness is evaluated at view time. Not live customer analytics or an LLM recommender. | Core insights chapter, future video. |
+| S14 | At the inspected checkout, iSHARE, iCRM and iGED are local demos and no adoption report has been merged. | `S/.ai/contracts/registry.json`, `S/libs/ui/src/storybook/adoption-data.generated.ts`. | **Verified local snapshot**, not necessarily the later released revision. Recheck before publishing. Missing coverage means unknown usage, never zero usage. | Dashboard caption and boundary. |
+| S15 | The local toolkit search evaluation passes 16 of 17 known tasks, with a recorded miss for a member side panel requiring DetailList. | `S/libs/ui/src/storybook/agent-eval.generated.ts` (toolkit 0.7.1), `S/tools/devkit/evals/search.json`. | **Controlled regression suite**, not user success or a general AI accuracy rate. Recalculate for the version chosen for public copy. | Quality limit; optional linked source. |
+| S16 | Product research and iSHARE/iCRM prototypes revealed information hierarchy, states and composition needs. | Existing portfolio images and project account; `S/.ai/research/` and `S/docs/user-testing/`. | **Mixed reported/prototype evidence.** An agent-run session or written test protocol is not an independent user study. The iCRM card screenshot predates the later compact-list direction. | One product example in foundations. |
+| S17 | Runbooks and acceptance records document maintenance and recovery ahead of the October handoff. | `S/docs/handoff/maintainer-pack.md`, `p9-acceptance.md`, `migration-ledger.md`, `pipeline-recovery.md`. | **Documented preparation.** Named receiving owner and acceptance rehearsal remain unverified in inspected files. Do not call the handoff complete. | Continuity and boundary. |
+
+## Release captures made on 4 October 2026
+
+- `storybook-token-finder-local-2026-10-04.png`: local Storybook preview after removing the misleading Figma reference from the finder table and cards. It is based on the 2.1.0 source but is **not** the published release. The earlier `storybook-token-finder-2.1.0.png` remains as a historical release capture, no longer referenced by the rendered portfolio.
+- `storybook-contribute-2.1.0.png`: direct capture of the published contribution guide, showing local build and Core decision. This replaces the obsolete component-status page, which is absent from release 2.1.0.
+- `core-dashboard-reported-2026-10-04.png`: public dashboard at runtime 2.1.0 / toolkit 0.7.2, revision `d972894`, in **Reported** mode. It shows 0/3 application reports and unknown external coverage. It does not show Demo counts or prove adoption.
+
+All three are unretouched screen captures (the Storybook docs were cropped to their content viewport). Product prototype images remain historical and should retain their own dates. See [video capture guide](./solidaris-video-capture-guide.md).
+
+## Browser walkthroughs captured 5 October 2026
+
+| File and chapter | Source / scenario | Permitted claim and limit |
+| --- | --- | --- |
+| `public/videos/solidaris-component-discovery.mp4` and `public/screenshots/solidaris/component-discovery-poster.png` · 04 | Published Storybook release 2.1.0 / toolkit 0.7.2; search “side panel” in the component catalogue, then open Drawer documentation and usage. 27 s, silent, one smoothly eased post-process zoom. | Demonstrates task-oriented discovery and documentation. It is not an agent response or proof that an independent application adopted Drawer. |
+| `public/videos/solidaris-core-insights.mp4` and `public/screenshots/solidaris/core-insights-poster.png` · 07 | Public dashboard snapshot generated 4 October 2026, revision `d972894`, runtime 2.1.0 / toolkit 0.7.2; captured 5 October. Open a rule and its sources in **Demo**, then switch to **Reported**. 28 s, silent. | Demonstrates inspectable, provenance-labelled rules and separation of synthetic from reported data. Reported has 0/3 application reports; external Core coverage remains unknown. |
+| `public/videos/solidaris-agent-workflow.mp4` and `public/screenshots/solidaris/agent-workflow-poster.webp` · 01 | Daniel's VS Code recording on 5 October 2026, with Plectrum custom agent selected and installed toolkit 0.7.2. Fictional employee document list. 30 s, silent; MCP startup (0–3.5 s) and idle ranges 5–29 s and 43–61 s removed from the 76 s source. | Shows the agent reading the installed catalogue, choosing `plectrum:list` with built-in loading, `plectrum:empty-state`, and a separate error recovery composition, then citing versioned 2.1.0 / 0.7.2 docs. No files were edited in the recording; this is not proof of implementation or adoption. |
+
+The two browser clips were recorded with `scripts/capture-solidaris-browser.cjs` (Playwright), then encoded to H.264 at 1280 × 720. Daniel supplied the separate VS Code agent recording; its edit preserves the portrait capture and removes only idle waits and audio. No assistant response was composited or invented. Each case-study player waits for a user action, and the adjacent steps convey the sequence without motion.
+
+## Media still needed
+
+1. **Clean-consumer evidence:** a legible version and check result from a separate consumer installation. Distinguish a throwaway smoke app from an independently adopted production application.
+2. **Optional token flow:** a short capture only if it shows a review or state transition that the diagram and cited sync report cannot convey.
+
+For each file, record capture date, package/toolkit version, source revision, dataset mode, redactions, what it proves and what it does not. No clip or screenshot is required to write the first narrative pass.
+
+## Open checks before publication
+
+- Published Storybook and dashboard were rendered and captured on 4 October. Recheck them if a newer version replaces the selected release or if the dashboard data mode changes.
+- Recalculate the search suite on the release chosen for the page; do not carry the 0.7.1 figure into a 0.7.2 claim without evidence.
+- Check whether an external application, adoption report, accepted candidate or handoff rehearsal materialised after this snapshot. Update only the corresponding claim.
+- Verify media and public documentation links against the deployed release. Private registry access is not a prerequisite for a reader to understand the case.

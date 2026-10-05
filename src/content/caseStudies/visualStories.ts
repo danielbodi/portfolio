@@ -21,6 +21,7 @@ export type VisualDemoId = "bridgestone-token-pipeline";
 /** Responsive diagrams resolved by the story diagram registry. */
 export type VisualDiagramId =
   | "solidaris-agent-delegation"
+  | "solidaris-operating-model"
   | "solidaris-token-architecture"
   | "solidaris-contracts-index"
   | "solidaris-handoff"
@@ -70,6 +71,12 @@ export type VisualStoryMedia =
       /** Poster frame shown before play; also used if the clip fails to load. */
       poster: string;
       alt: string;
+      /** False for optional demos that should play only when requested. */
+      playOnScroll?: boolean;
+      /** Preserve a narrow editor capture at its native reading width. */
+      orientation?: "portrait";
+      /** Short text account of what the clip shows, available without playback. */
+      steps?: string[];
       label?: string;
       caption?: string;
       myPart?: string;
@@ -91,6 +98,8 @@ export interface VisualStoryChapter {
   media: VisualStoryMedia[];
   layout?: "stacked" | "split";
   tocLabel?: string;
+  /** Previous deep links that should land on this consolidated chapter. */
+  legacyAnchors?: string[];
   evidenceLine?: string;
   sources?: { label: string; href: string }[];
   decision?: {

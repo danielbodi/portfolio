@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Activity } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import {
   VisualStoryMedia
 } from '../content/caseStudies/visualStories';
 import { useSeo } from '../hooks/useSeo';
+import { storyReadingMinutes } from '../utils/storyReadingTime';
 import { analytics } from '../utils/basicAnalytics';
 import { Card } from '../ui/components/cards/Card';
 import {
@@ -57,9 +58,10 @@ const REDUNDANT_STATES: Partial<Record<VisualEvidenceStatus, DeliveryState[]>> =
 function StoryVideo({ media }: { media: Extract<VisualStoryMedia, { kind: 'video' }> }) {
   const prefersReducedMotion = useReducedMotion() ?? false;
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasPlayed, setHasPlayed] = useState(false);
 
   useEffect(() => {
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || media.playOnScroll === false) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -77,22 +79,46 @@ function StoryVideo({ media }: { media: Extract<VisualStoryMedia, { kind: 'video
     );
     observer.observe(video);
     return () => observer.disconnect();
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, media.playOnScroll]);
 
-  return (
+  const player = (
     <video
       ref={videoRef}
       controls
       muted
-      loop
+      loop={media.playOnScroll !== false}
       playsInline
-      preload="metadata"
+      onPlay={() => setHasPlayed(true)}
+      preload={media.playOnScroll === false ? "none" : "metadata"}
       poster={media.poster}
       aria-label={media.alt}
-      className="aspect-video w-full bg-gray-950"
+      className={media.orientation === 'portrait'
+        ? 'block h-auto w-full max-w-[526px] bg-gray-950'
+        : 'aspect-video w-full bg-gray-950'}
     >
       <source src={media.src} type="video/mp4" />
     </video>
+  );
+
+  if (media.orientation !== 'portrait') return player;
+
+  return (
+    <div className="relative w-full max-w-[526px]">
+      {player}
+      {!hasPlayed && (
+        <button
+          type="button"
+          onClick={() => {
+            const video = videoRef.current;
+            if (video) void video.play().catch(() => { /* Keep the poster available. */ });
+          }}
+          className="absolute right-4 top-4 rounded-full bg-purple-200 px-4 py-2 text-sm font-semibold text-gray-950 shadow-lg transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-200"
+          aria-label="Play the Plectrum agent recording"
+        >
+          Play recording ▶
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -134,7 +160,25 @@ function VisualMedia({ media, study, sharesRow = false }: MediaProps) {
         badges={badges}
         mediaLayout="block"
       >
-        <StoryVideo media={media} />
+        <div className="w-full">
+          <div className={media.orientation === 'portrait' ? 'flex justify-center bg-gray-950' : undefined}>
+            <StoryVideo media={media} />
+          </div>
+          {media.steps && (
+            <ol className={media.orientation === 'portrait'
+              ? 'grid gap-5 border-t border-gray-700/60 px-5 py-6 text-sm leading-relaxed text-gray-300 sm:grid-cols-2 lg:grid-cols-4'
+              : 'grid gap-2 border-t border-gray-700/60 px-4 py-3 text-xs text-gray-300 sm:grid-cols-3'}>
+              {media.steps.map((step, index) => (
+                <li key={step}><span className="mr-2 text-purple-300">{index + 1}.</span>{step}</li>
+              ))}
+              {media.orientation === 'portrait' && (
+                <li className="sm:col-span-2 lg:col-span-4">
+                  <TextLink to={media.src} newTab>Open the recording at full size</TextLink>
+                </li>
+              )}
+            </ol>
+          )}
+        </div>
       </StoryFigure>
     );
   }
@@ -324,6 +368,7 @@ function ReflectionCard({
 export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplateProps) {
   const { card } = study;
   const pathname = `/work/${card.slug}`;
+  const readingMinutes = storyReadingMinutes(story);
 
   useSeo({
     title: study.seo.title,
@@ -358,6 +403,12 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
           <p className={`mt-7 ${READING_COLUMN} text-lg leading-relaxed text-gray-300 md:text-xl`}>
             {story.statement}
           </p>
+          <time
+            className="mt-4 block text-xs font-medium uppercase tracking-[0.12em] text-gray-400"
+            dateTime={`PT${readingMinutes}M`}
+          >
+            About {readingMinutes} min read
+          </time>
 
           <DefinitionStrip
             className="mt-10"
@@ -404,6 +455,9 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
               className="border-t border-gray-700/60 py-16 md:py-24"
               aria-labelledby={`${chapter.id}-title`}
             >
+              {chapter.legacyAnchors?.map((id) => (
+                <span key={id} id={id} className="block scroll-mt-32" aria-hidden="true" />
+              ))}
               <div data-scroll-reveal className={`mb-7 ${READING_COLUMN}`}>
                 <div className="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em]">
                   <span className="text-purple-300">{chapter.number}</span>

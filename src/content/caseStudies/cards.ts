@@ -8,27 +8,27 @@ import { CaseCard } from "../types";
 export const solidarisCard: CaseCard = {
   slug: "solidaris",
   company: "Solidaris",
-  title: "Making Plectrum a system teams can build with",
+  title: "Building an AI-first design system teams can own",
   shortTitle: "Solidaris",
   tier: "flagship",
   period: "Oct 2025 – Oct 2026",
   problem:
-    "Regional products had to converge on a foundation that was already fixed, with the design-system decisions held in another region.",
-  indexTitle: "From product needs to a usable design system",
+    "Application teams needed a reliable way to discover, use and extend an inherited design foundation across products.",
+  indexTitle: "An agent, contracts and a path to shared ownership",
   indexProblem:
-    "An inherited UI kit needed a live catalogue, a reviewed token pipeline and a contribution model.",
-  roleShort: "Sole system lead & implementer · Product design",
+    "An inherited UI kit needed versioned contracts, an installed agent, clear governance and evidence for Core decisions.",
+  roleShort: "Sole design-system engineering lead · Product design",
   tags: [
-    "Storybook & developer experience",
-    "Token architecture",
-    "Contribution & ownership",
+    "Agent & developer experience",
+    "Contracts & token architecture",
+    "Governance & Core insights",
   ],
   evidence:
-    "I led and built Storybook, both token flows, CSS and metadata sources of truth, CI gates and all foundations. My assignment ends in October 2026.",
-  thumbnail: "/screenshots/solidaris/storybook-introduction.png",
+    "I led and implemented Plectrum’s agent, contracts, Storybook, token flows, foundations, CI and Core dashboard. UI packages 2.1.0 and toolkit 0.7.2 were published on 4 October 2026.",
+  thumbnail: "/screenshots/solidaris/storybook-token-finder-local-2026-10-04.png",
   logo: "/company-logos/Logomark.svg",
   logoInvert: true,
-  ctaLabel: "Explore the Plectrum architecture and Storybook",
+  ctaLabel: "Explore the Plectrum agent and architecture",
   deliveryState: "Ongoing",
 };
 

@@ -27,18 +27,18 @@ export const hero = {
     download: "daniel-bodi-gil-cv.pdf",
   },
   contextLink: {
-    label: "Solidaris · assignment ends October 2026 · handoff in preparation",
+    label: "Solidaris · assignment ends 8 October 2026 · handoff in preparation",
     href: "/work/solidaris",
   },
   proof: {
     href: "/work/solidaris",
     image: {
-      src: "/screenshots/solidaris/ishare-affiliate-dossier.png",
-      alt: "Anonymised iShare affiliate dossier prototype with a member summary, document list and workflow journey",
+      src: "/screenshots/solidaris/storybook-token-finder-local-2026-10-04.png",
+      alt: "Plectrum Storybook token finder showing semantic roles and CSS values",
     },
-    eyebrow: "Solidaris · ongoing product output",
+    eyebrow: "Solidaris · design-system engineering",
     caption:
-      "A dossier concept bringing affiliate context, documents, status and workflow into one reading surface.",
+      "A foundation that reads the compiled CSS, inside the wider agent, contract and governance architecture.",
     evidenceClass: "OUTPUT" as const,
     state: "Ongoing" as const,
   },
@@ -56,7 +56,7 @@ export const heroSpecimen = {
     alt: "Bridgestone UI design system home in Storybook: foundations, components, colours and icons documented from the live CSS",
   },
   caption:
-    "Bridgestone UI in production Storybook. Overlay: Solidaris contract and workflow outputs that remain experimental and are not presented as adopted.",
+    "Bridgestone UI in production Storybook. The overlay is an earlier Solidaris workflow sketch; the current agent and contract architecture is documented in the Solidaris case.",
   state: "In production" as const,
   contract: {
     kicker: "Component contract",
@@ -87,10 +87,10 @@ export const heroSpecimen = {
     ],
   },
   supervisor: {
-    kicker: "Workflow experiment",
+    kicker: "Earlier workflow sketch",
     name: "Solidaris",
-    role: "Proposed orchestration role",
-    rule: "A documented role model for design-to-code work; independent use is not yet claimed.",
+    role: "Specialist hand-off model",
+    rule: "This sketch predates the installed Plectrum agent. See the Solidaris case for its contracts and current limits.",
     grounding: "Figma MCP \u00b7 PrimeNG MCP",
     steps: [
       {
@@ -163,8 +163,8 @@ export const capabilities: Capability[] = [
     text: "I frame complex workflows around the decisions users need to make, then turn that direction into prototypes that can be tested and refined.",
     links: [
       {
-        label: "Solidaris — product tension",
-        href: "/work/solidaris#fragmented-tools",
+        label: "Solidaris — product context",
+        href: "/work/solidaris#ishare",
       },
       {
         label: "Trasis — physical mental model",
@@ -182,7 +182,7 @@ export const capabilities: Capability[] = [
         href: "/work/bridgestone#demo-bridgestone-token-pipeline",
       },
       {
-        label: "Solidaris — token architecture and Storybook",
+        label: "Solidaris — agent, tokens and contracts",
         href: "/work/solidaris#shared-contribution",
       },
     ],
@@ -217,14 +217,14 @@ export const homeArtefacts: Artefact[] = [
     caseLabel: "Bridgestone",
   },
   {
-    src: "/screenshots/solidaris/storybook-token-finder.png",
+    src: "/screenshots/solidaris/storybook-token-finder-local-2026-10-04.png",
     alt: "Plectrum token finder with semantic roles and live CSS values",
     what: "A live foundation catalogue connecting semantic roles to compiled CSS.",
     why: "Helps consumers choose an implementation token from the task they are solving.",
     contribution: "Led and built all Storybook foundations and both directions of the token pipeline.",
     evidenceClass: "OUTPUT",
     evidenceNote:
-      "Captured from the deployed Storybook on 10 September 2026; packages remain pre-release.",
+      "Local Storybook preview captured on 4 October 2026; the simplified table is not yet in the published 2.1.0 release.",
     state: "Ongoing",
     href: "/work/solidaris#storybook",
     caseLabel: "Solidaris",
@@ -377,10 +377,10 @@ export const careerProgression: CareerStep[] = [
     company: "Solidaris · via Cegeka",
     period: "Oct 2025 – Oct 2026",
     scope:
-      "Sole lead and implementer of the design-system engineering work, alongside healthcare product design. Assignment ends in October 2026.",
+      "Sole lead and implementer of Plectrum’s agent, contracts, governance, foundations and Core dashboard, alongside product design. Assignment ends 8 October 2026.",
     contributions: [
       "Research and prototypes for complex case-management workflows",
-      "Storybook, both token flows, CSS and metadata sources of truth, CI gates and every foundation",
+      "Agent and developer toolkit, Storybook, both token flows, contract-driven governance, CI and every foundation",
     ],
     href: "/work/solidaris",
   },

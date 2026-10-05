@@ -19,13 +19,13 @@ const systemOutput: EvidenceClaim = {
   id: 'solidaris-system-output',
   evidenceClass: 'OUTPUT',
   claim:
-    'The deployed Plectrum Storybook exposes live foundations, typed component contracts, ownership, CSS architecture and a recorded Figma-to-repository token promotion.',
-  source: 'Deployed Storybook reviewed on 10 September 2026; Daniel explicitly confirmed sole leadership and implementation of the system work.',
+    'Plectrum publishes a versioned Storybook, typed contracts and UI packages alongside a separate developer toolkit; the repository also implements an agent and Core insights dashboard.',
+  source: 'Plectrum source inspected on 4 October 2026 and release 2.1.0 / toolkit 0.7.2 manifest verified; Daniel confirmed sole leadership and implementation.',
   scope: 'Public catalogue and its documented architecture, developed around an inherited Plectrum foundation.',
   confidence: 'verified',
   attribution: 'Daniel led and implemented the system engineering himself: both token flows, CSS and metadata sources of truth, CI gates, Storybook and all foundations.',
   limitation:
-    'Private CI was not independently executed. Registry publication, independent adoption and handoff acceptance remain open.',
+    'The source and release were inspected; this portfolio checkout did not rerun Plectrum CI. Independent application adoption and accepted handoff remain open.',
   deliveryState: 'Ongoing'
 };
 
@@ -77,20 +77,20 @@ export const solidarisStudy: CaseStudy = {
 
   seo: {
     title:
-      'Solidaris Plectrum — Storybook, Token Architecture & Design-System Strategy | Daniel Bodi Gil',
+      'Solidaris Plectrum — AI Agent, Design System Architecture & Governance | Daniel Bodi Gil',
     description:
-      'Sole leadership and implementation of Plectrum system engineering: Storybook, both token flows, CSS and metadata sources of truth, CI gates and all foundations. Solidaris assignment ends October 2026.'
+      'How I led and implemented Plectrum’s agent, contracts, Storybook, token pipelines, foundations, Core/Teams governance, CI and insights dashboard at Solidaris.'
   },
 
   impactStatement:
-    'I led and implemented the full design-system engineering work myself, connecting product design to Storybook, both token flows, CSS and metadata sources of truth, CI gates and all foundations.',
+    'I led and implemented Plectrum’s agent, versioned contracts, Storybook, foundations, token flows, governance, CI and Core insights dashboard around an inherited PrimeNG foundation.',
 
   hero: {
     summary:
-      'An ongoing product and design-system assignment combining research, interaction design, Storybook engineering, token architecture and contribution strategy.',
+      'An AI-assisted design system connecting product needs, versioned contracts, autonomous team delivery and evidence-led Core decisions.',
     role:
       'Sole lead and implementer of the design-system engineering work, alongside product design and UX architecture.',
-    period: 'October 2025 – October 2026 · assignment ends in October',
+    period: 'October 2025 – October 2026 · assignment ends 8 October',
     team:
       'Cegeka consultant embedded client-side, collaborating with product managers, business analysts, engineers and a separately evolving core design team.',
     context:
@@ -105,7 +105,7 @@ export const solidarisStudy: CaseStudy = {
       'Contract-driven AI workflow'
     ],
     confidentialityNote:
-      'Storybook captures show the deployed catalogue. Product imagery is anonymised or recreated with fictional affiliate data. Package release, adoption and completed handoff remain separate milestones.',
+      'September Storybook captures are dated; product imagery uses anonymised or fictional data. Packages 2.1.0 and toolkit 0.7.2 are released; independent adoption and handoff acceptance remain separate milestones.',
     image: {
       src: '/screenshots/solidaris/storybook-introduction.png',
       alt: 'Live Plectrum Storybook introduction with consumer and contributor entry points',
@@ -115,7 +115,7 @@ export const solidarisStudy: CaseStudy = {
       contribution: 'Led and implemented the Storybook and the full system architecture documented in it.',
       evidenceClass: 'OUTPUT',
       evidenceNote:
-        'Captured 10 September 2026. The catalogue is deployed; packages remain pre-release.',
+        'Captured 10 September 2026. The packages were subsequently published on 4 October; the image is a historical Storybook snapshot.',
       state: 'Ongoing'
     }
   },
@@ -136,7 +136,7 @@ export const solidarisStudy: CaseStudy = {
     heading: 'Working inside an inherited system',
     paragraphs: [
       'PrimeNG and the original Plectrum layer predated my assignment. I worked within those constraints across iCRM, iShare and a reported iGED scope, helping employees read one affiliate story across fragmented tickets, documents, workflows and source systems.',
-      'A bounded local fork and product prototypes established concrete needs. The work developed into a live Storybook, reviewed inbound token sync and documented contribution path; independent consumer adoption remains to be demonstrated.'
+      'A bounded local fork and product prototypes established concrete needs. I developed Storybook, reviewed token paths, a versioned contract/toolkit, the Plectrum agent, contribution rules and a Core dashboard; independent team adoption remains to be demonstrated.'
     ]
   },
 
@@ -170,7 +170,7 @@ export const solidarisStudy: CaseStudy = {
         period: 'Planned October 2026 handoff',
         title: 'A useful foundation, with ownership still to resolve',
         description:
-          'Contribution and ownership rules are now documented. The next steps are documentation transfer, a confirmed maintainer, first registry release and an accepted handoff rehearsal.',
+          'The packages and toolkit are published. The next steps are documentation transfer, a confirmed maintainer, an independent consumer upgrade and an accepted handoff rehearsal.',
         label: 'IN PROGRESS'
       }
     ]
@@ -243,7 +243,7 @@ export const solidarisStudy: CaseStudy = {
       }
     ],
     limitedBy:
-      'My Solidaris assignment ends in October 2026. Exact build states, upstream acceptance, independent use and final handoff ownership were not yet established; post-departure adoption, maintenance and product impact fall outside this case’s evidence window unless later evidence is added.'
+      'My Solidaris assignment ends on 8 October 2026. The package release is verified; independent use, full candidate promotion and final handoff ownership still need evidence. Post-departure adoption, maintenance and product impact fall outside this evidence window unless later records are added.'
   },
 
   decisions: [
@@ -365,14 +365,14 @@ export const solidarisStudy: CaseStudy = {
       heading: 'Inherited foundation versus local additions',
       paragraphs: [
         '<strong>PrimeNG and the original Plectrum UI Kit were inherited.</strong> I led and implemented all of the system engineering described here myself: the repository, Storybook, both token flows, CSS and metadata sources of truth, CI gates and every foundation.',
-        'The current catalogue distinguishes Core components from application-owned work, with a proposal and promotion path. The first registry release and independent consumer upgrades remain open.'
+        'The catalogue distinguishes Core from application-owned work, and the packages are now published. Independent consumer upgrades remain open.'
       ],
       visual: {
         kind: 'image',
         src: '/screenshots/solidaris/storybook-sync-status.png',
         alt: 'Published sync status recording a promoted Figma-to-repository token change',
         caption:
-          'The deployed catalogue records an inbound token promotion on 7 September 2026. Reverse automated writes to Figma remain parked.'
+          'The September capture records an inbound promotion. Code-origin token proposals can now return through the agent with Figma MCP or the plugin, followed by designer review.'
       }
     },
     {
@@ -455,7 +455,7 @@ export const solidarisStudy: CaseStudy = {
       handoffState
     ],
     measurementNote:
-      'As of 10 September 2026, catalogue output and a published sync record are inspectable. First registry release, independent consumer use, handoff acceptance and quantified impact remain unverified.'
+      'As of 4 October 2026, packages 2.1.0 and toolkit 0.7.2 are published with a matching contract snapshot. Independent consumer use, handoff acceptance and quantified impact remain unverified.'
   },
 
   reflection: {
@@ -470,7 +470,7 @@ export const solidarisStudy: CaseStudy = {
       'Define the handoff owner and adoption measures earlier so durable value can be evaluated before departure.'
     ],
     next:
-      'Before the planned October 2026 handoff: confirm the exact state of every artefact, document divergence and contribution rules, name future owners and agree which outcomes will be measured after departure.'
+      'Before the 8 October 2026 handoff: confirm owners, document open decisions and recovery, and rehearse a contract change and application upgrade with the receiving team.'
   },
 
   connection: {

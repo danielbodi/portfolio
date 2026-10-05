@@ -43,10 +43,10 @@ export const staffProductDesignPath: RolePath = {
     {
       card: solidarisCard,
       emphasis:
-        'Ongoing product and systems work under inherited constraints: research, case-reading models, interaction trade-offs and a handoff whose limits are made explicit.',
+        'Product research and expert workflow design that informed an AI-assisted design system, with product prototypes and handoff limits labelled clearly.',
       links: [
-        { label: 'Product tension', href: '/work/solidaris#fragmented-tools' },
-        { label: 'Influence path', href: '/work/solidaris#shared-contribution' }
+        { label: 'Product context', href: '/work/solidaris#ishare' },
+        { label: 'Shared ownership', href: '/work/solidaris#governance' }
       ]
     },
     {
@@ -98,11 +98,11 @@ export const designEngineeringPath: RolePath = {
     {
       card: solidarisCard,
       emphasis:
-        'Sole leadership and implementation of Plectrum system engineering: Storybook, both Figma–repository flows, CSS and metadata sources of truth, CI gates and every foundation. The assignment ends in October 2026.',
+        'Sole leadership and implementation of Plectrum’s agent, versioned contracts, Core/Teams governance, token flows, foundations, delivery gates and Core insights dashboard. Packages were published in October 2026.',
       links: [
         { label: 'Token architecture', href: '/work/solidaris#shared-contribution' },
-        { label: 'Contracts & AI', href: '/work/solidaris#workflow-experiment' },
-        { label: 'Tested journey', href: '/work/solidaris#ishare' }
+        { label: 'Agent & contracts', href: '/work/solidaris#workflow-experiment' },
+        { label: 'Core insights', href: '/work/solidaris#core-insights' }
       ]
     },
     {

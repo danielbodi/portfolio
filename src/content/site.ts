@@ -7,15 +7,15 @@ import { Artefact } from "./types";
 
 export const positioning = {
   name: "Daniel Bodi Gil",
-  /** Discipline framing — no level word; scope is carried by the case evidence. */
-  descriptor: "Product Design · Design Systems · UX Engineering",
-  seoTitle: "Daniel Bodi Gil — Product Design, Design Systems & UX Engineering",
+  /** Target-role framing: matches the CV headline and LinkedIn. */
+  descriptor: "Design Engineer · Design System Lead",
+  seoTitle: "Daniel Bodi Gil — Design Engineer & Design System Lead",
   seoDescription:
-    "Portfolio of Daniel Bodi Gil, a product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.",
+    "Portfolio of Daniel Bodi Gil, a design engineer and design-system lead building AI-first design systems: tokens, Storybook, CI, agents and MCP, grounded in 15+ years of product design and front-end.",
 };
 
 export const hero = {
-  eyebrow: "Product design at systems scale",
+  eyebrow: "Daniel Bodi Gil · Design Engineer & Design System Lead",
   title:
     "I design the systems behind complex products and build what teams ship them with.",
   support:
@@ -27,7 +27,7 @@ export const hero = {
     download: "daniel-bodi-gil-cv.pdf",
   },
   contextLink: {
-    label: "Solidaris · assignment ends 8 October 2026 · handoff in preparation",
+    label: "Available from October 2026 · latest work: Plectrum, an AI-first design system",
     href: "/work/solidaris",
   },
   proof: {
@@ -439,7 +439,8 @@ export const earlierRoles = [
 
 export const contact = {
   email: "daniel.bodi.gil@gmail.com",
-  location: "Morlanwelz, Belgium · Europe/Brussels",
+  linkedin: "https://www.linkedin.com/in/danielbodi",
+  location: "Belgium · open to remote roles across Europe",
   cv: {
     /**
      * Rebuilt CV: scripts/cv/content.json + scripts/build_cv.py

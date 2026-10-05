@@ -16,24 +16,24 @@
     <link rel="canonical" href="https://danielbodigil.com" />
     
     <!-- Primary Meta Tags -->
-    <title>Daniel Bodi Gil — Product Design, Design Systems & UX Engineering</title>
-    <meta name="title" content="Daniel Bodi Gil — Product Design, Design Systems & UX Engineering">
-    <meta name="description" content="Portfolio of Daniel Bodi Gil, a product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.">
+    <title>Daniel Bodi Gil — Design Engineer & Design System Lead</title>
+    <meta name="title" content="Daniel Bodi Gil — Design Engineer & Design System Lead">
+    <meta name="description" content="Portfolio of Daniel Bodi Gil, a design engineer and design-system lead building AI-first design systems: tokens, Storybook, CI, agents and MCP, grounded in 15+ years of product design and front-end.">
     <meta name="keywords" content="Product Designer, Design Systems, UX Engineering, Design Engineer, Figma, Storybook, Angular, Enterprise UX, Belgium, Daniel Bodi Gil">
     <meta name="author" content="Daniel Bodi Gil">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://danielbodigil.com/">
-    <meta property="og:title" content="Daniel Bodi Gil — Product Design, Design Systems & UX Engineering">
-    <meta property="og:description" content="Portfolio of Daniel Bodi Gil, a product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.">
+    <meta property="og:title" content="Daniel Bodi Gil — Design Engineer & Design System Lead">
+    <meta property="og:description" content="Portfolio of Daniel Bodi Gil, a design engineer and design-system lead building AI-first design systems: tokens, Storybook, CI, agents and MCP, grounded in 15+ years of product design and front-end.">
     <meta property="og:image" content="https://danielbodigil.com/og-image.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://danielbodigil.com/">
-    <meta property="twitter:title" content="Daniel Bodi Gil — Product Design, Design Systems & UX Engineering">
-    <meta property="twitter:description" content="Portfolio of Daniel Bodi Gil, a product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.">
+    <meta property="twitter:title" content="Daniel Bodi Gil — Design Engineer & Design System Lead">
+    <meta property="twitter:description" content="Portfolio of Daniel Bodi Gil, a design engineer and design-system lead building AI-first design systems: tokens, Storybook, CI, agents and MCP, grounded in 15+ years of product design and front-end.">
     <meta property="twitter:image" content="https://danielbodigil.com/og-image.png">
 
     <!-- Security Headers -->
@@ -43,32 +43,23 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Microsoft Clarity Analytics -->
+    <!-- Microsoft Clarity loads only after analytics consent
+         (banner: src/ui/components/consent/CookieConsent.tsx). -->
     <script type="text/javascript">
-      // Clarity implementation with enhanced fallback
-      (function(c,l,a,r,i,t,y){
+      window.loadClarity = function () {
+        if (window.__clarityLoaded) return;
+        window.__clarityLoaded = true;
+        (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          
-          // Initialize with fallback analytics immediately
-          if (typeof window.analytics !== 'undefined') {
-              console.log('Using fallback analytics due to network restrictions');
-              return;
-          }
-          
           t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          t.onerror = function() {
-              console.warn('Clarity blocked by network - using fallback analytics');
-              // Gracefully fall back to local analytics
-              c[a] = function() { 
-                  console.log('Clarity call intercepted:', arguments); 
-                  if (typeof window.analytics !== 'undefined') {
-                      window.analytics.trackEvent('clarity_fallback', {args: Array.from(arguments)});
-                  }
-              };
-          };
           y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "t094i2i8wh");
-  </script>
+        })(window, document, "clarity", "script", "t094i2i8wh");
+        window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+      };
+      try {
+        if (localStorage.getItem('cookie-consent') === 'granted') window.loadClarity();
+      } catch (e) {}
+    </script>
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -77,9 +68,10 @@
         "@type": "Person",
         "name": "Daniel Bodi Gil",
         "url": "https://danielbodigil.com",
-        "jobTitle": "Product Designer — Design Systems & UX Engineering",
-        "description": "Product designer and UX engineer specialising in complex enterprise products, design systems, Figma, Storybook and front-end UI architecture.",
-        "knowsAbout": ["Product Design", "UX Design", "Design Systems", "UX Engineering", "Design Tokens", "Storybook", "Figma", "Angular", "Front-end Development", "Accessibility"],
+        "jobTitle": "Design Engineer & Design System Lead",
+        "description": "Design engineer and design-system lead building AI-first design systems, grounded in product design and front-end architecture.",
+        "sameAs": ["https://www.linkedin.com/in/danielbodi"],
+        "knowsAbout": ["Design Engineering", "Design Systems", "Design Tokens", "AI Agents", "Model Context Protocol", "Product Design", "UX Engineering", "Storybook", "Figma", "Angular", "TypeScript", "React", "Front-end Development", "Accessibility"],
         "workLocation": {
           "@type": "Place",
           "address": {

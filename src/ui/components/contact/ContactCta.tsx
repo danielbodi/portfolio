@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { contact } from '../../../content/site';
 import { analytics } from '../../../utils/basicAnalytics';
 import { Card } from '../cards/Card';
+import { openCookiePreferences } from '../consent/CookieConsent';
 
 interface ContactCtaProps {
   /** Analytics origin for the contact and CV events. */
@@ -51,12 +52,28 @@ export function ContactCta({
             >
               {contact.cv.label}
             </a>
+            <a
+              href={contact.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="c-button c-button--secondary"
+              onClick={() => analytics.trackPortfolioEvent('external_link', { target: 'linkedin', from })}
+            >
+              LinkedIn
+            </a>
             {includeWorkLink && (
               <Link to="/work" className="c-button c-button--secondary">
                 View selected work
               </Link>
             )}
           </div>
+          <button
+            type="button"
+            onClick={openCookiePreferences}
+            className="mt-6 text-xs text-gray-500 underline underline-offset-2 hover:text-gray-300"
+          >
+            Cookie preferences
+          </button>
         </Card>
       </div>
     </section>

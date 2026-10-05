@@ -2,12 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Activity } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { CaseStudy, DeliveryState } from '../content/types';
-import {
-  VisualEvidenceStatus,
-  VisualStory,
-  VisualStoryMedia
-} from '../content/caseStudies/visualStories';
+import { CaseStudy } from '../content/types';
+import { VisualStory, VisualStoryMedia } from '../content/caseStudies/visualStories';
 import { useSeo } from '../hooks/useSeo';
 import { storyReadingMinutes } from '../utils/storyReadingTime';
 import { analytics } from '../utils/basicAnalytics';
@@ -17,7 +13,7 @@ import {
   ExpandableImage,
   SystemEvidenceVisual
 } from '../ui/components/evidence';
-import { DefinitionStrip, EvidenceStatusBadge, StoryFigure } from '../ui/components/story';
+import { DefinitionStrip, StoryFigure } from '../ui/components/story';
 import { StoryDiagram } from '../ui/components/story/diagrams/registry';
 import { LiveDemo } from '../ui/components/demos';
 import { TextLink } from '../ui/components/links/TextLink';
@@ -40,16 +36,6 @@ interface MediaProps {
    */
   sharesRow?: boolean;
 }
-
-/* A state tag earns its place only when it adds information the evidence badge
-   does not already carry: "Verified" implies shipped work and "Prototype"
-   implies a concept, so those pairs collapse to the evidence badge alone. The
-   two vocabularies also overlap on words like "Ongoing", and repeating one
-   word as two adjacent pills reads as a rendering fault rather than nuance. */
-const REDUNDANT_STATES: Partial<Record<VisualEvidenceStatus, DeliveryState[]>> = {
-  Verified: ['Shipped', 'In production'],
-  Prototype: ['Concept']
-};
 
 /**
  * Muted clip that plays while it is on screen and pauses off screen. Under
@@ -139,17 +125,7 @@ function VisualMedia({ media, study, sharesRow = false }: MediaProps) {
   }
 
   if (media.kind === 'video') {
-    const showState =
-      media.state &&
-      media.state !== media.evidenceStatus &&
-      !(media.evidenceStatus && REDUNDANT_STATES[media.evidenceStatus]?.includes(media.state));
-    const badges =
-      media.evidenceStatus || showState ? (
-        <>
-          {media.evidenceStatus && <EvidenceStatusBadge status={media.evidenceStatus} />}
-          {showState && media.state && <DeliveryStateTag state={media.state} />}
-        </>
-      ) : undefined;
+    const badges = media.state ? <DeliveryStateTag state={media.state} /> : undefined;
 
     return (
       <StoryFigure
@@ -184,17 +160,7 @@ function VisualMedia({ media, study, sharesRow = false }: MediaProps) {
   }
 
   if (media.kind === 'diagram') {
-    const showState =
-      media.state &&
-      media.state !== media.evidenceStatus &&
-      !(media.evidenceStatus && REDUNDANT_STATES[media.evidenceStatus]?.includes(media.state));
-    const badges =
-      media.evidenceStatus || showState ? (
-        <>
-          {media.evidenceStatus && <EvidenceStatusBadge status={media.evidenceStatus} />}
-          {showState && media.state && <DeliveryStateTag state={media.state} />}
-        </>
-      ) : undefined;
+    const badges = media.state ? <DeliveryStateTag state={media.state} /> : undefined;
 
     return (
       <StoryFigure
@@ -210,17 +176,7 @@ function VisualMedia({ media, study, sharesRow = false }: MediaProps) {
     );
   }
 
-  const showState =
-    media.state &&
-    media.state !== media.evidenceStatus &&
-    !(media.evidenceStatus && REDUNDANT_STATES[media.evidenceStatus]?.includes(media.state));
-  const badges =
-    media.evidenceStatus || showState ? (
-      <>
-        {media.evidenceStatus && <EvidenceStatusBadge status={media.evidenceStatus} />}
-        {showState && media.state && <DeliveryStateTag state={media.state} />}
-      </>
-    ) : undefined;
+  const badges = media.state ? <DeliveryStateTag state={media.state} /> : undefined;
 
   /* Authored SVGs carry their own dark canvas. Screenshots letterbox onto a
      plate sampled from the image itself inside ExpandableImage. */
@@ -403,6 +359,26 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
           <p className={`mt-7 ${READING_COLUMN} text-lg leading-relaxed text-gray-300 md:text-xl`}>
             {story.statement}
           </p>
+          <section aria-labelledby="at-a-glance" className="mt-8 max-w-5xl">
+            <Card>
+              <h2
+                id="at-a-glance"
+                className="mb-5 text-xs font-semibold uppercase tracking-[0.14em] text-purple-300"
+              >
+                At a glance
+              </h2>
+              <dl className="grid gap-x-8 gap-y-5 md:grid-cols-2">
+                {story.glance.map((item) => (
+                  <div key={item.label}>
+                    <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-gray-400">
+                      {item.label}
+                    </dt>
+                    <dd className="mt-1.5 text-base leading-relaxed text-gray-200">{item.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Card>
+          </section>
           <time
             className="mt-4 block text-xs font-medium uppercase tracking-[0.12em] text-gray-400"
             dateTime={`PT${readingMinutes}M`}
@@ -511,7 +487,7 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
           <div data-scroll-reveal className="mb-9 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-purple-300">
-                Evidence
+                Outcomes
               </p>
               <h2
                 id="outcomes"
@@ -520,30 +496,16 @@ export function VisualCaseStudyTemplate({ study, story }: VisualCaseStudyTemplat
                 {story.outcomesTitle}
               </h2>
             </div>
-            <p className="max-w-lg text-sm leading-relaxed text-gray-500">
-              Claims are deliberately separated from the limits of the available evidence.
-            </p>
           </div>
           <div data-scroll-reveal-children className="grid gap-4 md:grid-cols-3">
             {story.outcomes.map((outcome) => (
               <Card key={outcome.label} className="h-full">
-                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                  <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-purple-300">
-                    {outcome.label}
-                  </h3>
-                  <EvidenceStatusBadge status={outcome.evidenceStatus} />
-                </div>
+                <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-purple-300">
+                  {outcome.label}
+                </h3>
                 <p className="text-sm leading-relaxed text-gray-300">{outcome.text}</p>
               </Card>
             ))}
-          </div>
-          {/* Neutral surface on purpose: amber is the site's alert colour, and a warning-
-              coloured panel outweighed the outcome cards it qualifies. */}
-          <div className="mt-5 rounded-xl border border-gray-700/60 bg-gray-900/20 px-5 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">
-              Evidence boundary
-            </p>
-            <p className="mt-2 max-w-5xl text-sm leading-relaxed text-gray-400">{story.boundary}</p>
           </div>
         </section>
 

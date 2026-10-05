@@ -17,15 +17,15 @@ export const solidarisCard: CaseCard = {
   indexTitle: "An agent, contracts and a path to shared ownership",
   indexProblem:
     "An inherited UI kit needed versioned contracts, an installed agent, clear governance and evidence for Core decisions.",
-  roleShort: "Sole design-system engineering lead · Product design",
+  roleShort: "Sole design-system lead · Product design",
   tags: [
     "Agent & developer experience",
     "Contracts & token architecture",
     "Governance & Core insights",
   ],
   evidence:
-    "I led and implemented Plectrum’s agent, contracts, Storybook, token flows, foundations, CI and Core dashboard. UI packages 2.1.0 and toolkit 0.7.2 were published on 4 October 2026.",
-  thumbnail: "/screenshots/solidaris/storybook-token-finder-local-2026-10-04.png",
+    "Built for 100+ developers: an AI agent and MCP server, Figma-to-code tokens, Storybook and CI gates, released as Plectrum 2.1.0 and piloted with 3 teams.",
+  thumbnail: "/screenshots/solidaris-thumbnail.png",
   logo: "/company-logos/Logomark.svg",
   logoInvert: true,
   ctaLabel: "Explore the Plectrum agent and architecture",
@@ -47,7 +47,7 @@ export const bridgestoneCard: CaseCard = {
   roleShort: "Product design · UX engineering · UI foundations and enablement",
   tags: ["Product patterns", "Storybook", "UX engineering"],
   evidence:
-    "Design input moved into implementation, and stakeholders funded system work once shared patterns shipped.",
+    "Stakeholders funded system work once shared patterns shipped; 15+ developers adopted it, and the team estimated ~60% faster UI feature delivery.",
   thumbnail: "/screenshots/bs-thumbnail.png",
   logo: "/company-logos/Bridgestone logo.png",
   ctaLabel: "Read the Bridgestone UI foundations case study",
@@ -123,8 +123,8 @@ export const baseCard: CaseCard = {
 };
 
 export const allCards: CaseCard[] = [
-  bridgestoneCard,
   solidarisCard,
+  bridgestoneCard,
   trasisCard,
   sopraBankingCard,
   baseCard,

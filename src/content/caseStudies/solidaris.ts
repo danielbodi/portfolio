@@ -79,7 +79,7 @@ export const solidarisStudy: CaseStudy = {
     title:
       'Solidaris Plectrum — AI Agent, Design System Architecture & Governance | Daniel Bodi Gil',
     description:
-      'How I led and implemented Plectrum’s agent, contracts, Storybook, token pipelines, foundations, Core/Teams governance, CI and insights dashboard at Solidaris.'
+      'How I led Plectrum, an AI-first design system for 100+ developers at Solidaris: an AI agent and MCP server, Figma-to-code tokens, Storybook, CI quality gates and a governance model teams can own.'
   },
 
   impactStatement:

@@ -1,9 +1,9 @@
 import React from 'react';
 import { RolePathPage } from './RolePathPage';
-import { designEngineeringPath, staffProductDesignPath } from '../content/rolePaths';
+import { designEngineeringPath } from '../content/rolePaths';
 
 export function DesignEngineering() {
-  return <RolePathPage path={designEngineeringPath} otherPath={staffProductDesignPath} />;
+  return <RolePathPage path={designEngineeringPath} />;
 }
 
 export default DesignEngineering;

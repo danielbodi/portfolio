@@ -13,6 +13,7 @@ export function storyReadingMinutes(story: VisualStory): number {
   const text = [
     story.title,
     story.statement,
+    ...story.glance.flatMap(({ label, value }) => [label, value]),
     ...story.facts.flatMap(({ label, value }) => [label, value]),
     ...(story.jumpTo?.map(({ label }) => label) ?? []),
     ...mediaText(story.heroMedia),
@@ -28,7 +29,6 @@ export function storyReadingMinutes(story: VisualStory): number {
     ]),
     story.outcomesTitle,
     ...story.outcomes.flatMap(({ label, text: outcomeText }) => [label, outcomeText]),
-    story.boundary,
     story.reflection.repeat,
     ...[story.reflection.change].flat(),
     story.reflection.next,

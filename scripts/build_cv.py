@@ -54,7 +54,9 @@ def role(entry):
     result = [KeepTogether([para(entry['company'], 'company'), para(meta, 'role'), para(entry['intro'], 'intro')])]
     result.extend(Paragraph(escape(item), styles['bullet'], bulletText='-') for item in entry['bullets'])
     if entry.get('link'):
-        result.append(Paragraph(f'<link href="{escape(entry["link"])}" color="#5143A5">{escape(entry["link_label"])}</link>', styles['link']))
+        links = [f'<link href="{escape(entry["link"])}" color="#5143A5">{escape(entry["link_label"])}</link>']
+        links += [f'<link href="{escape(extra["href"])}" color="#5143A5">{escape(extra["label"])}</link>' for extra in entry.get('extra_links', [])]
+        result.append(Paragraph(' | '.join(links), styles['link']))
     return result
 
 def page_chrome(canvas, doc):
@@ -73,9 +75,11 @@ flow = [para(data['name'], 'name'), para(data['headline'], 'headline'), para(dat
 flow.append(Paragraph(f'{escape(data["location"])} | {escape(data["phone"])} | <link href="mailto:{data["email"]}">{data["email"]}</link>', styles['contact']))
 flow.append(Paragraph(f'<link href="https://{data["website"]}" color="#5143A5">{data["website"]}</link> | <link href="https://{data["linkedin"]}" color="#5143A5">{data["linkedin"]}</link>', styles['contact']))
 flow.extend([section('Profile'), para(data['summary']), section('Core expertise'), para(data['competencies']), section('Experience')])
+if data.get('employer_note'):
+    flow.append(para(data['employer_note'], 'intro'))
 for entry in data['page_one_roles']:
     flow.extend(role(entry))
-flow.extend([PageBreak(), para('Daniel Bodi Gil', 'continuation'), para('Product design, systems and engineering | Experience continued', 'specialism')])
+flow.extend([PageBreak(), para('Daniel Bodi Gil', 'continuation'), para('Design engineering and design systems | Experience continued', 'specialism')])
 for entry in data['page_two_roles']:
     flow.extend(role(entry))
 flow.append(section('Earlier experience'))
@@ -86,7 +90,7 @@ flow.extend([section('Languages'), para(data['languages'])])
 
 args.output.parent.mkdir(parents=True, exist_ok=True)
 doc = SimpleDocTemplate(str(args.output), pagesize=A4, leftMargin=43, rightMargin=43, topMargin=34, bottomMargin=47,
-    title='Daniel Bodi Gil - Product Design, Design Systems & UX Engineering', author=data['name'],
+    title='Daniel Bodi Gil - Design Engineer & Design System Lead', author=data['name'],
     subject='Professional CV - updated October 2026', pageCompression=1)
 doc.build(flow, onFirstPage=page_chrome, onLaterPages=page_chrome)
 if doc.page != 2:

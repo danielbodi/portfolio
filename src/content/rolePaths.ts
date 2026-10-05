@@ -25,52 +25,6 @@ export interface RolePath {
   cvNote: string;
 }
 
-export const staffProductDesignPath: RolePath = {
-  slug: 'staff-product-design',
-  title: 'Staff Product Design',
-  seoTitle: 'Staff Product Design — Daniel Bodi Gil',
-  seoDescription:
-    'Curated product design evidence: complex ecosystem UX at Solidaris, safety-critical design at Trasis and design-system leadership at Bridgestone.',
-  intro:
-    'If you are evaluating me for a staff-level product design role, start here. The same case studies as the rest of the site, ordered around problem framing in ambiguity, ownership, decision quality and clearly bounded evidence.',
-  focusPoints: [
-    'Ownership of complex, ambiguous initiatives',
-    'Information architecture across connected products',
-    'Scenario-based user testing and evidence-based iteration',
-    'Stakeholder alignment as an embedded, autonomous consultant'
-  ],
-  entries: [
-    {
-      card: solidarisCard,
-      emphasis:
-        'Product research and expert workflow design that informed an AI-assisted design system, with product prototypes and handoff limits labelled clearly.',
-      links: [
-        { label: 'Product context', href: '/work/solidaris#ishare' },
-        { label: 'Shared ownership', href: '/work/solidaris#governance' }
-      ]
-    },
-    {
-      card: trasisCard,
-      emphasis:
-        'Product craft under constraints: a high-consequence workflow made unambiguous, validated with task-based testing and iterated from observation.',
-      links: [
-        { label: 'Physical model', href: '/work/trasis#physical-model' },
-        { label: 'Validation evidence', href: '/work/trasis#status-results' }
-      ]
-    },
-    {
-      card: bridgestoneCard,
-      emphasis:
-        'Influence beyond the screen: a refused design-system request turned into a funded initiative, then quality raised through reviews, documentation and coaching.',
-      links: [
-        { label: 'Influence', href: '/work/bridgestone#make-value-visible' },
-        { label: 'Outcomes', href: '/work/bridgestone#outcomes' }
-      ]
-    }
-  ],
-  cvNote: 'Product design CV'
-};
-
 export const designEngineeringPath: RolePath = {
   slug: 'design-engineering',
   title: 'Design Engineering & Design Systems',
@@ -98,11 +52,11 @@ export const designEngineeringPath: RolePath = {
     {
       card: solidarisCard,
       emphasis:
-        'Sole leadership and implementation of Plectrum’s agent, versioned contracts, Core/Teams governance, token flows, foundations, delivery gates and Core insights dashboard. Packages were published in October 2026.',
+        'An AI-first design system for 100+ developers, led and built alone: an agent and MCP server, one source of truth for components and tokens, CI gates, and a governance model redesigned after stakeholder pushback.',
       links: [
-        { label: 'Token architecture', href: '/work/solidaris#shared-contribution' },
-        { label: 'Agent & contracts', href: '/work/solidaris#workflow-experiment' },
-        { label: 'Core insights', href: '/work/solidaris#core-insights' }
+        { label: 'The agent', href: '/work/solidaris#fragmented-tools' },
+        { label: 'Components & tokens', href: '/work/solidaris#workflow-experiment' },
+        { label: 'Governance', href: '/work/solidaris#governance' }
       ]
     },
     {
@@ -121,4 +75,4 @@ export const designEngineeringPath: RolePath = {
   cvNote: 'Design systems and UX engineering CV'
 };
 
-export const rolePaths = [staffProductDesignPath, designEngineeringPath];
+export const rolePaths = [designEngineeringPath];

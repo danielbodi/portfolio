@@ -9,7 +9,7 @@ import { Card } from '../ui/components/cards/Card';
 
 interface RolePathPageProps {
   path: RolePath;
-  otherPath: RolePath;
+  otherPath?: RolePath;
 }
 
 /**
@@ -76,7 +76,7 @@ export function RolePathPage({ path, otherPath }: RolePathPageProps) {
             <div>
               <h2 className="mb-1 text-lg font-semibold text-gray-200">{path.cvNote}</h2>
               <p className="text-sm text-gray-500">
-                One CV covers both tracks today; a role-specific version is in preparation.
+                Two pages, focused on design engineering and design-system leadership.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -88,9 +88,11 @@ export function RolePathPage({ path, otherPath }: RolePathPageProps) {
               >
                 Download CV
               </a>
-              <Link to={`/${otherPath.slug}`} className="c-button c-button--secondary">
-                {otherPath.title} path
-              </Link>
+              {otherPath && (
+                <Link to={`/${otherPath.slug}`} className="c-button c-button--secondary">
+                  {otherPath.title} path
+                </Link>
+              )}
             </div>
           </div>
           </Card>

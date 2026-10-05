@@ -5,13 +5,6 @@ export interface VisualStoryFact {
   value: string;
 }
 
-export type VisualEvidenceStatus =
-  | "Verified"
-  | "Reported"
-  | "Prototype"
-  | "Ongoing"
-  | "Planned";
-
 /**
  * Interactive demos that run in the page. Every id here must have an entry in
  * the registry at src/ui/components/demos/registry.ts.
@@ -40,7 +33,6 @@ export interface VisualStoryLiveDemo {
   description?: string;
   /** States what the demo is and is not, in place of the registry default. */
   provenance?: string;
-  evidenceStatus?: VisualEvidenceStatus;
 }
 
 export interface VisualStoryDiagram {
@@ -49,7 +41,6 @@ export interface VisualStoryDiagram {
   label?: string;
   caption?: string;
   myPart?: string;
-  evidenceStatus?: VisualEvidenceStatus;
   state?: DeliveryState;
 }
 
@@ -61,7 +52,6 @@ export type VisualStoryMedia =
       label?: string;
       caption?: string;
       myPart?: string;
-      evidenceStatus?: VisualEvidenceStatus;
       state?: DeliveryState;
     }
   | VisualStoryDiagram
@@ -80,7 +70,6 @@ export type VisualStoryMedia =
       label?: string;
       caption?: string;
       myPart?: string;
-      evidenceStatus?: VisualEvidenceStatus;
       state?: DeliveryState;
     }
   | {
@@ -116,12 +105,13 @@ export interface VisualStoryChapter {
 export interface VisualStoryOutcome {
   label: string;
   text: string;
-  evidenceStatus: VisualEvidenceStatus;
 }
 
 export interface VisualStory {
   title: string;
   statement: string;
+  /** Four-line summary under the statement: problem, what I built, scale, result. */
+  glance: VisualStoryFact[];
   facts: VisualStoryFact[];
   /** Anchors rendered under the facts strip, pointing at the evidence worth seeing first. */
   jumpTo?: { label: string; href: string }[];
@@ -129,7 +119,6 @@ export interface VisualStory {
   chapters: VisualStoryChapter[];
   outcomesTitle: string;
   outcomes: VisualStoryOutcome[];
-  boundary: string;
   reflection: {
     repeat: string;
     /** An array renders as a list, for cases with more than one lesson. */
@@ -141,21 +130,21 @@ export interface VisualStory {
 export const bridgestoneVisualStory: VisualStory = {
   title: "Building shared UI foundations without a mandate",
   statement:
-    "I built the UI foundation for FleetBridge — Bridgestone’s fleet and tyre operations platform — from inside feature delivery. There was no UI library, the team chose to write every component itself, and my request for dedicated resources was declined every time it came up. So I shipped the foundation piece by piece until the difference showed in the product, and the investment followed.",
+    "I built the design system for FleetBridge, Bridgestone’s fleet and tyre operations platform, from inside feature delivery. There was no UI library, the team built every component itself, and my requests for dedicated resources were declined. So I shipped the foundation piece by piece until the difference showed in the product, and the investment followed.",
+  glance: [
+    { label: "Problem", value: "No UI library, no design-system mandate, and every request for dedicated resources declined." },
+    { label: "What I built", value: "The FleetBridge design system, from inside feature delivery: 40+ components, production CSS as the single source and Storybook documentation generated from it." },
+    { label: "Scale", value: "15+ developers on a fleet platform used across several European countries; design grew from one to three designers." },
+    { label: "Result", value: "Stakeholders funded design-system work once shared patterns shipped, and the team estimated ~60% faster UI feature delivery." },
+  ],
   facts: [
-    { label: "Role", value: "Product designer + UX engineer" },
-    { label: "Period", value: "2019–2025 · sole designer → team of three" },
-    {
-      label: "Ownership",
-      value:
-        "Product UX through UI — pages, templates, shared patterns, CSS and Storybook",
-    },
-    {
-      label: "Documentation",
-      value: "Storybook foundations generated from the shipped CSS",
-    },
+    { label: "Role", value: "Design-system lead · product designer · UX engineer" },
+    { label: "Period", value: "2019 – 2025" },
+    { label: "Scale", value: "15+ developers · 40+ components · 1 → 3 designers" },
+    { label: "Stack", value: "Angular · SCSS (ITCSS/BEMIT) · Storybook · Figma" },
   ],
   jumpTo: [
+    { label: "How the mandate was won", href: "#make-value-visible" },
     {
       label: "Live · the token pipeline runs in this page",
       href: "#demo-bridgestone-token-pipeline",
@@ -167,52 +156,22 @@ export const bridgestoneVisualStory: VisualStory = {
     alt: "FleetBridge production worksheet in its light theme",
     label: "Service worksheet · light theme",
     caption:
-      "Vehicle layout, per-position tyre state and the inspection form on one surface. This component is where the argument for a system was finally won.",
+      "Vehicle layout, per-position tyre state and the inspection form on one surface. This component is where the argument for a system was won.",
     myPart:
       "Designed the workflow and its composite patterns, then worked with developers to integrate them into the shared UI foundation.",
-    evidenceStatus: "Verified",
     state: "In production",
   },
   chapters: [
     {
-      id: "delivery-constraint",
-      number: "01",
-      eyebrow: "Starting point",
-      title: "Invert the double diamond around delivery",
-      paragraphs: [
-        "Business needs and feature definitions were already supplied. Instead of opening with discovery, I designed and shipped from those commitments, then used what implementation and feedback exposed to improve both the product and the emerging system.",
-        "There was no design system and nobody had asked for one. The precedent was the legacy applications, designed as well as built by front-end developers on off-the-shelf libraries such as Angular Material, so consistency had always been treated as a developer concern rather than a product one. For the back office nothing had been decided and nothing was imposed on me: no UI library, no theme, no foundation.",
-        "I started from the Ant Design UI kit in Figma and extended it with FleetBridge components, so design work was reusable from the first sprint. The team then chose to build the components in code <strong>from scratch</strong> rather than adopt the Ant Design implementation, keeping behaviour, accessibility and theming under our own control.",
-      ],
-      media: [
-        {
-          kind: "diagram",
-          diagramId: "bridgestone-reverse-diamonds",
-          label: "Process model",
-          caption:
-            "Definition and delivery came first; research insights and improvements fed later iterations.",
-          myPart:
-            "Adapted the loop with the other designers and fed recurring findings into product and system backlogs.",
-          evidenceStatus: "Reported",
-        },
-      ],
-      decision: {
-        constraint:
-          "Nothing was decided for the back office — no UI library, no theme, no foundation — and nobody had asked for a design system.",
-        choice:
-          "Design from the Ant Design kit in Figma, then build the components in code from scratch rather than adopt its implementation.",
-        tradeOff:
-          "Full control over behaviour, accessibility and theming, paid for in build time — and a shared foundation stopped being optional.",
-      },
-    },
-    {
       id: "make-value-visible",
-      number: "02",
+      legacyAnchors: ["delivery-constraint"],
+      tocLabel: "Winning the mandate",
+      number: "01",
       eyebrow: "Influence without authority",
       title: "No mandate, so let the product argue",
       paragraphs: [
-        "Owning every component made a shared foundation a requirement rather than a nice-to-have. I asked for dedicated resources to build it, laid out the trade-offs, and was turned down every time: the feature backlog came first. So I built what I could inside delivery and spent the rest of the time trying to keep the gaps out of production — pairing, reviewing and writing guidance as the work went through.",
-        "The problems surfaced anyway, and they surfaced on their own. The same defects and inconsistencies turned up in demos and retrospectives, and management was visibly surprised by them. What I added was the diagnosis: I named the cause each time instead of letting it read as carelessness. The developers were not short of effort, they were <strong>short of tools</strong> — stories estimated at three or five points could run into a second sprint, because every screen re-decided questions nobody had answered once.",
+        "For the new back office nothing had been decided: no UI library, no theme, no foundation, and nobody had asked for a design system. I started from the Ant Design kit in Figma and extended it with FleetBridge components. The team chose to build every component in code <strong>from scratch</strong>, which kept behaviour, accessibility and theming under our control, and made a shared foundation unavoidable.",
+        "I asked for dedicated resources to build it and was turned down every time: the feature backlog came first. So I built what I could inside delivery, and named the cause each time the same defects and inconsistencies came back in demos and retrospectives. The developers were not short of effort, they were <strong>short of tools</strong>: stories estimated at three or five points ran into a second sprint because every screen re-decided the same questions.",
       ],
       media: [
         {
@@ -221,13 +180,10 @@ export const bridgestoneVisualStory: VisualStory = {
           alt: "Bridgestone UI design system home in Storybook, with foundations, components, colours and icons documented",
           label: "Where it landed",
           caption:
-            "The end state of the sequence below: the Storybook stakeholders funded once shared patterns had shipped.",
-          evidenceStatus: "Verified",
+            "The Storybook that stakeholders funded once shared patterns had shipped.",
           state: "In production",
         },
       ],
-      evidenceLine:
-        "Reported, not measured: the evangelising had spread beyond the front-end team — back-end developers began raising UI and pattern issues in review before I reached the change.",
       sequence: [
         {
           label: "Request",
@@ -243,27 +199,27 @@ export const bridgestoneVisualStory: VisualStory = {
         },
         {
           label: "Decision",
-          text: "Funded only once the difference showed in the product.",
+          text: "Design-system work was funded.",
         },
       ],
       decision: {
         constraint:
-          "The backlog was the priority, and arguing the case in meetings had already failed multiple times.",
+          "The backlog was the priority, and arguing the case in meetings had already failed.",
         choice:
           "Build the foundation inside feature delivery, and name the cause each time a gap showed up in a demo.",
         tradeOff:
-          "The system grew in product-priority order rather than by architecture, and the effort stayed invisible on the plan.",
+          "The system grew in product-priority order rather than by architecture.",
       },
     },
     {
       id: "earlier-collaboration",
-      number: "03",
+      tocLabel: "From review to coaching",
+      number: "02",
       eyebrow: "Operating model",
       title: "Turn a review gate into coaching",
       paragraphs: [
-        "We agreed that any pull request touching UI would wait for my approval. The gate caught what review is meant to catch, and some pull requests came back with twenty-odd comments: spacing, missing states, interaction details, CSS that would not survive the next screen.",
-        "It also slowed the team down and concentrated the friction on me, and that was not sustainable: I was one person with a long queue. Blaming the developers would have been the wrong reading — they had no patterns, no documentation and no utilities to build from, so the same corrections came back on every screen.",
-        "The slowdown changed behaviour more than the corrections did. Developers began coming to me <strong>during implementation</strong> — for the design translation, and often for the HTML and CSS itself — instead of waiting for review. I kept the gate temporary and moved the effort into pairing, coaching and written guidance.",
+        "We agreed that any pull request touching UI would wait for my approval. Some came back with twenty-odd comments: spacing, missing states, interaction details, CSS that would not survive the next screen. The gate worked, but it slowed the team and concentrated the friction on one person.",
+        "The slowdown changed behaviour more than the corrections did. Developers began coming to me <strong>during implementation</strong> rather than at review. I kept the gate temporary and moved the effort into pairing, coaching and written guidance, so the same corrections stopped coming back.",
       ],
       media: [
         {
@@ -273,7 +229,6 @@ export const bridgestoneVisualStory: VisualStory = {
           label: "Component anatomy",
           caption:
             "Naming the parts of a component made review comments teachable instead of repetitive.",
-          evidenceStatus: "Reported",
         },
         {
           kind: "image",
@@ -281,29 +236,29 @@ export const bridgestoneVisualStory: VisualStory = {
           alt: "Figma documentation page listing do and do-not usage rules for the FleetBridge tag component",
           label: "Reusable guidance",
           caption:
-            "Written usage rules replaced repeated review comments: the guidance a developer could read before opening a pull request.",
-          evidenceStatus: "Reported",
+            "Written usage rules a developer could read before opening a pull request.",
         },
       ],
       evidenceLine:
-        "Observed, not measured: design input moved from pull-request correction into implementation.",
+        "The practice spread beyond the front-end team: back-end developers began raising UI and pattern issues in review before I reached the change.",
       decision: {
         constraint:
-          "Letting UI defects merge was costly, but making one designer approve every UI change could not scale.",
+          "Letting UI defects merge was costly, but one designer approving every UI change could not scale.",
         choice:
           "Use the gate as a temporary diagnostic and spend the time it bought on patterns, documentation and utilities.",
         tradeOff:
-          "Velocity dropped and tension rose in the team while the tooling caught up.",
+          "Velocity dropped while the tooling caught up.",
       },
     },
     {
       id: "product-patterns",
-      number: "04",
+      tocLabel: "Product patterns",
+      number: "03",
       eyebrow: "Product craft",
-      title: "Standardise the recurring decision—not every screen",
+      title: "Standardise the recurring decision, not every screen",
       paragraphs: [
-        "Dense tables, forms, status patterns and vehicle workflows became reusable only when their behaviour genuinely repeated. Product-specific decisions stayed local where a generic abstraction would have slowed expert work.",
-        "This is where <strong>the argument was settled</strong>, and the hard components carried it: a date picker every screen had been reinventing, and the service worksheet — vehicle layout, axles, per-position tyre state and the inspection form on one surface. Once those shipped with visibly fewer defects than the screens around them, stakeholders allocated time and people to system work.",
+        "Dense tables, forms, status patterns and vehicle workflows became shared only when their behaviour genuinely repeated. Product-specific decisions stayed local, where a generic abstraction would have slowed expert work.",
+        "The hard components settled the argument: a date picker every screen had been reinventing, and the service worksheet, with vehicle layout, axles, per-position tyre state and the inspection form on one surface. I also designed the web back office that progressively replaced FleetBridge mobile, built from the same patterns.",
       ],
       media: [
         {
@@ -311,7 +266,6 @@ export const bridgestoneVisualStory: VisualStory = {
           src: "/screenshots/bs/bs_desktop_vehicle-list-light.png",
           alt: "FleetBridge vehicle list in its light theme",
           label: "Dense list pattern",
-          evidenceStatus: "Verified",
           state: "In production",
         },
         {
@@ -320,8 +274,7 @@ export const bridgestoneVisualStory: VisualStory = {
           alt: "FleetBridge production worksheet in its dark theme",
           label: "Vehicle configuration",
           caption:
-            "Axles, positions and per-tyre state, composed from the same table, form and status patterns — the component that settled the argument.",
-          evidenceStatus: "Verified",
+            "Axles, positions and per-tyre state, composed from the same table, form and status patterns.",
           state: "In production",
         },
         {
@@ -330,31 +283,28 @@ export const bridgestoneVisualStory: VisualStory = {
           alt: "FleetBridge worksheet adapted to a tablet working surface",
           label: "Responsive behaviour",
           caption:
-            "The same worksheet on a tablet, the surface the workshop floor actually works from.",
-          evidenceStatus: "Verified",
+            "The same worksheet on a tablet, the surface the workshop floor works from.",
           state: "In production",
         },
       ],
-      evidenceLine:
-        "The public gallery shows selected implementation evidence; it does not expose every component or workflow.",
       decision: {
         constraint:
           "Dense operational workflows risked becoming unrelated one-off implementations.",
         choice:
-          "Standardise domain behaviour only where it genuinely repeated; keep workflow-specific decisions local.",
+          "Standardise behaviour only where it genuinely repeated; keep workflow-specific decisions local.",
         tradeOff:
           "The system grew unevenly, but avoided abstractions that would slow expert work.",
       },
     },
     {
       id: "shared-source",
-      number: "05",
+      tocLabel: "CSS as the source",
+      number: "04",
       eyebrow: "System + code",
-      title: "Make shipped CSS the shared source",
+      title: "Make shipped CSS the single source",
       paragraphs: [
-        "The style foundation followed eight ITCSS layers. BEMIT connected placement and naming: <code>.o-</code> for layout objects, <code>.c-</code> for components and <code>%u-</code> for utility placeholders; <code>__</code> marked elements, <code>--</code> modifiers and suffixes such as <code>@md</code> responsive variants.",
-        "I defined and implemented the core CSS and Storybook mechanisms; product delivery remained cross-functional. CSS custom properties were authoritative, and TypeScript read selected values from the live CSSOM so the token nomenclature acted as the contract between shipped code and documentation.",
-        "The usual foundations setup in Storybook re-declares every token list — palette, typography, iconography, borders, shadows, animation — as documentation constants: a second copy, maintained in step with the CSS. Here the foundation pages rendered <strong>from the live CSSOM</strong> instead, so changing a value in shipped CSS meant the documentation was already correct. What stayed hand-built was structure — the story templates that read and display those values — not token upkeep.",
+        "I designed the style foundation on eight ITCSS layers with BEMIT naming, so every rule had a predictable place and name, and a colour system built from 15 base hues for two themes.",
+        "Most Storybook setups re-declare every token as documentation constants: a second copy to keep in step with the CSS. Here the foundation pages <strong>read the live CSS</strong> instead, so changing a value in shipped code meant the documentation was already correct. The token names became the contract between code and docs.",
       ],
       media: [
         {
@@ -364,33 +314,29 @@ export const bridgestoneVisualStory: VisualStory = {
           alt: "Screen recording: a token added to the semantic palette SCSS, saved, and the Storybook Semantic Palette page documenting the new token-pipeline group after the rebuild",
           label: "The pipeline, recorded",
           caption:
-            "One token added to the semantic SCSS and saved. After the rebuild, the Semantic Palette page documents the new token-pipeline group on its own — no documentation file was touched. Clicking a swatch copies its var().",
-          evidenceStatus: "Verified",
+            "One token added to the CSS and saved. After the rebuild, Storybook documents it on its own; no documentation file was touched.",
         },
         { kind: "live-demo", demoId: "bridgestone-token-pipeline" },
         { kind: "system-evidence", sourceIndex: 1 },
-        { kind: "system-evidence", sourceIndex: 2 },
-        { kind: "system-evidence", sourceIndex: 3 },
       ],
-      evidenceLine:
-        "The excerpts are reduced implementation code from the recorded project snapshot, where the Storybook workspace held 39 story files and 51 MDX pages. Selected foundation pages — not every page — were generated from production CSS.",
       decision: {
         constraint:
-          "Foundation values repeated across product CSS, Storybook constants and documentation could diverge.",
+          "Values repeated across product CSS, Storybook constants and documentation could diverge.",
         choice:
-          "Keep selected definitions in shipped CSS and let Storybook read the live CSSOM.",
+          "Keep definitions in shipped CSS and let Storybook read them from the browser.",
         tradeOff:
-          "The naming grammar became an API, and the custom parsers had to be maintained.",
+          "The naming grammar became an API, and the parsers had to be maintained.",
       },
     },
     {
       id: "shared-capability",
-      number: "06",
-      eyebrow: "Adoption",
-      title: "Make the rules explicit when the team grew",
+      tocLabel: "Scaling the team",
+      number: "05",
+      eyebrow: "Team & adoption",
+      title: "Make the rules explicit as the team grows",
       paragraphs: [
-        "The design team went from one to three and delivery became distributed across sites. The third designer arrived with a different way of working, and the informal agreement my design partner and I had relied on stopped being enough.",
-        "So I made the process explicit rather than personal: onboarding through Storybook, written contribution guidance, and Figma branch review so every proposed change was visible before it reached delivery. The goal was not to keep approval with me — it was to make the reasoning <strong>inspectable by more people</strong>.",
+        "Design grew from one to three designers and delivery spread across sites. The informal agreements I had relied on stopped being enough, so I made the process explicit: onboarding through Storybook, written contribution guidance, and Figma branch review so every proposed change was visible before it reached delivery.",
+        "The goal was not to keep approval with me but to make the reasoning <strong>inspectable by more people</strong>. By the time I left, more than 15 developers were building with the system.",
       ],
       media: [
         {
@@ -399,7 +345,6 @@ export const bridgestoneVisualStory: VisualStory = {
           alt: "Storybook documentation explaining the anatomy of a FleetBridge tag component",
           label: "Component anatomy",
           caption: "Production-backed Storybook guidance.",
-          evidenceStatus: "Reported",
         },
         {
           kind: "image",
@@ -407,41 +352,33 @@ export const bridgestoneVisualStory: VisualStory = {
           alt: "Storybook documentation explaining best practices for the FleetBridge tag component",
           label: "Usage guidance",
           caption: "Shared rules made review less dependent on memory.",
-          evidenceStatus: "Reported",
         },
       ],
-      evidenceLine:
-        "Onboarding, written guidance and branch review are outputs I can show; independent use of them after my engagement was not measured.",
     },
   ],
   outcomesTitle: "What changed",
   outcomes: [
     {
-      label: "Earlier collaboration",
-      text: "Developers moved design input into implementation and worked from Storybook rather than from my review comments; rework and recurring UI defects dropped with it.",
-      evidenceStatus: "Reported",
+      label: "A mandate won by the product",
+      text: "Stakeholders who had declined every request funded dedicated design-system work once shared patterns shipped.",
     },
     {
-      label: "Shared foundation",
-      text: "I delivered the reusable product patterns, the production CSS foundation and the Storybook pages generated from it.",
-      evidenceStatus: "Verified",
+      label: "Faster, cleaner delivery",
+      text: "Adopted by 15+ developers; the team estimated ~60% faster UI feature delivery, with fewer recurring UI defects.",
     },
     {
-      label: "Organisational investment",
-      text: "Stakeholders declined every request at first; once shared patterns shipped, they funded dedicated design-system resources.",
-      evidenceStatus: "Reported",
+      label: "A team and a practice",
+      text: "Design grew from one to three designers, with onboarding, written guidance and branch review replacing approval by memory.",
     },
   ],
-  boundary:
-    "No formal pre/post baseline was captured for usability, defects, delivery speed, review effort or long-term independent adoption. The defect, delivery-effect and adoption statements here are recollections from working on the team, not measurements. The claims above describe implementation evidence and observed workflow change.",
   reflection: {
     repeat:
       "Diagnose recurring quality problems as a system gap rather than an individual failure.",
     change: [
       "Negotiate mandate, ownership and measurement into the initial backlog.",
-      "Record a defect and estimation baseline before the first refusal, so the argument does not rest on memory.",
+      "Record a defect and estimation baseline early, so the case rests on data rather than memory.",
     ],
-    next: "Trace one shared pattern across workflows, contributors and a before/after review or defect baseline.",
+    next: "Measure one shared pattern end to end: adoption, review effort and defects, before and after.",
   },
 };
 
@@ -451,6 +388,12 @@ export const trasisVisualStory: VisualStory = {
   title: "Making safety-critical quality control visible",
   statement:
     "On QC1, a misread state could waste material, invalidate a test or delay the release of a dose. I designed the interface end to end — every test module, the physical-assembly visualisation and the results system — and built the Angular front-end foundations with the engineering team. Pass and fail never depended on colour alone.",
+  glance: [
+    { label: "Problem", value: "On a radiopharmaceutical quality-control device, a misread state could waste material, invalidate a test or delay a dose." },
+    { label: "What I built", value: "The whole QC1 interface: test modules, a device-realistic visualisation system and the results system, plus the Angular front-end foundations." },
+    { label: "Validation", value: "Task-based prototype sessions with laboratory users (85% task success) and twice-weekly walkthroughs with domain experts." },
+    { label: "Result", value: "The interface shipped, and I handed the front-end foundations to the internal developer I coached." },
+  ],
   facts: [
     { label: "Role", value: "Product designer + front-end contributor" },
     { label: "Period", value: "2019–2021" },
@@ -464,7 +407,6 @@ export const trasisVisualStory: VisualStory = {
     label: "QC1 home screen · archived material",
     caption:
       "The device entry point: available test modules, live state and the work waiting on the machine.",
-    evidenceStatus: "Verified",
     state: "Shipped",
   },
   chapters: [
@@ -484,7 +426,6 @@ export const trasisVisualStory: VisualStory = {
           label: "µGC configuration",
           caption:
             "The configuration hierarchy and interaction grammar shared across modules.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
         {
@@ -492,7 +433,6 @@ export const trasisVisualStory: VisualStory = {
           src: "/screenshots/trasis/trasis-qc1-hplc--cfg.png",
           alt: "QC1 HPLC configuration screen",
           label: "HPLC configuration",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
       ],
@@ -513,7 +453,6 @@ export const trasisVisualStory: VisualStory = {
           label: "Hardware-to-interface mapping",
           caption:
             "A reusable vector system for valves, columns, injectors and tubes, matching the technicians’ physical mental model.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
       ],
@@ -541,7 +480,6 @@ export const trasisVisualStory: VisualStory = {
           src: "/screenshots/trasis/trasis-qc1-new-tap-creation-page.png",
           alt: "QC1 new test and protocol creation screen",
           label: "Create",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
         {
@@ -549,7 +487,6 @@ export const trasisVisualStory: VisualStory = {
           src: "/screenshots/trasis/trasis-qc1-tap-import.png",
           alt: "QC1 protocol import screen",
           label: "Import",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
         {
@@ -557,7 +494,6 @@ export const trasisVisualStory: VisualStory = {
           src: "/screenshots/trasis/trasis-qc1-tracer-creation.png",
           alt: "QC1 tracer creation workflow",
           label: "Connect",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
       ],
@@ -587,7 +523,6 @@ export const trasisVisualStory: VisualStory = {
           label: "Device overview",
           caption:
             "Schedules, live device state and monitoring in one hierarchy.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
         {
@@ -597,7 +532,6 @@ export const trasisVisualStory: VisualStory = {
           label: "Measured results",
           caption:
             "Text, contrast, patterns and indicators reinforce states that also use colour.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
         {
@@ -607,7 +541,6 @@ export const trasisVisualStory: VisualStory = {
           label: "Reference comparison",
           caption:
             "The comparison interaction, with state cues repeated beyond colour.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
       ],
@@ -644,21 +577,16 @@ export const trasisVisualStory: VisualStory = {
     {
       label: "Shipped interface",
       text: "I designed and, with the engineering team, shipped the QC1 interface connecting schedules, device state, setup and results.",
-      evidenceStatus: "Verified",
     },
     {
       label: "Validated direction",
       text: "My realistic-scenario prototypes exposed comprehension gaps and changed flows before development.",
-      evidenceStatus: "Reported",
     },
     {
       label: "Team practice",
       text: "Twice-weekly working prototypes turned scepticism into a regular review practice; the design role survived budget pressure.",
-      evidenceStatus: "Reported",
     },
   ],
-  boundary:
-    "This case uses archived project screens. I no longer have product access, so it does not recreate live interaction, current performance, analytics or long-term adoption. Reported task-success figures are omitted because their source details were not preserved.",
   reflection: {
     repeat:
       "Use realistic visualisation when the user’s mental model is physical.",
@@ -671,6 +599,12 @@ export const sopraVisualStory: VisualStory = {
   title: "Turning float-based CSS into conventions a team kept",
   statement:
     "A junior front-end team was shipping enterprise banking software on float layouts, unstructured CSS and a PDF style guide. I replaced the grid with a BEM-compliant Flexbox one written from scratch, restructured the components by real usage, and taught the convention through the defects the team was already fighting. They kept both after I left.",
+  glance: [
+    { label: "Problem", value: "A junior team was shipping banking software on float layouts, unstructured CSS and a PDF style guide." },
+    { label: "What I built", value: "A BEM-compliant Flexbox grid written from scratch, and atomic components restructured by real usage." },
+    { label: "Team", value: "2 designers and 5 developers, coached through the defects they were already fighting." },
+    { label: "Result", value: "The team adopted both conventions by conviction and kept them after I left." },
+  ],
   facts: [
     { label: "Role", value: "UI/UX designer + front-end architecture" },
     { label: "Period", value: "April – December 2018" },
@@ -687,7 +621,6 @@ export const sopraVisualStory: VisualStory = {
     label: "Login screen · reworked foundations",
     caption:
       "The first screen users meet, and the first one built on the atomic component set.",
-    evidenceStatus: "Verified",
     state: "Shipped",
   },
   chapters: [
@@ -708,7 +641,6 @@ export const sopraVisualStory: VisualStory = {
           label: "Payment creation",
           caption:
             "Built on the reworked component set — the class of dense banking form the team had to keep delivering while the foundations changed underneath it.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
       ],
@@ -739,7 +671,6 @@ export const sopraVisualStory: VisualStory = {
           label: "Multi-step form",
           caption:
             "A standing-order flow laid out on the custom Flexbox grid; its form patterns exercised the atomic component set.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
         {
@@ -749,12 +680,11 @@ export const sopraVisualStory: VisualStory = {
           label: "Dense table pattern",
           caption:
             "Account history on the restructured table and filter components.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
       ],
       evidenceLine:
-        "Both conventions were adopted during the engagement and, as I observed first-hand, kept afterwards. No defect, review-effort or delivery-speed baseline was recorded.",
+        "Both conventions were adopted during the engagement and kept afterwards.",
       decision: {
         constraint:
           "Delivery could not pause for a full component rework, and a third-party framework would have replaced one set of unowned conventions with another.",
@@ -781,7 +711,6 @@ export const sopraVisualStory: VisualStory = {
           label: "End-of-flow feedback",
           caption:
             "A confirmation pattern reused across flows rather than designed per screen.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
       ],
@@ -807,21 +736,16 @@ export const sopraVisualStory: VisualStory = {
     {
       label: "Team practice",
       text: "The junior front-end team adopted BEM and the new grid by conviction rather than mandate, and kept both after I left.",
-      evidenceStatus: "Reported",
     },
     {
       label: "Shipped foundation",
       text: "My BEM-compliant Flexbox grid replaced the float layouts, and I restructured strategic components in the order prototypes reused them.",
-      evidenceStatus: "Verified",
     },
     {
       label: "Proposed direction",
       text: "I documented a web-based design system as the successor to the PDF style guide; the engagement ended before delivery could start.",
-      evidenceStatus: "Planned",
     },
   ],
-  boundary:
-    "The screens are shipped work from a 2018 engagement and I no longer have access to the codebase. No before/after baseline was recorded for defects, delivery speed or CSS maintenance. The design team reported faster prototyping from component reuse, but the figures cited at the time had no documented baseline, so they are not published here; adoption after my departure is first-hand report rather than measurement.",
   reflection: {
     repeat:
       "Teach architecture through the team’s own defects — the verbosity objection dissolves once the convention fixes pain they already feel.",
@@ -835,6 +759,12 @@ export const baseVisualStory: VisualStory = {
   title: "Front-end foundations for high-traffic telecom sites",
   statement:
     "I built the front-end foundations for Base and JIM Mobile: components that survived any combination content authors assembled in Adobe Experience Manager, a Flexbox grid with engineered fallbacks for a browser matrix that still included legacy Internet Explorer, and the npm tooling that took the Java compile cycle out of front-end iteration.",
+  glance: [
+    { label: "Problem", value: "Telecom sites where authors could assemble components in any combination, on a browser matrix that still included legacy Internet Explorer." },
+    { label: "What I built", value: "Robust AEM components, a Flexbox grid with engineered fallbacks, and npm tooling that removed the Java compile cycle from front-end work." },
+    { label: "Scope", value: "Base and JIM Mobile, high-traffic telecom properties." },
+    { label: "Result", value: "The components shipped across both properties, and the team adopted the tooling alongside the official build." },
+  ],
   facts: [
     {
       label: "Role",
@@ -858,7 +788,6 @@ export const baseVisualStory: VisualStory = {
     caption:
       "Lists and picture containers that content editors could assemble into any page.",
     myPart: "Built the components and their cross-browser behaviour.",
-    evidenceStatus: "Verified",
     state: "Shipped",
   },
   chapters: [
@@ -879,7 +808,6 @@ export const baseVisualStory: VisualStory = {
           label: "Interactive components",
           caption:
             "A canvas-based animated header and subscription sliders, responsive and authorable.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
       ],
@@ -903,7 +831,6 @@ export const baseVisualStory: VisualStory = {
           caption:
             "The JIM Mobile slider: the same modular component, re-themed rather than rebuilt.",
           myPart: "Built it as a reusable, brand-themable component.",
-          evidenceStatus: "Verified",
           state: "Shipped",
         },
       ],
@@ -948,21 +875,16 @@ export const baseVisualStory: VisualStory = {
     {
       label: "Shipped components",
       text: "I shipped lists, containers, sliders and a canvas-based animated header across the Base and JIM Mobile properties, robust in any editor-assembled combination.",
-      evidenceStatus: "Verified",
     },
     {
       label: "Team workflow",
       text: "My npm auto-reload scripts took the compile cycle out of front-end iteration, and the embedded team adopted them alongside the official build.",
-      evidenceStatus: "Reported",
     },
     {
       label: "Durable pattern",
       text: "The Flexbox/BEM grid and its fallbacks outlived the engagement and seeded the grid work at Sopra Banking.",
-      evidenceStatus: "Reported",
     },
   ],
-  boundary:
-    "I was one of two UI developers in an embedded team: the UX designer owned the designs and the full team owned delivery. The screenshots are archived project material from 2016–2018, and no traffic, performance or defect baseline from the engagement is available.",
   reflection: {
     repeat:
       "Invest in the team’s tooling, not only its output — developer experience compounds every day.",

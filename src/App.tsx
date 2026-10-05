@@ -7,6 +7,7 @@ import { PageTransition } from './ui/components/page-transition/PageTransition';
 import { Background } from './ui/components/background/Background';
 import { GradientControls } from './ui/components/GradientControls';
 import { TableOfContents } from './ui/components/table-of-contents/TableOfContents';
+import { CookieConsent } from './ui/components/consent/CookieConsent';
 import { beginRouteLoad, endRouteLoad } from './ui/components/page-transition/routeLoading';
 import './utils/basicAnalytics';
 import { useScrollReveals } from './hooks/useScrollReveals';
@@ -30,7 +31,6 @@ const BaseProject = lazy(() =>
 );
 const Approach = lazy(() => import('./pages/Approach'));
 const About = lazy(() => import('./pages/About'));
-const StaffProductDesign = lazy(() => import('./pages/StaffProductDesign'));
 const DesignEngineering = lazy(() => import('./pages/DesignEngineering'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -135,14 +135,8 @@ function AnimatedRoutes() {
             </Suspense>
           }
         />
-        <Route
-          path="/staff-product-design"
-          element={
-            <Suspense fallback={<RouteFallback />}>
-              <StaffProductDesign />
-            </Suspense>
-          }
-        />
+        {/* Retired product-design path: keep the indexed URL working. */}
+        <Route path="/staff-product-design" element={<Navigate to="/design-engineering" replace />} />
         <Route
           path="/design-engineering"
           element={
@@ -296,6 +290,8 @@ function AppContent() {
           <TableOfContents variant="mobile" pathname={location.pathname} />
         </div>
       )}
+
+      <CookieConsent />
     </div>
   );
 }

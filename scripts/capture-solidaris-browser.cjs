@@ -123,12 +123,14 @@ async function coreInsights(page) {
   await page.screenshot({ path: path.join(assets, 'screenshots/solidaris/core-insights-poster.png') });
   await pause(page, 2600);
   await page.getByRole('button', { name: 'Close details' }).click();
-  await pause(page, 1900);
-  await page.getByRole('button', { name: 'Reported' }).click();
-  await pause(page, 2000);
+  await pause(page, 1500);
+  // Leave Agent & MCP before switching source: it has no reported data yet,
+  // so switching there would show an empty state mid-take.
   await page.getByRole('tab', { name: 'Overview' }).click();
+  await pause(page, 1800);
+  await page.getByRole('button', { name: 'Reported' }).click();
   await page.getByText('Unknown until an external application reports').waitFor();
-  await pause(page, 11000);
+  await pause(page, 5500);
 }
 
 (async () => {

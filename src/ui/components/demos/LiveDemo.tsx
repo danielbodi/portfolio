@@ -1,6 +1,5 @@
 import { Component, ErrorInfo, ReactNode, Suspense } from 'react';
 import { VisualStoryLiveDemo } from '../../../content/caseStudies/visualStories';
-import { EvidenceStatusBadge } from '../story/EvidenceStatusBadge';
 import { DemoFrame } from './DemoFrame';
 import { demoRegistry } from './registry';
 
@@ -65,7 +64,6 @@ export function LiveDemo({ media }: LiveDemoProps) {
       title={media.title ?? entry.title}
       description={media.description ?? entry.description}
       provenance={media.provenance ?? entry.provenance}
-      badges={media.evidenceStatus && <EvidenceStatusBadge status={media.evidenceStatus} />}
     >
       <DemoBoundary>
         <Suspense fallback={<DemoLoading />}>

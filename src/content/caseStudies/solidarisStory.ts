@@ -96,13 +96,30 @@ export const solidarisVisualStory: VisualStory = {
     },
     {
       id: 'governance', tocLabel: 'Governance', number: '03', eyebrow: 'Governance',
-      title: 'Redesign governance when the first model is rejected',
+      title: 'Test the governance before rolling it out',
       paragraphs: [
-        'My first model made Core the authority: teams would bring every need to Core, which would decide what joined the system. When I presented it, Solidaris pushed back. Application teams were used to governing their own delivery, and the Core team was new and running other projects. Routing every decision through it would have created a bottleneck nobody could clear.',
-        'I redesigned the model around that feedback. <strong>Teams now build what they need locally, without approval, using the same scaffold and checks as Core. Core stops being a gate and goes looking for what is worth sharing.</strong>',
-        'Someone still has to ask the reuse question, so the agent raises it while a developer builds. When a team merges, a usage report sends its local components to Core, and the Core dashboard turns those reports into recommendations, such as similar components across teams.',
+        'My first model put consistency first: every change started with a proposal to Core, which recorded a decision before anyone built. Before rollout, I tested it with stakeholders. Two things came out: application teams expected to work autonomously, and the Core team’s members also worked on other projects. Every question would have landed on the few people with the least time to answer.',
+        'So I redesigned it. <strong>Teams build, test and ship their own components without prior approval, and Core decides only what becomes shared.</strong> The same scaffold and automated checks apply whether a person or an agent wrote the code.',
+        'Autonomy alone does not remove the bottleneck: a developer who does not know what exists either duplicates it or goes back to asking Core. So <strong>/plectrum answers first</strong>. It tells the developer which case they are in: the component exists, PrimeNG covers it, existing pieces compose it, another team owns it, it is deprecated, or nothing covers it yet. In that last case, it lists what can be reused and the questions to settle before building.',
+        'Core still needs to find what is worth sharing. When a team merges, a usage report sends its local components to Core, and the Core dashboard turns those reports into recommendations, such as similar components across teams.',
       ],
       media: [{
+        kind: 'video',
+        src: '/videos/solidaris-governance-agent.mp4',
+        poster: '/screenshots/solidaris/governance-agent-poster.webp',
+        orientation: 'portrait',
+        alt: 'Recording of the Plectrum agent answering two requests: a profile card that is deprecated and replaced by Profile Header, then a kanban board that nothing covers yet, with reusable pieces and open questions for Core',
+        label: 'Two requests, two answers · 54 sec',
+        caption: '“I need a profile card”: it exists but is deprecated, so the agent points to Profile Header and stops. “I need a kanban board”: nothing covers it, so the agent lists what to reuse and the decisions Core has to make.',
+        myPart: 'Designed the governance model and built the agent’s decision rules.',
+        playOnScroll: false,
+        steps: [
+          'Check the component contracts and Storybook catalogue first.',
+          'Profile card: deprecated, so use Profile Header and migrate.',
+          'Kanban board: nothing covers it, so show what was checked and what to reuse.',
+          'List the questions that need a Core decision before anything is built.',
+        ],
+      }, {
         kind: 'image', src: '/screenshots/solidaris/storybook-promote-local-work-2026-10-05.png',
         alt: 'Plectrum contribution guide: the application team builds locally, CI reports usage, then the Core team spots what to share and contacts the team',
         label: 'Core comes to the teams',
@@ -110,8 +127,8 @@ export const solidarisVisualStory: VisualStory = {
         myPart: 'Redesigned the contribution model and implemented its metadata, usage report and validation rules.',
       }],
       decision: {
-        constraint: 'Teams governed their own delivery, and a new Core team could not review every need.',
-        choice: 'Let teams deliver locally, and give Core the reports and dashboard to find what to share.',
+        constraint: 'Teams expected autonomy, and the Core team also worked on other projects.',
+        choice: 'Let teams deliver locally, let the agent answer first-line questions, and keep Core for what becomes shared.',
         tradeOff: 'Core gives up early control: similar components can appear before it spots them.',
       },
       sources: [source('Contribute to Plectrum', 'get-started-contribute--docs')],
@@ -167,10 +184,10 @@ export const solidarisVisualStory: VisualStory = {
   outcomes: [
     { label: 'A system teams can install', text: 'Plectrum 2.1.0 with its developer toolkit, versioned Storybook and quality gates, built for 100+ developers and piloted with 3 teams.' },
     { label: 'One adviser for people and agents', text: 'Developers and coding agents share the same component knowledge, usage rules and tokens, for the version their application installed.' },
-    { label: 'Governance that fits the culture', text: 'Teams build locally without approval; usage reports and a dashboard show Core what deserves to be shared.' },
+    { label: 'Governance that fits the culture', text: 'Teams build locally without approval, the agent answers their first questions, and usage reports show Core what deserves to be shared.' },
   ],
   reflection: {
-    repeat: 'Write down why a pattern exists and who owns it alongside how it works. That knowledge serves both the developer and the agent.',
+    repeat: 'Treat governance as a hypothesis and test it with the people who will live with it before rollout. Then write down why each pattern exists and who owns it, for developers and agents alike.',
     change: 'Bring a receiving maintainer into the work earlier, and test onboarding with someone who did not build the toolkit.',
     next: 'Watch the first teams adopt Plectrum in their application redesigns, and turn their questions into better guidance.',
   },

@@ -25,7 +25,7 @@ const systemOutput: EvidenceClaim = {
   confidence: 'verified',
   attribution: 'Daniel led and implemented the system engineering himself: both token flows, CSS and metadata sources of truth, CI gates, Storybook and all foundations.',
   limitation:
-    'The source and release were inspected; this portfolio checkout did not rerun Plectrum CI. Independent application adoption and accepted handoff remain open.',
+    'The source and release were inspected; this portfolio checkout did not rerun Plectrum CI. Independent application adoption remains open.',
   deliveryState: 'Ongoing'
 };
 
@@ -45,16 +45,16 @@ const validationBoundary: EvidenceClaim = {
 
 const handoffState: EvidenceClaim = {
   id: 'solidaris-handoff-state',
-  evidenceClass: 'IN PROGRESS',
+  evidenceClass: 'OUTPUT',
   claim:
-    'Consumer documentation is intended to stay in Storybook; broader architecture and operating knowledge will move to the team documentation platform for the October handoff.',
-  source: 'August 2026 project account.',
-  scope: 'Assignment handoff planned for October 2026.',
+    'Plectrum was handed over at the end of the assignment on 8 October 2026, with consumer documentation in Storybook and operating decisions documented in the starter app, contracts and runbooks.',
+  source: 'October 2026 project account and the published 2.1.0 release.',
+  scope: 'Assignment handoff, October 2026.',
   confidence: 'reported',
-  attribution: 'Programme state, not an outcome attributed to Daniel.',
+  attribution: 'Daniel prepared the release, documentation and runbooks; ownership now sits with the receiving team.',
   limitation:
-    'The final handoff recipient and durable adoption were not yet established.',
-  deliveryState: 'Ongoing'
+    'Durable adoption, maintenance and independent consumer upgrades after the handoff are not yet evidenced.',
+  deliveryState: 'Shipped'
 };
 
 const contributionOutcome: EvidenceClaim = {
@@ -90,7 +90,7 @@ export const solidarisStudy: CaseStudy = {
       'An AI-assisted design system connecting product needs, versioned contracts, autonomous team delivery and evidence-led Core decisions.',
     role:
       'Sole lead and implementer of the design-system engineering work, alongside product design and UX architecture.',
-    period: 'October 2025 – October 2026 · assignment ends 8 October',
+    period: 'October 2025 – October 2026 · handed over 8 October',
     team:
       'Cegeka consultant embedded client-side, collaborating with product managers, business analysts, engineers and a separately evolving core design team.',
     context:
@@ -105,7 +105,7 @@ export const solidarisStudy: CaseStudy = {
       'Contract-driven AI workflow'
     ],
     confidentialityNote:
-      'September Storybook captures are dated; product imagery uses anonymised or fictional data. Packages 2.1.0 and toolkit 0.7.2 are released; independent adoption and handoff acceptance remain separate milestones.',
+      'September Storybook captures are dated; product imagery uses anonymised or fictional data. Packages 2.1.0 and toolkit 0.7.2 were released and handed over on 8 October; independent adoption remains a separate milestone.',
     image: {
       src: '/screenshots/solidaris/storybook-introduction.png',
       alt: 'Live Plectrum Storybook introduction with consumer and contributor entry points',
@@ -167,11 +167,11 @@ export const solidarisStudy: CaseStudy = {
         label: 'OUTCOME'
       },
       {
-        period: 'Planned October 2026 handoff',
-        title: 'A useful foundation, with ownership still to resolve',
+        period: 'October 2026 handoff',
+        title: 'Handed over, with adoption still to prove',
         description:
-          'The packages and toolkit are published. The next steps are documentation transfer, a confirmed maintainer, an independent consumer upgrade and an accepted handoff rehearsal.',
-        label: 'IN PROGRESS'
+          'The packages, toolkit, Storybook and runbooks were handed over at the end of the assignment on 8 October. Independent consumer upgrades and long-term maintenance now sit with the receiving team.',
+        label: 'OUTPUT'
       }
     ]
   },
@@ -243,7 +243,7 @@ export const solidarisStudy: CaseStudy = {
       }
     ],
     limitedBy:
-      'My Solidaris assignment ends on 8 October 2026. The package release is verified; independent use, full candidate promotion and final handoff ownership still need evidence. Post-departure adoption, maintenance and product impact fall outside this evidence window unless later records are added.'
+      'My Solidaris assignment ended on 8 October 2026 with the handoff. The package release is verified; independent use and full candidate promotion still need evidence. Post-departure adoption, maintenance and product impact fall outside this evidence window unless later records are added.'
   },
 
   decisions: [
@@ -446,7 +446,7 @@ export const solidarisStudy: CaseStudy = {
 
   evidenceStatus: {
     intro:
-      'The evidence includes concrete work, prototype-level validation and one bounded organisational outcome: my move into active contribution with the shared design-system group. Delivery, adoption and handoff claims remain separate.',
+      'The evidence includes concrete work, prototype-level validation, the October handoff and one bounded organisational outcome: my move into active contribution with the shared design-system group. Adoption claims remain separate.',
     claims: [
       researchOutput,
       systemOutput,
@@ -455,7 +455,7 @@ export const solidarisStudy: CaseStudy = {
       handoffState
     ],
     measurementNote:
-      'As of 4 October 2026, packages 2.1.0 and toolkit 0.7.2 are published with a matching contract snapshot. Independent consumer use, handoff acceptance and quantified impact remain unverified.'
+      'Packages 2.1.0 and toolkit 0.7.2 were published on 4 October 2026 with a matching contract snapshot and handed over on 8 October. Independent consumer use and quantified impact remain unverified.'
   },
 
   reflection: {
@@ -470,7 +470,7 @@ export const solidarisStudy: CaseStudy = {
       'Define the handoff owner and adoption measures earlier so durable value can be evaluated before departure.'
     ],
     next:
-      'Before the 8 October 2026 handoff: confirm owners, document open decisions and recovery, and rehearse a contract change and application upgrade with the receiving team.'
+      'After the 8 October 2026 handoff: watch the first teams adopt Plectrum in their application redesigns, and turn their questions into better guidance.'
   },
 
   connection: {
